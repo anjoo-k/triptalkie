@@ -1,6 +1,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,visualstudiocode,maven,java,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,visualstudiocode,maven,java,intellij
 
+#################################
+# Application 설정 (민감 정보)
+#################################
+# 로컬 환경 설정 파일 (DB 비밀번호, API Key 등)
+application-local.properties
+application-local.yml
+
+
 ### Eclipse ###
 .metadata
 bin/
