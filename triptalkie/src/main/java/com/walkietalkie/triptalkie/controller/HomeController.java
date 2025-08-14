@@ -10,12 +10,17 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model) {
-		return "index";
+		return "home";
 	}
 	
-	@GetMapping("/study12")
-	public String study12() {
-		
-		return "main";
-	}
+	 @GetMapping("/test01")
+	  public String test(Model model) {
+	    return "test01";
+	  }
+	
+//	@GetMapping("/study12")
+//	public String study12() {
+//		
+//		return "main";
+//	}
 }

@@ -17,8 +17,9 @@
 <body>
 	<!-- fragments 디렉토리 html 파일에 명시한 fragment(조각) 요소를 가지고 와서 사용    -->	
 	<div class="container container-lg">
-		<div th:replace="fragments/header ::headerFragment"></div>
-		
+  <!-- header fragment -->
+  <div th:replace="fragments/header :: header"></div>		
+  
 		<!--  메인 컨텐트 화면으로 변경될 부분  -->
 		<div class="row main">
 			<div class="col-sm-8 offset-sm-2">
@@ -27,8 +28,9 @@
 			</div>
 		</div>
 		
-		<div th:replace="fragments/footer ::footerFragment"></div>
-
+  <!-- footer fragment -->
+  <div th:replace="fragments/footer :: footer"></div>
+  
 	</div>	
 </body>
 </html>
