@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.form-row {
+	display: flex;
+	align-items: center; /* 세로 가운데 정렬 */
+	margin-bottom: 10px;
+}
+
+.form-row label {
+	width: 100px; /* 라벨 고정 폭 */
+	margin-right: 10px;
+	text-align: right; /* 오른쪽 정렬 */
+}
+
+.form-row input[type="text"], .form-row input[type="password"],
+	.form-row input[type="date"], .form-row input[type="email"], .form-row input[type="tel"]
+	{
+	flex: 1; /* 남은 공간 채우기 */
+}
+
+.radio-group {
+	display: flex;
+	gap: 20px; /* 라디오 버튼 간격 */
+	align-items: center;
+}
