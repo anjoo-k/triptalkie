@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<title>sign-in</title>
+</head>
+<body>
+	<main layout:fragment="content" class="container">
+		<section class="">
+			<div class="">
+				<p>회원가입</p>
+			</div>
+			<form class="form-inline" method="post" action="/member/signuptest">
+			<div class="mx-auto">
+				<article>
+					<img src="" />
+				</article>
+				<article>
+					<div class="form-group">
+						<label for="id">아이디</label> <input type="text"
+							class="form-control" placeholder="아이디" name="id" id="id" required>
+					</div>
+					<div class="form-group">
+						<label for="nickname">닉네임</label> <input type="text"
+							class="form-control" placeholder="닉네임" name="nickname"
+							id="nickname" required>
+					</div>
+					<div class="form-group">
+						<label for="password">비밀번호</label> <input type="password"
+							class="form-control" placeholder="비밀번호" name="password"
+							id="password" required>
+					</div>
+					<div class="form-group">
+						<label for="passwordCheck">비밀번호 확인</label> <input type="password"
+							class="form-control" placeholder="비밀번호 확인"
+							id="passwordCheck" required>
+					</div>
+					<div class="form-group">
+						<label for="name">이름</label> <input type="text"
+							class="form-control" placeholder="이름" name="name" id="name"
+							required>
+					</div>
+					<div class="form-group">
+						<label for="gender">성별</label> <input type="radio"
+							class="form-control" name="gender" value="female" required />여성
+						<input type="radio" class="form-control" name="gender"
+							value="male" required />남성
+					</div>
+					<div class="form-group">
+						<label for="birth">생일</label> <input type="date"
+							class="form-control" placeholder="생일" name="birth" id="birth"
+							required>
+					</div>
+					<div class="form-group">
+						<label for="phonenumber">전화번호</label> <input type="tel"
+							class="form-control" placeholder="전화번호" name="phonenumber"
+							id="phonenumber" required>
+					</div>
+					<div class="form-group">
+						<label for="birth">이메일</label> <input type="email"
+							class="form-control" placeholder="이메일" name="email" id="email"
+							required>
+					</div>
+					<div class="form-group">
+						<label for="address">주소</label> <input type="text"
+							class="form-control" placeholder="주소" name="address" id="address"
+							required>
+					</div>
+					<div class="form-group">
+						<label for="travelConcept">내가 좋아하는 여행 컨셉</label> <input
+							type="radio" class="form-control" name="travelConcept"
+							id="restcafe">맛집/카페 <input type="radio"
+							class="form-control" name="travelConcept" id="travelwith">같이
+						여행 <input type="radio" class="form-control" name="travelConcept"
+							id="drinkamity">술/친목 <input type="radio"
+							class="form-control" name="travelConcept" id="activity">액티비티/투어
+						<input type="radio" class="form-control" name="travelConcept"
+							id="concert">전시회/공연 <input type="radio"
+							class="form-control" name="travelConcept" id="etc">기타
+					</div>
+				</article>
+				<article class="">
+					<button type="submit">회원가입</button>
+				</article>
+				</div>
+			</form>
+		</section>
+	</main>
+</body>
+</html>
