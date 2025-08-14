@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!--/*  layout 선언부 추가    */-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/myhome.css}">
+</head>
+<body>
+
+	<!-- fragments 디렉토리 html 파일에 명시한 fragment(조각) 요소를 가지고 와서 사용    -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-8 offset-sm-2" align="right">
+				<nav class="navbar navbar-expand-sm bg-light navbar-light">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><a class="nav-link" href="#"
+							th:href="@{/}">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!--  메인 컨텐트 화면으로 변경될 부분  -->
+		<div class="row main">
+			<div class="col-sm-8 offset-sm-2">				
+				<!--/* 다양한 컨텐츠로 변경되는 부분 : 개발자들이 각각의 main 영역 content를 구성한다   */-->
+			<div layout:fragment="content"></div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-8 offset-sm-2">
+				<footer>
+					<p> (05717) 서울특별시 송파구 중대로 135, 서관 12층 ⓒ2024 Korea Software Industry Association. All rights reserved.</p>
+				</footer>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

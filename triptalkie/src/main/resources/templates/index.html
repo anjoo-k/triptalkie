@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Thymeleaf study home</title>
+  </head>
+  <body>
+  	<div class="container">
+    <!-- html 주석 -->
+    <!--/*   thymeleaf 주석     */-->
+    Hello <span th:text="${message}">타임리프</span> <br /><br />
+
+    <!--/*   
+		정적 자원 ( image , css , js 등 ) 은 src/main/resources/static 에 배치한다 
+		
+		img src 상에서 컨트롤러가 공유한 이미지 정보 변수를 이용해 화면에 이미지를 제공 
+		th:src="@{}" 을 이용해야 한다 
+		
+		src="../static/images/thymeleaf.png" : 디자인 팀에서 제공한 경로 
+		
+		th:href="@{/study1}"  => view 의 디렉토리가 세분화 되어도 
+									  /templates/member
+									  /templates/member/admin 
+									  /templates/board 
+									  jsp 에서는  ${pageContext.request.contextPath}
+									  로 표현해서 처리하지만 thymeleaf 에서는 @{/} 로 표현하면 됨
+									  spring security 에서  csrf 해킹 방지를 위해 
+									  jsp 에서는 별도의 <s:csrfInput /> 또는 
+									  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									  와 같은 작업이 필요하지만 
+									  타임리프에서는 @{/} 로 표현하면 security를 위한 토큰이 자동발급된다 
+									  
+									  타임리프에서는 @{/} 로 표현하는 것의 장점 
+									  1. web application 의 context path 자동발급  
+									  2. spring security  csrf 해킹 방지를 위한 token 자동발급  
+ */-->
+    <img class="rounded-circle" src="../static/images/thymeleaf.png" th:src="@{/images/} + ${logo}" />
+    <br /><br />
+    <a href="/study1">study1 text object expression</a><br /><br />
+    <!--/* src or href에 @{ / } 를 명시하지 않았을 때의 예 : 소스보기로 확인하면 된다    */-->
+    <a href="/study1" th:href="@{/study1}">study1 text object expression2</a><br /><br />
+    <a href="/study2" th:href="@{/study2}">study2 form object expression</a><br /><br />
+    <a href="/study3" th:href="@{/study3}">study3 link href querystring</a><br /><br />
+    <a href="/dinner" th:href="@{/study4}">study4 session param</a><br /><br />
+    <a href="/study5" th:href="@{/study5}">study5 if unless switch</a><br /><br />
+    <a href="/study6" th:href="@{/study6}">study6 loop each</a><br /><br />
+    <a href="/study7" th:href="@{/study7}">study7 loop each lists</a><br /><br />
+    <a href="/study8" th:href="@{/study8}">study8 loop each numbers</a><br /><br />
+    <a href="/study9" th:href="@{/study9(name=spring)}">study9 javascript</a><br /><br />
+    <a href="/study10" th:href="@{/study10}">study10 thymeleaf layout</a><br /><br />
+    <a href="/study11" th:href="@{/study11}">study11 thymeleaf layout simple</a><br /><br />
+    <a href="/study12" th:href="@{/study12}">main layout</a><br /><br />
+    </div>
+  </body>
+</html>
