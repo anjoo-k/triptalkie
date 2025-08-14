@@ -1,9 +1,10 @@
-<!--<!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">-->
-<main layout:fragment="content" layout:decorate="~{layouts/main}">
+      layout:decorate="~{layouts/base}">
+      
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content">
 	<!-- main image section -->
 	<div class="image-container">
 		<img th:src="@{/images/main-image.jpg}"
