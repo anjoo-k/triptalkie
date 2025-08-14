@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>TripTalkie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/Style.css}">
+    <style>
+        /* 필요한 스타일만 추가 */
+        .main-image { border-radius: 12px; margin: 40px; }
+        .square-img { aspect-ratio: 1 / 1; object-fit: cover; width: 100%; border-radius: 16px; }
+        .container{max-width: 750px;}
+    </style>
+</head>
+<body>
+
+<!-- header 불러오기 -->
+<div th:replace="fragments/header :: headerFragment"></div>
+
+<main class="container">
+    <div class="image-container">
+        <img src="/images/main-image.jpg" class="img-fluid mx-auto d-block main-image">
+        <div class="text-overlay">
+            파도처럼 밀려오는 설렘<br>
+            떠나자, 지금 바로
+        </div>
+    </div>
+
+    <!-- 콘텐츠 예시 -->
+    <h2>여행 정보</h2>
+    <div class="row">
+        <div class="col-md-4"><img src="/images/bangkok.jpg" class="square-img"></div>
+        <div class="col-md-4"><img src="/images/bangkok.jpg" class="square-img"></div>
+        <div class="col-md-4"><img src="/images/bangkok.jpg" class="square-img"></div>
+    </div>
+</main>
+
+<!-- footer 불러오기 -->
+<div th:replace="fragments/footer :: footerFragment"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
