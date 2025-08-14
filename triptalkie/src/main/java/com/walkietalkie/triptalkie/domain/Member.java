@@ -1,17 +1,20 @@
 package com.walkietalkie.triptalkie.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Member {
   private String id;
   private String nickname;
   private String password;
   private String name;
-  private LocalDateTime birth;
+  private LocalDate birth;
   private String phonenumber;
   private String email;
   private String address;
-  private String travel_concept;
+  private String travelConcept;
   private double credit;
   
   // 생성자
@@ -19,8 +22,23 @@ public class Member {
     super();
     // TODO Auto-generated constructor stub
   }
-  public Member(String id, String nickname, String password, String name, LocalDateTime birth, String phonenumber,
-      String email, String address, String travel_concept, double credit) {
+  
+  public Member(String id, String nickname, String password, String name, LocalDate birth, String phonenumber,
+	      String email, String address, String travelConcept) {
+	    super();
+	    this.id = id;
+	    this.nickname = nickname;
+	    this.password = password;
+	    this.name = name;
+	    this.birth = birth;
+	    this.phonenumber = phonenumber;
+	    this.email = email;
+	    this.address = address;
+	    this.travelConcept = travelConcept;
+	  }
+  
+  public Member(String id, String nickname, String password, String name, LocalDate birth, String phonenumber,
+      String email, String address, String travelConcept, double credit) {
     super();
     this.id = id;
     this.nickname = nickname;
@@ -30,7 +48,7 @@ public class Member {
     this.phonenumber = phonenumber;
     this.email = email;
     this.address = address;
-    this.travel_concept = travel_concept;
+    this.travelConcept = travelConcept;
     this.credit = credit;
   }
   
@@ -59,10 +77,10 @@ public class Member {
   public void setName(String name) {
     this.name = name;
   }
-  public LocalDateTime getBirth() {
+  public LocalDate getBirth() {
     return birth;
   }
-  public void setBirth(LocalDateTime birth) {
+  public void setBirth(LocalDate birth) {
     this.birth = birth;
   }
   public String getPhonenumber() {
@@ -84,10 +102,10 @@ public class Member {
     this.address = address;
   }
   public String getTravel_concept() {
-    return travel_concept;
+    return travelConcept;
   }
-  public void setTravel_concept(String travel_concept) {
-    this.travel_concept = travel_concept;
+  public void setTravel_concept(String travelConcept) {
+    this.travelConcept = travelConcept;
   }
   public double getCredit() {
     return credit;
@@ -99,8 +117,8 @@ public class Member {
   @Override
   public String toString() {
     return "Member [id=" + id + ", nickname=" + nickname + ", password=" + password + ", name=" + name + ", birth="
-        + birth + ", phonenumber=" + phonenumber + ", email=" + email + ", address=" + address + ", travel_concept="
-        + travel_concept + ", credit=" + credit + "]";
+        + birth + ", phonenumber=" + phonenumber + ", email=" + email + ", address=" + address + ", travelConcept="
+        + travelConcept + ", credit=" + credit + "]";
   }
   
   
