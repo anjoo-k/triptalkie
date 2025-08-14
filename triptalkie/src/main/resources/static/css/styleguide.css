@@ -129,10 +129,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 7. Sidebar / Dropdown */
-.sidebar, .dropdown-menu {
+/* .sidebar, .dropdown-menu {
     background-color: var(--color-primary);
     opacity: 0.35;
-}
+} */
 
 /* 8. Lists (게시판) */
 .list-title {
