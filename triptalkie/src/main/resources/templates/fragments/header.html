@@ -7,7 +7,7 @@
 <header th:fragment="headerFragment">
 	<nav class="navbar navbar-expand-md">
 		<!-- Brand/logo -->
-		<a class="navbar-brand" href="#"> 
+		<a class="navbar-brand" th:href="@{/}"> 
 			<img th:src="@{/images/main-logo.png}"	alt="logo" style="width: 70px;">
 		</a>
 
@@ -44,7 +44,8 @@
 
 			<div class="dropdown-menu dropdown-menu-center"
 				aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="#">로그인</a> <a class="dropdown-item" th:href="@{/signup}">회원가입 </a>
+				<a class="dropdown-item" th:href="@{/login}">로그인</a> 
+				<a class="dropdown-item" th:href="@{/signup}">회원가입 </a>
 			</div>
 		</div>
 	</nav>

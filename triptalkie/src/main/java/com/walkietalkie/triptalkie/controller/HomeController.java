@@ -22,4 +22,8 @@ public class HomeController {
 	public String signup() {
 		return "pages/member-2/signup";
 	}
+	@GetMapping("/login")
+	public String login() {
+		return "pages/member-2/login";
+	}
 }

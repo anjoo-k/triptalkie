@@ -96,24 +96,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #6CC7B5;
 }
 
-/* 회원 가입 중복 환인 버튼 */
-.btn-duplicate {
-    background-color: var(--color-primary);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    background-color: transparent;
-}
-
-.btn-duplicate:hover {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-}
-
-/* 회원가입, 회원 수정 기타 부분 버튼 */
-.btn-complete {
-	border-radius: 10px;
-}
-
 /* 게시글 작성 버튼 */
 .btn-write {
     background-color: var(--color-secondary);
