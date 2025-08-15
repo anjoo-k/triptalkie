@@ -36,3 +36,42 @@
 .form-check-inline {
 	margin-right: 20px;
 }
+
+/*
+	회원 가입 페이지
+*/
+
+
+/* 회원 가입 중복 환인 버튼 */
+.btn-duplicate {
+ /*    background-color: var(--color-primary); */
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-duplicate:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* 회원가입, 회원 수정, 로그인 버튼 */
+.btn-complete, .btn-login {
+	border-radius: 10px;
+}
+
+
+/*
+	로그인 페이지
+*/
+
+.btn-signup, .btn-findIdOrPwd {
+	border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 10px;
+}
+
+.btn-signup:hover, .btn-findIdOrPwd:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
