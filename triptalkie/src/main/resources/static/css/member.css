@@ -1,24 +1,38 @@
 @charset "UTF-8";
-.form-row {
-	display: flex;
-	align-items: center; /* 세로 가운데 정렬 */
-	margin-bottom: 10px;
+
+.register-container {
+	max-width: 600px;
+	margin: 50px auto;
+	background: #f9fafa;
+	border-radius: 12px;
+	padding: 40px;
 }
 
-.form-row label {
-	width: 100px; /* 라벨 고정 폭 */
-	margin-right: 10px;
-	text-align: right; /* 오른쪽 정렬 */
+.original--profile {
+	width: 100px;
+	height: 100px;
+	border-radius: 20%;
+	object-fit: cover;
+	display: block;
+	margin: 40px auto 20px auto;
 }
 
-.form-row input[type="text"], .form-row input[type="password"],
-	.form-row input[type="date"], .form-row input[type="email"], .form-row input[type="tel"]
-	{
-	flex: 1; /* 남은 공간 채우기 */
+.form--btn-confirm {
+	background-color: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
 }
 
-.radio-group {
-	display: flex;
-	gap: 20px; /* 라디오 버튼 간격 */
-	align-items: center;
+.btn-complete {
+	background-color: #7cd3c2;
+	border: none;
+	color: #fff;
+	width: 100%;
+	padding: 10px;
+	border-radius: 20px;
+	font-size: 1.1rem;
+}
+
+.form-check-inline {
+	margin-right: 20px;
 }
