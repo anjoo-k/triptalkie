@@ -19,6 +19,7 @@ main {
     max-width: 750px;  /* 폭 제한 */
 }
 
+
 /* 2. Color Variables */
 :root {
 	/* 메인 컬러 */
@@ -90,10 +91,15 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--color-primary);
     color: var(--color-secondary);
     border: none;
+    
 }
 
 .btn-primary:hover {
     background-color: #6CC7B5;
+}
+
+.btn--radius {
+	border-radius: 10px;
 }
 
 /* 게시글 작성 버튼 */
@@ -139,6 +145,11 @@ h1, h2, h3, h4, h5, h6 {
 .btn-back:hover {
     background-color: var(--color-primary);
     color: var(--color-secondary);
+}
+
+.btn-no-border {
+	border: 0;
+	outline: none;
 }
 
 /* 7. Sidebar / Dropdown */
