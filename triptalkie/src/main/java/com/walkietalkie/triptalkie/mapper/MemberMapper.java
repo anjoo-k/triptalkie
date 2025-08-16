@@ -7,6 +7,6 @@ import com.walkietalkie.triptalkie.domain.Member;
 @Mapper
 public interface MemberMapper {
 
-	void register(Member member);
+	int register(Member member);
 
 }

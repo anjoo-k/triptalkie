@@ -18,9 +18,11 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 
-	public void register(Member member) {
+	public int register(Member member) {
 		String hashedPassword = passwordEncoder.encode(member.getPassword());
-		memberMapper.register(member);
+		member.setPassword(hashedPassword);
+		member.setCredit(50.0);
+		return memberMapper.register(member);
 	}
 
 }

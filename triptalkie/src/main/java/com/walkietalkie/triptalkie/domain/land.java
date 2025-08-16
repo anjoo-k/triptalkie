@@ -1,14 +1,14 @@
 package com.walkietalkie.triptalkie.domain;
 
-public class land {
+public class Land {
   private String id;
   private String name;
   // 생성자
-  public land() {
+  public Land() {
     super();
     // TODO Auto-generated constructor stub
   }
-  public land(String id, String name) {
+  public Land(String id, String name) {
     super();
     this.id = id;
     this.name = name;
@@ -29,7 +29,7 @@ public class land {
   // toString
   @Override
   public String toString() {
-    return "land [id=" + id + ", name=" + name + "]";
+    return "Land [id=" + id + ", name=" + name + "]";
   }
   
   
