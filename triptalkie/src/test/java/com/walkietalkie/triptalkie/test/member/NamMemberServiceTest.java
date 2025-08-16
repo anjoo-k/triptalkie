@@ -31,16 +31,17 @@ public class NamMemberServiceTest {
 	@Test
 	void testMemberRegister() {
 		Member member = new Member(
-			    "java",
-			    "자바킹",
-			    "1234",
-			    "자바천재",
-			    LocalDate.of(2022, 1, 1),
-			    "010-1234-5678",
-			    "email@email.com",
-			    "서울",
-			    "맛집/카페",
-			    50.0
+			    "java",              // id
+			    "자바킹",              // nickname
+			    "1234",              // password
+			    "자바천재",            // name
+			    LocalDate.of(2022, 1, 1), // birth
+			    "male",              // gender
+			    "010-1234-5678",     // phonenumber
+			    "email@email.com",   // email
+			    "서울",               // address
+			    "맛집/카페",           // travelConcept
+			    50.0                 // credit
 			);
 		
 		int result = memberService.register(member);
