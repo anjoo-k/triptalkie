@@ -9,4 +9,20 @@
 		VALUES (#{id}, #{nickname}, #{password}, #{name}, #{birth}, #{gender}
 				#{phonenumber}, #{email}, #{travelConcept}, #{address}, #{credit})
 	</insert>
+	<!-- 아이디, 닉네임, 핸드폰 번호, 이메일 중복 확인 -->
+	<select id="checkMemberById">
+		SELECT COUNT(*) FROM member WHERE id = #{id}
+	</select>
+	
+	<select id="checkMemberByNickname">
+		SELECT COUNT(*) FROM member WHERE nickname = #{nickname}
+	</select>
+	
+	<select id="checkMemberByPhonenumber">
+		SELECT COUNT(*) FROM member WHERE phonenumber = #{phonenumber}
+	</select>
+	
+	<select id="checkMemberByEmail">
+		SELECT COUNT(*) FROM member WHERE email = #{email}
+	</select>
 </mapper>
