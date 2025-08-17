@@ -26,4 +26,6 @@ public class HomeController {
 	public String login() {
 		return "pages/member-2/login";
 	}
+	
+	
 }
