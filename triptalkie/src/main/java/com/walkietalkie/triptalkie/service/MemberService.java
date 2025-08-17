@@ -10,7 +10,7 @@ import com.walkietalkie.triptalkie.mapper.MemberMapper;
 @Service
 public class MemberService {
 	
-	private final BCryptPasswordEncoder passwordEncoder;
+	private final BCryptPasswordEncoder passwordEncoder; // 비밀번호 암호화
 	private final MemberMapper memberMapper;
 	
 	public MemberService(BCryptPasswordEncoder passwordEncoder, MemberMapper memberMapper) {
@@ -22,7 +22,7 @@ public class MemberService {
 	public int register(Member member) {
 		String hashedPassword = passwordEncoder.encode(member.getPassword());
 		member.setPassword(hashedPassword);
-		member.setCredit(50.0);
+		member.setCredit(50.0);  // default credit 처리
 		return memberMapper.register(member);
 	}
 	

@@ -1,68 +1,129 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/base}"
->
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
-    <link rel="stylesheet" th:href="@{/css/header.css}" />
-    <link rel="stylesheet" th:href="@{/css/content.css}" />
-    <link rel="stylesheet" th:href="@{/css/footer.css}" />
-    <title>customer-service-notice</title>
-  </head>
-  <body layout:fragment="content">
-    <aside class="container">
-      <ul class="list-group">
-        <li class="list-group-item active">Active item</li>
-        <li class="list-group-item">Second item</li>
-        <li class="list-group-item">Third item</li>
-      </ul>
-    </aside>
-    <main class="container">
-      <article>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-            </tr>
-            <tr>
-              <td>Mary</td>
-              <td>Moe</td>
-              <td>mary@example.com</td>
-            </tr>
-            <tr>
-              <td>July</td>
-              <td>Dooley</td>
-              <td>july@example.com</td>
-            </tr>
-          </tbody>
-        </table>
-      </article>
-      <section></section>
-    </main>
-  </body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+
+<!-- content fragement 선언 부분 -->
+<body>
+	<main layout:fragment="content" class="row">
+		<!-- 좌측 list -->
+		<aside class="col-sm-3">
+			<div class="list-group">
+				<a th:href="@{/customerservice/notice}"
+					class="list-group-item list-group-item-action"
+					th:classappend="${active=='notice'} ? ' active'">공지사항<span>></span></a>
+				<a th:href="@{/customerservice/faq}"
+					class="list-group-item list-group-item-action"
+					th:classappend="${active=='faq'} ? ' active'">FAQ<span>></span></a>
+				<a th:href="@{/customerservice/qna}"
+					class="list-group-item list-group-item-action"
+					th:classappend="${active=='qna'} ? ' active'">QnA<span>></span></a>
+				<a th:href="@{/customerservice/mypage}"
+					class="list-group-item list-group-item-action">내정보임시<span>></span></a>
+			</div>
+		</aside>
+		<!-- 게시판 -->
+		<section class="col-sm-9">
+			<article>
+				<table class="table table-hover">
+					<thead class="list-title">
+						<tr>
+							<th>글번호</th>
+							<th>글제목</th>
+							<th>닉네임</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody class="list-content">
+						<tr>
+							<td>1</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+			<!-- 페이지네이션 -->
+			<article class="d-flex mx-auto justify-content-center">
+				<ul class="pagination list-content">
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&laquo;</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&lsaquo;</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">1</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">2</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">3</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">4</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">5</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&rsaquo;</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&raquo;</a></li>
+				</ul>
+			</article>
+		</section>
+	</main>
+</body>
+
 </html>
