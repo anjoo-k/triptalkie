@@ -31,12 +31,12 @@ public class NamMemberServiceTest {
 	@Test
 	void testMemberRegister() {
 		Member member = new Member(
-			    "java",              // id
+			    "test",              // id
 			    "자바킹",              // nickname
 			    "1234",              // password
 			    "자바천재",            // name
 			    LocalDate.of(2022, 1, 1), // birth
-			    "male",              // gender
+			    "남",              // gender
 			    "010-1234-5678",     // phonenumber
 			    "email@email.com",   // email
 			    "서울",               // address

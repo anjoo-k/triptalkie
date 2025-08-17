@@ -4,10 +4,10 @@
 	<!-- 회원가입 -->
 	<insert id="register"
 		parameterType="com.walkietalkie.triptalkie.domain.Member">
-		INSERT INTO member (id, nickname, password, name, birth, gender
-				phonenumber, email, travel_concept, address, credit)
-		VALUES (#{id}, #{nickname}, #{password}, #{name}, #{birth}, #{gender}
-				#{phonenumber}, #{email}, #{travelConcept}, #{address}, #{credit})
+		INSERT INTO member (id, nickname, password, name, birth, gender,
+				phonenumber, email, address, travel_concept, credit)
+		VALUES (#{id}, #{nickname}, #{password}, #{name}, #{birth}, #{gender},
+				#{phonenumber}, #{email}, #{address}, #{travelConcept}, #{credit})
 	</insert>
 	<!-- 아이디, 닉네임, 핸드폰 번호, 이메일 중복 확인 -->
 	<select id="checkMemberById">

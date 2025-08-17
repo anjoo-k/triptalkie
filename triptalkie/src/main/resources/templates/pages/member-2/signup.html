@@ -14,7 +14,7 @@
 				style="width: 150px; height: auto; border-radius: 1.25rem;">
 		</div>
 		<div class="form-container">
-	        <form th:action="@{/member/registerMember}" method="post">
+	        <form action="member/register" method="post">
 	            <!-- 아이디 -->
 	            <div class="form-group row">
 	                <label for="id" class="col-sm-3 col-form-label">아이디</label>
@@ -55,9 +55,9 @@
 	
 	            <!-- 이름 -->
 	            <div class="form-group row">
-	                <label for="userName" class="col-sm-3 col-form-label">이름</label>
+	                <label for="name" class="col-sm-3 col-form-label">이름</label>
 	                <div class="col-sm-9">
-	                    <input type="text" id="userName" name="userName" class="form-control" placeholder="이름 입력" required>
+	                    <input type="text" id="userName" name="name" class="form-control" placeholder="이름 입력" required>
 	                </div>
 	            </div>
 	
@@ -120,11 +120,11 @@
 	            <div class="form-group mt-4">
 	                <label class="subheading">내가 좋아하는 여행컨셉</label><br>
 	                <div>
-	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="concept" value="맛집/카페"> 맛집/카페</label>
-	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="concept" value="술/친목"> 술/친목</label>
-	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="concept" value="액티비티/투어"> 액티비티/투어</label>
-	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="concept" value="전시회/공연"> 전시회/공연</label>
-	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="concept" value="기타"> 기타</label>
+	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="travelConcept" value="맛집/카페"> 맛집/카페</label>
+		                <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="travelConcept" value="술/친목"> 술/친목</label>
+	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="travelConcept" value="액티비티/투어"> 액티비티/투어</label>
+	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="travelConcept" value="전시회/공연"> 전시회/공연</label>
+	                    <label class="form-check-inline"><input class="form-check-input" type="checkbox" name="travelConcept" value="기타"> 기타</label>
 	                </div>
 	            </div>
 	

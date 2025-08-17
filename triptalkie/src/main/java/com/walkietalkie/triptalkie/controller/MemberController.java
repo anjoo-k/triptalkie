@@ -14,13 +14,14 @@ import com.walkietalkie.triptalkie.service.MemberService;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+	
 	private final MemberService memberService;
-
+	
 	public MemberController(MemberService memberService) {
 		super();
 		this.memberService = memberService;
 	}
-	
+
 	/*
 	 * checkMemberById, checkMemberByNickname, checkMemberByPhonenumber, checkMemberByEmail
 	 * 중복 확인 메서드
@@ -68,4 +69,9 @@ public class MemberController {
 		return "home";
 	}
 
+	 @PostMapping("/register")
+	  public String register(Member member) {
+		int result = memberService.register(member);
+	    return "redirect:/login";
+	  }
 }
