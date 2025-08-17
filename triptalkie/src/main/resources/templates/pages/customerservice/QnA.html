@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<!-- content fragement 선언 부분 -->
+<body>
+	<main layout:fragment="content" class="row">
+		<!-- 좌측 list -->
+		<aside class="col-sm-3">
+			<div class="list-group">
+				<div class="list-group">
+					<a th:href="@{/customerservice/notice}"
+						class="list-group-item list-group-item-action"
+						th:classappend="${active=='notice'} ? ' active'">공지사항<span>></span></a>
+					<a th:href="@{/customerservice/faq}"
+						class="list-group-item list-group-item-action"
+						th:classappend="${active=='faq'} ? ' active'">FAQ<span>></span></a>
+					<a th:href="@{/customerservice/qna}"
+						class="list-group-item list-group-item-action"
+						th:classappend="${active=='qna'} ? ' active'">QnA<span>></span></a>
+				</div>
+			</div>
+		</aside>
+		<!-- 게시판 -->
+		<section class="col-sm-9">
+			<article>
+				<table class="table table-hover">
+					<thead class="list-title">
+						<tr>
+							<th>글번호</th>
+							<th>글제목</th>
+							<th>닉네임</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody class="list-content">
+						<tr>
+							<td>1</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>공지사항입니다.</td>
+							<td>관리자1</td>
+							<td>2025-08-17</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+			<!-- 페이지네이션 -->
+			<article class="d-flex mx-auto justify-content-center">
+				<ul class="pagination list-content">
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&laquo;</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&lsaquo;</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">1</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">2</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">3</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">4</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">5</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&rsaquo;</a></li>
+					<li class="page-item"><a class="page-link list-content"
+						href="#">&raquo;</a></li>
+				</ul>
+			</article>
+		</section>
+	</main>
+</body>
+
+</html>
