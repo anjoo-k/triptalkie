@@ -56,7 +56,7 @@ a:hover {
 
 .dropdown-item:hover {
 	background-color: var(--color-primary); /* 원하는 배경색 */
-	color: var(--color-secondary);; /* 원하는 텍스트 색상 */
+	color: var(--color-secondary); /* 원하는 텍스트 색상 */
 	opacity: 0.5;
 	border-radius: 10px;
 	padding-left: 10px;
