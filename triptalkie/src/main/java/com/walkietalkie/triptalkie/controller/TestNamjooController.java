@@ -39,11 +39,13 @@ public class TestNamjooController {
 		return "pages/customerservice/qna";
 	}
 	@GetMapping("/mypage")
-	public String mypageTest(HttpSession session, Model model) {
-		Member member = (Member)session.getAttribute("id");
-		if(member == null)
-			return "redirect:/login";
-		model.addAttribute(mypageService.findMemberById(member.getId()));
+	public String mypageTest(Model model) { //HttpSession session, 
+//		Member member = (Member)session.getAttribute("id");
+//		if(member == null)
+//			return "redirect:/login";
+//		model.addAttribute(mypageService.findMemberById(member.getId()));
+		Member member = mypageService.findMemberById("test");
+		model.addAttribute("member", member);
 		return "pages/member/mypage";
 	}
 }
