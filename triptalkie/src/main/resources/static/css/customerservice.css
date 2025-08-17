@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.list-group {
+	border:1px solid #dee2e6;
+	border-radius:.25rem;
+}
+
+.list-group-item {
+	display: flex;
+	justify-content:space-between;
+	border:0;
+}
+
+.list-group-item.active {
+	background-color:#7CD3C2;
+	color:#FAFAFA
+}
