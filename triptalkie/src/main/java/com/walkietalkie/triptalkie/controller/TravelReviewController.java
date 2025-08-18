@@ -35,9 +35,7 @@ public class TravelReviewController {
 
 	@GetMapping("/findTravelreviewAllList")
 	public String findTravelreviewAllList (Model model){
-//		List<TravelReview> reviewList = travelReviewService.findTravelreviewAllList();
 	    List<Map<String, Object>> reviewList = travelReviewService.findTravelreviewAllList();
-
 	    model.addAttribute("reviewList", reviewList);
 	    
 	    return "pages/travel-review/findTravelreviewAllList";

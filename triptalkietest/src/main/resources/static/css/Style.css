@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/* 네비게이션 링크 색상 */
+.nav-link {
+    color: #333333 !important;  /* 기본 글자색 */
+}
+
+.nav-link:hover {
+    color: #7CD3C2 !important;  /* 마우스 오버 시 글자색 */
+}
