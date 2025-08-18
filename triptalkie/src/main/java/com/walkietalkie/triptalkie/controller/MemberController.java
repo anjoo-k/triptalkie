@@ -1,11 +1,7 @@
 package com.walkietalkie.triptalkie.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,28 +71,29 @@ public class MemberController {
    * 로그인
    */
   @GetMapping("/loginPage")
-  public String loginForm() {
-    return "/pages/member/login"; // 로그인 페이지 템플릿
+  public String loginForm(@RequestParam(value = "error", required = false) String error, Model model) {
+      if (error != null) {
+          model.addAttribute("loginError", true);
+      }
+      return "/pages/member/login";
   }
 
   @PostMapping("/login")
-  @ResponseBody
-  public Map<String, Object> login(@RequestParam String id,
-                                   @RequestParam String password,
-                                   HttpSession session) {
-      Map<String, Object> response = new HashMap<>();
+  public String login(@RequestParam String id,
+                      @RequestParam String password,
+                      HttpSession session,
+                      RedirectAttributes redirectAttributes) {
 
-      boolean success = memberService.login(id, password, session);
+      boolean loginSuccess = memberService.login(id, password, session);
 
-      if (success) {
-          response.put("status", "success");
-          response.put("redirectUrl", "/");
+      if (loginSuccess) {
+          // 로그인 성공
+          return "redirect:/"; // 메인 페이지로 리다이렉트
       } else {
-          response.put("status", "fail");
-          response.put("message", "아이디 또는 비밀번호가 올바르지 않습니다.");
+          // 로그인 실패
+          redirectAttributes.addFlashAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+          return "redirect:/member/loginPage?error"; // 로그인 페이지로 리다이렉트 (error 파라미터 포함)
       }
-
-      return response;
   }
 
 }
