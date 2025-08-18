@@ -70,6 +70,11 @@
   		<groupId>nz.net.ultraq.thymeleaf</groupId>
   		<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
+		<!-- 비밀번호 해시 -->
+		<dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-crypto</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

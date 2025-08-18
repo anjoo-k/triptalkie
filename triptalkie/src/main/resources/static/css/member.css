@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+/* .register-container {
+	max-width: 600px;
+	margin: 50px auto;
+	background: #f9fafa;
+	border-radius: 12px;
+	padding: 40px;
+}
+ */
+.original--profile {
+	width: 100px;
+	height: 100px;
+	border-radius: 20%;
+	object-fit: cover;
+	display: block;
+	margin: 40px auto 20px auto;
+}
+
+.form--btn-confirm {
+	background-color: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
+}
+
+.btn-complete {
+	background-color: #7cd3c2;
+	border: none;
+	color: #fff;
+	width: 100%;
+	padding: 10px;
+	border-radius: 20px;
+	font-size: 1.1rem;
+}
+
+.form-check-inline {
+	margin-right: 20px;
+}
+
+/*
+	회원 가입 페이지
+*/
+
+
+/* 회원 가입 중복 환인 버튼 */
+.btn-duplicate {
+ /*    background-color: var(--color-primary); */
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-duplicate:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* 회원가입, 회원 수정, 로그인 버튼 */
+.btn-complete, .btn-login {
+	border-radius: 10px;
+}
+
+
+/*
+	로그인 페이지
+*/
+
+.btn-signup, .btn-findIdOrPwd {
+	border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 10px;
+}
+
+.btn-signup:hover, .btn-findIdOrPwd:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+

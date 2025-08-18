@@ -12,15 +12,20 @@ public class HomeController {
 	public String home(Model model) {
 		return "home";
 	}
+
+	@GetMapping("/test01")
+	public String test(Model model) {
+		return "test01";
+	}
+
+	@GetMapping("/signup")
+	public String signup() {
+		return "pages/member-2/signup";
+	}
+	@GetMapping("/login")
+	public String login() {
+		return "pages/member-2/login";
+	}
 	
-	 @GetMapping("/test01")
-	  public String test(Model model) {
-	    return "test01";
-	  }
 	
-//	@GetMapping("/study12")
-//	public String study12() {
-//		
-//		return "main";
-//	}
 }

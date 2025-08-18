@@ -5,24 +5,24 @@ import java.time.LocalDateTime;
 public class Community {
   private long idx;
   private String title;
-  LocalDateTime created_at;
-  LocalDateTime updated_at;
+  LocalDateTime createdAt;
+  LocalDateTime updatedAt;
   String content;
-  String member_id;
+  String memberId;
   // 생성자
   public Community() {
     super();
     // TODO Auto-generated constructor stub
   }
-  public Community(long idx, String title, LocalDateTime created_at, LocalDateTime updated_at, String content,
-      String member_id) {
+  public Community(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, String content,
+      String memberId) {
     super();
     this.idx = idx;
     this.title = title;
-    this.created_at = created_at;
-    this.updated_at = updated_at;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
     this.content = content;
-    this.member_id = member_id;
+    this.memberId = memberId;
   }
   // getter, setter
   public long getIdx() {
@@ -37,17 +37,17 @@ public class Community {
   public void setTitle(String title) {
     this.title = title;
   }
-  public LocalDateTime getCreated_at() {
-    return created_at;
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
   }
-  public void setCreated_at(LocalDateTime created_at) {
-    this.created_at = created_at;
+  public void setCreated_at(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
   }
-  public LocalDateTime getUpdated_at() {
-    return updated_at;
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
   }
-  public void setUpdated_at(LocalDateTime updated_at) {
-    this.updated_at = updated_at;
+  public void setUpdated_at(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
   public String getContent() {
     return content;
@@ -55,16 +55,16 @@ public class Community {
   public void setContent(String content) {
     this.content = content;
   }
-  public String getMember_id() {
-    return member_id;
+  public String getMemberId() {
+    return memberId;
   }
-  public void setMember_id(String member_id) {
-    this.member_id = member_id;
+  public void setMember_id(String memberId) {
+    this.memberId = memberId;
   }
   // toString
   @Override
   public String toString() {
-    return "Community [idx=" + idx + ", title=" + title + ", created_at=" + created_at + ", updated_at=" + updated_at
-        + ", content=" + content + ", member_id=" + member_id + "]";
+    return "Community [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+        + ", content=" + content + ", memberId=" + memberId + "]";
   }
 }

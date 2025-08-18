@@ -3,7 +3,6 @@
 /* 메인 CSS*/
 .main-image {
 	border-radius: 12px;
-	margin: 40px;
 }
 
 .image-container {
@@ -16,6 +15,7 @@
 	width: 100%; /* 원하는 크기로 조정 */
 	height: auto;
 	border-radius: 8px; /* 모서리 둥글게(선택) */
+	margin-bottom: 30px;
 }
 
 .text-overlay {
@@ -47,3 +47,4 @@
 	width: 100%; /* 부모 col 너비에 맞춤 */
 	border-radius: 16px;
 }
+

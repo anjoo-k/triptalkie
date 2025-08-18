@@ -1,17 +1,19 @@
 package com.walkietalkie.triptalkie.domain;
 
-public class land {
+public class City {
   private String id;
   private String name;
+  private String countryId;
   // 생성자
-  public land() {
+  public City() {
     super();
     // TODO Auto-generated constructor stub
   }
-  public land(String id, String name) {
+  public City(String id, String name, String countryId) {
     super();
     this.id = id;
     this.name = name;
+    this.countryId = countryId;
   }
   // getter setter
   public String getId() {
@@ -26,12 +28,16 @@ public class land {
   public void setName(String name) {
     this.name = name;
   }
+  public String getCountryId() {
+    return countryId;
+  }
+  public void setCountryId(String countryId) {
+    this.countryId = countryId;
+  }
   // toString
   @Override
   public String toString() {
-    return "land [id=" + id + ", name=" + name + "]";
+    return "City [id=" + id + ", name=" + name + ", countryId=" + countryId + "]";
   }
   
-  
-
 }
