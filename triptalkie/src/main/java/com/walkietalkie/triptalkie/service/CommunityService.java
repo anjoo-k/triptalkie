@@ -17,5 +17,9 @@ public class CommunityService {
 	public int registerCommunity(Community community) {
 		return communityMapper.register(community);
 	}
+
+	public Community findCommunityByIdx(long idx) {
+		return communityMapper.findCommunityByIdx(idx);
+	}
 	
 }

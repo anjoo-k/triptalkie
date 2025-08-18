@@ -8,5 +8,7 @@ import com.walkietalkie.triptalkie.domain.Community;
 public interface CommunityMapper {
 
 	int register(Community community);
+
+	Community findCommunityByIdx(long idx);
 	
 }

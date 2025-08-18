@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,13 +61,13 @@ public class CommunityController {
 		return "redirect:/community/list";
 	}
 
-//    // 커뮤니티 글 상세 보기
-//    @GetMapping("/detail/{idx}")
-//    public String communityDetail(@PathVariable("idx") long idx, Model model) {
-//        Community community = communityService.findCommunityByIdx(idx);
-//        model.addAttribute("community", community);
-//        return "pages/community/detail"; // detail.html 파일을 새로 만들어야 합니다.
-//    }
+    // 커뮤니티 글 상세 보기
+    @GetMapping("/detail/{idx}")
+    public String communityDetail(@PathVariable("idx") long idx, Model model) {
+        Community community = communityService.findCommunityByIdx(idx);
+        model.addAttribute("community", community);
+        return "pages/community/detail"; // detail.html 파일을 새로 만들어야 합니다.
+    }
 
 	// 커뮤니티 글 수정 페이지
 //    @GetMapping("/update/{idx}")
