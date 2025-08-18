@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>여행 게시판</title>
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+ </head>      
+<body>
+<div layout:fragment="content" class="container my-4">
+
+    <!-- 🔎 검색 영역 -->
+    <div class="d-flex mb-3 gap-2">
+        <input type="text" class="form-control" placeholder="검색어를 입력해 주세요.">
+        <button class="btn btn-outline-success">검색</button>
+    </div>
+
+    <div class="d-flex mb-4 gap-2">
+        <select class="form-select w-auto">
+            <option selected>여행컨셉</option>
+            <option value="1">맛집</option>
+            <option value="2">액티비티</option>
+            <option value="3">문화/공연</option>
+        </select>
+        <select class="form-select w-auto">
+            <option selected>동행유형</option>
+            <option value="1">부분동행</option>
+            <option value="2">전체동행</option>
+            <option value="3">숙박공유</option>
+        </select>
+    </div>
+
+    <!-- 📋 게시판 리스트 -->
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="width: 50px;">번호</th>
+                <th>글제목</th>
+                <th style="width: 150px;">닉네임</th>
+                <th style="width: 80px;">조회수</th>
+                <th style="width: 150px;">작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>글제목</td>
+                <td>닉네임</td>
+                <td>조회수</td>
+                <td>글작성일</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>일본 너무 더워요</td>
+                <td>씩씩한토미애</td>
+                <td>124</td>
+                <td>2025-08-08</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 📑 페이지네이션 -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
+            <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item disabled"><a class="page-link" href="#">…</a></li>
+            <li class="page-item"><a class="page-link" href="#">10</a></li>
+            <li class="page-item"><a class="page-link" href="#">›</a></li>
+            <li class="page-item"><a class="page-link" href="#">»</a></li>
+        </ul>
+    </nav>
+
+    <!-- ✍ 글쓰기 버튼 -->
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-warning">글쓰기</button>
+    </div>
+
+</div>
+</body>
+</html>
+      
+
+
+
+
+

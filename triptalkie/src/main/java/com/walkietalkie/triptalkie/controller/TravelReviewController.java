@@ -21,7 +21,7 @@ public class TravelReviewController {
 	}
 	
 	@GetMapping("/travelreview-list")
-	public List<Travelreview> findTravelreviewAllList (Model model){
+	public String findTravelreviewAllList (Model model){
 		List<Travelreview> reviewList = travelReviewService.findTravelreviewAllList();
 		 // 모델에 담아서 뷰에서 사용 가능하게 함
 	    model.addAttribute("reviewList", reviewList);
