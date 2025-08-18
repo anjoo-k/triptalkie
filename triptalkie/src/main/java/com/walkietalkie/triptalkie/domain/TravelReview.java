@@ -12,9 +12,7 @@ public class TravelReview {
 	private String mateType;
 	private String content;
 	private String cityId;
-	private String cityName;
 	private String memberId;
-	private String memberNickname;
 
 	// 생성자
 	public TravelReview() {
@@ -23,8 +21,7 @@ public class TravelReview {
 	}
 
 	public TravelReview(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateUse,
-			String conceptType, String mateType, String content, String cityId, String cityName, String memberId,
-			String memberNickname) {
+			String conceptType, String mateType, String content, String cityId, String memberId) {
 		super();
 		this.idx = idx;
 		this.title = title;
@@ -35,14 +32,11 @@ public class TravelReview {
 		this.mateType = mateType;
 		this.content = content;
 		this.cityId = cityId;
-		this.cityName = cityName;
 		this.memberId = memberId;
-		this.memberNickname = memberNickname;
 	}
 
 	public TravelReview(String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateUse,
-			String conceptType, String mateType, String content, String cityId, String cityName, String memberId,
-			String memberNickname) {
+			String conceptType, String mateType, String content, String cityId, String memberId) {
 		super();
 		this.title = title;
 		this.createdAt = createdAt;
@@ -52,9 +46,7 @@ public class TravelReview {
 		this.mateType = mateType;
 		this.content = content;
 		this.cityId = cityId;
-		this.cityName = cityName;
 		this.memberId = memberId;
-		this.memberNickname = memberNickname;
 	}
 
 	public long getIdx() {
@@ -129,14 +121,6 @@ public class TravelReview {
 		this.cityId = cityId;
 	}
 
-	public String getCityName() {
-		return cityName;
-	}
-
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
-
 	public String getMemberId() {
 		return memberId;
 	}
@@ -145,22 +129,12 @@ public class TravelReview {
 		this.memberId = memberId;
 	}
 
-	public String getMemberNickname() {
-		return memberNickname;
-	}
-
-	public void setMemberNickname(String memberNickname) {
-		this.memberNickname = memberNickname;
-	}
-
 	@Override
 	public String toString() {
 		return "TravelReview [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", mateUse=" + mateUse + ", conceptType=" + conceptType + ", mateType=" + mateType + ", content="
-				+ content + ", cityId=" + cityId + ", cityName=" + cityName + ", memberId=" + memberId
-				+ ", memberNickname=" + memberNickname + "]";
+				+ content + ", cityId=" + cityId + ", memberId=" + memberId + "]";
 	}
 
 	
-
 }

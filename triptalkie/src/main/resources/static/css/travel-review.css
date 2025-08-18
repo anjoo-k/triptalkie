@@ -135,3 +135,15 @@ input[type="radio"]:checked+label.mate-type {
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
 }
+
+/* 상세 페이지 CSS */
+.detail-review {
+	background-color: var(--color-secondary);
+}
+
+.selected-mate-type {
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	border-radius: 10px;
+	pointer-events: none;
+}
