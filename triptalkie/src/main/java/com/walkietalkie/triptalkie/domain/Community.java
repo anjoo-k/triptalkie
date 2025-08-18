@@ -41,7 +41,7 @@ public class Community {
     return createdAt;
   }
   public void setCreated_at(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
+    this.createdAt = createdAt; 	
   }
   public LocalDateTime getUpdatedAt() {
     return updatedAt;
@@ -67,4 +67,5 @@ public class Community {
     return "Community [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
         + ", content=" + content + ", memberId=" + memberId + "]";
   }
+
 }
