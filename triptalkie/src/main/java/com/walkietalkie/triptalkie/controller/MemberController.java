@@ -95,18 +95,5 @@ public class MemberController {
           return "redirect:/member/loginPage?error"; // 로그인 페이지로 리다이렉트 (error 파라미터 포함)
       }
   }
-	/*
-	 * 로그인
-	 */
-	@GetMapping("/loginPage")
-	public String loginPage() {
-		return "pages/member/login";
-	}
-	
-	@PostMapping("/login")
-	  public String login() {
-		
-		return "redirect:/home";
-	}
 
 }
