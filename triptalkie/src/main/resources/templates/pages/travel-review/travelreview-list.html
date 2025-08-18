@@ -56,42 +56,55 @@
 		<div class="board-divider mx-4 px-2"></div>
 
 		<div class="review-list-container mt-4 mx-4">
-			<div class="card mb-3">
-				<div class="card-body card-body-grid">
+			<div th:each="review, stat : ${reviewList}">
+				<!-- 카드 -->
+				<div class="card mb-3">
+					<div class="card-body card-body-grid">
 
-					<!-- 왼쪽: 글 번호 -->
-					<div id="idx" class="number">1</div>
+						<!-- 왼쪽: 글 번호 -->
+						<div id="idx" class="number" th:text="${stat.index + 1}">1</div>
 
-					<!-- 오른쪽: 카드 내용 -->
-					<div class="right-content">
+						<!-- 오른쪽: 카드 내용 -->
+						<div class="right-content">
 
-						<!-- 1행: 배지 -->
-						<div class="row-badges">
-							<span id="cityId" class="badge badge--category">도시</span> 
-							<span class="badge--sub-desc">조회수 · 128</span>
+							<!-- 1행: 배지 -->
+							<div class="row-badges">
+								<span id="cityId" class="badge badge--category"
+									th:text="${review.cityName}">도시</span>
+								<!-- 조회수 주석 처리 -->
+								<!-- <span class="badge--sub-desc">조회수 · <span th:text="${review.viewCount}">0</span></span> -->
+							</div>
+
+							<!-- 2행: 글 제목 + 작성자 + 작성일 -->
+							<div class="row-stats">
+								<a th:href="@{/travel-review/detail-review/{idx}(idx=${review.idx})}"
+									id="title" class="card-title h5 mb-1 list-title"
+									th:text="${review.title}">글 제목</a> <span
+									class="badge badge--sub-desc"
+									th:text="${review.memberNickname}">작성자</span> <span
+									id="createdAt" class="badge--sub-desc"
+									th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd')}">2025-08-17</span>
+							</div>
+
+							<!-- 3행: 여행일자 -->
+							<div class="row-travel-date">
+								<span id="matetype" class="badge badge--category travel-type"
+									th:text="${review.matetype}">메이트 유형</span> <span
+									id="concepttype" class="badge badge--category travel-type"
+									th:text="${review.concepttype}">테마 유형</span>
+							</div>
+
 						</div>
-
-						<!-- 2행: 글 제목 + 조회수 + 작성일 -->
-						<div class="row-stats">
-						<!-- ?idx=1 추가 -->
-							<a th:href="@{/travel-review/detail-review}" id="title" class="card-title h5 mb-1 list-title">글 제목</a> 
-							<span class="badge badge--sub-desc">작성자</span> 
-							<span id="createdAt" class="badge--sub-desc">2025-08-17</span>
-						</div>
-
-						<!-- 3행: 여행일자 -->
-						<div class="row-travel-date">
-							<span id="matetype" class="badge badge--category travel-type">메이트 유형</span> 
-							<span id="concepttype" class="badge badge--category travel-type">테마 유형</span> 
-						</div>
-
 					</div>
 				</div>
+
+				<!-- 카드와 카드 사이 구분선: 마지막 카드가 아닐 때만 표시 -->
+				<div class="card-divider" th:if="${!stat.last}"></div>
 			</div>
-			
-			<div class="card-divider"></div>
-			
-			<!-- 페이지네이션, 글쓰기 버튼 -->
+		</div>
+
+
+		<!-- 페이지네이션, 글쓰기 버튼 -->
 			<div class="d-flex justify-content-between align-items-center mb-3">
 
 				<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
@@ -118,13 +131,13 @@
 
 				<!-- 오른쪽 글쓰기 버튼 -->
 				<div class="text-end">
-					<a class="btn btn-write" th:href="@{/travel-review/write-review}">글쓰기</a>
+					<a class="btn btn-write" th:href="@{/travel-review/writeReviewPage}">글쓰기</a>
 				</div>
 			</div>
 		</div>
 
 
-	</div>
+	<script src="/js/travel-review.js"></script>
 
 </main>
 </html>

@@ -45,6 +45,7 @@
 	height: 1px;
 	margin: 16px 0px;
 	background-color: var(--color-border);
+	margin: 1rem 0;
 }
 
 .number {

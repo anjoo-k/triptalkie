@@ -8,10 +8,10 @@
 		
 		<!-- 여행 후기 작성 폼 -->
 		<div class="form-container">
-			<form th:action="@{/}">
+			<form th:action="@{/travelreview/updateTravelreviewByIdxAndMemberId}" th:object="${travelreview}" action="post">
 				<div class="form-group row">
 					<div class="col-sm-12">
-						<input type="text" id="title" name="title" class="form-control"
+						<input type="text" th:field="*{title}" id="title" name="title" class="form-control"
 							placeholder="나의 후기를 모두에게 알려줄 제목을 작성해주세요" required>
 					</div>
 				</div>
@@ -27,7 +27,7 @@
    						</svg>
 
 						<!-- 셀렉트 -->
-						<select class="form-control" name="city">
+						<select th:field="*{city}" class="form-control" name="city">
 							<option value="">도시</option>
 							<option value="제주도">제주도</option>
 							<option value="시드니">시드니</option>
@@ -40,7 +40,7 @@
 				
 	            <div class="form-group row">
 				    <div class="col-sm-12">
-						<textarea id="content" name="content" class="form-control" rows="12"
+						<textarea th:field="*{content}" id="content" name="content" class="form-control" rows="12"
 							placeholder="나의 후기를 모두에게 알려줄 제목을 작성해주세요" required></textarea>
 					</div>
 				</div>
@@ -51,20 +51,20 @@
 					<!-- 메이트 유형 -->
 					<div class="col">
 						<p class="subheading mb-2">메이트 유형</p>
-							<input type="radio" id="allMate" name="mateType" value="전체 메이트" hidden>
+							<input type="radio" th:field="*{mateType}" id="allMate" name="mateType" value="전체 메이트" hidden>
 							<label for="allMate" class="btn mate-type">전체 메이트</label>
 							
-							<input type="radio" id="partMate" name="mateType" value="부분 메이트" hidden>
+							<input type="radio" th:field="*{mateType}" id="partMate" name="mateType" value="부분 메이트" hidden>
 							<label for="partMate" class="btn mate-type">부분 메이트</label>
 							
-							<input type="radio" id="stayMate" name="mateType" value="숙박 메이트" hidden>
+							<input type="radio" th:field="*{mateType}" id="stayMate" name="mateType" value="숙박 메이트" hidden>
 							<label for="stayMate" class="btn mate-type">숙박 메이트</label>
 					</div>
 
 					<!-- 여행 컨셉 -->
 					<div class="col col-sm-4">
 						<p class="subheading mb-2">여행 컨셉</p>
-						<select class="form-control" name="concept">
+						<select th:field="*{concept}" class="form-control" name="concept">
 							<option value="">여행 컨셉</option>
 							<option value="맛집/카페">맛집/카페</option>
 							<option value="술/친목">술/친목</option>
@@ -93,6 +93,6 @@
 		</div>
 	
 	</div>
-
+<script src="/js/travel-review.js"></script>
 </main>
 </html>
