@@ -3,12 +3,11 @@ package com.walkietalkie.triptalkie.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.service.MypageService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/customerservice")
@@ -46,6 +45,40 @@ public class TestNamjooController {
 //		model.addAttribute(mypageService.findMemberById(member.getId()));
 		Member member = mypageService.findMemberById("test");
 		model.addAttribute("member", member);
-		return "pages/member/mypage";
+		return "pages/member/mypage-myinformation";
+	}
+	
+	@GetMapping("/update-myinfo")
+	public String myinfoupdatePageTest(Model model) { //HttpSession session, 
+//		Member member = (Member)session.getAttribute("id");
+//		if(member == null)
+//			return "redirect:/login";
+//		model.addAttribute(mypageService.findMemberById(member.getId()));
+		Member member = mypageService.findMemberById("test");
+		model.addAttribute("member", member);
+		return "pages/member/update-myinfo";
+	}
+	
+	@PostMapping("/update-myinfo")
+	public String myinfoupdateTest(Member member, Model model) {
+//		Member member = (Member)session.getAttribute("id");
+//		if(member == null)
+//			return "redirect:/login";
+//		model.addAttribute(mypageService.findMemberById(member.getId()));
+		Member resultMember = mypageService.updateMemberById(member);
+		model.addAttribute("member", resultMember);
+		return "redirect:/pages/member/mypage-information";
+	}
+	
+	@GetMapping("/password-check")
+	public String checkPasswordPage() {
+		return "pages/member/password-check";
+	}
+	
+	// 비밀번호 췍해서 맞으면 업데이트 내정보 페이지로
+	@PostMapping("/password-check")
+	public String checkPassword(String password) {
+		
+		return "pages/member/update-myinfo";
 	}
 }

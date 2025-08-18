@@ -1,0 +1,23 @@
+/**
+ *  mypage 관련 javaScript
+ */
+
+// ===== 내 정보 수정 버튼 클릭 -> 패스워드 확인 화면 =====
+/**
+    <a th:href="@{/customerservice/update-myinfo}" 
+    class="btn btn-block btn-complete btn-primary">
+    내 정보 수정
+	 </a>
+	 : 이렇게도 처리 가능
+ */
+const updateMyInformationBtn = document.querySelector('#btn-update-myinfo');
+if (updateMyInformationBtn) {
+	updateMyInformationBtn.addEventListener('click', () => {
+		location.href = '/customerservice/password-check';
+	});
+}
+
+// ===== 비밀번호 확인 버튼  =====
+//  -> 비밀번호 틀렸을 경우, 모달
+//  -> 비밀번호 맞았을 경우 -> 내 정보 수정 화면
+

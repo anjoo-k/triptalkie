@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.walkietalkie.triptalkie.mapper.MypageMapper">
-	<!-- 마이페이지 / 내 정보 조회   config 케이스 설정 해줘야 -->
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.MypageMapper">
+	<!-- 마이페이지 / 내 정보 조회 config 케이스 설정 해줘야 -->
 	<select id="findMemberById"
 		resultType="com.walkietalkie.triptalkie.domain.Member">
 		SELECT id, nickname, password, name, birth, gender,
-				phonenumber, email, address, travel_concept AS travelConcept, credit
+				phonenumber, email, address, travel_concept, credit
 		FROM member
 		WHERE id=#{id}
 	</select>
+	<!-- 마이페이지 / 내 정보 수정 -->
+	<update id="updateMemberById"
+		parameterType="com.walkietalkie.triptalkie.domain.Member">
+		UPDATE member
+		SET nickname=#{nickname},
+			password=#{password},
+			phonenumber=#{phonenumber},
+			email=#{email},
+			address=#{address},
+			travel_concept=#{travelConcept}
+		WHERE id=#{id}
+	</update>
 </mapper>
