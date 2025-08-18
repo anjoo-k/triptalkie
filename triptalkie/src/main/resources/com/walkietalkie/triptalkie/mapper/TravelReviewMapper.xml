@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.TravelReviewMapper">
+	<select id="findTravelreviewAllList">
+		SELECT
+		t.idx,
+		t.title,
+		t.content,
+		t.created_at AS
+		createdAt,
+		t.updated_at AS updatedAt,
+		t.mateuse,
+		t.concepttype,
+		t.matetype,
+		t.city_id AS cityId,
+		c.name AS cityName,
+		t.member_id AS
+		memberId,
+		m.nickname AS memberNickname
+		FROM travelreview t
+		LEFT JOIN
+		member m ON t.member_id
+		= m.id
+		LEFT JOIN city c ON t.city_id = c.id;
+	</select>
+
+	<insert id="registerTravelreview"
+		parameterType="com.walkietalkie.triptalkie.domain.TravelReview"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO travelreview
+		(title, created_at, mateuse, concepttype, matetype, content, city_id,
+		member_id)
+		VALUES (#{title}, NOW(), #{mateUse}, #{conceptType}, #{mateType},
+		#{content}, #{cityId}, #{memberId})
+
+	</insert>
+
+	<select id="findTravelreviewByIdx" parameterType="Long"
+		resultType="com.walkietalkie.triptalkie.domain.TravelReview">
+		SELECT
+		t.idx,
+		t.title,
+		t.content,
+		t.created_at AS createdAt,
+		t.updated_at AS updatedAt,
+		t.mateuse,
+		t.concepttype,
+		t.matetype,
+		t.city_id AS cityId,
+		c.name AS cityName,
+		t.member_id AS memberId,
+		m.nickname AS memberNickname
+		FROM travelreview t
+		LEFT JOIN member m ON
+		t.member_id
+		= m.id
+		LEFT JOIN city c ON t.city_id = c.id
+		WHERE idx =
+		#{idx};
+	</select>
+
+	<update id="updateTravelreviewByIdxAndMemberId" parameterType="com.walkietalkie.triptalkie.domain.TravelReview">
+		UPDATE travelreview
+		SET
+		title = #{title},
+		content = #{content},
+		mateuse = #{mateUse},
+		concepttype = #{conceptType},
+		matetype = #{mateType},
+		updated_at = NOW(),
+		city_id = #{cityId}
+		WHERE idx = #{idx}
+		AND member_id = #{memberId}
+	</update>
+
+	<delete id="deleteTravelreviewByIdx" parameterType="Long">
+		DELETE FROM
+		travelreview
+		WHERE idx = #{idx}
+	</delete>
+</mapper>
