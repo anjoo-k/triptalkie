@@ -106,6 +106,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn--radius {
 	border-radius: 10px;
+	width: 70px;
 }
 
 /* 게시글 작성 버튼 */
