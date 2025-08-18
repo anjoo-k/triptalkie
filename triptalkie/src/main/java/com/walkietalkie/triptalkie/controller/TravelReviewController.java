@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,50 +13,69 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.TravelReview;
+import com.walkietalkie.triptalkie.service.CityService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/travel-review")
 public class TravelReviewController {
 	private final TravelReviewService travelReviewService;
-
-	public TravelReviewController(TravelReviewService travelReviewService) {
+	private final CityService cityService;
+	
+	
+	public TravelReviewController(TravelReviewService travelReviewService, CityService cityService) {
 		super();
 		this.travelReviewService = travelReviewService;
+		this.cityService = cityService;
 	}
-	
-	@GetMapping("/travelreview-list")
+
+	@GetMapping("/findTravelreviewAllList")
 	public String findTravelreviewAllList (Model model){
-		List<TravelReview> reviewList = travelReviewService.findTravelreviewAllList();
+//		List<TravelReview> reviewList = travelReviewService.findTravelreviewAllList();
+	    List<Map<String, Object>> reviewList = travelReviewService.findTravelreviewAllList();
+
 	    model.addAttribute("reviewList", reviewList);
 	    
-	    return "pages/travel-review/travelreview-list";
+	    return "pages/travel-review/findTravelreviewAllList";
 	}
 	
 	@GetMapping("/detail-review/{idx}")
-	public String findTravelreviewByIdx (@PathVariable Long idx, Model model) {
-		TravelReview travelreview = travelReviewService.findTravelreviewByIdx(idx);
+	public String findTravelreviewByIdx (@PathVariable Long idx, Model model, HttpSession session) {
+		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
+		System.out.println("travel review : " + travelreview);
+		session.setAttribute("memberId", "user1");
+		
 		model.addAttribute("travelreview", travelreview);
 		return "pages/travel-review/detail-review";
 	}
 	
-	@GetMapping("/writeReviewPage")
-	public String writeReviewPage() {
-		return "pages/travel-review/write-review";
+	@GetMapping("/registerReviewPage")
+	public String registerReviewPage(Model model, HttpSession session) {
+		List<City> cityList = cityService.findCityAllList();
+		session.setAttribute("memberId", "user1");
+		model.addAttribute("cityList", cityList);
+		
+		return "pages/travel-review/register-review";
 	}
 	
 	@PostMapping("/registerTravelreview")
-	public String registerTravelreview (TravelReview travelreview) {
+	public String registerTravelreview (TravelReview travelReview) {
+		if (!(travelReview.getMateType() == null)) {
+			travelReview.setMateUse(true);
+		}
 		
-		Long newIdx = travelReviewService.registerTravelreview(travelreview);
+		Long newIdx = travelReviewService.registerTravelreview(travelReview);
 		
-		return "redirect:/pages/travel-review/detail-review/" + newIdx;
+		return "redirect:/travel-review/detail-review/" + newIdx;
 	}
 	
 	@GetMapping("/travel-review/edit-review/{idx}")
 	public String editReviewPage(@PathVariable Long idx, Model model) {
-		TravelReview travelreview = travelReviewService.findTravelreviewByIdx(idx);
+		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
 	    model.addAttribute("travelreview", travelreview);
 	    return "travel-review/edit-review";
 	}
@@ -64,7 +84,7 @@ public class TravelReviewController {
 	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelreview, RedirectAttributes redirectAttributes) {
 		travelReviewService.updateTravelreviewByIdxAndMemberId(travelreview);
 		
-		return "redirect:/pages/travel-review/detail-review/" + travelreview.getIdx();
+		return "redirect:/travel-review/detail-review/" + travelreview.getIdx();
 	}
 	
 	@DeleteMapping("/deleteTravelreviewByIdx")

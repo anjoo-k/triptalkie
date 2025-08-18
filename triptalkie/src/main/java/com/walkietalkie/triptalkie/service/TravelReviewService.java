@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +22,11 @@ public class TravelReviewService {
 	 *  여행 리뷰 리스트 조회
 	 */
 	@Transactional(readOnly = true)
-	public List<TravelReview> findTravelreviewAllList() {
+	public List<Map<String, Object>> findTravelreviewAllList() {
 		return travelReviewMapper.findTravelreviewAllList();
 	}
 
-	public TravelReview findTravelreviewByIdx(Long idx) {
+	public Map<String, Object> findTravelreviewByIdx(Long idx) {
 		return travelReviewMapper.findTravelreviewByIdx(idx);
 	}
 

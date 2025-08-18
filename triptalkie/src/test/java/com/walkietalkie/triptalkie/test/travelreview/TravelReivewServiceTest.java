@@ -3,15 +3,14 @@ package com.walkietalkie.triptalkie.test.travelreview;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.domain.TravelReview;
 import com.walkietalkie.triptalkie.mapper.TravelReviewMapper;
 import com.walkietalkie.triptalkie.service.TravelReviewService;
@@ -41,9 +40,7 @@ public class TravelReivewServiceTest {
         travelreview.setMateType("전체 메이트");
         travelreview.setContent("이번 여행 정말 즐거웠어요!");
         travelreview.setCityId("FR_PAR");
-        travelreview.setCityName("파리");
         travelreview.setMemberId("user1");
-        travelreview.setMemberNickname("자바킹");
 
         // 서비스 호출
         Long newIdx = travelReviewService.registerTravelreview(travelreview);
@@ -79,10 +76,10 @@ public class TravelReivewServiceTest {
 	    travelReviewService.updateTravelreviewByIdxAndMemberId(travelreview);
 
 	    // 4. DB에서 다시 조회해서 확인
-	    TravelReview updated = travelReviewService.findTravelreviewByIdx(idx);
-	    assertEquals("업데이트된 제목", updated.getTitle());
-	    assertEquals(true, updated.isMateUse());
-	    assertEquals("업데이트된 내용", updated.getContent());
+	    Map<String, Object> updated = travelReviewService.findTravelreviewByIdx(idx);
+	    assertEquals("업데이트된 제목", ((TravelReview) updated).getTitle());
+	    assertEquals(true, ((TravelReview) updated).isMateUse());
+	    assertEquals("업데이트된 내용", ((TravelReview) updated).getContent());
 
 	    System.out.println("업데이트 후 정보 : " + updated);
 	}

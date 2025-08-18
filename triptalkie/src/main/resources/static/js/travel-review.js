@@ -33,18 +33,18 @@ const backToList = document.querySelector('.btn-back');
 if (backToList) {
 	backToList.addEventListener('click', () => {
 		alert('목록 버튼 클릭!');
+		window.history.back();
 	});
-
 }
 
 // 완료
-const completedWriting = document.querySelector('.btn-completed-writing');
+/*const completedWriting = document.querySelector('.btn-completed-writing');
 if (completedWriting) {
 	completedWriting.addEventListener('click', () => {
 		alert('완료 클릭!');
 	});
 
-}
+}*/
 
 /*
  * 여행 후기 상세 페이지  
