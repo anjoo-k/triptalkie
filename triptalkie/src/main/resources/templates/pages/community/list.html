@@ -2,15 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/base}">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <title>여행 게시판</title>
-    <link rel="stylesheet" href="styleguide.css" />
-    <link rel="stylesheet" href="style.css" />
- </head>      
-<body>
-<div layout:fragment="content" class="container my-4">
+
+<div layout:fragment="content" >
 
     <!-- 🔎 검색 영역 -->
     <div class="d-flex mb-3 gap-2">
@@ -47,10 +40,10 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>글제목</td>
-                <td>닉네임</td>
-                <td>조회수</td>
-                <td>글작성일</td>
+                <td>서울로 와유</td>
+                <td>충청도민</td>
+                <td>344</td>
+                <td>2025-08-01</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -62,28 +55,37 @@
         </tbody>
     </table>
 
-    <!-- 📑 페이지네이션 -->
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">…</a></li>
-            <li class="page-item"><a class="page-link" href="#">10</a></li>
-            <li class="page-item"><a class="page-link" href="#">›</a></li>
-            <li class="page-item"><a class="page-link" href="#">»</a></li>
-        </ul>
-    </nav>
+    <!-- 페이지네이션, 글쓰기 버튼 -->
+			<div class="d-flex justify-content-between align-items-center mb-3">
 
-    <!-- ✍ 글쓰기 버튼 -->
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-warning">글쓰기</button>
-    </div>
+				<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
+				<div class="flex-grow-1 text-center">
+					<nav class="p-2 pagination--bottom">
+						<ul class="pagination justify-content-center mb-0">
+							<li class="page-item disabled pagination--spacing"><a
+								class="page-link" href="#">&laquo;</a></li>
+							<li class="page-item disabled pagination--spacing"><a
+								class="page-link" href="#">&lt;</a></li>
+							<li class="page-item active pagination--spacing"><a
+								class="page-link" href="#">1</a></li>
+							<li class="page-item pagination--spacing"><a
+								class="page-link" href="#">2</a></li>
+							<li class="page-item pagination--spacing"><a
+								class="page-link" href="#">3</a></li>
+							<li class="page-item pagination--spacing"><a
+								class="page-link" href="#">&gt;</a></li>
+							<li class="page-item pagination--spacing"><a
+								class="page-link" href="#">&raquo;</a></li>
+						</ul>
+					</nav>
+				</div>
 
-</div>
-</body>
+				<!-- 오른쪽 글쓰기 버튼 -->
+				<div class="text-end">
+					<a class="btn btn-write" th:href="@{/community/register}">글쓰기</a>
+				</div>
+			</div>
+		</div>
 </html>
       
 
