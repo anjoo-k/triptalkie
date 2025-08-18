@@ -37,6 +37,18 @@ public class Member {
 		this.credit = credit;
 	}
 
+	public Member(String id, String nickname, String password, String phonenumber, String email, String address,
+			String travelConcept) {
+		super();
+		this.id = id;
+		this.nickname = nickname;
+		this.password = password;
+		this.phonenumber = phonenumber;
+		this.email = email;
+		this.address = address;
+		this.travelConcept = travelConcept;
+	}
+
 	// getter setter 메서드
 	public String getId() {
 		return id;
