@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.walkietalkie.triptalkie.domain.City;
@@ -35,9 +37,7 @@ public class TravelReviewController {
 
 	@GetMapping("/findTravelreviewAllList")
 	public String findTravelreviewAllList (Model model){
-//		List<TravelReview> reviewList = travelReviewService.findTravelreviewAllList();
 	    List<Map<String, Object>> reviewList = travelReviewService.findTravelreviewAllList();
-
 	    model.addAttribute("reviewList", reviewList);
 	    
 	    return "pages/travel-review/findTravelreviewAllList";
@@ -46,7 +46,6 @@ public class TravelReviewController {
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx (@PathVariable Long idx, Model model, HttpSession session) {
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
-		System.out.println("travel review : " + travelreview);
 		session.setAttribute("memberId", "user1");
 		
 		model.addAttribute("travelreview", travelreview);
@@ -73,23 +72,33 @@ public class TravelReviewController {
 		return "redirect:/travel-review/detail-review/" + newIdx;
 	}
 	
-	@GetMapping("/travel-review/edit-review/{idx}")
+	@GetMapping("/edit-review/{idx}")
 	public String editReviewPage(@PathVariable Long idx, Model model) {
+		List<City> cityList = cityService.findCityAllList();
+		model.addAttribute("cityList", cityList);
+		
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
 	    model.addAttribute("travelreview", travelreview);
-	    return "travel-review/edit-review";
+	    
+	    return "pages/travel-review/edit-review";
 	}
 	
 	@PostMapping("/updateTravelreviewByIdxAndMemberId")
-	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelreview, RedirectAttributes redirectAttributes) {
-		travelReviewService.updateTravelreviewByIdxAndMemberId(travelreview);
+	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelReview, RedirectAttributes redirectAttributes) {
 		
-		return "redirect:/travel-review/detail-review/" + travelreview.getIdx();
+		if (!(travelReview.getMateType() == null)) {
+			travelReview.setMateUse(true);
+		}
+		travelReviewService.updateTravelreviewByIdxAndMemberId(travelReview);
+		
+		return "redirect:/travel-review/detail-review/" + travelReview.getIdx();
 	}
 	
-	@DeleteMapping("/deleteTravelreviewByIdx")
-	public int deleteTravelreviewByIdx (Long idx) {
-		
+	@GetMapping("/deleteTravelreviewByIdx")
+	@ResponseBody
+	public int deleteTravelreviewByIdx (@RequestParam Long idx) {
+		System.out.println("idx 넘어온 값 : " + idx);
+
 		return travelReviewService.deleteTravelreviewByIdx(idx);
 	}
 }

@@ -1,0 +1,151 @@
+/* 1. Font & Base Reset */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
+
+html {
+	font-size: 16px;
+	/* rem 단위 기준 */
+}
+
+body {
+	font-family: 'Noto Sans', sans-serif;
+	color: #333333;
+	background-color: #FAFAFA;
+	/* Secondary */
+	margin: 0;
+	padding: 0;
+}
+
+/* 2. Color Variables */
+:root {
+	/* 메인 컬러 */
+	--color-primary: #7CD3C2;
+	--color-secondary: #FAFAFA;
+	--color-success: #28A745;
+	--color-error: #DC3545;
+	
+	/* 기본 폰트 컬러, 각 리스트들의 제목 */
+	--color-text-primary: #333333;
+	/* 제목 이외의 서브 타이틀 */
+	--color-text-secondary: #635F5F;
+	/* 수정할 경우 본래 텍스트 불러 올 경우, 보더 컬러 넣을 때 */
+	--color-border: #9A9A9A;
+	
+	--main-text-style-noto-sans-font-family: "Noto Sans", Helvetica;
+	--main-text-style-noto-sans-font-weight: 400;
+	--main-text-style-noto-sans-font-size: 12px;
+	--main-text-style-noto-sans-letter-spacing: 0px;
+	--main-text-style-noto-sans-line-height: normal;
+	--main-text-style-noto-sans-font-style: normal;
+}
+
+/* 3. Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+}
+
+/*p {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+}*/
+
+.content-text {
+    color: var(--color-text-secondary);
+}
+
+/* 상세 페이지 소제목 */
+.subheading {
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+/* 4. Background Colors */
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary) !important;
+}
+
+/* 6. Buttons */
+
+/* 기본 버튼 */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #6CC7B5;
+}
+
+/* 게시글 작성 버튼 */
+.btn-write {
+    background-color: var(--color-secondary);
+    color: var(--color-border);
+    border: 1px solid var(--color-border);
+}
+
+.btn-write:active, .btn-write:focus, .btn-write:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* 검색 버튼 */
+.btn-search {
+    background-color: var(--color-primary);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    background-color: transparent;
+}
+
+.btn-search:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* 상세 페이지 버튼 / 배지 */
+.btn-detail,
+.badge-detail {
+    background-color: var(--color-secondary);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+}
+
+/* 목록/뒤로 버튼 (검색 버튼 스타일과 동일) */
+.btn-back {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-back:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* 7. Sidebar / Dropdown */
+.sidebar, .dropdown-menu {
+    background-color: var(--color-primary);
+    opacity: 0.35;
+}
+
+/* 8. Lists (게시판) */
+.list-title {
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+.list-content {
+    color: var(--color-text-secondary);
+}
+
+/* 9. Utility Classes */
+.text-primary { color: var(--color-primary) !important; }
+.text-secondary { color: var(--color-secondary) !important; }
+.text-success { color: var(--color-success) !important; }
+.text-error { color: var(--color-error) !important; }

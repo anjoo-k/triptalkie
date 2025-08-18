@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-..." crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <title>header practice</title>
+    <style>
+        /* * {
+            border: 1px solid #333333;
+        } */
+        .container {
+            width: 1200px;
+        }
+        nav {
+            border-bottom: 1px solid #EEF0F3;
+        }
+        .navbar-nav {
+            align-items: center;
+            display: flex;
+            margin: 0 auto;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #333333;
+        }
+        a:hover {
+            color: #7CD3C2;
+        }
+        .bi-person-circle {
+            color: #7CD3C2;
+            font-size: 60px;
+        }
+        .dropdown-toggle::after {
+            display: none;
+        }
+        .dropdown-menu {
+            left: 50% !important;      /* 기준점 가운데 */
+            transform: translateX(-50%); /* 가운데 정렬 */
+            top: calc(100% + 5px);   /* 버튼 아래로 */
+            border-radius: 10px;
+            padding: 8px; /* hover 시에도 동일하게 유지 */
+        }
+        .dropdown--color {
+            background-color: transparent !important; /* 배경 없애기 */
+            border: none !important; /* 테두리 없애기 */
+            box-shadow: none !important; /* 그림자 없애기 (필요시) */
+        }
+        .dropdown-item {
+            color: #333333;
+            display: block !important;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .dropdown-item:hover {
+            background-color: #7CD3C2; /* 원하는 배경색 */
+            color: #fafafa; /* 원하는 텍스트 색상 */
+            opacity: 0.5;
+            border-radius: 10px;
+            padding-left: 10px;
+        }
+        /* 메인 CSS*/
+        .main-image {
+            border-radius: 12px;
+            margin: 40px;
+        }
+        .image-container {
+            position: relative; /* 자식 absolute 위치의 기준 */
+            display: inline-block;
+        }
+
+        .image-container img {
+            display: block;
+            width: 100%; /* 원하는 크기로 조정 */
+            height: auto;
+            border-radius: 8px; /* 모서리 둥글게(선택) */
+        }
+
+        .text-overlay {
+            position: absolute;
+            bottom: 20px;  /* 이미지 아래쪽에서 20px */
+            right: 20px;   /* 이미지 오른쪽에서 20px */
+            color: white;
+            font-size: 2.75rem;
+            font-weight: bold;
+            text-align: right;
+            padding-right: 20px;
+            padding-bottom: 40px;
+        }
+        .main--text-title{
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .main--text-subtitle{
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .square-img {
+            aspect-ratio: 1 / 1;   /* 1:1 비율 유지 */
+            object-fit: cover;     /* 이미지를 잘라서 꽉 채움 */
+            width: 100%;           /* 부모 col 너비에 맞춤 */
+            border-radius: 16px;
+        }
+
+        /* footer */
+        footer {
+            background-color: #7cd3c2;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container container-lg">
+        <header>
+            <nav class="navbar navbar-expand-md">
+                <!-- Brand/logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="main-logo.png" alt="logo" style="width:70px;">
+                </a>
+
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">메이크메이트</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">커뮤니티</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">여행 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">여행 후기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">고객센터</a>
+                        </li>
+                    </ul>
+
+                </div>
+                
+                <div class="dropdown">
+                    <button class="dropdown-toggle dropdown--color" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>  
+                        
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">로그인</a>
+                        <a class="dropdown-item" href="#">회원가입 </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+
+        <!-- 메인 -->
+        <main>
+            <!-- main image section -->
+            <div class="image-container">
+                <img src="/images/main-image.jpg" class="img-fluid mx-auto d-block main-image">
+                <div class="text-overlay">
+                    파도처럼 밀려오는 설렘<br>
+                    떠나자, 지금 바로
+                </div>
+            </div>
+
+            <div class="main-content-container p-3">
+                <div>
+                    <div class="text-container mb-3">
+                        <p class="main--text-title font-weight-bold mb-1">
+                            우리들의 빛나는 활동으로 여행을 풍성하게
+                        </p>
+                        <p class="main--text-subtitle text-muted mb-0">
+                            메이트들의 베스트 오브 베스트 즐길거리
+                        </p>
+                    </div>
+
+                    <!-- 3열 이미지 영역 -->
+                    <div class="row g-4">
+                        <div class="col-12 col-md-4">
+                            <img src="/images/bangkok.jpg" class="img-fluid square-img">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <img src="/images/bangkok.jpg" class="img-fluid square-img">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <img src="/images/bangkok.jpg" class="img-fluid square-img">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-container mb-3">
+                        <p class="main--text-title font-weight-bold mb-1 mt-4">
+                            나의 소중한 여행 꿀팁
+                        </p>
+                        <p class="main--text-subtitle text-muted mb-0">
+                            메이트들의 유용한 정보 둘러보기
+                        </p>
+                    </div>
+
+                    <!-- 3열 이미지 영역 -->
+                    <div class="row g-4">
+                        <div class="col-12 col-md-4">
+                            <img src="/images/bangkok.jpg" class="img-fluid square-img">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <img src="/images/bangkok.jpg" class="img-fluid square-img">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <img src="/images/bangkok.jpg" class="img-fluid square-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content-container p-3">
+                <div class="row">
+                    <div class="col-xl mt-4">
+                        <p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">
+                            공지 사항
+                        </p>
+
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>john@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mary</td>
+                                        <td>Moe</td>
+                                        <td>mary@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>July</td>
+                                        <td>Dooley</td>
+                                        <td>july@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>July</td>
+                                        <td>Dooley</td>
+                                        <td>july@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>July</td>
+                                        <td>Dooley</td>
+                                        <td>july@example.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-xl mt-4">
+                        <p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">
+                            FAQ
+                        </p>
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>자주 묻는 질문</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>John</td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+
+        </main>
+
+        <footer>
+            <div class="container text-white">
+                <div class="display-3 text-center font-weight-bold">
+                <p>LET'S TALK<br />WITH US</p>
+                </div>
+                <div class="row">
+                <div class="col"><img src="/images/footer-logo.png" /></div>
+                <div class="col">
+                    <span>info@walkietalkie.com</span><br /><span>(02) 1234 5678</span>
+                </div>
+                <div class="col">
+                    <span>
+                        254, Changgyeonggung-ro, Jongno-gu, Seoul, Republic of
+                    Korea</span>
+                </div>
+                </div>
+                <hr class="bg-light" />
+                <div class="row">
+                <div class="col align-content-center">
+                    <span>Copyright © 2025 . All rights reserved</span>
+                </div>
+                <div class="col"></div>
+                <div class="navbar navbar-expand-sm">
+                    <ul class="navbar-nav">
+                    <li class="nav-item text-white">
+                        <a class="nav-link" href="#"
+                        ><span class="text-white">공지사항</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
+                        ><span class="text-white">FAQ</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
+                        ><span class="text-white">Q&A</span></a
+                        >
+                    </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </footer>
+
+        
+    </div>
+    <script>
+        $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();   
+        });
+    </script>
+</body>
+</html>
