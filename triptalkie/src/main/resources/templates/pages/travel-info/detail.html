@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<th:block layout:fragment="content">
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-light">
+            <h3 class="mb-0" th:text="${travelinfo.title}">게시글 제목</h3>
+        </div>
+        <div class="card-body">
+            <div class="mb-3 text-muted">
+                <span><strong>작성자:</strong> <span th:text="${travelinfo.memberId}"></span></span>
+                <span class="ms-3"><strong>작성일:</strong> <span th:text="${#temporals.format(travelinfo.createdAt, 'yyyy-MM-dd HH:mm')}"></span></span>
+            </div>
+            <hr>
+            <pre class="card-text" th:text="${travelinfo.content}" style="min-height: 250px; white-space: pre-wrap; font-family: inherit; font-size: 1rem;">게시글 내용</pre>
+        </div>
+        <div class="card-footer text-end">
+            <a th:href="@{/travelinfo/update/{idx}(idx=${travelinfo.idx})}" class="btn btn-secondary">수정</a>
+            <form th:action="@{/travelinfo/delete/{idx}(idx=${travelinfo.idx})}" method="post" class="d-inline" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+            <a th:href="@{/travelinfo/list}" class="btn btn-primary ms-2">목록</a>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

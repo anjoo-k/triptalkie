@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<th:block layout:fragment="content">
+<div class="container mt-5">
+    <h2>여행 정보 수정</h2>
+    <hr>
+    <form th:action="@{/travelinfo/update}" th:object="${travelinfo}" method="post">
+        <input type="hidden" th:field="*{idx}" />
+        
+        <div class="form-group mb-3">
+            <label for="title"><strong>제목</strong></label>
+            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="infotype"><strong>정보 타입</strong></label>
+            <select id="infotype" th:field="*{infotype}" class="form-control" required>
+                <option value="">선택하세요</option>
+                <option th:each="type : ${infoTypes}" th:value="${type}" th:text="${type}"></option>
+            </select>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label><strong>정보 기준일</strong></label>
+            <div class="d-flex">
+                <select name="infoYear" class="form-control me-2" required>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year + '년'}" th:selected="${year == travelinfo.infodate.year}"></option>
+                </select>
+                <select name="infoMonth" class="form-control" required>
+                    <option th:each="month : ${#numbers.sequence(1, 12)}" th:value="${month}" th:text="${month + '월'}" th:selected="${month == travelinfo.infodate.monthValue}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="content"><strong>내용</strong></label>
+            <textarea id="content" th:field="*{content}" class="form-control" rows="12" required></textarea>
+        </div>
+        
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">수정 완료</button>
+            <a th:href="@{/travelinfo/detail/{idx}(idx=*{idx})}" class="btn btn-secondary ms-2">취소</a>
+        </div>
+    </form>
+</div>
+</th:block>
+</html>
