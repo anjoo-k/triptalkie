@@ -69,4 +69,16 @@ public class TestNamjooController {
 		model.addAttribute("member", resultMember);
 		return "redirect:/pages/member/mypage-information";
 	}
+	
+	@GetMapping("/password-check")
+	public String checkPasswordPage() {
+		return "pages/member/password-check";
+	}
+	
+	// 비밀번호 췍해서 맞으면 업데이트 내정보 페이지로
+	@PostMapping("/password-check")
+	public String checkPassword(String password) {
+		
+		return "pages/member/update-myinfo";
+	}
 }

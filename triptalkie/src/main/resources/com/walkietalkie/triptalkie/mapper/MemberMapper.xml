@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.walkietalkie.triptalkie.mapper.MemberMapper">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.MemberMapper">
 	<!-- 회원가입 -->
 	<insert id="register"
 		parameterType="com.walkietalkie.triptalkie.domain.Member">
-		INSERT INTO member (id, nickname, password, name, birth, gender,
-				phonenumber, email, address, travel_concept, credit)
-		VALUES (#{id}, #{nickname}, #{password}, #{name}, #{birth}, #{gender},
-				#{phonenumber}, #{email}, #{address}, #{travelConcept}, #{credit})
+		INSERT INTO member (id, nickname, password, name, birth,
+		gender,
+		phonenumber, email, address, travel_concept, credit)
+		VALUES (#{id}, #{nickname},
+		#{password}, #{name}, #{birth}, #{gender},
+		#{phonenumber}, #{email}, #{address}, #{travelConcept}, #{credit})
 	</insert>
 	<!-- 아이디, 닉네임, 핸드폰 번호, 이메일 중복 확인 -->
 	<select id="checkMemberById">
 		SELECT COUNT(*) FROM member WHERE id = #{id}
 	</select>
-	
+
 	<select id="checkMemberByNickname">
-		SELECT COUNT(*) FROM member WHERE nickname = #{nickname}
+		SELECT COUNT(*) FROM member WHERE nickname =
+		#{nickname}
 	</select>
-	
+
 	<select id="checkMemberByPhonenumber">
-		SELECT COUNT(*) FROM member WHERE phonenumber = #{phonenumber}
+		SELECT COUNT(*) FROM member WHERE phonenumber =
+		#{phonenumber}
 	</select>
-	
+
 	<select id="checkMemberByEmail">
 		SELECT COUNT(*) FROM member WHERE email = #{email}
+	</select>
+
+	<select id="findById" resultType="com.walkietalkie.triptalkie.domain.Member">
+		SELECT id, nickname, password, name, birth, gender, phonenumber, email, address, travel_concept, credit FROM member WHERE id = #{id}
 	</select>
 </mapper>
