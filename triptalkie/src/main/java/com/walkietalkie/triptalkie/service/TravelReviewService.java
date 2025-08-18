@@ -34,13 +34,13 @@ public class TravelReviewService {
 		return travelReviewMapper.deleteTravelreviewByIdx(idx);
 	}
 
-	public Long registerTravelreview(TravelReview travelreview) {
-		travelReviewMapper.registerTravelreview(travelreview);
-		return travelreview.getIdx();
+	public Long registerTravelreview(TravelReview travelReview) {
+		travelReviewMapper.registerTravelreview(travelReview);
+		return travelReview.getIdx();
 	}
 
-	public void updateTravelreviewByIdxAndMemberId(TravelReview travelreview) {
-		travelReviewMapper.updateTravelreviewByIdxAndMemberId(travelreview);
+	public void updateTravelreviewByIdxAndMemberId(TravelReview travelReview) {
+		travelReviewMapper.updateTravelreviewByIdxAndMemberId(travelReview);
 		
 	}
 	
