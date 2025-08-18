@@ -16,4 +16,6 @@ public interface MemberMapper {
 	int checkMemberByPhonenumber(String phonenumber);
 
 	int checkMemberByEmail(String email);
+	
+	Member findById(String id);
 }

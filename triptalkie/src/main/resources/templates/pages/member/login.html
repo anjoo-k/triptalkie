@@ -1,67 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/base}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base2}">
 
-<!-- content fragement 선언 부분 -->
 <main layout:fragment="content">
-    <h4 class="text-center content--title">로그인</h4>
-    <div class="register-containers bg--containers pt-5 pb-5">
-        <!-- 프로필 이미지 -->
-        <!-- <div class="text-center mb-5">    
-			<img class="img-thumbnail original--profile"  alt="original-profile"
-				th:src="@{/images/original-profile.png}"
-				style="width: 150px; height: auto; border-radius: 1.25rem;">
-		</div> -->
-		<div class="form-container">
-	        <form th:action="@{/member/login}" method="post">
-	            <!-- 아이디 -->
-	            <div class="form-group row">
-	                <label for="id" class="col-sm-3 col-form-label">아이디</label>
-	                <div class="col-sm-9">
-	                    <input type="text" id="id" name="id" class="form-control" placeholder="아이디 입력" required>
-	                </div>
-	            </div>
-	
-	            <!-- 비밀번호 -->
-				<div class="form-group row">
-				    <label for="password" class="col-sm-3 col-form-label">비밀번호</label>
-				    <div class="col-sm-9">
-				        <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력" required>
-				    </div>
-				</div>
-				
-				<div class="form-group row mb-4">
-				    <div class="col-sm-6">
-				        <button type="button" class="btn btn-block btn-signup">회원 가입</button>
-				    </div>
-				    <div class="col-sm-6">
-				        <button type="button" class="btn btn-block btn-findIdOrPwd">아이디/비밀번호 찾기</button>
-				    </div>
-				</div>
-	
-	            <!-- 완료 버튼 -->
-	            <div class="form-group text-center">
-	                <button type="button" class="btn btn-block btn-login btn-primary" data-toggle="modal" data-target="#myModal">로그인</button>
-	            </div>
-	        </form>
-    	</div>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header text-center">
+            로그인
+          </div>
+          <div class="card-body">
+						<form id="loginForm" method="post" action="/member/login">
+              <div class="form-group">
+                <label for="id">아이디</label>
+                <input type="text" class="form-control" id="id" name="id" required>
+              </div>
+              <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">로그인</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-	<!-- The Modal -->
-	<div class="modal fade" id="myModal">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content py-4">
-
-				<!-- Modal body -->
-				<div class="modal-body text-center">아이디/혹은 비밀번호가 틀렸습니다.</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer btn-no-border">
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">확인</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
+  <!-- Bootstrap Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="modalTitle">로그인 실패</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modalMessage">
+          <!-- 실패 메시지 출력 -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#loginForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/member/login', // 컨트롤러 POST 매핑
+        type: 'POST',
+        data: $(this).serialize(),
+        success: function(res) {
+          if(res.status === 'success') {
+//          window.location.href = res.redirectUrl; // /으로 이동
+            window.location.href = "http://localhost:8080/"; // /으로 이동
+          } else {
+            $('#modalMessage').text(res.message);
+            $('#errorModal').modal('show');
+          }
+        },
+        error: function() {
+          $('#modalMessage').text('서버 오류가 발생했습니다.');
+          $('#errorModal').modal('show');
+        }
+      });
+    });
+  });
+</script>

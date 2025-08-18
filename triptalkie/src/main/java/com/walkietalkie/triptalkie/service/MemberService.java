@@ -7,9 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.mapper.MemberMapper;
 
+import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class MemberService {
-	
+  private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
 	private final BCryptPasswordEncoder passwordEncoder; // 비밀번호 암호화
 	private final MemberMapper memberMapper;
 	
@@ -25,6 +29,19 @@ public class MemberService {
 		member.setCredit(50.0);  // default credit 처리
 		return memberMapper.register(member);
 	}
+	
+  public boolean login(String id, String password, HttpSession session) {
+    Member member = memberMapper.findById(id);
+
+    if (member != null && passwordEncoder.matches(password, member.getPassword())) {
+      session.setAttribute("MemberId", member.getId());
+      session.setAttribute("MemberNickname", member.getNickname());
+      logger.info("로그인 성공: {}", member.getId());
+      return true;
+    }
+    logger.warn("로그인 실패: {}", id);
+    return false;
+  }
 	
 	/**
 	 * @Transactional(readOnly = true) 
