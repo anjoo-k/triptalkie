@@ -53,12 +53,12 @@ public class CommunityController {
 	// 커뮤니티 글 작성 처리
 	@PostMapping("/register")
 	public String registerCommunity(@ModelAttribute Community community, HttpSession session, RedirectAttributes redirectAttributes) {
-		String memberId = (String) session.getAttribute("loggedInMemberId");
-//		if (memberId == null) {
-//			redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
-//			return "redirect:/member/login";
-//		}
-		community.setMember_id("M001");
+		String memberId = (String) session.getAttribute("loginMemberId");
+		if (memberId == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
+			return "redirect:/member/login";
+		}
+		community.setMember_id(memberId);
 		communityService.registerCommunity(community);
 		return "redirect:/community/list";
 	}
