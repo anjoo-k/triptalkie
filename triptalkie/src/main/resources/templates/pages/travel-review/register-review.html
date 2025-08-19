@@ -8,11 +8,11 @@
 		
 		<!-- 여행 후기 작성 폼 -->
 		<div class="form-container">
-			<form th:action="@{/}">
+			<form th:action="@{/travel-review/registerTravelreview}" method="post">
 				<div class="form-group row">
 					<div class="col-sm-12">
-						<input type="text" id="title" name="title" class="form-control"
-							placeholder="나의 후기를 모두에게 알려줄 제목을 작성해주세요" required>
+						<input type="text" id="title" name="title" class="form-control" placeholder="나의 후기를 모두에게 알려줄 제목을 작성해주세요" required>
+						<input type="hidden" th:name="memberId" th:value="${session.memberId}">
 					</div>
 				</div>
 
@@ -27,11 +27,9 @@
    						</svg>
 
 						<!-- 셀렉트 -->
-						<select class="form-control" name="city">
+						<select class="form-control" name="cityId">
 							<option value="">도시</option>
-							<option value="제주도">제주도</option>
-							<option value="시드니">시드니</option>
-							<option value="런던">런던</option>
+							<option th:each="city : ${cityList}" th:value="${city.id}" th:text="${city.name}"></option>
 						</select>
 					</div>
 				</div>
@@ -51,20 +49,20 @@
 					<!-- 메이트 유형 -->
 					<div class="col">
 						<p class="subheading mb-2">메이트 유형</p>
-							<input type="radio" id="allMate" name="mateType" value="전체 메이트" hidden>
-							<label for="allMate" class="btn mate-type">전체 메이트</label>
-							
-							<input type="radio" id="partMate" name="mateType" value="부분 메이트" hidden>
-							<label for="partMate" class="btn mate-type">부분 메이트</label>
-							
-							<input type="radio" id="stayMate" name="mateType" value="숙박 메이트" hidden>
-							<label for="stayMate" class="btn mate-type">숙박 메이트</label>
+						<input type="radio" id="allMate" name="mateType" value="전체 메이트" hidden>
+						<label for="allMate" class="btn mate-type">전체 메이트</label>
+						
+						<input type="radio" id="partMate" name="mateType" value="부분 메이트" hidden>
+						<label for="partMate" class="btn mate-type">부분 메이트</label>
+						
+						<input type="radio" id="stayMate" name="mateType" value="숙박 메이트" hidden>
+						<label for="stayMate" class="btn mate-type">숙박 메이트</label>
 					</div>
 
 					<!-- 여행 컨셉 -->
 					<div class="col col-sm-4">
 						<p class="subheading mb-2">여행 컨셉</p>
-						<select class="form-control" name="concept">
+						<select class="form-control" name="conceptType">
 							<option value="">여행 컨셉</option>
 							<option value="맛집/카페">맛집/카페</option>
 							<option value="술/친목">술/친목</option>
@@ -86,13 +84,13 @@
 
 				<div class="d-flex justify-content-between align-items-center">
 					<button type="button" class="btn btn-back">목록</button>
-					<button type="submit" class="btn btn-primary btn-complete-editing">수정</button>
+					<button type="submit" class="btn btn-primary btn-complete-editing">완료</button>
 				</div>
 			</form>
 		
 		</div>
 	
 	</div>
-
+<script src="/js/travel-review.js"></script>
 </main>
 </html>

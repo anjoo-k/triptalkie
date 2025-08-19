@@ -2,34 +2,48 @@ package com.walkietalkie.triptalkie.domain;
 
 import java.time.LocalDateTime;
 
-public class Travelreview {
+public class TravelReview {
 	private long idx;
 	private String title;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	private boolean mateuse;
-	private String concepttype;
-	private String matetype;
+	private boolean mateUse;
+	private String conceptType;
+	private String mateType;
 	private String content;
 	private String cityId;
 	private String memberId;
 
 	// 생성자
-	public Travelreview() {
+	public TravelReview() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Travelreview(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateuse,
-			String concepttype, String matetype, String content, String cityId, String memberId) {
+	public TravelReview(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateUse,
+			String conceptType, String mateType, String content, String cityId, String memberId) {
 		super();
 		this.idx = idx;
 		this.title = title;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.mateuse = mateuse;
-		this.concepttype = concepttype;
-		this.matetype = matetype;
+		this.mateUse = mateUse;
+		this.conceptType = conceptType;
+		this.mateType = mateType;
+		this.content = content;
+		this.cityId = cityId;
+		this.memberId = memberId;
+	}
+
+	public TravelReview(String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateUse,
+			String conceptType, String mateType, String content, String cityId, String memberId) {
+		super();
+		this.title = title;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.mateUse = mateUse;
+		this.conceptType = conceptType;
+		this.mateType = mateType;
 		this.content = content;
 		this.cityId = cityId;
 		this.memberId = memberId;
@@ -67,28 +81,28 @@ public class Travelreview {
 		this.updatedAt = updatedAt;
 	}
 
-	public boolean isMateuse() {
-		return mateuse;
+	public boolean isMateUse() {
+		return mateUse;
 	}
 
-	public void setMateuse(boolean mateuse) {
-		this.mateuse = mateuse;
+	public void setMateUse(boolean mateUse) {
+		this.mateUse = mateUse;
 	}
 
-	public String getConcepttype() {
-		return concepttype;
+	public String getConceptType() {
+		return conceptType;
 	}
 
-	public void setConcepttype(String concepttype) {
-		this.concepttype = concepttype;
+	public void setConceptType(String conceptType) {
+		this.conceptType = conceptType;
 	}
 
-	public String getMatetype() {
-		return matetype;
+	public String getMateType() {
+		return mateType;
 	}
 
-	public void setMatetype(String matetype) {
-		this.matetype = matetype;
+	public void setMateType(String mateType) {
+		this.mateType = mateType;
 	}
 
 	public String getContent() {
@@ -117,9 +131,10 @@ public class Travelreview {
 
 	@Override
 	public String toString() {
-		return "Travelreview [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", mateuse=" + mateuse + ", concepttype=" + concepttype + ", matetype=" + matetype + ", content="
+		return "TravelReview [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", mateUse=" + mateUse + ", conceptType=" + conceptType + ", mateType=" + mateType + ", content="
 				+ content + ", cityId=" + cityId + ", memberId=" + memberId + "]";
 	}
 
+	
 }

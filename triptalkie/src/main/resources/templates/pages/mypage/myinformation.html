@@ -6,29 +6,8 @@
 <!-- content fragement 선언 부분 -->
 <main layout:fragment="content" class="row">
 	<!-- 좌측 list -->
-	<aside class="col-sm-3">
-		<div class="list-group">
-			<div class="list-group">
-				<a th:href="@{/customerservice/notice}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='notice'} ? ' active'">내 정보 조회<span>></span></a>
-				<a th:href="@{/customerservice/faq}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='faq'} ? ' active'">내 채팅 목록<span>></span></a>
-				<a th:href="@{/customerservice/qna}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='qna'} ? ' active'">여행 리스트<span>></span></a>
-				<a th:href="@{/customerservice/qna}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='qna'} ? ' active'">깡총 지수<span>></span></a>
-				<a th:href="@{/customerservice/qna}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='qna'} ? ' active'">관심 여행 목록<span>></span></a>
-				<a th:href="@{/customerservice/qna}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='qna'} ? ' active'">내가 쓴 글<span>></span></a>
-			</div>
-		</div>
+	<aside  class="col-sm-3">
+	<div th:replace="fragments/mypage-list :: mypageList"></div>
 	</aside>
 	<section class="col-sm-9">
 		<article>
@@ -96,7 +75,7 @@
 		<!-- 내 정보 수정 버튼 -->
 		<article>
 			<div class="">
-				<button type="submit" class="btn btn-block btn-complete btn-primary">내
+				<button type="button" class="btn btn-block btn-complete btn-primary" id="btn-update-myinfo">내
 					정보 수정</button>
 			</div>
 		</article>

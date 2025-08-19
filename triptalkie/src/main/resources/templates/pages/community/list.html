@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
 
-<div layout:fragment="content" >
+<div layout:fragment="content">
 
-    <!-- 🔎 검색 영역 -->
-    <div class="d-flex mb-3 gap-2">
-        <input type="text" class="form-control" placeholder="검색어를 입력해 주세요.">
-        <button class="btn btn-outline-success">검색</button>
-    </div>
+	<!-- 🔎 검색 영역 -->
+	<div class="d-flex mb-3 gap-2">
+		<input type="text" class="form-control" placeholder="검색어를 입력해 주세요.">
+		<button class="btn btn-outline-success">검색</button>
+	</div>
 
-    <div class="d-flex mb-4 gap-2">
-        <select class="form-select w-auto">
-            <option selected>여행컨셉</option>
-            <option value="1">맛집</option>
-            <option value="2">액티비티</option>
-            <option value="3">문화/공연</option>
-        </select>
-        <select class="form-select w-auto">
-            <option selected>동행유형</option>
-            <option value="1">부분동행</option>
-            <option value="2">전체동행</option>
-            <option value="3">숙박공유</option>
-        </select>
-    </div>
+	<div class="d-flex mb-4 gap-2">
+		<select class="form-select w-auto">
+			<option selected>여행컨셉</option>
+			<option value="1">맛집</option>
+			<option value="2">액티비티</option>
+			<option value="3">문화/공연</option>
+		</select> <select class="form-select w-auto">
+			<option selected>동행유형</option>
+			<option value="1">부분동행</option>
+			<option value="2">전체동행</option>
+			<option value="3">숙박공유</option>
+		</select>
+	</div>
 
     <!-- 📋 게시판 리스트 -->
     <table class="table table-hover align-middle">
@@ -56,40 +55,63 @@
             </tr>
         </tbody>
     </table>
+	<!-- 📋 게시판 리스트 -->
+	<table class="table table-hover align-middle">
+		<thead class="table-light">
+			<tr>
+				<th style="width: 100px;">번호</th>
+				<th style="width: 400px">글제목</th>
+				<th style="width: 150px;">닉네임</th>
+				<th style="width: 80px;">조회수</th>
+				<th style="width: 300px;">작성일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="post, stat : ${communityList}">
+				<td th:text="${stat.count}">번호</td>
+				<td><a
+					th:href="@{/community/detail-community/{idx}(idx=${post.idx})}"
+					th:text="${post.title}">글 제목 </a></td>
+				<td th:text="${post.memberId}">작성자</td>
+				<td>123</td>
+				<td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2025-08-19</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <!-- 페이지네이션, 글쓰기 버튼 -->
-			<div class="d-flex justify-content-between align-items-center mb-3">
+	<!-- 페이지네이션, 글쓰기 버튼 -->
+	<div class="d-flex justify-content-between align-items-center mb-3">
 
-				<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
-				<div class="flex-grow-1 text-center">
-					<nav class="p-2 pagination--bottom">
-						<ul class="pagination justify-content-center mb-0">
-							<li class="page-item disabled pagination--spacing"><a
-								class="page-link" href="#">&laquo;</a></li>
-							<li class="page-item disabled pagination--spacing"><a
-								class="page-link" href="#">&lt;</a></li>
-							<li class="page-item active pagination--spacing"><a
-								class="page-link" href="#">1</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">3</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">&gt;</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">&raquo;</a></li>
-						</ul>
-					</nav>
-				</div>
-
-				<!-- 오른쪽 글쓰기 버튼 -->
-				<div class="text-end">
-					<a class="btn btn-write" th:href="@{/community/register}">글쓰기</a>
-				</div>
-			</div>
+		<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
+		<div class="flex-grow-1 text-center">
+			<nav class="p-2 pagination--bottom">
+				<ul class="pagination justify-content-center mb-0">
+					<li class="page-item disabled pagination--spacing"><a
+						class="page-link" href="#">&laquo;</a></li>
+					<li class="page-item disabled pagination--spacing"><a
+						class="page-link" href="#">&lt;</a></li>
+					<li class="page-item active pagination--spacing"><a
+						class="page-link" href="#">1</a></li>
+					<li class="page-item pagination--spacing"><a class="page-link"
+						href="#">2</a></li>
+					<li class="page-item pagination--spacing"><a class="page-link"
+						href="#">3</a></li>
+					<li class="page-item pagination--spacing"><a class="page-link"
+						href="#">&gt;</a></li>
+					<li class="page-item pagination--spacing"><a class="page-link"
+						href="#">&raquo;</a></li>
+				</ul>
+			</nav>
 		</div>
+
+		<!-- 오른쪽 글쓰기 버튼 -->
+		<div class="text-end">
+			<a class="btn btn-write" th:href="@{/community/register}">글쓰기</a>
+		</div>
+	</div>
+</div>
 </html>
-      
+
 
 
 

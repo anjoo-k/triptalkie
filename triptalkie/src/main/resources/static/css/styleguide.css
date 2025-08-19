@@ -15,13 +15,19 @@ body {
 }
 
 main {
-    margin: 40px auto; /* 위아래 20px, 좌우 auto로 가운데 정렬 */
-    max-width: 750px;  /* 폭 제한 */
+	margin: 40px auto;
+	/* 위아래 20px, 좌우 auto로 가운데 정렬 */
+	max-width: 750px;
+	/* 폭 제한 */
 }
 
 textarea {
-     resize: none;
-     height: 300px; 
+	resize: none;
+	height: 300px;
+}
+
+button {
+	border-radius: 10px;
 }
 
 
@@ -32,7 +38,7 @@ textarea {
 	--color-secondary: #FAFAFA;
 	--color-success: #28A745;
 	--color-error: #DC3545;
-	
+
 	/* 기본 폰트 컬러, 각 리스트들의 제목 */
 	--color-text-primary: #333333;
 	--color-text-secondary: #635F5F;
@@ -41,7 +47,9 @@ textarea {
 	--color-border: #dbdbdb;
 	/* 메이트 유형 기본 배지*/
 	--color-badge: #E7F6F3;
-	
+	/* 게시판 백그라운드 컬러 */
+	--color-board-background : #fff;
+
 	--main-text-style-noto-sans-font-family: "Noto Sans", Helvetica;
 	--main-text-style-noto-sans-font-weight: 400;
 	--main-text-style-noto-sans-font-size: 12px;
@@ -51,10 +59,15 @@ textarea {
 }
 
 /* 3. Typography */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--color-text-primary);
-    font-weight: 700;
-    margin: 0 0 0.5rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--color-text-primary);
+	font-weight: 700;
+	margin: 0 0 0.5rem;
 }
 
 /*p {
@@ -64,26 +77,26 @@ h1, h2, h3, h4, h5, h6 {
 }*/
 
 .content-text {
-    color: var(--color-text-secondary);
+	color: var(--color-text-secondary);
 }
 
 .content--title {
-	margin-bottom: 40px 
+	margin-bottom: 40px
 }
 
 /* 상세 페이지 소제목 */
 .subheading {
-    color: var(--color-text-primary);
-    font-weight: 500;
+	color: var(--color-text-primary);
+	font-weight: 700;
 }
 
 /* 4. Background Colors */
 .bg-primary {
-    background-color: var(--color-primary) !important;
+	background-color: var(--color-primary) !important;
 }
 
 .bg-secondary {
-    background-color: var(--color-secondary) !important;
+	background-color: var(--color-secondary) !important;
 }
 
 .bg--containers {
@@ -95,70 +108,75 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 기본 버튼 */
 .btn-primary {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    border: none;
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	border: none;
+	border-radius: 10px;
 }
 
 .btn-primary:hover {
-    background-color: #6CC7B5;
+	background-color: #6CC7B5;
 }
 
 .btn--radius {
 	border-radius: 10px;
+	width: 80px;
 }
 
 /* 게시글 작성 버튼 */
 .btn-write {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    border: 1px solid var(--color-primary);
-   /*  background-color: transparent; */
-    border-radius: 10px;
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	/*  background-color: transparent; */
+	border-radius: 10px;
 }
 
-.btn-write:active, .btn-write:focus, .btn-write:hover {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
+.btn-write:active,
+.btn-write:focus,
+.btn-write:hover {
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
 }
 
 /* 검색 버튼 */
 .btn-search {
-    background-color: var(--color-primary);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    background-color: transparent;
-    border-radius: 10px;
+	background-color: var(--color-primary);
+	color: var(--color-primary);
+	border: 1px solid var(--color-primary);
+	background-color: transparent;
+	border-radius: 10px;
 }
 
 .btn-search:hover {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
 }
 
 /* 상세 페이지 버튼 / 배지 */
 .btn-detail {
-    background-color: var(--color-secondary);
-    color: var(--color-text-secondary);
-    border: 1px solid var(--color-border);
+	background-color: var(--color-secondary);
+	color: var(--color-text-secondary);
+	border: 1px solid var(--color-border);
 }
 
-.badge-detail{
+.badge-detail {
 	background-color: var(--color-primary);
-    color: var(--color-secondary);
-    border: 1px solid var(--color-primary);
+	color: var(--color-secondary);
+	border: 1px solid var(--color-primary);
 }
 
 /* 목록/뒤로 버튼 (검색 버튼 스타일과 동일) */
 .btn-back {
-    background-color: transparent;
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
+	background-color: transparent;
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
+	border-radius: 10px;
 }
 
 .btn-back:hover {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
 }
 
 .btn-no-border {
@@ -179,8 +197,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .dropdown-item:hover {
-	background-color: var(--color-primary); /* 원하는 배경색 */
-	color: var(--color-secondary);; /* 원하는 텍스트 색상 */
+	background-color: var(--color-primary);
+	/* 원하는 배경색 */
+	color: var(--color-secondary);
+	;
+	/* 원하는 텍스트 색상 */
 	opacity: 0.5;
 	border-radius: 10px;
 	padding-left: 10px;
@@ -188,12 +209,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 8. Lists (게시판) */
 .list-title {
-    color: var(--color-text-primary);
-    font-weight: 500;
+	color: var(--color-text-primary);
+	font-weight: 500;
 }
 
 .list-content {
-    color: var(--color-text-secondary);
+	color: var(--color-text-secondary);
 }
 
 .form-container {
@@ -203,10 +224,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 9. Utility Classes */
-.text-primary { color: var(--color-primary) !important; }
-.text-secondary { color: var(--color-secondary) !important; }
-.text-success { color: var(--color-success) !important; }
-.text-error { color: var(--color-error) !important; }
+.text-primary {
+	color: var(--color-primary) !important;
+}
+
+.text-secondary {
+	color: var(--color-secondary) !important;
+}
+
+.text-success {
+	color: var(--color-success) !important;
+}
+
+.text-error {
+	color: var(--color-error) !important;
+}
 
 .text-icon {
 	color: var(--color-primary);
@@ -214,23 +246,28 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 9. pagination ( 페이지네이션 ) */
 .page-item.active .page-link {
-    z-index: 3;
-    color: var(--color-secondary);
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+	z-index: 3;
+	color: var(--color-secondary);
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
 }
 
 .page-link:hover {
-    background-color: var(--color-primary);  /* 호버 배경색 */
-    border-color: var(--color-primary);     /* 호버 테두리 */
-    color: var(--color-text-primary);            /* 호버 글자 */
-    opacity: 0.5;
+	background-color: var(--color-primary);
+	/* 호버 배경색 */
+	border-color: var(--color-primary);
+	/* 호버 테두리 */
+	color: var(--color-text-primary);
+	/* 호버 글자 */
+	opacity: 0.5;
 }
 
 .pagination--spacing {
-	margin-right: 0.5rem; /* 8px */
+	margin-right: 0.5rem;
+	/* 8px */
 }
+
 .page-link {
-  border-radius: 10px !important;
-  color: var(--color-text-primary);
+	border-radius: 10px !important;
+	color: var(--color-text-primary);
 }

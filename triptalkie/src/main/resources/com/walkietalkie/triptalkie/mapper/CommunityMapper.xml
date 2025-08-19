@@ -11,9 +11,23 @@
 		(#{title},#{content},NOW(),#{memberId})
 	</insert>
 
+
 	<select id="findCommunityByIdx" parameterType="long" resultType="com.walkietalkie.triptalkie.domain.Community">
 		select *
 		from community
 		where idx = #{idx}
+	</select>
+
+	<select id="findByIdx" parameterType="long"
+		resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT *
+		FROM community
+		WHERE idx = #{idx}
+	</select>
+	
+	<select id="findAllList" resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT * 
+		FROM community
+		ORDER BY idx DESC 
 	</select>
 </mapper>
