@@ -19,4 +19,8 @@ public interface CommunityMapper {
 	List<Community> findAllList();
 >>>>>>> develop
 	
+	List<Community> findAllList();
+
+	int updateCommunity(Community community);
+	
 }
