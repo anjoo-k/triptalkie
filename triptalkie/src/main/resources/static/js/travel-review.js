@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			location.href = "/write-review";
 		});
 	}
+	
+	// 글쓰기 버튼
+	const backBtn = document.querySelector(".btn-back");
+	if (backBtn) {
+		backBtn.addEventListener("click", function() {
+			location.href = "/travel-review/findTravelreviewAllList";
+		});
+	}
 
 	// ---- 수정 페이지 이동 ----
 	const editBtn = document.getElementById('btn-edit');

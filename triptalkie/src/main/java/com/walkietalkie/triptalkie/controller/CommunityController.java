@@ -2,11 +2,11 @@ package com.walkietalkie.triptalkie.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,6 +36,8 @@ public class CommunityController {
 	// 커뮤니티 목록 페이지
 	@GetMapping("/list")
 	public String communityList(Model model) {
+		List<Community> communityList = communityService.findCommunityAllList();
+	    model.addAttribute("communityList", communityList);
 		return "pages/community/list";
 	}
 	
@@ -60,13 +62,20 @@ public class CommunityController {
 		return "redirect:/community/list";
 	}
 
-//    // 커뮤니티 글 상세 보기
-//    @GetMapping("/detail/{idx}")
-//    public String communityDetail(@PathVariable("idx") long idx, Model model) {
-//        Community community = communityService.findCommunityByIdx(idx);
-//        model.addAttribute("community", community);
-//        return "pages/community/detail"; // detail.html 파일을 새로 만들어야 합니다.
-//    }
+    // 커뮤니티 글 상세 보기
+    @GetMapping("/detail-community/{idx}")
+    public String communityDetail(@PathVariable("idx") long idx, Model model) {
+        Community community = communityService.findCommunityByIdx(idx);
+        
+        // null 체크 추가
+        if (community == null) {
+            throw new IllegalArgumentException("해당"+ idx+"로 게시글을 찾을 수 없습니다 ");
+        }
+        
+        model.addAttribute("community", community);
+        return "pages/community/detail-community"; // detail.html 파일을 새로 만들어야 합니다.
+    }
+    
 
 	// 커뮤니티 글 수정 페이지
 //    @GetMapping("/update/{idx}")

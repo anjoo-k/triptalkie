@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<main layout:fragment="content">
+    <h4 class="text-center content--title">커뮤니티 게시글</h4>
+    <div class="register-containers bg--containers pt-5 pb-5">
+        <div class="form-container">
+
+            <!-- 제목 -->
+            <div class="form-group row detail-review">
+                <div class="col-sm-12">
+                    <h5 class="font-weight-bold" th:text="${community.title}">제목 예시</h5>
+                    <input type="hidden" th:value="${community.idx}">
+                </div>
+            </div>
+
+            <div class="board-divider mb-3"></div>
+
+            <!-- 작성자, 작성일 -->
+            <div class="form-group row detail-review">
+                <div class="col">
+                    <span>작성자: <span th:text="${community.memberId}">user01</span></span>
+                </div>
+                <div class="col text-end">
+                    <span th:text="${#temporals.format(community.createdAt, 'yyyy-MM-dd HH:mm')}">작성일</span>
+                </div>
+            </div>
+
+            <div class="board-divider mb-3"></div>
+
+            <!-- 본문 -->
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <p class="detail-content" th:text="${community.content}">
+                        글 내용 예시
+                    </p>
+                </div>
+            </div>
+
+            <div class="board-divider mb-3"></div>
+
+            <!-- 버튼 -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="/community/list" class="btn btn-back">목록</a>
+                <th:block th:if="${session.memberId != null && session.memberId == community.memberId}">
+                    <div>
+                        <button type="button" class="btn btn-edit">수정</button>
+                        <button type="button" class="btn btn-danger">삭제</button>
+                    </div>
+                </th:block>
+            </div>
+
+        </div>
+    </div>
+</main>
+</html>
