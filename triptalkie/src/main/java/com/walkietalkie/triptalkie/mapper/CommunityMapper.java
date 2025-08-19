@@ -11,8 +11,16 @@ public interface CommunityMapper {
 
 	int register(Community community);
 
+<<<<<<< HEAD
+	Community findCommunityByIdx(long idx);
+=======
 	Community findByIdx(long idx);
 
 	List<Community> findAllList();
+>>>>>>> develop
+	
+	List<Community> findAllList();
+
+	int updateCommunity(Community community);
 	
 }
