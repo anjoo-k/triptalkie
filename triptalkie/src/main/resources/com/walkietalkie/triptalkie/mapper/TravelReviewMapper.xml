@@ -2,15 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.TravelReviewMapper">
-	<!-- 전체 게시글 수 조회 -->
-	<select id="findTravelreviewAllCount" resultType="int">
-		SELECT COUNT(*)
-		FROM travelreview
-	</select>
-
-	<!-- 페이징 처리된 게시글 조회 -->
-	<select id="findPaged" resultType="map" parameterType="map">
-		SELECT
+	<sql id="travelReviewColumns">
 		t.idx,
 		t.title,
 		t.content,
@@ -23,60 +15,97 @@
 		c.name AS cityName,
 		t.member_id AS memberId,
 		m.nickname AS memberNickname
+	</sql>
+
+	<!-- 동적 검색 + 카테고리 전체 게시글 수 조회 -->
+	<select id="findTravelreviewAllCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM travelreview t
+		LEFT JOIN city c ON t.city_id = c.id
+		<where>
+			<!-- 나라 선택 -->
+			<if test="countryId != null and countryId != ''">
+				AND c.country_id = #{countryId}
+			</if>
+
+			<!-- 도시 선택 -->
+			<if test="cityId != null and cityId != ''">
+				AND t.city_id = #{cityId}
+			</if>
+
+			<!-- 테마 선택 -->
+			<if test="conceptType != null and conceptType != ''">
+				AND t.concepttype = #{conceptType}
+			</if>
+
+			<!-- 키워드 검색 -->
+			<if test="keyword != null and keyword != ''">
+				AND (t.title LIKE CONCAT('%', #{keyword}, '%')
+				OR t.content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 동적으로 카테고리와 검색 + 페이징 처리된 게시글 조회 -->
+	<select id="findPaged" resultType="map" parameterType="map">
+		SELECT
+		<include refid="travelReviewColumns" />
 		FROM travelreview t
 		LEFT JOIN member m ON t.member_id = m.id
-		LEFT JOIN city c ON t.city_id = c.id
+		LEFT JOIN
+		city c ON t.city_id = c.id
+		<where>
+			<!-- 나라 선택 -->
+			<if test="countryId != null and countryId != ''">
+				AND c.country_id = #{countryId}
+			</if>
+
+			<!-- 도시 선택 -->
+			<if test="cityId != null and cityId != ''">
+				AND t.city_id = #{cityId}
+			</if>
+
+			<!-- 테마 선택 -->
+			<if test="conceptType != null and conceptType != ''">
+				AND t.concepttype = #{conceptType}
+			</if>
+
+			<!-- 키워드 검색 -->
+			<if test="keyword != null and keyword != ''">
+				AND (t.title LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				t.content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+		</where>
 		ORDER BY t.idx DESC
 		LIMIT #{size} OFFSET #{startRow}
 	</select>
 
-	<select id="findTravelreviewAllList" resultType="map">
-		SELECT
-		t.idx,
-		t.title,
-		t.content,
-		t.created_at AS createdAt,
-		t.updated_at AS updatedAt,
-		t.mateuse,
-		t.concepttype AS conceptType,
-		t.matetype AS mateType,
-		t.city_id AS cityId,
-		c.name AS cityName,
-		t.member_id AS memberId,
-		m.nickname AS memberNickname
-		FROM travelreview t
-		LEFT JOIN member m ON t.member_id = m.id
-		LEFT JOIN city c ON t.city_id = c.id
-		ORDER BY t.idx DESC
-	</select>
+	<!-- <select id="findTravelreviewAllList" resultType="map"> SELECT <include 
+		refid="travelReviewColumns" /> FROM travelreview t LEFT JOIN member m ON 
+		t.member_id = m.id LEFT JOIN city c ON t.city_id = c.id ORDER BY t.idx DESC 
+		</select> -->
 
 	<insert id="registerTravelreview"
 		parameterType="com.walkietalkie.triptalkie.domain.TravelReview"
 		useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO travelreview
-		(title, created_at, mateuse, concepttype, matetype, content, city_id, member_id)
-		VALUES (#{title}, NOW(), #{mateUse}, #{conceptType}, #{mateType}, #{content}, #{cityId}, #{memberId})
+		(title,
+		created_at, mateuse, concepttype, matetype, content, city_id,
+		member_id)
+		VALUES (#{title}, NOW(), #{mateUse}, #{conceptType},
+		#{mateType}, #{content}, #{cityId}, #{memberId})
 
 	</insert>
 
 	<select id="findTravelreviewByIdx" parameterType="Long"
 		resultType="map">
 		SELECT
-		t.idx,
-		t.title,
-		t.content,
-		t.created_at AS createdAt,
-		t.updated_at AS updatedAt,
-		t.mateuse,
-		t.concepttype AS conceptType,
-		t.matetype AS mateType,
-		t.city_id AS cityId,
-		c.name AS cityName,
-		t.member_id AS memberId,
-		m.nickname AS memberNickname
+		<include refid="travelReviewColumns" />
 		FROM travelreview t
 		LEFT JOIN member m ON t.member_id = m.id
-		LEFT JOIN city c ON t.city_id = c.id
+		LEFT JOIN
+		city c ON t.city_id = c.id
 		WHERE idx = #{idx};
 	</select>
 
@@ -89,7 +118,8 @@
 		#{content},
 		mateuse = #{mateUse},
 		concepttype = #{conceptType},
-		matetype = #{mateType},
+		matetype
+		= #{mateType},
 		updated_at = NOW(),
 		city_id = #{cityId}
 		WHERE idx = #{idx}
@@ -97,7 +127,16 @@
 	</update>
 
 	<delete id="deleteTravelreviewByIdx" parameterType="Long">
-		DELETE FROM travelreview
+		DELETE FROM
+		travelreview
 		WHERE idx = #{idx}
 	</delete>
+
+	<!-- 검색 -->
+	<select id="findTravelreviewSearchUnited">
+		SELECT
+		<include refid="travelReviewColumns" />
+
+
+	</select>
 </mapper>
