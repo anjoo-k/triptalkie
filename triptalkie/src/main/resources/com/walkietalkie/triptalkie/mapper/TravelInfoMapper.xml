@@ -3,16 +3,16 @@
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoMapper">
 	<insert id="registerTravelInfo" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		INSERT INTO travelinfo (title, infotype, infodate, content, member_id) VALUES (#{title}, #{infotype}, #{infordate}, #{content}, #{member_id})
+		INSERT INTO travelinfo (title, infotype, infodate, city_id, content, member_id) VALUES (#{title}, #{infotype}, #{infodate}, #{cityId}, #{content}, #{memberId})
 	</insert>
 	<select id="findTravelInfoAllList" resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		select idx, title, view, created_at, updated_at, infotype, infodate, content, member_id from travelinfo
+		select idx, title, view, created_at, updated_at, infotype, infodate, city_id, content, member_id from travelinfo
 	</select>
 	<select id="findTravelInfoIdx" resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		select idx, title, view, created_at, updated_at, infotype, infodate, content, member_id from travelinfo where idx=#{idx}
+		select idx, title, view, created_at, updated_at, infotype, infodate, city_id, content, member_id from travelinfo where idx=#{idx}
 	</select>
 	<update id="updateTravelInfoByIdxAndMemberId" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		update travelinfo set title=#{title}, infotype=#{infotype}, infodate=#{infodate}, content=#{content}  where idx=#{idx} and member_id=#{member_id}
+		update travelinfo set title=#{title}, infotype=#{infotype}, infodate=#{infodate}, city_id=#{cityId}, content=#{content}, updated_at = NOW()  where idx=#{idx} and member_id=#{memberId}
 	</update>
 	<delete id="deleteTravelInfoByIdx" parameterType="Integer">
 		delete from travelinfo where idx = #{idx}

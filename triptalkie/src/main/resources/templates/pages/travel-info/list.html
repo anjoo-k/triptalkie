@@ -1,35 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
-<head>
-  <title>여행 정보 리스트</title>
-</head>
-<body>
-  <div layout:fragment="content">
-    <h2>여행 정보 리스트</h2>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>등록일</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="info, stat : ${travelInfos}">
-          <td th:text="${stat.count}"></td>
-          <td>
-            <a th:href="@{|/travel-info/${info.id}|}" 
-               th:text="${info.title}"></a>
-          </td>
-          <td th:text="${info.writer}"></td>
-          <td th:text="${#temporals.format(info.createdDate, 'yyyy-MM-dd')}"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</body>
+<main layout:fragment="content">
+	<h4 class="text-center content--title">여행 정보 게시판</h4>
+
+	<div class="travel-info-containers bg--containers pt-5 pb-5">
+		<!-- 검색 폼 -->
+		<div class="form-container mb-3">
+			<form th:action="@{/travel-info/list}" method="get">
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<input type="text" name="keyword" class="form-control"
+							placeholder="무엇을 찾아볼까요?" th:value="${keyword}">
+					</div>
+					<div class="col-sm-2">
+						<button type="submit" class="btn btn-block btn-search">검색</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="info-list-container mt-4 mx-4">
+			<div th:each="info : ${travelInfoList}">
+				<div class="card mb-3">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<a th:href="@{/travel-info/detail/{idx}(idx=${info.idx})}"
+									th:text="${info.title}">글 제목</a>
+								<div class="small mt-1"
+									th:text="${info.memberId}">작성자</div>
+							</div>
+							<div class="small">
+								<span
+									th:text="${#temporals.format(info.createdAt, 'yyyy-MM-dd')}">2025-08-19</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 페이징 -->
+		<nav class="mt-4">
+			<ul class="pagination justify-content-center">
+				<!-- 이전 블록 -->
+				<li class="page-item"
+					th:classappend="${pageData.currentPage == 1} ? 'disabled'"><a
+					class="page-link"
+					th:href="@{/travel-info/list(page=${pageData.currentPage - 1})}">&laquo;</a>
+				</li>
+
+				<!-- 페이지 번호 -->
+				<li class="page-item"
+					th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
+					th:classappend="${i == pageData.currentPage} ? 'active'"><a
+					class="page-link" th:href="@{/travel-info/list(page=${i})}"
+					th:text="${i}">1</a></li>
+
+				<!-- 다음 블록 -->
+				<li class="page-item"
+					th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
+					<a class="page-link"
+					th:href="@{/travel-info/list(page=${pageData.currentPage + 1})}">&raquo;</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="d-flex justify-content-end mt-3 mx-4">
+			<a th:href="@{/travel-info/register}" class="btn btn-warning">글쓰기</a>
+		</div>
+	</div>
+</main>
 </html>
