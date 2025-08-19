@@ -19,5 +19,8 @@ public interface CommunityMapper {
 	List<Community> findAllList();
 
 	int updateCommunity(Community community);
+
+
+	int deleteCommunity(long idx);
 	
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
 
 <!-- 커뮤니티 글 상세 페이지 -->
 <main layout:fragment="content">
@@ -51,7 +51,11 @@
 				<div>
 					<a th:href="@{/community/update/{idx}(idx=${community.idx})}"
 						class="btn btn-warning">수정</a>
-					<button type="button" class="btn btn-danger">삭제</button>
+					<form th:action="@{/community/delete/{idx}(idx=${community.idx})}"
+						method="post" style="display: inline;">
+						<button type="submit" class="btn btn-danger"
+							onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+					</form>
 				</div>
 			</div>
 

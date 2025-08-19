@@ -125,16 +125,22 @@ public class CommunityController {
 	}
 
 //    커뮤니티 글 삭제 처리
-//    @GetMapping("/delete/{idx}")
-//    public String deleteCommunity(@PathVariable("idx") long idx, HttpSession session, RedirectAttributes redirectAttributes) {
-//        Community community = communityService.findCommunityByIdx(idx);
-//        String memberId = (String) session.getAttribute("loggedInMemberId");
-//
-//        if (memberId == null || !memberId.equals(community.getMemberId())) {
-//            redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
-//            return "redirect:/community/detail/" + idx;
-//        }
-//        communityService.deleteCommunityByIdx(idx);
-//        return "redirect:/community/list";
-//    }
+    @PostMapping("/delete/{idx}")
+    public String deleteCommunity(@PathVariable("idx") long idx, HttpSession session, RedirectAttributes redirectAttributes) {
+        Community community = communityService.findCommunityByIdx(idx);
+        String memberId = (String) session.getAttribute("loggedInMemberId");
+        
+
+        // ✅ 로그 삽입
+        System.out.println("삭제 요청 idx: " + idx);
+        System.out.println("로그인한 사용자 ID: " + memberId);
+        System.out.println("게시글 작성자 ID: " + community.getMemberId());
+
+        if (memberId == null || !memberId.equals(community.getMemberId())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
+            return "redirect:/community/detail-community/" + idx;
+        }
+        communityService.deleteCommunityByIdx(idx);
+        return "redirect:/community/list";
+    }
 }

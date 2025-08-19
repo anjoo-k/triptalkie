@@ -38,4 +38,7 @@
     		updated_at=NOW()
     	where idx=#{idx} AND member_id=#{memberId}
     </update>
+    <delete id="deleteCommunity" parameterType="Long">
+		delete from community where idx = #{idx}
+	</delete>
 </mapper>
