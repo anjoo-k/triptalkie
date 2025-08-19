@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.walkietalkie.triptalkie.mapper.CommunityMapper">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.CommunityMapper">
 	<insert id="register"
 		parameterType="com.walkietalkie.triptalkie.domain.Community"
 		useGeneratedKeys="true" keyProperty="idx">
-		INSERT into community(title,content,created_at,member_id)
-		VALUES (#{title},#{content},NOW(),#{memberId})
+		INSERT into
+		community(title,content,created_at,member_id)
+		VALUES
+		(#{title},#{content},NOW(),#{memberId})
 	</insert>
+
+	<select id="findByIdx" parameterType="long"
+		resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT *
+		FROM community
+		WHERE idx = #{idx}
+	</select>
+	
+	<select id="findAllList" resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT * 
+		FROM community
+		ORDER BY idx DESC 
+	</select>
 </mapper>
