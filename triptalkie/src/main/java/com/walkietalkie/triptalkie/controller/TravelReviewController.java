@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.walkietalkie.triptalkie.domain.City;
+import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.TravelReview;
 import com.walkietalkie.triptalkie.service.CityService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;
@@ -34,13 +34,19 @@ public class TravelReviewController {
 		this.travelReviewService = travelReviewService;
 		this.cityService = cityService;
 	}
-
+	
 	@GetMapping("/findTravelreviewAllList")
-	public String findTravelreviewAllList (Model model){
-	    List<Map<String, Object>> reviewList = travelReviewService.findTravelreviewAllList();
-	    model.addAttribute("reviewList", reviewList);
-	    
-	    return "pages/travel-review/findTravelreviewAllList";
+	public String findTravelreviewAllList (@RequestParam(defaultValue = "1") int page, 
+	                                       @RequestParam(defaultValue = "5") int size, 
+	                                       Model model){
+		// 서비스에서 바로 CommonPage 객체 생성
+		CommonPage<Map<String, Object>> pageData = travelReviewService.findTravelreviewPage(page, size);
+
+		// 모델에 데이터 넣기
+		model.addAttribute("reviewList", pageData.getContent()); // 실제 데이터 리스트
+		model.addAttribute("pageData", pageData); // 페이징 정보 전체
+
+		return "pages/travel-review/findTravelreviewAllList";
 	}
 	
 	@GetMapping("/detail-review/{idx}")
