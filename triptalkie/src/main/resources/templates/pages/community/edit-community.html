@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <title th:text="'글 수정 - ' + ${community.title}">커뮤니티 글 수정</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 </head>
-<body>
- 	<h2>수정 페이지입니다</h2>
-</body>
+
+<main layout:fragment="content">
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>커뮤니티 글 수정</h2>
+      </div>
+      <div class="card-body">
+        <form th:action="@{/community/update}" th:object="${community}" method="post">
+          <!-- idx 숨김 필드 -->
+          <input type="hidden" th:field="*{idx}" />
+
+          <div class="form-group">
+            <label>제목</label>
+            <input type="text" class="form-control" th:field="*{title}" required />
+          </div>
+
+          <div class="form-group">
+            <label>내용</label>
+            <textarea class="form-control" rows="10" th:field="*{content}" required></textarea>
+          </div>
+
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">수정 완료</button>
+            <a th:href="@{/community/detail-community/{idx}(idx=${community.idx})}" class="btn btn-secondary">취소</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
 </html>

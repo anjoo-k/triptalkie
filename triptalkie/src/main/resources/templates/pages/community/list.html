@@ -49,29 +49,6 @@
             </tr>
         </tbody>
     </table>
-	<!-- 📋 게시판 리스트 -->
-	<table class="table table-hover align-middle">
-		<thead class="table-light">
-			<tr>
-				<th style="width: 100px;">번호</th>
-				<th style="width: 400px">글제목</th>
-				<th style="width: 150px;">닉네임</th>
-				<th style="width: 80px;">조회수</th>
-				<th style="width: 300px;">작성일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="post, stat : ${communityList}">
-				<td th:text="${stat.count}">번호</td>
-				<td><a
-					th:href="@{/community/detail-community/{idx}(idx=${post.idx})}"
-					th:text="${post.title}">글 제목 </a></td>
-				<td th:text="${post.memberId}">작성자</td>
-				<td>123</td>
-				<td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2025-08-19</td>
-			</tr>
-		</tbody>
-	</table>
 
 	<!-- 페이지네이션, 글쓰기 버튼 -->
 	<div class="d-flex justify-content-between align-items-center mb-3">
