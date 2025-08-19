@@ -3,56 +3,59 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/base}">
 
+<!-- 커뮤니티 글 상세 페이지 -->
 <main layout:fragment="content">
-    <h4 class="text-center content--title">커뮤니티 게시글</h4>
-    <div class="register-containers bg--containers pt-5 pb-5">
-        <div class="form-container">
+	<h4 class="text-center content--title">커뮤니티 게시글</h4>
+	<div class="register-containers bg--containers pt-5 pb-5">
 
-            <!-- 제목 -->
-            <div class="form-group row detail-review">
-                <div class="col-sm-12">
-                    <h5 class="font-weight-bold" th:text="${community.title}">제목 예시</h5>
-                    <input type="hidden" th:value="${community.idx}">
-                </div>
-            </div>
+		<!-- 상세 내용 컨테이너 -->
+		<div class="form-container">
 
-            <div class="board-divider mb-3"></div>
+			<!-- 제목 -->
+			<div class="form-group row">
+				<div class="col-sm-12">
+					<h5 class="font-weight-bold" th:text="${community.title}">게시글
+						제목</h5>
+				</div>
+			</div>
 
-            <!-- 작성자, 작성일 -->
-            <div class="form-group row detail-review">
-                <div class="col">
-                    <span>작성자: <span th:text="${community.memberId}">user01</span></span>
-                </div>
-                <div class="col text-end">
-                    <span th:text="${#temporals.format(community.createdAt, 'yyyy-MM-dd HH:mm')}">작성일</span>
-                </div>
-            </div>
+			<div class="board-divider mb-3"></div>
 
-            <div class="board-divider mb-3"></div>
+			<!-- 작성자 & 작성일 -->
+			<div class="form-group row align-items-center">
+				<div class="col-md d-flex align-items-center">
+					<span class="detail-text mr-3"> 작성자: <strong
+						th:text="${community.memberId}">작성자ID</strong>
+					</span> <span class="detail-text"> 작성일: <span
+						th:text="${#temporals.format(community.createdAt, 'yyyy-MM-dd HH:mm')}">2025-08-19</span>
+					</span>
+				</div>
+			</div>
 
-            <!-- 본문 -->
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <p class="detail-content" th:text="${community.content}">
-                        글 내용 예시
-                    </p>
-                </div>
-            </div>
+			<div class="board-divider mb-3"></div>
 
-            <div class="board-divider mb-3"></div>
+			<!-- 본문 -->
+			<div class="form-group row">
+				<div class="col-sm-12">
+					<p class="detail-content" th:text="${community.content}">커뮤니티
+						게시글의 본문 내용이 들어갑니다.</p>
+				</div>
+			</div>
 
-            <!-- 버튼 -->
-            <div class="d-flex justify-content-between align-items-center">
-                <a href="/community/list" class="btn btn-back">목록</a>
-                <th:block th:if="${session.memberId != null && session.memberId == community.memberId}">
-                    <div>
-                        <button type="button" class="btn btn-edit">수정</button>
-                        <button type="button" class="btn btn-danger">삭제</button>
-                    </div>
-                </th:block>
-            </div>
+			<div class="board-divider mb-3"></div>
 
-        </div>
-    </div>
+			<!-- 버튼 영역 (detail-travelreview.html 과 동일) -->
+			<div class="d-flex justify-content-between align-items-center">
+				<button type="button" class="btn btn-back"
+					th:onclick="|window.location.href='@{/community/list}'|">목록</button>
+				<div>
+					<a th:href="@{/community/update/{idx}(idx=${community.idx})}"
+						class="btn btn-warning">수정</a>
+					<button type="button" class="btn btn-danger">삭제</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </main>
 </html>

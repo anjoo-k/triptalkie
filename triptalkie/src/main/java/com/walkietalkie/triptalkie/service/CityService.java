@@ -22,4 +22,11 @@ public class CityService {
 		return cityMapper.findCityAllList();
 	}
 
+	/*
+	 *  나라 코드에 따라 도시들 출력하는 메서드
+	 */
+	public List<City> findCitiesByCountry(String countryName) {
+		return cityMapper.findCitiesByCountry(countryName);
+	}
+
 }
