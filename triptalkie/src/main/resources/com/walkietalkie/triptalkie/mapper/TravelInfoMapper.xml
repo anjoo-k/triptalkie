@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoMapper">
+	<insert id="registerTravelInfo" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		INSERT INTO travelinfo (title, infotype, infodate, content, member_id) VALUES (#{title}, #{infotype}, #{infordate}, #{content}, #{member_id})
+	</insert>
+	<select id="findTravelInfoAllList" resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		select idx, title, view, created_at, updated_at, infotype, infodate, content, member_id from travelinfo
+	</select>
+	<select id="findTravelInfoIdx" resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		select idx, title, view, created_at, updated_at, infotype, infodate, content, member_id from travelinfo where idx=#{idx}
+	</select>
+	<update id="updateTravelInfoByIdxAndMemberId" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		update travelinfo set title=#{title}, infotype=#{infotype}, infodate=#{infodate}, content=#{content}  where idx=#{idx} and member_id=#{member_id}
+	</update>
+	<delete id="deleteTravelInfoByIdx" parameterType="Integer">
+		delete from travelinfo where idx = #{idx}
+	</delete>
+	
+</mapper>
