@@ -8,7 +8,7 @@
 	<div class="travel-review-containers bg--containers pt-5 pb-5">
 		<!-- 검색 기능 : 추후 컴포넌트화 -->
 		<div class="form-container">
-			<form th:action="@{/}" method="get">
+			<form th:action="@{/travel-review/findTravelreviewSearchUnited}" method="get">
 				<div class="form-group row">
 					<div class="col-sm-10">
 						<input type="text" name="keyword" class="form-control" placeholder="무엇을 찾아볼까요?">
@@ -20,14 +20,14 @@
 				<!-- 카테고리 필터 -->
 				<div class="form-group row">
 					<div class="col-md">
-						<select class="form-control mr-2 countrySelect" name="country">
+						<select id="countrySelect" class="form-control mr-2" name="country">
 							<option value="">나라 선택</option>
 							<option th:each="country : ${countryList}" th:value="${country.id}" th:text="${country.name}"></option>
 						</select>
 					</div>
 
 					<div class="col-md">
-						<select class="form-control mr-2 citySelect" name="city">
+						<select id="citySelect" class="form-control mr-2" name="city">
 							<option value="">도시 선택</option>
 						</select>
 					</div>
