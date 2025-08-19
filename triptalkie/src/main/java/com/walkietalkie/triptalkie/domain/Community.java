@@ -58,14 +58,15 @@ public class Community {
   public String getMemberId() {
     return memberId;
   }
-  public void setMember_id(String memberId) {
-    this.memberId = memberId;
+  public void setMemberId(String memberId) {
+	  this.memberId = memberId;
   }
+
   // toString
   @Override
   public String toString() {
     return "Community [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
         + ", content=" + content + ", memberId=" + memberId + "]";
   }
-
+  
 }

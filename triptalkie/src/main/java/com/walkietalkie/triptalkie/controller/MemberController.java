@@ -87,8 +87,8 @@ public class MemberController {
       boolean loginSuccess = memberService.login(id, password, session);
 
       if (loginSuccess) {
-          // 로그인 성공
-          return "redirect:/"; // 메인 페이지로 리다이렉트
+    	    session.setAttribute("loggedInMemberId", id);  // ✅ 세션 저장
+    	    return "redirect:/";
       } else {
           // 로그인 실패
           redirectAttributes.addFlashAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");

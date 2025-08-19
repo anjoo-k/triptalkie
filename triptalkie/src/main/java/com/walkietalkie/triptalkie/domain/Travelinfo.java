@@ -2,7 +2,7 @@ package com.walkietalkie.triptalkie.domain;
 
 import java.time.LocalDateTime;
 
-public class Travelinfo {
+public class TravelInfo {
 	private long idx;
 	private String title;
 	private LocalDateTime createdAt;
@@ -13,12 +13,12 @@ public class Travelinfo {
 	private String memberId;
 
 	// 생성자
-	public Travelinfo() {
+	public TravelInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Travelinfo(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, String infotype,
+	public TravelInfo(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, String infotype,
 			LocalDateTime infodate, String content, String memberId) {
 		super();
 		this.idx = idx;
@@ -100,6 +100,11 @@ public class Travelinfo {
 		return "Travelinfo [idx=" + idx + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", infotype=" + infotype + ", infodate=" + infodate + ", content=" + content + ", memberId="
 				+ memberId + "]";
+	}
+
+	public void setMemberNickname(String currentgetMemberNickname) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

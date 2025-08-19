@@ -83,4 +83,14 @@ public class MemberService {
     return memberMapper.checkMemberByEmail(email);
   }
 
+  public String getLoginId(HttpSession session) {
+	// TODO Auto-generated method stub
+	return null;
+  }
+
+  public String getLoginNickname(HttpSession session) {
+	// TODO Auto-generated method stub
+	return null;
+  }
+
 }

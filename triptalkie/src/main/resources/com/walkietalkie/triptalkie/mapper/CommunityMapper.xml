@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.walkietalkie.triptalkie.mapper.CommunityMapper">
-	<insert id="register"
-		parameterType="com.walkietalkie.triptalkie.domain.Community"
-		useGeneratedKeys="true" keyProperty="idx">
-		INSERT into
-		community(title,content,created_at,member_id)
-		VALUES
-		(#{title},#{content},NOW(),#{memberId})
-	</insert>
+<mapper namespace="com.walkietalkie.triptalkie.mapper.CommunityMapper">
 
+    <insert id="register"
+            parameterType="com.walkietalkie.triptalkie.domain.Community"
+            useGeneratedKeys="true" keyProperty="idx">
+        INSERT INTO community(title, content, created_at, member_id)
+        VALUES (#{title}, #{content}, NOW(), #{memberId})
+    </insert>
 
-	<select id="findCommunityByIdx" parameterType="long" resultType="com.walkietalkie.triptalkie.domain.Community">
-		select *
-		from community
-		where idx = #{idx}
-	</select>
+    <select id="findCommunityByIdx" parameterType="long"
+            resultType="com.walkietalkie.triptalkie.domain.Community">
+        SELECT * FROM community
+        WHERE idx = #{idx}
+    </select>
 
-	<select id="findByIdx" parameterType="long"
-		resultType="com.walkietalkie.triptalkie.domain.Community">
-		SELECT *
-		FROM community
-		WHERE idx = #{idx}
-	</select>
-	
-	<select id="findAllList" resultType="com.walkietalkie.triptalkie.domain.Community">
-		SELECT * 
-		FROM community
-		ORDER BY idx DESC 
-	</select>
+    <select id="findByIdx" parameterType="long"
+            resultType="com.walkietalkie.triptalkie.domain.Community">
+        SELECT * FROM community
+        WHERE idx = #{idx}
+    </select>
 
-    <update id="updateCommunity" parameterType="com.walkietalkie.triptalkie.domain.Community">
-    	update community
-    	set title=#{title},
-    		content=#{content},
-    		updated_at=NOW()
-    	where idx=#{idx} AND member_id=#{memberId}
+    <select id="findAllList"
+            resultType="com.walkietalkie.triptalkie.domain.Community">
+        SELECT * FROM community
+        ORDER BY idx DESC
+    </select>
+
+    <update id="updateCommunity"
+            parameterType="com.walkietalkie.triptalkie.domain.Community">
+        UPDATE community
+        SET title = #{title},
+            content = #{content},
+            updated_at = NOW()
+        WHERE idx = #{idx}
+          AND member_id = #{memberId} <!-- ✅ 작성자 일치할 때만 수정 -->
     </update>
+
+    <delete id="deleteCommunity" parameterType="Long">
+        DELETE FROM community
+        WHERE idx = #{idx}
+    </delete>
+
 </mapper>
