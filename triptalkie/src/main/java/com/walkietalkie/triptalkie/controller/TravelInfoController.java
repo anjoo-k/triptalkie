@@ -138,4 +138,21 @@ public class TravelInfoController {
       }
   }
 
+  @PostMapping("/delete/{idx}")
+  public String deleteTravelInfo(@PathVariable("idx") Long idx, 
+                                 HttpSession session,
+                                 RedirectAttributes redirectAttributes) {
+    String loginId = memberService.getLoginId(session);
+
+    int success = travelInfoService.deleteTravelInfoByIdxAndMemberId(idx, loginId);
+
+    if (success > 0) {
+      redirectAttributes.addFlashAttribute("msg", "글이 삭제되었습니다.");
+      return "redirect:/travel-info/list";
+    } else {
+      redirectAttributes.addFlashAttribute("msg", "삭제 권한이 없습니다.");
+      return "redirect:/travel-info/detail/" + idx;
+    }
+  }
+  
 }

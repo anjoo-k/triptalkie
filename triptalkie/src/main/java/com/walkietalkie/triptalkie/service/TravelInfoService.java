@@ -71,11 +71,16 @@ public class TravelInfoService {
   
   
   // 여행정보 글 삭제
-  public int deleteTravelInfoByIdx(long idx) {
-    int result = travelInfoMapper.deleteTravelInfoByIdx(idx);
+  public int deleteTravelInfoByIdxAndMemberId(Long idx, String memberId) {
+    // DB에서 원본 조회
+    TravelInfo origin = travelInfoMapper.findTravelInfoIdx(idx);
+
+    // 작성자 검증
+    if (origin == null || !origin.getMemberId().equals(memberId)) {
+      return 0; // 작성자 아님
+    }
 
     
-    return result;
+    return travelInfoMapper.deleteTravelInfoByIdx(idx);
   }
-  
 }
