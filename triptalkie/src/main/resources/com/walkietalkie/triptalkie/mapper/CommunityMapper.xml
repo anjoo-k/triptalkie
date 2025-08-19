@@ -31,13 +31,6 @@
 		ORDER BY idx DESC 
 	</select>
 
-	 <select id="findAllList"
-            resultType="com.walkietalkie.triptalkie.domain.Community">
-        SELECT *
-        FROM community
-        ORDER BY idx DESC
-    </select>
-    
     <update id="updateCommunity" parameterType="com.walkietalkie.triptalkie.domain.Community">
     	update community
     	set title=#{title},
