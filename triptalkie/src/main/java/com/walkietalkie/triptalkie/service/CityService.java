@@ -26,6 +26,7 @@ public class CityService {
 	 *  나라 코드에 따라 도시들 출력하는 메서드
 	 */
 	public List<City> findCitiesByCountry(String countryName) {
+		System.out.println("서비스 countryName : " + countryName);
 		return cityMapper.findCitiesByCountry(countryName);
 	}
 
