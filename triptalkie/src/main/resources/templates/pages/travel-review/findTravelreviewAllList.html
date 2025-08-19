@@ -20,20 +20,15 @@
 				<!-- 카테고리 필터 -->
 				<div class="form-group row">
 					<div class="col-md">
-						<select class="form-control mr-2" name="country">
-							<option value="">나라</option>
-							<option value="한국">한국</option>
-							<option value="호주">호주</option>
-							<option value="영국">영국</option>
+						<select class="form-control mr-2 countrySelect" name="country">
+							<option value="">나라 선택</option>
+							<option th:each="country : ${countryList}" th:value="${country.id}" th:text="${country.name}"></option>
 						</select>
 					</div>
 
 					<div class="col-md">
-						<select class="form-control mr-2" name="city">
-							<option value="">도시</option>
-							<option value="제주도">제주도</option>
-							<option value="시드니">시드니</option>
-							<option value="런던">런던</option>
+						<select class="form-control mr-2 citySelect" name="city">
+							<option value="">도시 선택</option>
 						</select>
 					</div>
 

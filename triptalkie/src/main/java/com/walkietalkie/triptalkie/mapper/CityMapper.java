@@ -11,4 +11,6 @@ public interface CityMapper {
 
 	List<City> findCityAllList();
 
+	List<City> findCitiesByCountry(String countryName);
+
 }
