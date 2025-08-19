@@ -1,30 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
+	layout:decorate="~{layouts/base}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${travelInfo.title}">여행 정보 상세</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<main layout:fragment="content">
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-header">
+				<h2 th:text="${travelInfo.title}">글 제목</h2>
+			</div>
+			<div class="card-body">
+				<p>
+					<strong>작성자:</strong> <span th:text="${travelInfo.memberId}">작성자</span>
+				</p>
+				<p>
+					<strong>작성일:</strong> <span
+						th:text="${#temporals.format(travelInfo.createdAt, 'yyyy-MM-dd')}">2025-08-19</span>
+				</p>
+				<p>
+					<strong>정보유형:</strong> <span th:text="${travelInfo.infotype}">관광지</span>
+				</p>
+				<p>
+					<strong>여행일자:</strong> <span
+						th:text="${#temporals.format(travelInfo.infodate, 'yyyy-MM-dd')}">2025-08-20</span>
+				</p>
+				<hr>
+				<div th:utext="${travelInfo.content}">내용</div>
+			</div>
+			<div class="card-footer text-right">
+				<a th:href="@{/travel-info/list}" class="btn btn-secondary">목록으로</a>
+			</div>
+			<div class="card-footer text-right">
+				<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}"
+					class="btn btn-secondary">수정</a>
 
-<th:block layout:fragment="content">
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header bg-light">
-            <h3 class="mb-0" th:text="${travelinfo.title}">게시글 제목</h3>
-        </div>
-        <div class="card-body">
-            <div class="mb-3 text-muted">
-                <span><strong>작성자:</strong> <span th:text="${travelinfo.memberId}"></span></span>
-                <span class="ms-3"><strong>작성일:</strong> <span th:text="${#temporals.format(travelinfo.createdAt, 'yyyy-MM-dd HH:mm')}"></span></span>
-            </div>
-            <hr>
-            <pre class="card-text" th:text="${travelinfo.content}" style="min-height: 250px; white-space: pre-wrap; font-family: inherit; font-size: 1rem;">게시글 내용</pre>
-        </div>
-        <div class="card-footer text-end">
-            <a th:href="@{/travelinfo/update/{idx}(idx=${travelinfo.idx})}" class="btn btn-secondary">수정</a>
-            <form th:action="@{/travelinfo/delete/{idx}(idx=${travelinfo.idx})}" method="post" class="d-inline" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-                <button type="submit" class="btn btn-danger">삭제</button>
-            </form>
-            <a th:href="@{/travelinfo/list}" class="btn btn-primary ms-2">목록</a>
-        </div>
-    </div>
-</div>
-</th:block>
+				<form
+					th:action="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
+					method="post" style="display: inline;">
+					<button type="submit" class="btn btn-danger"
+						onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+</main>
 </html>

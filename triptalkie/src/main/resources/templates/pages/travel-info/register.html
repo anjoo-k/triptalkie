@@ -3,46 +3,64 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/base}">
 
-<th:block layout:fragment="content">
-<div class="container mt-5">
-    <h2>여행 정보 등록</h2>
-    <hr>
-    <form th:action="@{/travelinfo/register}" method="post">
-        <div class="form-group mb-3">
-            <label for="title"><strong>제목</strong></label>
-            <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="infotype"><strong>정보 타입</strong></label>
-            <select id="infotype" name="infotype" class="form-control" required>
-                <option value="">선택하세요</option>
-                <option th:each="type : ${infoTypes}" th:value="${type}" th:text="${type}"></option>
-            </select>
-        </div>
-
-        <div class="form-group mb-3">
-            <label><strong>정보 기준일</strong></label>
-            <div class="d-flex">
-                <select name="infoYear" class="form-control me-2" required>
-                    <option th:each="year : ${years}" th:value="${year}" th:text="${year + '년'}" th:selected="${year == currentYear}"></option>
-                </select>
-                <select name="infoMonth" class="form-control" required>
-                    <option th:each="month : ${#numbers.sequence(1, 12)}" th:value="${month}" th:text="${month + '월'}" th:selected="${month == currentMonth}"></option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group mb-4">
-            <label for="content"><strong>내용</strong></label>
-            <textarea id="content" name="content" class="form-control" rows="12" placeholder="내용을 입력하세요" required></textarea>
-        </div>
-        
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">등록</button>
-            <a th:href="@{/travelinfo/list}" class="btn btn-secondary ms-2">취소</a>
-        </div>
+<main layout:fragment="content">
+  <div class="container mt-5">
+    <h4 class="text-center mb-4">여행 정보 글쓰기</h4>
+    
+    <form th:action="@{/travel-info/register}" method="post">
+      <!-- 제목 -->
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
+      </div>
+      
+      <!-- 여행 정보 타입 -->
+      <div class="form-group">
+        <label for="infotype">정보 타입</label>
+        <select id="infotype" name="infotype" class="form-control" required>
+          <option value="">선택하세요</option>
+          <option value="관광지">관광지</option>
+          <option value="맛집">맛집</option>
+          <option value="쇼핑">쇼핑</option>
+          <option value="숙박">숙박</option>
+          <option value="교통">교통</option>
+        </select>
+      </div>
+      
+      <!-- 도시 선택 -->
+      <div class="form-group">
+        <label for="cityId">도시</label>
+        <select id="cityId" name="cityId" class="form-control" required>
+          <option value="">도시 선택</option>
+          <option value="KR_SEO">서울</option>
+          <option value="KR_CJJ">제주</option>
+          <option value="JP_TYO">도쿄</option>
+          <option value="AU_SYD">시드니</option>
+          <!-- 필요하면 city 테이블에서 동적으로 반복 가능 -->
+        </select>
+      </div>
+      
+      <!-- 여행 정보 날짜 -->
+      <div class="form-group">
+        <label for="infodate">날짜</label>
+        <input type="date" id="infodate" name="infodate" class="form-control" required>
+      </div>
+      
+      <!-- 내용 -->
+      <div class="form-group">
+        <label for="content">내용</label>
+        <textarea id="content" name="content" class="form-control" rows="6" placeholder="내용을 입력하세요" required></textarea>
+      </div>
+      
+      <!-- 작성자 (세션에서 자동 주입 가능) -->
+      <input type="hidden" name="memberId" th:value="${session.memberId}">
+      
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a th:href="@{/travel-info/list}" class="btn btn-secondary ml-2">취소</a>
+      </div>
     </form>
-</div>
-</th:block>
+  </div>
+</main>
+
 </html>
