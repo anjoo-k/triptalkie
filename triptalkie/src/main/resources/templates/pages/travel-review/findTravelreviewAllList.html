@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/base}">
 
 <!-- 여행 후기 게시판 리스트 -->
@@ -12,8 +11,7 @@
 			<form th:action="@{/}" method="get">
 				<div class="form-group row">
 					<div class="col-sm-10">
-						<input type="text" name="keyword" class="form-control"
-							placeholder="무엇을 찾아볼까요?">
+						<input type="text" name="keyword" class="form-control" placeholder="무엇을 찾아볼까요?">
 					</div>
 					<div class="col-sm-2">
 						<button type="submit" class="btn btn-block btn-search">검색</button>
@@ -62,7 +60,7 @@
 					<div class="card-body card-body-grid">
 
 						<!-- 왼쪽: 글 번호 -->
-						<div id="idx" class="number" th:text="${stat.index + 1}">1</div>
+						<div id="idx" class="number" th:text="${(pageData.currentPage - 1) * pageData.size + stat.index + 1}">1</div>
 
 						<!-- 오른쪽: 카드 내용 -->
 						<div class="right-content">
@@ -77,11 +75,9 @@
 
 							<!-- 2행: 글 제목 + 작성자 + 작성일 -->
 							<div class="row-stats">
-								<a th:href="@{/travel-review/detail-review/{idx}(idx=${review.idx})}"
-									id="title" class="card-title h5 mb-1 list-title"
-									th:text="${review['title']}">글 제목</a> <span
-									class="badge badge--sub-desc"
-									th:text="${review['memberNickname']}">작성자</span> <span
+								<a th:href="@{/travel-review/detail-review/{idx}(idx=${review.idx})}" id="title"
+									class="card-title h5 mb-1 list-title" th:text="${review['title']}">글 제목</a> <span
+									class="badge badge--sub-desc" th:text="${review['memberNickname']}">작성자</span> <span
 									id="createdAt" class="badge--sub-desc"
 									th:text="${#temporals.format(review['createdAt'], 'yyyy-MM-dd')}">2025-08-17</span>
 							</div>
@@ -89,9 +85,9 @@
 							<!-- 3행: 여행일자 -->
 							<div class="row-travel-date">
 								<span id="matetype" class="badge badge--category travel-type"
-									th:text="${review['mateType']}">메이트 유형</span> <span
-									id="concepttype" class="badge badge--category travel-type"
-									th:text="${review['concepType']}">테마 유형</span>
+									th:text="${review['mateType']}">메이트 유형</span> <span id="concepttype"
+									class="badge badge--category travel-type" th:text="${review['conceptType']}">테마
+									유형</span>
 							</div>
 
 						</div>
@@ -105,42 +101,61 @@
 
 
 		<!-- 페이지네이션, 글쓰기 버튼 -->
-			<div class="row mb-3">
-				<div class="col"></div>
+		<div class="row mb-3">
+			<div class="col"></div>
 
-				<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
-				<div class="col-6 text-center">
-					<nav class="p-2 pagination--bottom">
-						<ul class="pagination justify-content-center mb-0">
-							<li class="page-item disabled pagination--spacing"><a
-								class="page-link" href="#">&laquo;</a></li>
-							<li class="page-item disabled pagination--spacing"><a
-								class="page-link" href="#">&lt;</a></li>
-							<li class="page-item active pagination--spacing"><a
-								class="page-link" href="#">1</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">3</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">&gt;</a></li>
-							<li class="page-item pagination--spacing"><a
-								class="page-link" href="#">&raquo;</a></li>
-						</ul>
-					</nav>
-				</div>
+			<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
+			<div class="col-6 text-center">
+				<nav class="p-2 pagination--bottom">
+					<ul class="pagination justify-content-center mb-0">
+						<!-- 처음으로, 이전 -->
+						<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
+							class="page-item pagination--spacing">
+							<a class="page-link" th:href="@{/travel-review/findTravelreviewAllList(page=1)}">&laquo;</a>
+						</li>
+						<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
+							class="page-item pagination--spacing">
+							<a class="page-link"
+								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.currentPage - 1})}">&lt;</a>
+						</li>
 
-				<!-- 오른쪽 글쓰기 버튼 -->
-				<div class="col text-left">
-					<a class="btn btn-write" th:href="@{/travel-review/registerReviewPage}">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-		  					<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-		  					<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-						</svg>
-					</a>
-				</div>
+						<!-- 페이지 번호 반복 -->
+						<li th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
+							th:classappend="${i == pageData.currentPage} ? 'active' : ''"
+							class="page-item pagination--spacing">
+							<a class="page-link" th:href="@{/travel-review/findTravelreviewAllList(page=${i})}"
+								th:text="${i}">1</a>
+						</li>
+
+						<!-- 다음, 마지막 -->
+						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
+							class="page-item pagination--spacing">
+							<a class="page-link"
+								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.currentPage + 1})}">&gt;</a>
+						</li>
+						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
+							class="page-item pagination--spacing">
+							<a class="page-link"
+								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.totalPage})}">&raquo;</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- 오른쪽 글쓰기 버튼 -->
+			<div class="col text-left">
+				<a class="btn btn-write" th:href="@{/travel-review/registerReviewPage}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						class="bi bi-pencil-square" viewBox="0 0 16 16">
+						<path
+							d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+						<path fill-rule="evenodd"
+							d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+					</svg>
+				</a>
 			</div>
 		</div>
+	</div>
 
 
 	<script src="/js/travel-review.js"></script>
