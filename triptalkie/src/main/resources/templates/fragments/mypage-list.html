@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/* 
+		 필요한 html 요소만 정의한다 
+		 th:fragment="headerFragment"를 반드시 명시한다. - layout.html에서 사용
+ */-->
+
+<!-- 좌측 list -->
+
+<div th:fragment="mypageList">
+	<div class="list-group">
+		<a th:href="@{/mypage/myinformation}"
+			class="list-group-item list-group-item-action"
+			th:classappend="${active=='notice'} ? ' active'">내 정보 조회<span>></span></a>
+		<a th:href="@{/customerservice/faq}"
+			class="list-group-item list-group-item-action"
+			th:classappend="${active=='faq'} ? ' active'">내 채팅 목록<span>></span></a>
+		<a th:href="@{/customerservice/qna}"
+			class="list-group-item list-group-item-action"
+			th:classappend="${active=='qna'} ? ' active'">여행 리스트<span>></span></a>
+		<a th:href="@{/customerservice/qna}"
+			class="list-group-item list-group-item-action"
+			th:classappend="${active=='qna'} ? ' active'">깡총 지수<span>></span></a>
+		<a th:href="@{/customerservice/qna}"
+			class="list-group-item list-group-item-action"
+			th:classappend="${active=='qna'} ? ' active'">관심 여행 목록<span>></span></a>
+		<a th:href="@{/customerservice/qna}"
+			class="list-group-item list-group-item-action"
+			th:classappend="${active=='qna'} ? ' active'">내가 쓴 글<span>></span></a>
+	</div>
+</div>
+
+</html>

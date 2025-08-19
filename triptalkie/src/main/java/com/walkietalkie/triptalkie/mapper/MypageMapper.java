@@ -10,4 +10,6 @@ public interface MypageMapper {
 	Member findMemberById(String id);
 
 	int updateMemberById(Member member);
+
+	String checkPassword(String id);
 }

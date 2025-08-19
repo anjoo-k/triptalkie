@@ -35,11 +35,12 @@ public class CommunityController {
 	// http://localhost:8080/community/list
 	// 커뮤니티 목록 페이지
 	@GetMapping("/list")
-	public String communityList(Model model) {
-		List<Community> communityList = communityService.findCommunityAllList();
-	    model.addAttribute("communityList", communityList);
-		return "pages/community/list";
-	}
+    public String communityList(Model model) {
+        List<Community> communityList = communityService.findCommunityAllList();
+        model.addAttribute("communityList", communityList);
+        return "pages/community/list";
+    }
+
 	
 	// http://localhost:8080/community/boardWrite
 	// 커뮤니티 글작성 페이지
@@ -66,44 +67,37 @@ public class CommunityController {
     @GetMapping("/detail-community/{idx}")
     public String communityDetail(@PathVariable("idx") long idx, Model model) {
         Community community = communityService.findCommunityByIdx(idx);
-        
-        // null 체크 추가
-        if (community == null) {
-            throw new IllegalArgumentException("해당"+ idx+"로 게시글을 찾을 수 없습니다 ");
-        }
-        
         model.addAttribute("community", community);
         return "pages/community/detail-community"; // detail.html 파일을 새로 만들어야 합니다.
     }
-    
 
-	// 커뮤니티 글 수정 페이지
-//    @GetMapping("/update/{idx}")
-//    public String updateForm(@PathVariable("idx") long idx, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-//        Community community = communityService.findCommunityByIdx(idx);
-//        String memberId = (String) session.getAttribute("loggedInMemberId");
-//
-//        if (memberId == null || !memberId.equals(community.getMemberId())) {
-//            redirectAttributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
-//            return "redirect:/community/detail/" + idx;
-//        }
-//
-//        model.addAttribute("community", community);
-//        return "pages/community/update";
-//    }
-//
-//    // 커뮤니티 글 수정 처리
-//    @PostMapping("/update")
-//    public String updateCommunity(@ModelAttribute Community community, HttpSession session, RedirectAttributes redirectAttributes) {
-//        String memberId = (String) session.getAttribute("loggedInMemberId");
-//        if (memberId == null || !memberId.equals(community.getMemberId())) {
-//            redirectAttributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
-//            return "redirect:/community/detail/" + community.getIdx();
-//        }
-//        communityService.updateCommunityByIdxAndMemberId(community);
-//        return "redirect:/community/detail/" + community.getIdx();
-//    }
-//
+	//커뮤니티 글 수정 페이지
+    @GetMapping("/update/{idx}")
+    public String updateForm(@PathVariable("idx") long idx, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        Community community = communityService.findCommunityByIdx(idx);
+        String memberId = (String) session.getAttribute("loggedInMemberId");
+
+        if (memberId == null || !memberId.equals(community.getMemberId())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
+            return "redirect:/community/detail-community/" + idx;
+        }
+
+        model.addAttribute("community", community);
+        return "pages/community/edit-community";
+    }
+
+    // 커뮤니티 글 수정 처리
+    @PostMapping("/update")
+    public String updateCommunity(@ModelAttribute Community community, HttpSession session, RedirectAttributes redirectAttributes) {
+        String memberId = (String) session.getAttribute("loggedInMemberId");
+        if (memberId == null || !memberId.equals(community.getMemberId())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
+            return "redirect:/community/detail-community/" + community.getIdx();
+        }
+        communityService.updateCommunityByIdxAndMemberId(community);
+        return "redirect:/community/detail-community/" + community.getIdx();
+    }
+
 //    // 커뮤니티 글 삭제 처리
 //    @GetMapping("/delete/{idx}")
 //    public String deleteCommunity(@PathVariable("idx") long idx, HttpSession session, RedirectAttributes redirectAttributes) {

@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walkietalkie.triptalkie.mapper.CityMapper">
 	<select id="findCityAllList">
-		SELECT ID, NAME, COUNTRY_ID FROM CITY;
+		SELECT id, name, country_id FROM city
+	</select>
+	
+	<select id="findCitiesByCountry">
+		SELECT name FROM city WHERE country_id = (SELECT id FROM country WHERE name = #{countryName})
 	</select>
 </mapper>

@@ -65,9 +65,8 @@ public class NamMemberServiceTest {
 			    "맛집/카페"           // travelConcept
 			);
 		
-		Member resultMember = mypageService.updateMemberById(member);
-		assertEquals("자바킹", resultMember.getNickname());
-		assertEquals("서울", resultMember.getAddress());
+		int result = mypageService.updateMemberById(member);
+		assertEquals(1, result);
 	}
 
 }
