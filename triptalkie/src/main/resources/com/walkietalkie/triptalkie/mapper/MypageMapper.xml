@@ -10,6 +10,13 @@
 		FROM member
 		WHERE id=#{id}
 	</select>
+	<!-- 마이페이지 / 비밀번호 확인(내 정보 수정 위한) -->
+	<select id="checkPassword">
+		SELECT password
+		FROM member
+		WHERE id=#{id}
+	</select>
+	
 	<!-- 마이페이지 / 내 정보 수정 -->
 	<update id="updateMemberById"
 		parameterType="com.walkietalkie.triptalkie.domain.Member">
@@ -22,4 +29,5 @@
 			travel_concept=#{travelConcept}
 		WHERE id=#{id}
 	</update>
+	
 </mapper>
