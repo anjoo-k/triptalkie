@@ -1,5 +1,7 @@
 package com.walkietalkie.triptalkie.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,15 @@ public class CommunityService {
 
 	public int registerCommunity(Community community) {
 		return communityMapper.register(community);
+	}
+
+	public Community findCommunityByIdx(long idx) {
+		
+		return communityMapper.findByIdx(idx);
+	}
+
+	public List<Community> findCommunityAllList() {
+		return communityMapper.findAllList();
 	}
 	
 }
