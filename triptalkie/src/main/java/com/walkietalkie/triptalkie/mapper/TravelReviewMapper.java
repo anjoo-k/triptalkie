@@ -25,6 +25,4 @@ public interface TravelReviewMapper {
 
 	List<Map<String, Object>> findPaged(@Param("size") int size, @Param("startRow") int startRow);
 
-	List<TravelReview> findTravelreviewSearchUnited(String keyword, String country, String city, String concept);
-
 }

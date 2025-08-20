@@ -64,10 +64,4 @@ public class TravelReviewService {
 		return new CommonPage<>(list, size, page, totalPages, startPage, endPage);
 	}
 
-	public List<TravelReview> findTravelreviewSearchUnited(String keyword, String country, String city,
-			String concept) {
-		System.out.println("service keyword: " + keyword + ", country: " + country + ", city: " + city + ", concept: " + concept);
-		return travelReviewMapper.findTravelreviewSearchUnited(keyword, country, city, concept);
-	}
-
 }

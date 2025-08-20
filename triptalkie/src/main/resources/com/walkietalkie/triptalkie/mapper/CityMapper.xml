@@ -6,6 +6,6 @@
 	</select>
 	
 	<select id="findCitiesByCountry">
-		SELECT id, name, country_id FROM city WHERE country_id = (SELECT id FROM country WHERE name = #{countryName});
+		SELECT name FROM city WHERE country_id = (SELECT id FROM country WHERE name = #{countryName})
 	</select>
 </mapper>

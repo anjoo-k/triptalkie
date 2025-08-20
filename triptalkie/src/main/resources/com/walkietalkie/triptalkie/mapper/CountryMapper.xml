@@ -5,8 +5,4 @@
 	<select id="findCountryAllList">
 		SELECT id, name, land_id FROM country
 	</select>
-	
-	<select id="findCountryNameById">
-		SELECT id, name, land_id FROM country where id= #{countryId};
-	</select>
 </mapper>

@@ -9,8 +9,6 @@ import com.walkietalkie.triptalkie.domain.Country;
 @Mapper
 public interface CountryMapper {
 
-	Country findCountryNameById(String countryId);
-
 	List<Country> findCountryAllList();
 
 }
