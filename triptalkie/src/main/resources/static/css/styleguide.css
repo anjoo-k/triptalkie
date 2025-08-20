@@ -139,20 +139,6 @@ h6 {
 	color: var(--color-secondary);
 }
 
-/* 검색 버튼 */
-.btn-search {
-	background-color: var(--color-primary);
-	color: var(--color-primary);
-	border: 1px solid var(--color-primary);
-	background-color: transparent;
-	border-radius: 10px;
-}
-
-.btn-search:hover {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-}
-
 /* 상세 페이지 버튼 / 배지 */
 .btn-detail {
 	background-color: var(--color-secondary);
@@ -263,11 +249,37 @@ h6 {
 }
 
 .pagination--spacing {
-	margin-right: 0.5rem;
+	margin-right: 5px;
 	/* 8px */
 }
 
 .page-link {
+	width: 35px;
+	height: 35px;
 	border-radius: 10px !important;
 	color: var(--color-text-primary);
+}
+
+/* 10. 검색 (Search) */
+/* 검색 버튼 */
+.btn-search {
+	background-color: var(--color-primary);
+	color: var(--color-primary);
+	border: 1px solid var(--color-primary);
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+.btn-search:hover {
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+}
+
+.search-box, .select-box {
+	border-radius: 10px;
+}
+.select-box:focus {
+    border-color: var(--color-primary);        /* 테두리 색 변경 */
+    box-shadow: 0 0 20px var(--color-primary); /* 블루 글로우 */
+    outline: none;
 }

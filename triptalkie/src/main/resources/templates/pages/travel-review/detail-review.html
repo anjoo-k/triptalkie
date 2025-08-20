@@ -1,59 +1,111 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
 
-<!-- 커뮤니티 글 상세 페이지 -->
+<!-- 여행 후기 글작성 페이지 -->
+<!-- 여행 후기 상세 페이지 -->
 <main layout:fragment="content">
-	<h4 class="text-center content--title">커뮤니티 게시글</h4>
-	<div class="register-containers bg--containers pt-5 pb-5">
+    <h4 class="text-center content--title">메이트의 여행 후기를 알아보세요</h4>
+    <div class="register-containers bg--containers pt-5 pb-5">
+        
+        <!-- 상세 내용 컨테이너 -->
+        <div class="form-container detail-review">
 
-		<!-- 상세 내용 컨테이너 -->
-		<div class="form-container">
-
-			<!-- 제목 -->
-			<div class="form-group row">
-				<div class="col-sm-12">
-					<h5 class="font-weight-bold" th:text="${community.title}">게시글
-						제목</h5>
+            <!-- 제목 -->
+            <div class="form-group row mb-2 px-1">
+                <div class="col-sm-12">
+                    <h5 class="font-weight-bold py-2 px-1 detail-title" th:text="${travelreview['title']}">제목 예시: 제주도 여행기</h5>
+					<input id="idx" type="hidden" th:name="idx" th:value="${travelreview['idx']}">
+					<input type="hidden" th:name="memberId" th:value="${session.memberId}">
+					<input type="hidden" th:name="memberNickname" th:value="${travelreview['memberNickname']}">
 				</div>
+            </div>
+
+            <div class="board-divider mb-2"></div>
+
+            <!-- 여행 도시 -->
+			<div class="form-group px-2 py-2 travel-city">
+			    <!-- 제목은 위 -->
+			    <p class="subheading mb-1">여행 장소</p>
+
+			    <!-- 아이콘 + 텍스트는 아래 한 줄 -->
+			    <div class="d-flex align-items-center">
+			        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+			             fill="currentColor" class="bi bi-geo-alt-fill mr-2 text-icon" viewBox="0 0 16 16">
+			            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 
+			                     0 1 1 0-6 3 3 0 0 1 0 6" />
+			        </svg>
+			        <span class="detail-text" th:text="${travelreview['cityName']}">제주도</span>
+			    </div>
 			</div>
 
-			<div class="board-divider mb-3"></div>
+            <div class="board-divider mt-2 mb-2"></div>
 
-			<!-- 작성자 & 작성일 -->
-			<div class="form-group row align-items-center">
-				<div class="col-md d-flex align-items-center">
-					<span class="detail-text mr-3"> 작성자: <strong
-						th:text="${community.memberId}">작성자ID</strong>
-					</span> <span class="detail-text"> 작성일: <span
-						th:text="${#temporals.format(community.createdAt, 'yyyy-MM-dd HH:mm')}">2025-08-19</span>
-					</span>
+            <!-- 후기 본문 -->
+            <div class="form-group row">
+                <div class="col-sm-12 detail-review">
+					<p class="subheading mb-2">여행 후기 소개</p>
+                    <p class="detail-content" th:text="${travelreview['content']}">
+                        제주도에서 맛집 투어도 하고, 숙소도 너무 좋았어요! 🏝
+                    </p>
+                </div>
+            </div>
+
+            <div class="board-divider mb-3"></div>
+
+            <!-- 메이트 유형 & 여행 컨셉 -->
+            <div class="form-group row mate-travel-type py-2">
+                <div class="col">
+                    <p class="subheading mb-2">메이트 유형</p>
+                	<input type="hidden" name="mateType" th:value="${travelreview['mateType']}"/>
+					<label class="btn selected-mate-type" th:text="${travelreview['mateType']}"></label>
+                </div>
+                
+                <div class="col col-sm-4">
+                    <p class="subheading mb-2">여행 컨셉</p>
+                    <input type="hidden" name="conceptType" th:value="${travelreview['conceptType']}"/>
+					<label class="btn selected-mate-type" th:text="${travelreview['conceptType']}"></label>
+                </div>
+            </div>
+
+            <!-- 첨부 사진 -->
+<!--             <div class="form-group row">
+                <div class="col-sm-12">
+                    <p class="subheading mb-2">사진</p>
+                    <img th:src="@{${board.imagePath}}" alt="여행 사진" class="img-fluid rounded">
+                </div>
+            </div> -->
+
+            <!-- <div class="board-divider mb-3"></div> -->
+
+            <!-- 버튼 영역 -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <button type="button" class="btn btn-back">목록</button>
+				<th:block th:if="${session.memberId != null && session.memberId == travelreview['memberId']}">
+	                <div>
+            	        <button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${travelreview.idx}">수정</button>
+						<button id="btn-delete" type="button" class="btn btn-delete" th:attr="data-idx=${travelreview.idx}">삭제</button>
+					</div>
+				</th:block>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content py-4">
+
+				<!-- Modal body -->
+				<div class="modal-body text-center">정말 삭제하시겠습니까?</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer btn-no-border">
+					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-delete">예</button>
+					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">아니요</button>
 				</div>
+
 			</div>
-
-			<div class="board-divider mb-3"></div>
-
-			<!-- 본문 -->
-			<div class="form-group row">
-				<div class="col-sm-12">
-					<p class="detail-content" th:text="${community.content}">커뮤니티
-						게시글의 본문 내용이 들어갑니다.</p>
-				</div>
-			</div>
-
-			<div class="board-divider mb-3"></div>
-
-			<!-- 버튼 영역 (detail-travelreview.html 과 동일) -->
-			<div class="d-flex justify-content-between align-items-center">
-				<button type="button" class="btn btn-back"
-					th:onclick="|window.location.href='@{/community/list}'|">목록</button>
-				<div>
-					<a th:href="@{/community/update/{idx}(idx=${community.idx})}"
-						class="btn btn-warning">수정</a>
-					<button type="button" class="btn btn-danger">삭제</button>
-				</div>
-			</div>
-
 		</div>
 	</div>
+	<script src="/js/travel-review.js"></script>
 </main>
 </html>

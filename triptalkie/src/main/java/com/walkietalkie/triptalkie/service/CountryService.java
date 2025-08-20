@@ -16,11 +16,14 @@ public class CountryService {
 		super();
 		this.countryMapper = countryMapper;
 	}
-
+	
 	@Transactional(readOnly = true)
 	public List<Country> findCountryAllList() {
 		return countryMapper.findCountryAllList();
 	}
 	
-	
+	public Country findCountryNameById(String countryId) {
+		return countryMapper.findCountryNameById(countryId);
+	}
+
 }

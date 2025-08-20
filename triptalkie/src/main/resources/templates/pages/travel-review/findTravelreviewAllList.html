@@ -8,10 +8,10 @@
 	<div class="travel-review-containers bg--containers pt-5 pb-5">
 		<!-- 검색 기능 : 추후 컴포넌트화 -->
 		<div class="form-container">
-			<form th:action="@{/}" method="get">
+			<form th:action="@{/travel-review/findTravelreviewAllList}" method="get">
 				<div class="form-group row">
 					<div class="col-sm-10">
-						<input type="text" name="keyword" class="form-control" placeholder="무엇을 찾아볼까요?">
+						<input type="text" name="keyword" class="form-control search-box" placeholder="무엇을 찾아볼까요?">
 					</div>
 					<div class="col-sm-2">
 						<button type="submit" class="btn btn-block btn-search">검색</button>
@@ -20,20 +20,20 @@
 				<!-- 카테고리 필터 -->
 				<div class="form-group row">
 					<div class="col-md">
-						<select class="form-control mr-2 countrySelect" name="country">
+						<select id="countrySelect" class="form-control select-box mr-2" name="countryId">
 							<option value="">나라 선택</option>
 							<option th:each="country : ${countryList}" th:value="${country.id}" th:text="${country.name}"></option>
 						</select>
 					</div>
 
 					<div class="col-md">
-						<select class="form-control mr-2 citySelect" name="city">
+						<select id="citySelect" class="form-control select-box mr-2" name="cityId">
 							<option value="">도시 선택</option>
 						</select>
 					</div>
 
 					<div class="col-md">
-						<select class="form-control" name="concept">
+						<select class="form-control select-box" name="conceptType">
 							<option value="">여행 컨셉</option>
 							<option value="맛집/카페">맛집/카페</option>
 							<option value="술/친목">술/친목</option>
@@ -100,7 +100,7 @@
 			<div class="col"></div>
 
 			<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
-			<div class="col-6 text-center">
+			<div class="col-6 text-center" th:if="${pageData.totalPage > 0}">
 				<nav class="p-2 pagination--bottom">
 					<ul class="pagination justify-content-center mb-0">
 						<!-- 처음으로, 이전 -->
@@ -111,22 +111,21 @@
 						<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
 							class="page-item pagination--spacing">
 							<a class="page-link"
-								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.currentPage - 1})}">&lt;</a>
+								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a>
 						</li>
 
 						<!-- 페이지 번호 반복 -->
-						<li th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
-							th:classappend="${i == pageData.currentPage} ? 'active' : ''"
-							class="page-item pagination--spacing">
-							<a class="page-link" th:href="@{/travel-review/findTravelreviewAllList(page=${i})}"
-								th:text="${i}">1</a>
+						<li th:each="i : ${#numbers.sequence(pageData.startPage > 0 ? pageData.startPage : 1, pageData.endPage)}"
+						    th:classappend="${i == pageData.currentPage} ? 'active' : ''"
+						    class="page-item pagination--spacing">
+						    <a class="page-link" th:href="@{/travel-review/findTravelreviewAllList(page=${i})}"
+						       th:text="${i}">1</a>
 						</li>
 
-						<!-- 다음, 마지막 -->
-						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
-							class="page-item pagination--spacing">
+						<!-- 다음, 마지막 (총 페이지 1이면 disabled) -->
+						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing">
 							<a class="page-link"
-								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.currentPage + 1})}">&gt;</a>
+								th:href="@{/travel-review/findTravelreviewAllList(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a>
 						</li>
 						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
 							class="page-item pagination--spacing">
@@ -135,19 +134,21 @@
 						</li>
 					</ul>
 				</nav>
+				
+			</div>
+			<!-- 검색 결과 없을 때 메시지 -->
+			<div th:if="${pageData.totalPage == 0}" class="text-center p-3">
+			    검색 결과가 없습니다.
 			</div>
 
 			<!-- 오른쪽 글쓰기 버튼 -->
-			<div class="col text-left">
-				<a class="btn btn-write" th:href="@{/travel-review/registerReviewPage}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-						class="bi bi-pencil-square" viewBox="0 0 16 16">
-						<path
-							d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-						<path fill-rule="evenodd"
-							d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-					</svg>
-				</a>
+			<div class="col d-flex justify-content-center align-items-center mt-1">
+			    <a class="btn btn-write" href="/travel-review/registerReviewPage">
+			        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+			            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+			            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+			        </svg>
+			    </a>
 			</div>
 		</div>
 	</div>

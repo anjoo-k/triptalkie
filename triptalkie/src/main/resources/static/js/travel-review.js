@@ -2,11 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 글쓰기 버튼
 	const writeBtn = document.querySelector(".btn-write");
 	if (writeBtn) {
-		writeBtn.addEventListener("click", function() {
-			location.href = "/write-review";
+		writeBtn.addEventListener("click", async () => {
+			const response = await fetch("");
+			const isLoggedIn = await response.json();
+			
+			if(!isLoggedIn) {
+				alert("로그인 후 이용이 가능합니다.");
+				location.href = "/member/login";
+			} else {
+				location.href = "/travel-review/registerReviewPage";
+			}
 		});
 	}
-	
+
 	// 뒤로 가기 버튼
 	const backBtn = document.querySelector(".btn-back");
 	if (backBtn) {
@@ -60,22 +68,32 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
-	
+
 	// 검색 기능
 	document.getElementById('countrySelect').addEventListener('change', function() {
-	    const countryName = this.value;
-	    const citySelect = document.getElementById('citySelect');
+		const countryId = this.value;
+		console.log("selected country countryId : " + countryId);
+		const citySelect = document.getElementById('citySelect');
 
-	    fetch(`/cities/citiesAllList?countryName=${countryName}`)
-	        .then(res => res.json())
-	        .then(cities => {
-	            citySelect.innerHTML = '<option value="">도시 선택</option>';
-	            cities.forEach(city => {
-	                const option = document.createElement('option');
-	                option.value = city.id;
-	                option.text = city.name;
-	                citySelect.appendChild(option);
-	            });
-	        });
+		fetch(`/cities/findCitiesByCountry?countryId=${countryId}`)
+			.then(res => {
+				if (!res.ok) {
+					throw new Error("서버 오류: " + res.status);
+				}
+				return res.json();
+			})
+			.then(cities => {
+				citySelect.innerHTML = '<option value="">도시 선택</option>';
+				cities.forEach(city => {
+					const option = document.createElement('option');
+					option.value = city.id;
+					option.text = city.name;
+					citySelect.appendChild(option);
+				});
+			})
+			.catch(err => {
+				console.error("도시 목록 불러오기 실패:", err);
+				citySelect.innerHTML = '<option value="">도시를 불러올 수 없습니다</option>';
+			});
 	});
 });
