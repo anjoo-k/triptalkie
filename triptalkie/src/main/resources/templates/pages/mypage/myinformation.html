@@ -6,8 +6,8 @@
 <!-- content fragement 선언 부분 -->
 <main layout:fragment="content" class="row">
 	<!-- 좌측 list -->
-	<aside  class="col-sm-3">
-	<div th:replace="fragments/mypage-list :: mypageList"></div>
+	<aside class="col-sm-3">
+		<div th:replace="fragments/mypage-list :: mypageList"></div>
 	</aside>
 	<section class="col-sm-9">
 		<article>
@@ -59,27 +59,30 @@
 				<label class="subheading">내가 좋아하는 여행컨셉</label><br>
 				<div th:object="${member}">
 					<label class="form-check-inline"><input
-						class="form-check-input" type="checkbox" th:field="*{travelConcept}"
-						value="맛집/카페" disabled> 맛집/카페</label> <label class="form-check-inline" ><input
-						class="form-check-input" type="checkbox" th:field="*{travelConcept}"
-						value="술/친목" disabled> 술/친목</label> <label class="form-check-inline"><input
-						class="form-check-input" type="checkbox" th:field="*{travelConcept}"
-						value="액티비티/투어" disabled> 액티비티/투어</label> <label class="form-check-inline"><input
-						class="form-check-input" type="checkbox" th:field="*{travelConcept}"
-						value="전시회/공연" disabled> 전시회/공연</label> <label class="form-check-inline"><input
-						class="form-check-input" type="checkbox" th:field="*{travelConcept}"
-						value="기타" disabled> 기타</label>
+						class="form-check-input" type="checkbox"
+						th:field="*{travelConcept}" value="맛집/카페" disabled> 맛집/카페</label>
+					<label class="form-check-inline"><input
+						class="form-check-input" type="checkbox"
+						th:field="*{travelConcept}" value="술/친목" disabled> 술/친목</label> <label
+						class="form-check-inline"><input class="form-check-input"
+						type="checkbox" th:field="*{travelConcept}" value="액티비티/투어"
+						disabled> 액티비티/투어</label> <label class="form-check-inline"><input
+						class="form-check-input" type="checkbox"
+						th:field="*{travelConcept}" value="전시회/공연" disabled>
+						전시회/공연</label> <label class="form-check-inline"><input
+						class="form-check-input" type="checkbox"
+						th:field="*{travelConcept}" value="기타" disabled> 기타</label>
 				</div>
 			</div>
 		</article>
 		<!-- 내 정보 수정 버튼 -->
 		<article>
 			<div class="">
-				<button type="button" class="btn btn-block btn-complete btn-primary" id="btn-update-myinfo">내
-					정보 수정</button>
+				<button type="button" class="btn btn-block btn-complete btn-primary"
+					id="btn-update-myinfo">내 정보 수정</button>
 			</div>
 		</article>
 	</section>
 
-
+	<script src="/js/mypage.js"></script>
 </main>

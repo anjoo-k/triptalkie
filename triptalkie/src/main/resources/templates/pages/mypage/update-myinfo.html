@@ -6,8 +6,10 @@
 <!-- content fragement 선언 부분 -->
 <main layout:fragment="content" class="row">
 	<!-- 좌측 list -->
-	<aside th:replace="fragments/mypage-list :: mypageList" class="col-sm-3"></aside>
-	<div class="register-containers bg--containers pt-5 pb-5 col-sm-9" th:object="${member}">
+	<aside th:replace="fragments/mypage-list :: mypageList"
+		class="col-sm-3"></aside>
+	<div class="register-containers bg--containers pt-5 pb-5 col-sm-9"
+		th:object="${member}">
 		<!-- 프로필 이미지 -->
 		<div class="text-center mb-5">
 			<img class="img-thumbnail original--profile" alt="original-profile"
@@ -76,8 +78,8 @@
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="gender"
-								id="female" value="female" th:field="*{gender}" disabled> <label
-								class="form-check-label" for="female">여자</label>
+								id="female" value="female" th:field="*{gender}" disabled>
+							<label class="form-check-label" for="female">여자</label>
 						</div>
 					</div>
 				</div>
@@ -156,4 +158,5 @@
 			</form>
 		</div>
 	</div>
+	<script src="/js/mypage.js"></script>
 </main>
