@@ -85,10 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then(cities => {
 				citySelect.innerHTML = '<option value="">도시 선택</option>';
 				cities.forEach(city => {
-					const option = document.createElement('option');
-					option.value = city.id;
-					option.text = city.name;
-					citySelect.appendChild(option);
+				    const option = document.createElement('option');
+				    option.value = city.id != null ? city.id : ''; // null이면 빈 문자열로
+				    option.text = city.name;
+				    citySelect.appendChild(option);
 				});
 			})
 			.catch(err => {
