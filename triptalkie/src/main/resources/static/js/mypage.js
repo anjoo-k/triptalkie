@@ -20,8 +20,6 @@ if (updateMyInformationBtn) {
 // ===== 비밀번호 확인 버튼  =====
 //  -> 비밀번호 틀렸을 경우 -> 모달
 //  -> 비밀번호 맞았을 경우 -> 내 정보 수정 화면
-
-// URL 쿼리 파라미터에 error=1 이 있으면 모달 표시
 document.addEventListener("DOMContentLoaded", function(){
 	let error =  document.querySelector("main").dataset.error;
 	if(error === 'true'){
