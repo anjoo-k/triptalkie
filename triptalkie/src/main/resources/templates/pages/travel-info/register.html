@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
 
 <main layout:fragment="content">
-  <div class="container mt-5">
-    <h4 class="text-center mb-4">여행 정보 글쓰기</h4>
-    
-    <form th:action="@{/travel-info/register}" method="post">
-      <!-- 제목 -->
-      <div class="form-group">
-        <label for="title">제목</label>
-        <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
-      </div>
-      
-      <!-- 여행 정보 타입 -->
-      <div class="form-group">
-        <label for="infotype">정보 타입</label>
-        <select id="infotype" name="infotype" class="form-control" required>
-          <option value="">선택하세요</option>
-          <option value="관광지">관광지</option>
-          <option value="맛집">맛집</option>
-          <option value="쇼핑">쇼핑</option>
-          <option value="숙박">숙박</option>
-          <option value="교통">교통</option>
-        </select>
-      </div>
-      
-      <!-- 도시 선택 -->
-      <div class="form-group">
-        <label for="cityId">도시</label>
-        <select id="cityId" name="cityId" class="form-control" required>
-          <option value="">도시 선택</option>
-          <option value="KR_SEO">서울</option>
-          <option value="KR_CJJ">제주</option>
-          <option value="JP_TYO">도쿄</option>
-          <option value="AU_SYD">시드니</option>
-          <!-- 필요하면 city 테이블에서 동적으로 반복 가능 -->
-        </select>
-      </div>
-      
-      <!-- 여행 정보 날짜 -->
-      <div class="form-group">
-        <label for="infodate">날짜</label>
-        <input type="date" id="infodate" name="infodate" class="form-control" required>
-      </div>
-      
-      <!-- 내용 -->
-      <div class="form-group">
-        <label for="content">내용</label>
-        <textarea id="content" name="content" class="form-control" rows="6" placeholder="내용을 입력하세요" required></textarea>
-      </div>
-      
-      <!-- 작성자 (세션에서 자동 주입 가능) -->
-      <input type="hidden" name="memberId" th:value="${session.memberId}">
-      
-      <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary">등록</button>
-        <a th:href="@{/travel-info/list}" class="btn btn-secondary ml-2">취소</a>
-      </div>
-    </form>
-  </div>
+	<div class="container mt-5">
+		<h4 class="text-center mb-4">여행 정보 글쓰기</h4>
+
+		<form th:action="@{/travel-info/register}" method="post">
+			<!-- 제목 -->
+			<div class="form-group">
+				<label for="title">제목</label> <input type="text" id="title"
+					name="title" class="form-control" placeholder="제목을 입력하세요" required>
+			</div>
+
+			<!-- 여행 정보 타입 -->
+			<div class="form-group">
+				<label for="infotype">정보 타입</label> <select id="infotype"
+					name="infotype" class="form-control" required>
+					<option value="">선택하세요</option>
+					<option value="팁">팁</option>
+					<option value="교통">교통</option>
+					<option value="숙박">숙박</option>
+					<option value="음식점">음식점</option>
+					<option value="관광지">관광지</option>
+					<option value="축제">축제</option>
+					<option value="비용">비용</option>
+					<option value="안전">안전</option>
+					<option value="날씨">날씨</option>
+					<option value="기타">기타</option>
+				</select>
+			</div>
+
+			<!-- 도시 선택 -->
+			<div class="form-group">
+				<label for="cityId">도시</label> <select id="cityId" name="cityId"
+					class="form-control" required>
+					<option value="">도시 선택</option>
+					<option value="KR_SEO">서울</option>
+					<option value="KR_CJJ">제주</option>
+					<option value="JP_TYO">도쿄</option>
+					<option value="AU_SYD">시드니</option>
+					<!-- 필요하면 city 테이블에서 동적으로 반복 가능 -->
+				</select>
+			</div>
+
+			<!-- 여행 정보 날짜 -->
+			<div class="form-group">
+				<label for="infodate">날짜</label> <input type="date" id="infodate"
+					name="infodate" class="form-control" required>
+			</div>
+
+			<!-- 내용 -->
+			<div class="form-group">
+				<label for="content">내용</label>
+				<textarea id="content" name="content" class="form-control" rows="6"
+					placeholder="내용을 입력하세요" required></textarea>
+			</div>
+
+			<div class="text-center mt-4">
+				<button type="submit" class="btn btn-primary">등록</button>
+				<a th:href="@{/travel-info/list}" class="btn btn-secondary ml-2">취소</a>
+			</div>
+		</form>
+	</div>
 </main>
 
 </html>

@@ -29,7 +29,7 @@ public class MypageController {
 	public String mypage(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("loginId");
 		if(id == null)
-			return "redirect:/member/login";
+			return "redirect:/member/loginPage";
 		
 		Member member = mypageService.findMemberById(id);
 		model.addAttribute("member", member);
