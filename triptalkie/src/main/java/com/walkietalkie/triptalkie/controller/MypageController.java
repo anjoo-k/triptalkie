@@ -27,7 +27,7 @@ public class MypageController {
 	// 마이페이지 화면
 	@GetMapping("/myinformation")
 	public String mypage(HttpSession session, Model model) {
-		String id = (String)session.getAttribute("MemberId");
+		String id = (String)session.getAttribute("loginId");
 		if(id == null)
 			return "redirect:/member/loginPage";
 		
@@ -39,7 +39,7 @@ public class MypageController {
 	// 내 정보 수정 화면
 	@GetMapping("/update-myinfo")
 	public String myinfoupdatePageTest(HttpSession session, Model model) {
-		String id = (String)session.getAttribute("MemberId");
+		String id = (String)session.getAttribute("loginId");
 		if(id == null)
 			return "redirect:/member/loginPage";
 		
@@ -51,7 +51,7 @@ public class MypageController {
 	// 내정보 수정 처리 : 리다이렉트 하면 model 값은 리다이렉트하는 페이지로 넘어가지 않는다.
 	@PostMapping("/update-myinfo")
 	public String myinfoupdateTest(HttpSession session, Member member) {
-		String id = (String)session.getAttribute("MemberId");
+		String id = (String)session.getAttribute("loginId");
 		if(id == null)
 			return "redirect:/member/loginPage";
 		
@@ -70,7 +70,7 @@ public class MypageController {
 	// 비밀번호 체크 처리
 	@PostMapping("/password-check")
 	public String checkPassword(HttpSession session, String password, RedirectAttributes ra) throws Exception {
-		String id = (String)session.getAttribute("MemberId");
+		String id = (String)session.getAttribute("loginId");
 		if(id == null)
 			return "redirect:/member/loginPage";
 		
