@@ -15,12 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
-import com.walkietalkie.triptalkie.mapper.TravelInfoMapper;
 import com.walkietalkie.triptalkie.service.MemberService;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Controller
 @RequestMapping("/travel-info")
@@ -154,5 +152,4 @@ public class TravelInfoController {
       return "redirect:/travel-info/detail/" + idx;
     }
   }
-  
 }
