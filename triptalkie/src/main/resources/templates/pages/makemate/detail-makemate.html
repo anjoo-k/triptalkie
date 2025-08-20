@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<main layout:fragment="content">
+	<section>
+		<div class="row">
+			<div class="col-sm-12 mx-auto">
+				<img th:src="@{/images/photo1.jpg}" alt="여행사진"
+					class="img-fluid rounded d-block">
+			</div>
+		</div>
+	</section>
+	<hr>
+	<section>
+		<div>
+			<div class="row">
+				<div class="col-sm-10">
+					<h3>파리로 2주 정도 같이 놀러가요</h3>
+				</div>
+				<div class="col-sm-2">
+					<div>
+						<img th:src="@{/images/bookmark.png}">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-7">
+					<span>조회수 16 </span><span>북마크 2 </span><span>메세지 1 </span>
+				</div>
+				<div class="col-sm-5">
+					<span>작성일 2025.05.05</span>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div>
+			<p>
+				<strong>여행 일정</strong>
+			</p>
+			<div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/여행일정.png}">
+					</div>
+					<div class="col-sm-11">
+						<p>2025.08.10 ~ 2025.08.24.(15일)</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/장소.png}">
+					</div>
+					<div class="col-sm-11">
+						<p>유럽 프랑스 파리</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/파티원수.png}">
+					</div>
+					<div class="col-sm-11">
+						<p>1/4</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/조건.png}">
+					</div>
+					<div class="col-sm-11">
+						<p>동일 성별 모든 나이</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/비용.png}">
+					</div>
+					<div class="col-sm-11">
+						<p>미정</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div>
+			<div>
+				<h5>여행 소개</h5>
+			</div>
+			<div>
+				<span>여유롭게 돌아다니려는데<br> 일정 맞으면 같이 관광다니며 놀아요
+				</span>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-6">
+				<div>
+					<h5>동행 유형</h5>
+				</div>
+				<div>전체동행</div>
+			</div>
+			<div class="col-sm-6">
+				<div>
+					<h5>동행 유형</h5>
+				</div>
+				<div>맛집/카페</div>
+			</div>
+		</div>
+		<hr>
+		<div>
+			<div>
+				<h5>메이트 장</h5>
+			</div>
+			<div class="row">
+			<div  class="col-sm-3">
+				<div>
+					<img th:src="@{/images/original-profile.png}">
+				</div>
+				
+				<div class="col-sm-8">
+					<div>
+						<strong>피곤한제니</strong>
+					</div>
+					<div>30대 여자 한국</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<h5>함께하는 메이트들</h5>
+			</div>
+			<div>
+				<img>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div>
+			<button>채팅</button>
+		</div>
+		<div>
+			<div>
+				<button>목록</button>
+			</div>
+			<div>
+				<button>수정하기</button>
+			</div>
+			<div>
+				<button>삭제하기</button>
+			</div>
+		</div>
+	</section>
+</main>
+</html>
