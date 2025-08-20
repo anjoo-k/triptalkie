@@ -2,10 +2,13 @@ package com.walkietalkie.triptalkie.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.walkietalkie.triptalkie.domain.Community;
 import com.walkietalkie.triptalkie.mapper.CommunityMapper;
 
 @Service
+@Transactional
 public class CommunityService {
 	private final CommunityMapper communityMapper;
 	public CommunityService(CommunityMapper communityMapper) {

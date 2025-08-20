@@ -56,6 +56,19 @@
                     </div>
                 </th:block>
             </div>
+            <div class="card-footer text-right">
+				<a th:href="@{/community/list}" class="btn btn-secondary">목록으로</a>
+
+				<a th:href="@{/community/update/{idx}(idx=${community.idx})}"
+					class="btn btn-secondary">수정</a>
+
+				<form
+					th:action="@{/community/delete/{idx}(idx=${community.idx})}"
+					method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');"
+					style="display: inline;">
+					<button type="submit" class="btn btn-danger">삭제</button>
+				</form>
+			</div>
         </div>
     </div>
 
