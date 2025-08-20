@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		writeBtn.addEventListener("click", async () => {
 			const response = await fetch("");
 			const isLoggedIn = await response.json();
-			
-			if(!isLoggedIn) {
+
+			if (!isLoggedIn) {
 				alert("로그인 후 이용이 가능합니다.");
 				location.href = "/member/login";
 			} else {
@@ -85,10 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then(cities => {
 				citySelect.innerHTML = '<option value="">도시 선택</option>';
 				cities.forEach(city => {
-				    const option = document.createElement('option');
-				    option.value = city.id != null ? city.id : ''; // null이면 빈 문자열로
-				    option.text = city.name;
-				    citySelect.appendChild(option);
+					const option = document.createElement('option');
+
+					// 서버 JSON 필드명이 cityId인지 확인!
+					option.value = city.cityId || city.id || '';
+					option.textContent = city.name;
+
+					citySelect.appendChild(option);
 				});
 			})
 			.catch(err => {
