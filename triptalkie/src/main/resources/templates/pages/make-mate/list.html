@@ -4,17 +4,18 @@
 	layout:decorate="~{layouts/base}">
 
 <!-- 메이크 메이트 게시판 리스트 -->
-<main layout:fragment="content" style="width: 100%;">
+<main layout:fragment="content">
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xl bg-success">1 of 2</div>
-			<div class="col-xl bg-warning">2 of 2</div>
+		<div class="row make-mate--container">
+			<!-- 좌측 사진 -->
+			<div class="col-xl">강아지 사진
+				<img th:src="@{/images/makemate-main.jpg}" class="img-fluid">
+			</div>
+			<div class="col-xl bg-warning">카드 리스트</div>
 		</div>
 	</div>
-	<br>
-	<h4 class="text-center content--title">메이크 메이트 게시판 리스트</h4>
-	<div class="" style="border: 1px solid;">내용</div>
+	
 
-	<script src="/js/makemate.js"></script>
+	<script src="/js/make-mate.js"></script>
 </main>
 </html>
