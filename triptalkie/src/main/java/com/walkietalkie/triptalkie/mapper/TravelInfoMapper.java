@@ -20,6 +20,6 @@ public interface TravelInfoMapper {
   int updateTravelInfoByIdxAndMemberId(TravelInfo travelInfo);
   // 여행정보 글 업데이트
   
-  int deleteTravelInfoByIdx(long idx);
+  int deleteTravelInfoByIdx(Long idx, String memberId);
   // 여행정보 글 삭제
 }

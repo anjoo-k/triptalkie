@@ -84,7 +84,7 @@ public class TravelInfoController {
   @GetMapping("/edit/{idx}")
   public String editPage(@PathVariable("idx") long idx, Model model, HttpSession session) {
     TravelInfo travelInfo = travelInfoService.findTravelInfoIdx(idx);
-    
+
     if (travelInfo == null) {
       return "redirect:/travel-info/list";
     }
@@ -102,40 +102,64 @@ public class TravelInfoController {
 
   @PostMapping("/edit")
   public String editSubmit(TravelInfo travelInfo, HttpSession session, RedirectAttributes redirectAttributes) {
-      // 1. 로그인 사용자 확인
-      String loginId = memberService.getLoginId(session);
+    // 1. 로그인 사용자 확인
+    String loginId = memberService.getLoginId(session);
 
-      // DB에서 원본 travelInfo 조회
-      TravelInfo origin = travelInfoService.findTravelInfoIdx(travelInfo.getIdx());
+    // DB에서 원본 travelInfo 조회
+    TravelInfo origin = travelInfoService.findTravelInfoIdx(travelInfo.getIdx());
 
-      System.out.println("원본 데이터 : " + origin);
-      
-      if (!origin.getMemberId().equals(loginId)) {
-          redirectAttributes.addFlashAttribute("msg", "작성자가 아닙니다.");
-          return "redirect:/travel-info/detail/" + travelInfo.getIdx();
-      }
-      
+    System.out.println("원본 데이터 : " + origin);
 
-      // 2. 년-월 -> LocalDateTime 변환
-      if (travelInfo.getTempMonth() != null && !travelInfo.getTempMonth().isEmpty()) {
-          YearMonth ym = YearMonth.parse(travelInfo.getTempMonth());
-          travelInfo.setInfodate(ym.atDay(1).atStartOfDay());
-      }
-      
-      travelInfo.setMemberId(loginId);
+    if (!origin.getMemberId().equals(loginId)) {
+      redirectAttributes.addFlashAttribute("msg", "작성자가 아닙니다.");
+      return "redirect:/travel-info/detail/" + travelInfo.getIdx();
+    }
 
-      System.out.println("업데이트 실행 데이터: " + travelInfo);
-      
-      // 3. 업데이트
-      int success = travelInfoService.updateTravelInfoByIdxAndMemberId(travelInfo, session);
+    // 2. 년-월 -> LocalDateTime 변환
+    if (travelInfo.getTempMonth() != null && !travelInfo.getTempMonth().isEmpty()) {
+      YearMonth ym = YearMonth.parse(travelInfo.getTempMonth());
+      travelInfo.setInfodate(ym.atDay(1).atStartOfDay());
+    }
 
-      if (success > 0) {
-          redirectAttributes.addFlashAttribute("msg", "글이 수정되었습니다.");
-          return "redirect:/travel-info/detail/" + travelInfo.getIdx();
-      } else {
-          redirectAttributes.addFlashAttribute("msg", "글 수정에 실패했습니다.");
-          return "redirect:/travel-info/edit/" + travelInfo.getIdx();
-      }
+    travelInfo.setMemberId(loginId);
+
+    System.out.println("업데이트 실행 데이터: " + travelInfo);
+
+    // 3. 업데이트
+    int success = travelInfoService.updateTravelInfoByIdxAndMemberId(travelInfo, session);
+
+    if (success > 0) {
+      redirectAttributes.addFlashAttribute("msg", "글이 수정되었습니다.");
+      return "redirect:/travel-info/detail/" + travelInfo.getIdx();
+    } else {
+      redirectAttributes.addFlashAttribute("msg", "글 수정에 실패했습니다.");
+      return "redirect:/travel-info/edit/" + travelInfo.getIdx();
+    }
+  }
+
+  @PostMapping("/delete/{idx}")
+  public String deleteSubmit(@PathVariable("idx") Long idx, HttpSession session, RedirectAttributes redirectAttributes) {
+    // 1. 현재 로그인한 사용자의 ID 가져오기
+    String loginId = memberService.getLoginId(session);
+    System.out.println("delete 기능 게시판 번호 : "+loginId);
+    System.out.println("delete idx : "+ idx);
+    if (loginId == null) {
+      redirectAttributes.addFlashAttribute("msg", "로그인이 필요합니다.");
+      return "redirect:/member/loginPage"; // 로그인 페이지로 리다이렉트
+    }
+
+    // 2. Service에 삭제 작업 위임
+    try {
+      travelInfoService.deleteTravelInfoByIdx(idx, loginId);
+      redirectAttributes.addFlashAttribute("msg", "게시물이 성공적으로 삭제되었습니다.");
+    } catch (IllegalStateException e) {
+      // 본인이 아닌 경우 등 예외 처리
+      redirectAttributes.addFlashAttribute("msg", e.getMessage());
+      return "redirect:/travel-info/detail/" + idx;
+    }
+
+    // 3. 삭제 후 목록 페이지로 리다이렉트
+    return "redirect:/travel-info/list";
   }
 
 }

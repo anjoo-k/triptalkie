@@ -33,9 +33,16 @@
 			</div>
 			<div class="card-footer text-right">
 				<a th:href="@{/travel-info/list}" class="btn btn-secondary">목록으로</a>
-			</div>
-			<div class="card-footer text-right">
-				<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}" class="btn btn-secondary">수정</a>
+
+				<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}"
+					class="btn btn-secondary">수정</a>
+
+				<form
+					th:action="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
+					method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');"
+					style="display: inline;">
+					<button type="submit" class="btn btn-danger">삭제</button>
+				</form>
 			</div>
 
 		</div>
