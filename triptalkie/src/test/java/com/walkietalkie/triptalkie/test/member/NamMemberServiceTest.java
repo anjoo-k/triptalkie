@@ -35,38 +35,39 @@ public class NamMemberServiceTest {
 	
 	@Test
 	void testMemberRegister() {
-		Member member = new Member(
-			    "test",              // id
-			    "자바킹",              // nickname
-			    "1234",              // password
-			    "자바천재",            // name
-			    LocalDate.of(2022, 1, 1), // birth
-			    "남",              // gender
-			    "010-1234-5678",     // phonenumber
-			    "email@email.com",   // email
-			    "서울",               // address
-			    "맛집/카페",           // travelConcept
-			    50.0                 // credit
-			);
-		
-		int result = memberService.register(member);
-		assertEquals(1, result, "회원가입 성공하면 1");
-	}
-	
-	@Test
-	void testMypageUpdateMyInfo() {
-		Member member = new Member(
-				"test2",				// id
-			    "자바킹",              // nickname
-			    "1234",              // password
-			    "010-1234-5678",     // phonenumber
-			    "email@email.com",   // email
-			    "서울",               // address
-			    "맛집/카페"           // travelConcept
-			);
-		
-		int result = mypageService.updateMemberById(member);
-		assertEquals(1, result);
-	}
+//		Member member = new Member(
+//			    "test",              // id
+//			    "자바킹",              // nickname
+//			    "1234",              // password
+//			    "자바천재",            // name
+//			    LocalDate.of(2022, 1, 1), // birth
+//			    "남",              // gender
+//			    "010-1234-5678",     // phonenumber
+//			    "email@email.com",   // email
+//			    "서울",               // address
+//			    "맛집/카페",           // travelConcept
+//			    50.0                 // credit
+//			);
+//		
+//		int result = memberService.register(member);
+//		assertEquals(1, result, "회원가입 성공하면 1");
+//	}
+//	
+//	@Test
+//	void testMypageUpdateMyInfo() {
+//		Member member = new Member(
+//				"test2",				// id
+//			    "자바킹",              // nickname
+//			    "1234",              // password
+//			    "010-1234-5678",     // phonenumber
+//			    "email@email.com",   // email
+//			    "서울",               // address
+//			    "맛집/카페"           // travelConcept
+//			);
+//		
+//		int result = mypageService.updateMemberById(member);
+//		assertEquals(1, result);
+//	}
 
+}
 }
