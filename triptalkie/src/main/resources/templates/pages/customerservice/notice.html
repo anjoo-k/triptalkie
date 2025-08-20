@@ -9,17 +9,7 @@
 	<main layout:fragment="content" class="row">
 		<!-- 좌측 list -->
 		<aside class="col-sm-3">
-			<div class="list-group">
-				<a th:href="@{/customerservice/notice}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='notice'} ? ' active'">공지사항<span>></span></a>
-				<a th:href="@{/customerservice/faq}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='faq'} ? ' active'">FAQ<span>></span></a>
-				<a th:href="@{/customerservice/qna}"
-					class="list-group-item list-group-item-action"
-					th:classappend="${active=='qna'} ? ' active'">QnA<span>></span></a>
-			</div>
+			<div th:replace="fragments/customerservice-list :: customerserviceList"></div>
 		</aside>
 		<!-- 게시판 -->
 		<section class="col-sm-9">

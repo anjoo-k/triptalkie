@@ -2,10 +2,36 @@
  * comment를 위한 JavaScript
  */
 
+const commentBtn = document.querySelector('#commentBtn');
+const textarea = document.querySelector('#comment');
+const commentList = document.querySelector('#comment-list'); 
+
+async function loadComments(){
+	/*const boardId -> 각자 게시판 id 담음,
+	 hidden input 등으로 전달*/
+	try{
+		const response = await fetch("/comment");
+		const result = await response.json();
+		
+		if(result.sucess){
+			result.data.farEach(comment => {
+				const div = documnet.creatElement("div");
+				div.innerHTML = `<b>${comment.memberId}</b> ${c.content} <br><small>${c.createdAt}</small>`;
+				commentList.appendChild(div);
+			});
+		}
+	}catch(error){
+		console.error(error);
+	}
+}
+
+
+  
+
 document.addEventListener("DOMContentLoaded", function () {
-  const commentBtn = document.querySelector('#commentBtn');
-  const textarea = document.querySelector('#comment');
-  const commentList = document.querySelector('#comment-list'); 
+ 
+   loadComments();
+  
   commentBtn.addEventListener("click", async () => {
     const text = textarea.value.trim();
     if (!text) {
