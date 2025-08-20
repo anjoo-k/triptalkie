@@ -50,6 +50,7 @@ public class TravelReviewController {
 		model.addAttribute("pageData", pageData); // 페이징 정보 전체
 
 		List<Country> countryList = countryService.findCountryAllList();
+		System.out.println("국가 리스트 : " + countryList);
 		model.addAttribute("countryList", countryList);
 
 		return "pages/travel-review/findTravelreviewAllList";
@@ -113,22 +114,5 @@ public class TravelReviewController {
 		System.out.println("idx 넘어온 값 : " + idx);
 
 		return travelReviewService.deleteTravelreviewByIdx(idx);
-	}
-	
-	@GetMapping("/findTravelreviewSearchUnited")
-	public String findTravelreviewSearchUnited(@RequestParam(required = false) String keyword,
-			@RequestParam(required = false) String country, 
-			@RequestParam(required = false) String city, 
-			@RequestParam(required = false) String concept, 
-			Model model) {
-		
-		System.out.println("controller keyword: " + keyword + ", country: " + country + ", city: " + city + ", concept: " + concept);
-		
-		List<TravelReview> searchResult = travelReviewService.findTravelreviewSearchUnited(keyword, country, city, concept);
-		
-		model.addAttribute("searchResult", searchResult);
-		
-		return "pages/travel-review/findTravelreviewAllList";
-		
 	}
 }
