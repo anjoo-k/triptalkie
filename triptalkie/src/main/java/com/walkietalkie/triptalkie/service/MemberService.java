@@ -34,13 +34,36 @@ public class MemberService {
     Member member = memberMapper.findById(id);
 
     if (member != null && passwordEncoder.matches(password, member.getPassword())) {
-      session.setAttribute("MemberId", member.getId());
-      session.setAttribute("MemberNickname", member.getNickname());
+      session.setAttribute("loginId", member.getId());
+      session.setAttribute("loginNickname", member.getNickname());
       logger.info("로그인 성공: {}", member.getId());
       return true;
     }
     logger.warn("로그인 실패: {}", id);
     return false;
+  }
+  
+  public void logout(HttpSession session) {
+    // 세션에 저장된 사용자 정보 제거
+    session.removeAttribute("loginId");
+    session.removeAttribute("loginNickname");
+    
+    // session.invalidate();
+    // 세션 전체를 초기화하고 싶다면 아래를 사용
+    
+    logger.info("로그아웃 완료");
+  }
+  
+  
+  
+  public String getLoginId(HttpSession session) {
+    String loginId = (String) session.getAttribute("loginId");
+    return loginId;
+  }
+  
+  public String getLoginNickname(HttpSession session) {
+    String loginNickname = (String) session.getAttribute("loginNickname");
+    return loginNickname;
   }
   
   /**
@@ -81,16 +104,6 @@ public class MemberService {
       throw new IllegalArgumentException("이메일을 입력하세요");
     }
     return memberMapper.checkMemberByEmail(email);
-  }
-
-  public String getLoginId(HttpSession session) {
-	// TODO Auto-generated method stub
-	return null;
-  }
-
-  public String getLoginNickname(HttpSession session) {
-	// TODO Auto-generated method stub
-	return null;
   }
 
 }
