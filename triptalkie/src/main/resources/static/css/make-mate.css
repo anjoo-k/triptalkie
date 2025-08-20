@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/* 메이크메이트 메인 리스트 페이지 */
+.make-mate--container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+}
