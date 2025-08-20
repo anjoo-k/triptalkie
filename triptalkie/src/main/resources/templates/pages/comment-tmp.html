@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content">
+	<h4 class="text-center content--title">댓글 구현 temp</h4>
+	<section>
+		<div>
+			<label for="comment"><strong>댓글목록</strong></label>
+		</div>
+		<div class="row">
+			<div class="col-sm-9">
+				<textarea class="form-control" rows="1" id="comment" placeholder="댓글입력"></textarea>
+			</div>
+			<div class="col-sm-3 d-flex align-items-center justify-content-left">
+				<button type="button" class="btn btn-write" id="commentBtn">댓글쓰기</button>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div id="comment-list">
+			<!-- 댓글 보이는 영역 -->
+		</div>
+	</section>
+	<script src="/js/comment.js"></script>
+</main>

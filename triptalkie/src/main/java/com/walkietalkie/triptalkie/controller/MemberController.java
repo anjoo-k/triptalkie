@@ -88,6 +88,7 @@ public class MemberController {
 
       if (loginSuccess) {
           // 로그인 성공
+    	  session.setAttribute("loggedInMemberId", id);
           return "redirect:/"; // 메인 페이지로 리다이렉트
       } else {
           // 로그인 실패

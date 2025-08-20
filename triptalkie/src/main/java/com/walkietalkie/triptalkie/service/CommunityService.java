@@ -28,5 +28,10 @@ public class CommunityService {
 	public int updateCommunityByIdxAndMemberId(Community community) {
 		return communityMapper.updateCommunity(community);
 	}
+
+	public int deleteCommunityByIdx(long idx) {
+		return communityMapper.deleteCommunity(idx);
+		
+	}
 	
 }
