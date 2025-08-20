@@ -41,16 +41,20 @@ public class TravelReviewController {
 
 	@GetMapping("/findTravelreviewAllList")
 	public String findTravelreviewAllList(@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "5") int size, Model model) {
+			@RequestParam(defaultValue = "5") int size, @RequestParam(required = false) String keyword,
+			@RequestParam(required = false) String countryId, @RequestParam(required = false) String cityId,
+			@RequestParam(required = false) String conceptType, Model model) {
+
 		// 서비스에서 바로 CommonPage 객체 생성
-		CommonPage<Map<String, Object>> pageData = travelReviewService.findTravelreviewPage(page, size);
+		CommonPage<Map<String, Object>> pageData = travelReviewService.findTravelreviewPage(page, size, keyword,
+				countryId, cityId, conceptType);
 
 		// 모델에 데이터 넣기
 		model.addAttribute("reviewList", pageData.getContent()); // 실제 데이터 리스트
 		model.addAttribute("pageData", pageData); // 페이징 정보 전체
 
 		List<Country> countryList = countryService.findCountryAllList();
-		System.out.println("국가 리스트 : " + countryList);
+		System.out.println("CountryList : " + countryList);
 		model.addAttribute("countryList", countryList);
 
 		return "pages/travel-review/findTravelreviewAllList";
@@ -58,8 +62,10 @@ public class TravelReviewController {
 
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx(@PathVariable Long idx, Model model, HttpSession session) {
+		String id = (String) session.getAttribute("memberId");
+		model.addAttribute("memberId", id);
+
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
-		session.setAttribute("memberId", "user1");
 
 		model.addAttribute("travelreview", travelreview);
 		return "pages/travel-review/detail-review";
@@ -67,8 +73,14 @@ public class TravelReviewController {
 
 	@GetMapping("/registerReviewPage")
 	public String registerReviewPage(Model model, HttpSession session) {
+		String loginMember = (String) session.getAttribute("memberId");
+//		model.addAttribute("memberId", id);
+		// 세션이 비어있을 경우 에러 처리 추가
+		if (loginMember == null) {
+			return "redirect:/pages/member/login";
+		}
+
 		List<City> cityList = cityService.findCityAllList();
-		session.setAttribute("memberId", "user1");
 		model.addAttribute("cityList", cityList);
 
 		return "pages/travel-review/register-review";
@@ -76,6 +88,7 @@ public class TravelReviewController {
 
 	@PostMapping("/registerTravelreview")
 	public String registerTravelreview(TravelReview travelReview) {
+
 		if (!(travelReview.getMateType() == null)) {
 			travelReview.setMateUse(true);
 		}
@@ -86,7 +99,16 @@ public class TravelReviewController {
 	}
 
 	@GetMapping("/edit-review/{idx}")
-	public String editReviewPage(@PathVariable Long idx, Model model) {
+	public String editReviewPage(@PathVariable Long idx, HttpSession session, Model model) {
+		Map<String, Object> travelReview = travelReviewService.findTravelreviewByIdx(idx);
+
+		String loginMember = (String) session.getAttribute("memberId");
+		String travelReviewMemberId = (String) travelReview.get("memberId");
+
+		if (!travelReviewMemberId.equals(loginMember)) {
+			return "error/403";
+		}
+
 		List<City> cityList = cityService.findCityAllList();
 		model.addAttribute("cityList", cityList);
 
@@ -97,9 +119,16 @@ public class TravelReviewController {
 	}
 
 	@PostMapping("/updateTravelreviewByIdxAndMemberId")
-	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelReview,
+	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelReview, HttpSession session,
 			RedirectAttributes redirectAttributes) {
 
+		String loginMember = (String) session.getAttribute("memberId");
+		String travelReviewMemberId = travelReview.getMemberId(); // 객체 접근
+
+	    if (!travelReviewMemberId.equals(loginMember)) {
+	        return "error/403";	// 에러 처리
+	    }
+	    
 		if (!(travelReview.getMateType() == null)) {
 			travelReview.setMateUse(true);
 		}
@@ -111,8 +140,8 @@ public class TravelReviewController {
 	@GetMapping("/deleteTravelreviewByIdx")
 	@ResponseBody
 	public int deleteTravelreviewByIdx(@RequestParam Long idx) {
-		System.out.println("idx 넘어온 값 : " + idx);
 
 		return travelReviewService.deleteTravelreviewByIdx(idx);
 	}
+
 }

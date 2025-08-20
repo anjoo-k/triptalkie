@@ -48,14 +48,26 @@ public class TravelReviewService {
 	/*
 	 * 페이지네이션(Map 리스트 기준)
 	 */
-	public CommonPage<Map<String, Object>> findTravelreviewPage(int page, int size) {
-		int totalCount = travelReviewMapper.findTravelreviewAllCount();
+	public CommonPage<Map<String, Object>> findTravelreviewPage(int page, int size, String keyword, String countryId, String cityId, String conceptType) {
+		// page, size 최소값 체크
+	    if (page < 1) page = 1;
+	    if (size < 1) size = 5;
+		
+		int totalCount = travelReviewMapper.findCountByConditions(keyword, countryId, cityId, conceptType);
 		int totalPages = (int) Math.ceil((double) totalCount / size);
 
-		int startRow = (page - 1) * size;
+		// 검색 결과 0건이면 totalPages 0으로 처리
+	    if (totalCount == 0) {
+	        totalPages = 0;
+	        page = 0; // currentPage도 0
+	    } else {
+	        if (page > totalPages) 
+	        	page = totalPages;
+	    }
 
+	    int startRow = (page > 0) ? (page - 1) * size : 0;
 		// Map 기반으로 페이징 쿼리 호출
-		List<Map<String, Object>> list = travelReviewMapper.findPaged(size, startRow);
+		List<Map<String, Object>> list = travelReviewMapper.findPaged(size, startRow, keyword, countryId, cityId, conceptType);
 
 		int pageBlock = 5; // 한 화면에 표시할 페이지 수
 		int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
@@ -63,5 +75,11 @@ public class TravelReviewService {
 
 		return new CommonPage<>(list, size, page, totalPages, startPage, endPage);
 	}
+
+//	public List<TravelReview> findTravelreviewSearchUnited(String keyword, String country, String city,
+//			String concept) {
+//		System.out.println("service keyword: " + keyword + ", country: " + country + ", city: " + city + ", concept: " + concept);
+//		return travelReviewMapper.findTravelreviewSearchUnited(keyword, country, city, concept);
+//	}
 
 }

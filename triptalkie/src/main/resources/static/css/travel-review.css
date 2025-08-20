@@ -236,3 +236,15 @@ input[type="radio"]:checked+label.mate-type {
   outline: none;
   box-shadow: 0 0 0 2px rgba(229, 115, 115, 0.4);
 }*/
+
+/* 셀렉트 박스 CSS */
+/* select-box만 적용 */
+.select-box.bootstrap-select .dropdown-menu li a:hover {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+.select-box.bootstrap-select .dropdown-menu li.selected a {
+    background-color: #ff9900;
+    color: #fff;
+}

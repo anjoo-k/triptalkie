@@ -23,6 +23,12 @@ public interface TravelReviewMapper {
 	
 	int findTravelreviewAllCount();
 
-	List<Map<String, Object>> findPaged(@Param("size") int size, @Param("startRow") int startRow);
+	List<Map<String, Object>> findPaged(@Param("size") int size, @Param("startRow") int startRow, String keyword, String countryId, String cityId, String conceptType);
 
+	int findCountByConditions(String keyword, String countryId, String cityId, String conceptType);
+
+	/*
+	 * List<TravelReview> findTravelreviewSearchUnited(String keyword, String
+	 * country, String city, String concept);
+	 */
 }
