@@ -66,6 +66,7 @@ public class TravelReviewService {
 	    }
 
 	    int startRow = (page > 0) ? (page - 1) * size : 0;
+	    
 		// Map 기반으로 페이징 쿼리 호출
 		List<Map<String, Object>> list = travelReviewMapper.findPaged(size, startRow, keyword, countryId, cityId, conceptType);
 

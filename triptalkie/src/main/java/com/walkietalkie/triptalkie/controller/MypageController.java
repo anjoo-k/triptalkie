@@ -29,7 +29,7 @@ public class MypageController {
 	public String mypage(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("MemberId");
 		if(id == null)
-			return "redirect:/member/login";
+			return "redirect:/member/loginPage";
 		
 		Member member = mypageService.findMemberById(id);
 		model.addAttribute("member", member);
@@ -41,7 +41,7 @@ public class MypageController {
 	public String myinfoupdatePageTest(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("MemberId");
 		if(id == null)
-			return "redirect:/member/login";
+			return "redirect:/member/loginPage";
 		
 		Member member = mypageService.findMemberById(id);
 		model.addAttribute("member", member);
@@ -53,7 +53,7 @@ public class MypageController {
 	public String myinfoupdateTest(HttpSession session, Member member) {
 		String id = (String)session.getAttribute("MemberId");
 		if(id == null)
-			return "redirect:/member/login";
+			return "redirect:/member/loginPage";
 		
 		member.setId(id);
 		mypageService.updateMemberById(member);
@@ -72,7 +72,7 @@ public class MypageController {
 	public String checkPassword(HttpSession session, String password, RedirectAttributes ra) throws Exception {
 		String id = (String)session.getAttribute("MemberId");
 		if(id == null)
-			return "redirect:/member/login";
+			return "redirect:/member/loginPage";
 		
 		Boolean result = mypageService.checkPassword(id, password);
 		if(result) {

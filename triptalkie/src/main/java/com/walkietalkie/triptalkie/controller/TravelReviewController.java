@@ -44,6 +44,7 @@ public class TravelReviewController {
 			@RequestParam(defaultValue = "5") int size, @RequestParam(required = false) String keyword,
 			@RequestParam(required = false) String countryId, @RequestParam(required = false) String cityId,
 			@RequestParam(required = false) String conceptType, Model model) {
+		System.out.println("넘어 온 값 : keyword -> " + keyword + ", countryId -> " + countryId + ", cityId -> " + cityId + ", conceptType -> " + conceptType);
 
 		// 서비스에서 바로 CommonPage 객체 생성
 		CommonPage<Map<String, Object>> pageData = travelReviewService.findTravelreviewPage(page, size, keyword,
@@ -62,7 +63,7 @@ public class TravelReviewController {
 
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx(@PathVariable Long idx, Model model, HttpSession session) {
-		String id = (String) session.getAttribute("memberId");
+		String id = (String) session.getAttribute("loginId");
 		model.addAttribute("memberId", id);
 
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
@@ -73,11 +74,11 @@ public class TravelReviewController {
 
 	@GetMapping("/registerReviewPage")
 	public String registerReviewPage(Model model, HttpSession session) {
-		String loginMember = (String) session.getAttribute("memberId");
-//		model.addAttribute("memberId", id);
+		String loginMember = (String) session.getAttribute("loginId");
+		System.out.println("loginMember : " + loginMember);
 		// 세션이 비어있을 경우 에러 처리 추가
 		if (loginMember == null) {
-			return "redirect:/pages/member/login";
+			return "redirect:/member/loginPage";
 		}
 
 		List<City> cityList = cityService.findCityAllList();
@@ -102,7 +103,7 @@ public class TravelReviewController {
 	public String editReviewPage(@PathVariable Long idx, HttpSession session, Model model) {
 		Map<String, Object> travelReview = travelReviewService.findTravelreviewByIdx(idx);
 
-		String loginMember = (String) session.getAttribute("memberId");
+		String loginMember = (String) session.getAttribute("loginId");
 		String travelReviewMemberId = (String) travelReview.get("memberId");
 
 		if (!travelReviewMemberId.equals(loginMember)) {
@@ -122,7 +123,7 @@ public class TravelReviewController {
 	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelReview, HttpSession session,
 			RedirectAttributes redirectAttributes) {
 
-		String loginMember = (String) session.getAttribute("memberId");
+		String loginMember = (String) session.getAttribute("loginId");
 		String travelReviewMemberId = travelReview.getMemberId(); // 객체 접근
 
 	    if (!travelReviewMemberId.equals(loginMember)) {
