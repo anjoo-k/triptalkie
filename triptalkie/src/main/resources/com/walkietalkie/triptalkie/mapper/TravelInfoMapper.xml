@@ -14,8 +14,8 @@
 	<update id="updateTravelInfoByIdxAndMemberId" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
 		update travelinfo set title=#{title}, infotype=#{infotype}, infodate=#{infodate}, city_id=#{cityId}, content=#{content}, updated_at = NOW()  where idx=#{idx} and member_id=#{memberId}
 	</update>
-	<delete id="deleteTravelInfoByIdx" parameterType="Long">
-		delete from travelinfo where idx = #{idx}
+	<delete id="deleteTravelInfoByIdx">
+		delete from travelinfo where idx = #{idx} and member_id=#{memberId}
 	</delete>
 	
 </mapper>

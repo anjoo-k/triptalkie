@@ -71,8 +71,8 @@ public class TravelInfoService {
   
   
   // 여행정보 글 삭제
-  public int deleteTravelInfoByIdx(long idx) {
-    int result = travelInfoMapper.deleteTravelInfoByIdx(idx);
+  public int deleteTravelInfoByIdx(Long idx, String loginId) {
+    int result = travelInfoMapper.deleteTravelInfoByIdx(idx, loginId);
 
     
     return result;
