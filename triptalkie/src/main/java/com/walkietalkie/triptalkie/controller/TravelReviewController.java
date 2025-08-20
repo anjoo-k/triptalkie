@@ -38,7 +38,9 @@ public class TravelReviewController {
 		this.countryService = countryService;
 		this.cityService = cityService;
 	}
-
+	/*
+	 * 	통합 + 카테고리 검색 + 페이지네이션 + 전체 리스트 조회
+	 */
 	@GetMapping("/findTravelreviewAllList")
 	public String findTravelreviewAllList(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "5") int size, @RequestParam(required = false) String keyword,
@@ -60,18 +62,26 @@ public class TravelReviewController {
 
 		return "pages/travel-review/findTravelreviewAllList";
 	}
-
+	
+	/*
+	 * 	여행 후기 상세 조회
+	 */
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx(@PathVariable Long idx, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");
 		model.addAttribute("memberId", id);
-
+		System.out.println("넘어 온 게시글 번호 : " + idx);
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
+		
+		System.out.println("게시글 번호로 조회한 여행 후기 정보 : " + travelreview);
 
 		model.addAttribute("travelreview", travelreview);
 		return "pages/travel-review/detail-review";
 	}
-
+	
+	/*
+	 *  여행 후기 작성 페이지 이동
+	 */
 	@GetMapping("/registerReviewPage")
 	public String registerReviewPage(Model model, HttpSession session) {
 		String loginMember = (String) session.getAttribute("loginId");
@@ -87,6 +97,9 @@ public class TravelReviewController {
 		return "pages/travel-review/register-review";
 	}
 
+	/*
+	 *  여행 후기 작성
+	 */
 	@PostMapping("/registerTravelreview")
 	public String registerTravelreview(TravelReview travelReview) {
 
@@ -99,6 +112,9 @@ public class TravelReviewController {
 		return "redirect:/travel-review/detail-review/" + newIdx;
 	}
 
+	/*
+	 *  여행 후기 수정 페이지 이동
+	 */
 	@GetMapping("/edit-review/{idx}")
 	public String editReviewPage(@PathVariable Long idx, HttpSession session, Model model) {
 		Map<String, Object> travelReview = travelReviewService.findTravelreviewByIdx(idx);
@@ -108,7 +124,7 @@ public class TravelReviewController {
 
 		if (!travelReviewMemberId.equals(loginMember)) {
 			return "error/403";
-		}
+		}	// 수정 필요
 
 		List<City> cityList = cityService.findCityAllList();
 		model.addAttribute("cityList", cityList);
@@ -118,7 +134,10 @@ public class TravelReviewController {
 
 		return "pages/travel-review/edit-review";
 	}
-
+	
+	/*
+	 *  여행 후기 수정
+	 */
 	@PostMapping("/updateTravelreviewByIdxAndMemberId")
 	public String updateTravelreviewByIdxAndMemberId(@ModelAttribute TravelReview travelReview, HttpSession session,
 			RedirectAttributes redirectAttributes) {
@@ -138,6 +157,9 @@ public class TravelReviewController {
 		return "redirect:/travel-review/detail-review/" + travelReview.getIdx();
 	}
 
+	/*
+	 *  여행 후기 삭제
+	 */
 	@GetMapping("/deleteTravelreviewByIdx")
 	@ResponseBody
 	public int deleteTravelreviewByIdx(@RequestParam Long idx) {
