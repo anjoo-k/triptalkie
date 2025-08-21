@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.MemberImageMapper">
+	<!-- namespace : 인터페이스 파일 경로 -->
+	<!-- register -->
+	<insert id="registerMemberImage"
+		parameterType="com.walkietalkie.triptalkie.domain.MemberImage"
+		useGeneratedKeys="true" keyProperty="idx">
+		<!-- useGeneratedKeys, keyProperty : idx 자동 생성, 증가 속성 -->
+		INSERT INTO member_image
+		(uuid, orginal_name, saved_name, file_path, file_size, member_id) VALUES
+		(#{uuid}, #{originalName}, #{savedName}, #{filePath}, #{fileSize},
+		#{memberId})
+		<!-- #{uuid} : 전달 받은 객체의 인스턴스 변수 uuid의 값, #{originalName} : 전달 받은 객체의 인스턴스 
+			변수 originalName의 값 -->
+	</insert>
+	
+	<!-- 조회 -->
+	<select id="findByUuid" parameterType="string" resultType="com.walkietalkie.triptalkie.domain.MemberImage">
+		SELECT * FROM member_image WHERE uuid = #{uuid}
+	</select>
+	
+	<select id="findByIdx" parameterType="long" resultType="com.walkietalkie.triptalkie.domain.MemberImage">
+		SELECT * FROM member_image WHER idx = #{idx}
+	</select>
+
+	<!-- 삭제 -->
+	<delete id="deleteByUuid" parameterType="string">
+		DELETE FROM member_image WHERE uuid = #{uuid}
+	</delete>
+	
+	<delete id="deleteByIdx" parameterType="long">
+		DELETE FROM member_image WHERE idx = #{idx}
+	</delete>
+
+</mapper>
