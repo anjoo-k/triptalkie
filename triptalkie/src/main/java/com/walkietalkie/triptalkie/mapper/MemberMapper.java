@@ -7,15 +7,15 @@ import com.walkietalkie.triptalkie.domain.Member;
 @Mapper
 public interface MemberMapper {
 
-  int register(Member member);
+	int register(Member member);
 
-  int checkMemberById(String id);
+	int checkMemberById(String id);
 
-  int checkMemberByNickname(String nickname);
+	int checkMemberByNickname(String nickname);
 
-  int checkMemberByPhonenumber(String phonenumber);
+	int checkMemberByPhonenumber(String phonenumber);
 
-  int checkMemberByEmail(String email);
-  
-  Member findById(String id);
+	int checkMemberByEmail(String email);
+
+	Member findById(String id);
 }

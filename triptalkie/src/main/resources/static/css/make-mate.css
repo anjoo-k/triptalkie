@@ -103,6 +103,8 @@
     align-items: center;
     gap: 10px; /* input/라벨과 이미지 간격 */
     padding: 10px;
+    background-color: var(--color-board-background);
+    
 }
 
 .upload-tile {
