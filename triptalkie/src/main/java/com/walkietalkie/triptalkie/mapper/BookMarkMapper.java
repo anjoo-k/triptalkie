@@ -1,5 +1,9 @@
 package com.walkietalkie.triptalkie.mapper;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.walkietalkie.triptalkie.domain.Makemate;
 
 
 @Mapper
@@ -11,7 +15,7 @@ public interface BookMarkMapper {
 	
 	void deleteBookmark(String memberId, long makemateIdx);
 
-	void findBookmarksWithMakemate(String memberId);
+	List<Makemate> findBookmarksWithMakemate(String memberId);
 	
 
 }
