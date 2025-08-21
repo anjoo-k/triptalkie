@@ -19,13 +19,20 @@
 				<h3>파리로 2주 정도 같이 놀러가요</h3>
 			</div>
 			<div class="col-sm-1">
-				<img th:src="@{/images/bookmark.png}">
+				<img id="bookmarkBtn"
+                     src="/images/bookmark-off.png"
+                     data-member-id="user1"   
+                     data-makemate-idx="1"    
+                     style="cursor:pointer; width:32px; height:32px;">
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-7">
-				<span>조회수 16 </span><span>북마크 2 </span><span>메세지 1 </span>
+				<span>조회수 16 </span>
+				<span>북마크 2 </span>
+				<span>메세지 1 </span>
 			</div>
+			
 			<div class="col-sm-5">
 				<span>작성일 2025.05.05</span>
 			</div>
