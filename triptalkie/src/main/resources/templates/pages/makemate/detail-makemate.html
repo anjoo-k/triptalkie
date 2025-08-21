@@ -6,7 +6,7 @@
 <main layout:fragment="content">
 	<section>
 		<div class="row">
-			<div class="col-sm-12 mx-auto">
+			<div class="col-sm-12">
 				<img th:src="@{/images/photo1.jpg}" alt="여행사진"
 					class="img-fluid rounded d-block">
 			</div>
@@ -14,24 +14,20 @@
 	</section>
 	<hr>
 	<section>
-		<div>
-			<div class="row">
-				<div class="col-sm-10">
-					<h3>파리로 2주 정도 같이 놀러가요</h3>
-				</div>
-				<div class="col-sm-2">
-					<div>
-						<img th:src="@{/images/bookmark.png}">
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-sm-11">
+				<h3>파리로 2주 정도 같이 놀러가요</h3>
 			</div>
-			<div class="row">
-				<div class="col-sm-7">
-					<span>조회수 16 </span><span>북마크 2 </span><span>메세지 1 </span>
-				</div>
-				<div class="col-sm-5">
-					<span>작성일 2025.05.05</span>
-				</div>
+			<div class="col-sm-1">
+				<img th:src="@{/images/bookmark.png}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-7">
+				<span>조회수 16 </span><span>북마크 2 </span><span>메세지 1 </span>
+			</div>
+			<div class="col-sm-5">
+				<span>작성일 2025.05.05</span>
 			</div>
 		</div>
 		<hr>
@@ -109,45 +105,52 @@
 		</div>
 		<hr>
 		<div>
-			<div>
-				<h5>메이트 장</h5>
+			<h5>메이트 장</h5>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<img th:src="@{/images/original-profile.png}"
+					class="img-fluid rounded-circle d-block border">
 			</div>
-			<div class="row">
-			<div  class="col-sm-3">
+			<div class="col-sm-8 d-flex flex-column justify-content-center">
 				<div>
-					<img th:src="@{/images/original-profile.png}">
+					<strong>피곤한제니</strong>
 				</div>
-				
-				<div class="col-sm-8">
-					<div>
-						<strong>피곤한제니</strong>
-					</div>
-					<div>30대 여자 한국</div>
-				</div>
+				<div>30대 여자 한국</div>
 			</div>
 		</div>
+
+		<hr>
 		<div>
 			<div>
 				<h5>함께하는 메이트들</h5>
 			</div>
-			<div>
-				<img>
+			<div class="row">
+				<div class="col-sm-1">
+					<img th:src="@{/images/original-profile.png}"
+						class="img-fluid rounded-circle d-block border">
+				</div>
+				<div class="col-sm-1">
+					<img th:src="@{/images/original-profile.png}"
+						class="img-fluid rounded-circle d-block border">
+				</div>
 			</div>
 		</div>
 	</section>
 	<section>
 		<div>
-			<button>채팅</button>
+			<button class="btn btn-chatting btn-primary">채팅</button>
 		</div>
-		<div>
-			<div>
-				<button>목록</button>
+		<div class="row">
+			<div class="col-sm-2">
+				<button class="btn btn-backToList">목록</button>
 			</div>
-			<div>
-				<button>수정하기</button>
+			<div class="col-sm-6"></div>
+			<div class="col-sm-2">
+				<button class="btn btn-primary">수정하기</button>
 			</div>
-			<div>
-				<button>삭제하기</button>
+			<div class="col-sm-2">
+				<button class="btn btn-primary">삭제하기</button>
 			</div>
 		</div>
 	</section>
