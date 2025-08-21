@@ -22,10 +22,10 @@ public class TravelReviewService {
 	/*
 	 * 여행 리뷰 리스트 조회
 	 */
-	@Transactional(readOnly = true)
-	public List<Map<String, Object>> findTravelreviewAllList() {
-		return travelReviewMapper.findTravelreviewAllList();
-	}
+//	@Transactional(readOnly = true)
+//	public List<Map<String, Object>> findTravelreviewAllList() {
+//		return travelReviewMapper.findTravelreviewAllList();
+//	}
 
 	public Map<String, Object> findTravelreviewByIdx(Long idx) {
 		return travelReviewMapper.findTravelreviewByIdx(idx);
