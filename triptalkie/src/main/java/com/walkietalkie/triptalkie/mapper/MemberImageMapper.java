@@ -12,8 +12,10 @@ public interface MemberImageMapper {
 	int registerMemberImage(MemberImage memberImage);
 	// 멤버프로필 등록 메서드
 
+	MemberImage findByMemberImageById(String memberId);
+	// 멤버프로필 조회 메서드 : Id로
+	
 	MemberImage findByUuid(String uuid);
-
 	// 조회 : 외부 API 용도
 	MemberImage findByIdx(Long idx);
 	// 조회 : 내부 DB 관리용도
