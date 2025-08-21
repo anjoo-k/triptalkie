@@ -19,6 +19,7 @@ import com.walkietalkie.triptalkie.mapper.MemberImageMapper;
 // 스프링 부트 통합 테스트를 위한 어노테이션
 // 모든 빈이 로드 되기 때문에 실제 어플리케이션과 거의 동일한 환경에서 테스트가 가능하다.
 @Transactional
+// 테스트 끝난 후 테스트 내용 DB에 반영하지 않는다.
 public class MemberImageRegisterTest {
 	
 	@Autowired
@@ -88,7 +89,6 @@ public class MemberImageRegisterTest {
         Files.deleteIfExists(tempFile);
         Files.deleteIfExists(tempDir);
     }
-	
 	
 	
 }
