@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-});
+
 
 	/* 작성하기 */
 	// 파일 첨부 시 사진 한 장 미리 보여주기
