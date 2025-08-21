@@ -61,7 +61,7 @@
 			</div>
 
 			<div class="col-xl-6">
-				<div class="trip-card">
+				<div class="trip-card" th:each="list:${makemateList.content}">
 					<!-- 카드 -->
 					<div class="card border-0 p-2">
 						<!-- 1행: 배지 -->
@@ -77,8 +77,8 @@
 							</div>
 							<!-- 글 제목 + 내용 -->
 							<div class="flex-grow-1">
-								<a href="/" class="card-title d-block mb-1">환상의 섬 아름다운 제주도로 떠나보아요</a>
-								<p class="text-muted small mb-0">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
+								<a href="/" class="card-title d-block mb-1 text-truncate" th:text="${list.title}">환상의 섬 아름다운 제주도로 떠나보아요</a>
+								<p class="text-muted small mb-0 text-truncate" th:text="${list.content}">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
 									찍어드림요</p>
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 						<!-- 3행: 여행 정보 + 프로필 + 날짜 -->
 						<div class="d-flex justify-content-between align-items-center flex-wrap">
 							<!-- 여행지 배지 -->
-							<span class="badge badge--category travel-type mt-auto">제주도</span>
+							<span class="badge badge--category travel-type mt-auto" th:text="${list.cityId}">제주도</span>
 
 							<!-- 프로필 + 유저 정보 + 날짜 -->
 							<div class="d-flex justify-content-end align-items-center" style="font-size: x-small;">
@@ -95,7 +95,7 @@
 										<img src="/images/bangkok.jpg" class="rounded-circle mr-1"
 											style="width:16px; height:16px;" alt="프로필">
 
-										킹현승 · 30대 · 남성
+										<span th:text="${list.memberId}">킹현승</span> · <span th:text="${list.memberId}">30대</span> · <span th:text="${list.memberId}">남성</span>
 									</div>
 									<div class="d-flex align-items-center justify-content-end">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -103,7 +103,7 @@
 											<path
 												d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5" />
 										</svg>
-										<span>2025.08.17 ~ 2025.08.20 (3일)</span>
+										<span th:text="${#temporals.format(list.startdate, 'yyyy-MM-dd')}">2025.08.17</span> ~ <span th:text="${#temporals.format(list.enddate, 'yyyy-MM-dd')}">2025.08.20</span> <span>(3일)</span>
 									</div>
 								</div>
 							</div>
@@ -113,204 +113,11 @@
 					<!-- 카드와 카드 사이 구분선: 마지막 카드가 아닐 때만 표시 -->
 					<div class="card-divider m-1"></div>
 
-					<div class="card border-0 p-2">
-						<!-- 1행: 배지 -->
-						<div class="mb-2">
-							<span class="badge badge--category travel-type">전체 동행</span>
-						</div>
-
-						<!-- 2행: 썸네일 + 글 제목/내용 -->
-						<div class="d-flex mb-2">
-							<!-- 썸네일 -->
-							<div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
-								<img src="/images/bangkok.jpg" class="img-fluid" alt="썸네일" style="height: 100px;">
-							</div>
-							<!-- 글 제목 + 내용 -->
-							<div class="flex-grow-1">
-								<a href="/" class="card-title d-block mb-1">환상의 섬 아름다운 제주도로 떠나보아요</a>
-								<p class="text-muted small mb-0">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
-									찍어드림요</p>
-							</div>
-						</div>
-
-						<!-- 3행: 여행 정보 + 프로필 + 날짜 -->
-						<div class="d-flex justify-content-between align-items-center flex-wrap">
-							<!-- 여행지 배지 -->
-							<span class="badge badge--category travel-type mt-auto">제주도</span>
-
-							<!-- 프로필 + 유저 정보 + 날짜 -->
-							<div class="d-flex justify-content-end align-items-center" style="font-size: x-small;">
-								<div class="ml-2 text-left">
-									<div class="d-flex align-items-center mb-1">
-										<img src="/images/bangkok.jpg" class="rounded-circle mr-1"
-											style="width:16px; height:16px;" alt="프로필">
-
-										킹현승 · 30대 · 남성
-									</div>
-									<div class="d-flex align-items-center justify-content-end">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-calendar-fill mr-1" viewBox="0 0 16 16">
-											<path
-												d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5" />
-										</svg>
-										<span>2025.08.17 ~ 2025.08.20 (3일)</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="card-divider m-1"></div>
-
-					<div class="card border-0 p-2">
-						<!-- 1행: 배지 -->
-						<div class="mb-2">
-							<span class="badge badge--category travel-type">전체 동행</span>
-						</div>
-
-						<!-- 2행: 썸네일 + 글 제목/내용 -->
-						<div class="d-flex mb-2">
-							<!-- 썸네일 -->
-							<div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
-								<img src="/images/bangkok.jpg" class="img-fluid" alt="썸네일" style="height: 100px;">
-							</div>
-							<!-- 글 제목 + 내용 -->
-							<div class="flex-grow-1">
-								<a href="/" class="card-title d-block mb-1">환상의 섬 아름다운 제주도로 떠나보아요</a>
-								<p class="text-muted small mb-0">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
-									찍어드림요</p>
-							</div>
-						</div>
-
-						<!-- 3행: 여행 정보 + 프로필 + 날짜 -->
-						<div class="d-flex justify-content-between align-items-center flex-wrap">
-							<!-- 여행지 배지 -->
-							<span class="badge badge--category travel-type mt-auto">제주도</span>
-
-							<!-- 프로필 + 유저 정보 + 날짜 -->
-							<div class="d-flex justify-content-end align-items-center" style="font-size: x-small;">
-								<div class="ml-2 text-left">
-									<div class="d-flex align-items-center mb-1">
-										<img src="/images/bangkok.jpg" class="rounded-circle mr-1"
-											style="width:16px; height:16px;" alt="프로필">
-
-										킹현승 · 30대 · 남성
-									</div>
-									<div class="d-flex align-items-center justify-content-end">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-calendar-fill mr-1" viewBox="0 0 16 16">
-											<path
-												d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5" />
-										</svg>
-										<span>2025.08.17 ~ 2025.08.20 (3일)</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="card-divider m-1"></div>
-
-					<div class="card border-0 p-2">
-						<!-- 1행: 배지 -->
-						<div class="mb-2">
-							<span class="badge badge--category travel-type">전체 동행</span>
-						</div>
-
-						<!-- 2행: 썸네일 + 글 제목/내용 -->
-						<div class="d-flex mb-2">
-							<!-- 썸네일 -->
-							<div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
-								<img src="/images/bangkok.jpg" class="img-fluid" alt="썸네일" style="height: 100px;">
-							</div>
-							<!-- 글 제목 + 내용 -->
-							<div class="flex-grow-1">
-								<a href="/" class="card-title d-block mb-1">환상의 섬 아름다운 제주도로 떠나보아요</a>
-								<p class="text-muted small mb-0">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
-									찍어드림요</p>
-							</div>
-						</div>
-
-						<!-- 3행: 여행 정보 + 프로필 + 날짜 -->
-						<div class="d-flex justify-content-between align-items-center flex-wrap">
-							<!-- 여행지 배지 -->
-							<span class="badge badge--category travel-type mt-auto">제주도</span>
-
-							<!-- 프로필 + 유저 정보 + 날짜 -->
-							<div class="d-flex justify-content-end align-items-center" style="font-size: x-small;">
-								<div class="ml-2 text-left">
-									<div class="d-flex align-items-center mb-1">
-										<img src="/images/bangkok.jpg" class="rounded-circle mr-1"
-											style="width:16px; height:16px;" alt="프로필">
-
-										킹현승 · 30대 · 남성
-									</div>
-									<div class="d-flex align-items-center justify-content-end">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-calendar-fill mr-1" viewBox="0 0 16 16">
-											<path
-												d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5" />
-										</svg>
-										<span>2025.08.17 ~ 2025.08.20 (3일)</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="card-divider m-1"></div>
-
-					<div class="card border-0 p-2">
-						<!-- 1행: 배지 -->
-						<div class="mb-2">
-							<span class="badge badge--category travel-type">전체 동행</span>
-						</div>
-
-						<!-- 2행: 썸네일 + 글 제목/내용 -->
-						<div class="d-flex mb-2">
-							<!-- 썸네일 -->
-							<div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
-								<img src="/images/bangkok.jpg" class="img-fluid" alt="썸네일" style="height: 100px;">
-							</div>
-							<!-- 글 제목 + 내용 -->
-							<div class="flex-grow-1">
-								<a href="/" class="card-title d-block mb-1">환상의 섬 아름다운 제주도로 떠나보아요</a>
-								<p class="text-muted small mb-0">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
-									찍어드림요</p>
-							</div>
-						</div>
-
-						<!-- 3행: 여행 정보 + 프로필 + 날짜 -->
-						<div class="d-flex justify-content-between align-items-center flex-wrap">
-							<!-- 여행지 배지 -->
-							<span class="badge badge--category travel-type mt-auto">제주도</span>
-
-							<!-- 프로필 + 유저 정보 + 날짜 -->
-							<div class="d-flex justify-content-end align-items-center" style="font-size: x-small;">
-								<div class="ml-2 text-left">
-									<div class="d-flex align-items-center mb-1">
-										<img src="/images/bangkok.jpg" class="rounded-circle mr-1"
-											style="width:16px; height:16px;" alt="프로필">
-
-										킹현승 · 30대 · 남성
-									</div>
-									<div class="d-flex align-items-center justify-content-end">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-calendar-fill mr-1" viewBox="0 0 16 16">
-											<path
-												d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5" />
-										</svg>
-										<span>2025.08.17 ~ 2025.08.20 (3일)</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 					
 				</div>
 
 				<div class="row mb-3">
-					<div class="col"></div>
+					<div class="col-3"></div>
 
 					<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
 					<div class="col-6 text-center">
@@ -352,6 +159,7 @@
 							</div>-->
 
 					<!-- 오른쪽 글쓰기 버튼 -->
+
 					<div class="col d-flex justify-content-center align-items-center mt-1">
 						<a class="btn btn-write px-2 py-1" th:href="@{/make-mate/registerPage}">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
