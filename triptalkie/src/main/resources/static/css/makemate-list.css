@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.btn-chatting {
+	background-color: #7cd3c2;
+	border: none;
+	color: #fff;
+	width: 100%;
+	padding: 8px;
+	margin: 20px 0 20px 0;
+	border-radius: 20px;
+	font-size: 1.1rem;
+}
+
+.btn-backToList {
+	background: #fff;
+	border-color: #7cd3c2;
+	color: #7cd3c2;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: color 0.2s ease;
+	border-radius: 10px;
+}
+
+.btn-makemate-delete, .btn-makemate-edit {
+	background: none;
+	border: none;
+	color: var(--color-text-secondary);
+	font-size: 14px;
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.btn-backToList, .btn-makemate-delete, .btn-makemate-edit:hover{
+	
+	color:red;
+}
