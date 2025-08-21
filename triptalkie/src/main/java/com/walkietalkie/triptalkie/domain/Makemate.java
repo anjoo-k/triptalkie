@@ -6,6 +6,11 @@ public class Makemate {
 	private long idx;
 	private String title;
 	private String content;
+	private long view;
+	private String mateType;
+	private String conceptType;
+	private int maxPeople;
+	private long budget;
 	private String state;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -20,12 +25,18 @@ public class Makemate {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Makemate(long idx, String title, String content, String state, LocalDateTime createdAt,
-			LocalDateTime updatedAt, LocalDateTime startdate, LocalDateTime enddate, String cityId, String memberId) {
+	public Makemate(long idx, String title, String content, long view, String mateType, String conceptType,
+			int maxPeople, long budget, String state, LocalDateTime createdAt, LocalDateTime updatedAt,
+			LocalDateTime startdate, LocalDateTime enddate, String cityId, String memberId) {
 		super();
 		this.idx = idx;
 		this.title = title;
 		this.content = content;
+		this.view = view;
+		this.mateType = mateType;
+		this.conceptType = conceptType;
+		this.maxPeople = maxPeople;
+		this.budget = budget;
 		this.state = state;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -57,6 +68,46 @@ public class Makemate {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public long getView() {
+		return view;
+	}
+
+	public void setView(long view) {
+		this.view = view;
+	}
+
+	public String getMateType() {
+		return mateType;
+	}
+
+	public void setMateType(String mateType) {
+		this.mateType = mateType;
+	}
+
+	public String getConceptType() {
+		return conceptType;
+	}
+
+	public void setConceptType(String conceptType) {
+		this.conceptType = conceptType;
+	}
+
+	public int getMaxPeople() {
+		return maxPeople;
+	}
+
+	public void setMaxPeople(int maxPeople) {
+		this.maxPeople = maxPeople;
+	}
+
+	public long getBudget() {
+		return budget;
+	}
+
+	public void setBudget(long budget) {
+		this.budget = budget;
 	}
 
 	public String getState() {
@@ -117,9 +168,11 @@ public class Makemate {
 
 	@Override
 	public String toString() {
-		return "Makemate [idx=" + idx + ", title=" + title + ", content=" + content + ", state=" + state
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startdate=" + startdate + ", enddate="
-				+ enddate + ", cityId=" + cityId + ", memberId=" + memberId + "]";
+		return "Makemate [idx=" + idx + ", title=" + title + ", content=" + content + ", view=" + view + ", mateType="
+				+ mateType + ", conceptType=" + conceptType + ", maxPeople=" + maxPeople + ", budget=" + budget
+				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startdate="
+				+ startdate + ", enddate=" + enddate + ", cityId=" + cityId + ", memberId=" + memberId + "]";
 	}
 
+	
 }
