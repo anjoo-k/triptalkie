@@ -1,6 +1,5 @@
 package com.walkietalkie.triptalkie.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.walkietalkie.triptalkie.domain.CommonPage;
-import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
 @Controller
@@ -50,15 +47,26 @@ public class MakemateController {
 	
 	// makemate 리스트 페이지
 	@GetMapping("/list")	// 추후 전체 출력 + 검색 + 페이지네이션으로 변경 필요
-	public String makemateAllList (@RequestParam(defaultValue = "1") int currentPage,
+	public String makemateAllList(@RequestParam(defaultValue = "1") int currentPage,
 									@RequestParam(defaultValue = "4") int size,
 									Model model) {
 		
-		List<Map<String, Object>> combinePageMemberCity = makemateService.findMakematesAllList(currentPage, size);
-		model.addAttribute("makemateList", combinePageMemberCity);
-		
-
+		Map<String, Object> result = makemateService.findMakematesAllList(currentPage, size);
+		model.addAttribute("page", result.get("commonPage"));
+		model.addAttribute("combinedList", result.get("combinedList"));
+		logger.info("{}", result.get("combinedList"));
 		return "pages/make-mate/list";
 	}
-
+	
+	// 글 상세 페이지
+	@GetMapping("/detailPage")
+	public String detailMatematePage(){
+		return "pages/make-mate/detail";
+	}
+	
+	// 글쓰기 페이지
+	@GetMapping("/registerPage")
+	public String registerMatematePage(){
+		return "pages/make-mate/register";
+	}
 }

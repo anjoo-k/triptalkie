@@ -11,4 +11,14 @@
 		ORDER BY created_at
 		LIMIT #{size} OFFSET #{offset}
 	</select>
+	<select id="findMemberById">
+		SELECT *
+		FROM member
+		WHERE id=#{memberId}
+	</select>
+	<select id="findCityByIdx">
+		SELECT *
+		FROM city
+		WHERE id=#{cityId}
+	</select>
 </mapper>
