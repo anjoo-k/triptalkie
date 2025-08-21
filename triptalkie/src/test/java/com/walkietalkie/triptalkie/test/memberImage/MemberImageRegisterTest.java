@@ -29,10 +29,10 @@ public class MemberImageRegisterTest {
 		String savedName = uuid + "_" + originalName;
 		
 		MemberImage memberImage = new MemberImage();
-		memberImage.setUuid(UUID.randomUUID().toString());
+		memberImage.setUuid(uuid);
 		memberImage.setOriginalName(originalName);
 		memberImage.setSavedName(savedName);
-		memberImage.setFilePath("/upload/profile" + savedName);
+		memberImage.setFilePath("/upload/profile/" + savedName);
 		memberImage.setFileSize(1024L);
 		memberImage.setMemberId("user1");
 		

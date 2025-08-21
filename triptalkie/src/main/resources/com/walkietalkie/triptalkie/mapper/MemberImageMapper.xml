@@ -9,7 +9,7 @@
 		useGeneratedKeys="true" keyProperty="idx">
 		<!-- useGeneratedKeys, keyProperty : idx 자동 생성, 증가 속성 -->
 		INSERT INTO member_image
-		(uuid, orginal_name, saved_name, file_path, file_size, member_id) VALUES
+		(uuid, original_name, saved_name, file_path, file_size, member_id) VALUES
 		(#{uuid}, #{originalName}, #{savedName}, #{filePath}, #{fileSize},
 		#{memberId})
 		<!-- #{uuid} : 전달 받은 객체의 인스턴스 변수 uuid의 값, #{originalName} : 전달 받은 객체의 인스턴스 
@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="findByIdx" parameterType="long" resultType="com.walkietalkie.triptalkie.domain.MemberImage">
-		SELECT * FROM member_image WHER idx = #{idx}
+		SELECT * FROM member_image WHERE idx = #{idx}
 	</select>
 
 	<!-- 삭제 -->
