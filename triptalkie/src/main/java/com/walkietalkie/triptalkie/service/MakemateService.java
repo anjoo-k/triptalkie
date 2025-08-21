@@ -1,11 +1,14 @@
 package com.walkietalkie.triptalkie.service;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
@@ -14,6 +17,7 @@ import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.mapper.MakemateMapper;
 
 @Service
+@Transactional
 public class MakemateService {
 	
 	private final MakemateMapper makemateMapper;
@@ -23,7 +27,8 @@ public class MakemateService {
 		this.makemateMapper = makemateMapper;
 	}
 
-	public List<Map<String, Object>> findMakematesAllList(int currentPage, int size) {
+	public Map<String, Object> findMakematesAllList(int currentPage, int size) {
+		// 페이지네이션
 		if(currentPage < 1) currentPage = 1;
 
 		int totalCount = makemateMapper.countMakemate(); // 전체 데이터 개수
@@ -41,28 +46,29 @@ public class MakemateService {
 		}
  
 		List<Makemate> makeMateList = makemateMapper.findMakematesAllList(size, offset);
-		CommonPage<Makemate> CommonPage = new CommonPage<>(makeMateList, size, currentPage, totalPage, startPage, endPage);
+		CommonPage<Makemate> commonPage = new CommonPage<>(makeMateList, size, currentPage, totalPage, startPage, endPage);
 		
+		// list에서 보여줄 값 세팅 : makemate, member, city
 		List<Map<String, Object>> combinedList = new ArrayList<>();
 
 		for(Makemate makemate : makeMateList) {
 			Member member = makemateMapper.findMemberById(makemate.getMemberId());
 			City city = makemateMapper.findCityByIdx(makemate.getCityId());
 			
-		    Map<String, Object> row = new HashMap<>();
-		    row.put("makemate", makemate);
-		    row.put("member", member);
-		    row.put("city", city);
+		    Map<String, Object> combinedListMap = new HashMap<>();
+		    combinedListMap.put("makemate", makemate);
+		    combinedListMap.put("member", member);
+		    combinedListMap.put("city", city);
 
-		    combinedList.add(row);
+		    combinedList.add(combinedListMap);
 		}
 		
-//		Map<String, Object> combinePageMemberCity = new HashMap<>();
-//		combinePageMemberCity.put("CommonPage", CommonPage);
-//		combinePageMemberCity.put("member", member);
-//		combinePageMemberCity.put("city", city);
+		//  컨트롤러에서 받을 값 세팅 : 페이지네이션, member + city
+		Map<String, Object> result = new HashMap<>();
+		result.put("commonPage", commonPage);
+		result.put("combinedList", combinedList);
 
-		return combinedList;
+		return result;
 	}
 
 }
