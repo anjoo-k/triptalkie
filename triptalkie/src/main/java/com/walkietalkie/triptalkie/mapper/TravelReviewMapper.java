@@ -11,8 +11,9 @@ import com.walkietalkie.triptalkie.domain.TravelReview;
 @Mapper
 public interface TravelReviewMapper {
 
-	List<Map<String, Object>> findTravelreviewAllList();
-
+	/*
+	 * List<Map<String, Object>> findTravelreviewAllList();
+	 */
 	Map<String, Object> findTravelreviewByIdx(Long idx);
 
 	int deleteTravelreviewByIdx(Long idx);

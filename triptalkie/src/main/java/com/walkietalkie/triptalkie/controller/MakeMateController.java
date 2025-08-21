@@ -21,4 +21,14 @@ public class MakeMateController {
 	public String goList () {
 		return "pages/make-mate/list";
 	}
+	
+	@GetMapping("/registerPage")
+	public String registermakeMatepage() {
+		return "pages/make-mate/register";
+	}
+	
+	@GetMapping("/editPage")
+	public String editMakeMatePage() {
+		return "pages/make-mate/edit";
+	}
 }
