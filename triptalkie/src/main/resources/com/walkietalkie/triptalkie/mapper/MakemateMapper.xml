@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walkietalkie.triptalkie.mapper.MakemateMapper">	
+	<select id="countMakemate" resultType="int">
+		SELECT COUNT(*)
+		FROM makemate;
+	</select>
+	<select id="findMakematesAllList">
+		SELECT idx, title, content, state, created_at, updated_at, startdate, enddate, city_id, member_id
+		FROM makemate
+		ORDER BY created_at
+		LIMIT #{size} OFFSET #{offset}
+	</select>
+</mapper>
