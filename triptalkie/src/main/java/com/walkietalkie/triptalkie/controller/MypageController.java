@@ -101,6 +101,7 @@ public class MypageController {
 			return "redirect:/mypage/password-check";
 		}
 	}
+<<<<<<< Updated upstream
 
 	@PostMapping("/updateProfileImage")
 	public String updateProfileImage(@RequestParam("profileImage") MultipartFile profileImage, Model model,
@@ -127,5 +128,8 @@ public class MypageController {
 
 		return "redirect:/mypage/myinformation";
 	}
+=======
+	
+>>>>>>> Stashed changes
 
 }

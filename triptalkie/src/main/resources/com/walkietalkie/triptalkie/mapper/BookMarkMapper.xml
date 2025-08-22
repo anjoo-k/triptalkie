@@ -11,8 +11,8 @@
 	</insert>
 
 	<!--북마크 여부 조회 -->
-	<select id="existBookmark" resultType="int">
-		select count(*)
+	<select id="existBookmark" resultType="java.lang.Integer">
+		select state
 		from
 		bookmark
 		where member_id=#{memberId}
@@ -34,5 +34,13 @@
 		JOIN makemate m ON b.makemate_idx = m.idx
 		WHERE b.member_id = #{memberId}
 	</select>
+	
+	<!-- 북마크 상태 업데이트 -->
+    <update id="updateBookmarkState">
+        UPDATE bookmark
+        SET state = #{state}
+        WHERE member_id = #{memberId}
+          AND makemate_idx = #{makemateIdx}
+    </update>
 
 </mapper>
