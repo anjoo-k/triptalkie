@@ -56,7 +56,7 @@
             <div class="form-group row mate-travel-type py-2">
                 <div class="col">
                     <p class="subheading mb-2">메이트 유형</p>
-                    <th:block th:if="${travelreview['mateType'] != null and travelreview['mateUser']}">
+                    <th:block th:if="${travelreview['mateType'] != null and travelreview['mateUse'] > 0}">
 					    <input type="hidden" name="mateType" th:value="${travelreview['mateType']}"/>
 					    <label class="btn selected-mate-type" th:text="${travelreview['mateType']}"></label>
 					</th:block>

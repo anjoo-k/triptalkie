@@ -35,7 +35,7 @@ public class TravelReivewServiceTest {
         travelreview.setTitle("테스트 여행 후기");
         travelreview.setCreatedAt(LocalDateTime.now());
         travelreview.setUpdatedAt(LocalDateTime.now());
-        travelreview.setMateUse(false);
+        travelreview.setMateUse(1);
         travelreview.setConceptType("맛집/카페");
         travelreview.setMateType("전체 메이트");
         travelreview.setContent("이번 여행 정말 즐거웠어요!");
@@ -56,7 +56,7 @@ public class TravelReivewServiceTest {
 		// 1. 기존 리뷰 등록
 	    TravelReview travelreview = new TravelReview();
 	    travelreview.setTitle("테스트 여행 후기");
-	    travelreview.setMateUse(false);
+	    travelreview.setMateUse(0);
 	    travelreview.setConceptType("맛집/카페");
 	    travelreview.setMateType("전체 메이트");
 	    travelreview.setContent("이번 여행 정말 즐거웠어요!");
@@ -70,7 +70,7 @@ public class TravelReivewServiceTest {
 	    travelreview.setIdx(idx);  // 반드시 idx 지정
 	    travelreview.setTitle("업데이트된 제목");
 	    travelreview.setContent("업데이트된 내용");
-	    travelreview.setMateUse(true);
+	    travelreview.setMateUse(1);
 	    
 	    // 3. 업데이트 호출
 	    travelReviewService.updateTravelreviewByIdxAndMemberId(travelreview);
@@ -78,7 +78,7 @@ public class TravelReivewServiceTest {
 	    // 4. DB에서 다시 조회해서 확인
 	    Map<String, Object> updated = travelReviewService.findTravelreviewByIdx(idx);
 	    assertEquals("업데이트된 제목", ((TravelReview) updated).getTitle());
-	    assertEquals(true, ((TravelReview) updated).isMateUse());
+	    assertEquals(true, ((TravelReview) updated).getMateUse());
 	    assertEquals("업데이트된 내용", ((TravelReview) updated).getContent());
 
 	    System.out.println("업데이트 후 정보 : " + updated);

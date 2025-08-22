@@ -11,9 +11,6 @@ import com.walkietalkie.triptalkie.domain.TravelReview;
 @Mapper
 public interface TravelReviewMapper {
 
-	/*
-	 * List<Map<String, Object>> findTravelreviewAllList();
-	 */
 	Map<String, Object> findTravelreviewByIdx(Long idx);
 
 	int deleteTravelreviewByIdx(Long idx);
@@ -28,8 +25,5 @@ public interface TravelReviewMapper {
 
 	int findCountByConditions(String keyword, String countryId, String cityId, String conceptType);
 
-	/*
-	 * List<TravelReview> findTravelreviewSearchUnited(String keyword, String
-	 * country, String city, String concept);
-	 */
+	void incrementView(Long idx);
 }

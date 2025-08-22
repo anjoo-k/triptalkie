@@ -7,7 +7,7 @@ public class TravelReview {
 	private String title;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	private boolean mateUse;
+	private int mateUse;
 	private String conceptType;
 	private String mateType;
 	private String content;
@@ -20,24 +20,10 @@ public class TravelReview {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TravelReview(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateUse,
+	public TravelReview(long idx, String title, LocalDateTime createdAt, LocalDateTime updatedAt, int mateUse,
 			String conceptType, String mateType, String content, String cityId, String memberId) {
 		super();
 		this.idx = idx;
-		this.title = title;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.mateUse = mateUse;
-		this.conceptType = conceptType;
-		this.mateType = mateType;
-		this.content = content;
-		this.cityId = cityId;
-		this.memberId = memberId;
-	}
-
-	public TravelReview(String title, LocalDateTime createdAt, LocalDateTime updatedAt, boolean mateUse,
-			String conceptType, String mateType, String content, String cityId, String memberId) {
-		super();
 		this.title = title;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -81,11 +67,11 @@ public class TravelReview {
 		this.updatedAt = updatedAt;
 	}
 
-	public boolean isMateUse() {
+	public int getMateUse() {
 		return mateUse;
 	}
 
-	public void setMateUse(boolean mateUse) {
+	public void setMateUse(int mateUse) {
 		this.mateUse = mateUse;
 	}
 
