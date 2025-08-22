@@ -102,6 +102,7 @@ public class MypageController {
 		}
 	}
 
+
 	@PostMapping("/updateProfileImage")
 	public String updateProfileImage(@RequestParam("profileImage") MultipartFile profileImage, Model model,
 			HttpSession session) throws IOException {
