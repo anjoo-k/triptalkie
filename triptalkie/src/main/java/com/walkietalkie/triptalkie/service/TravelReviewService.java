@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.TravelReview;
@@ -92,6 +93,14 @@ public class TravelReviewService {
 		System.out.println("Service 호출, idx: " + idx);
 		travelReviewMapper.incrementView(idx);
 		System.out.println("Mapper 호출 후");
+	}
+
+	/*
+	 *  메인에 출력할 조회수 top 3
+	 */
+	@Transactional(readOnly = true)
+	public List<TravelReview> findTravelreviewTop3() {
+		return travelReviewMapper.findTravelreviewTop3();
 	}
 
 }

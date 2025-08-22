@@ -17,5 +17,8 @@
 	<delete id="deleteTravelInfoByIdx">
 		delete from travelinfo where idx = #{idx} and member_id=#{memberId}
 	</delete>
+	<select id="findTravelInfoTop3">
+		SELECT idx, title, member_id FROM travelinfo ORDER BY view DESC LIMIT 3
+	</select>
 	
 </mapper>

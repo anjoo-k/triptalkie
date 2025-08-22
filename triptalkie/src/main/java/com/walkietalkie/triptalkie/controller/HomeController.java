@@ -1,23 +1,43 @@
 package com.walkietalkie.triptalkie.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.walkietalkie.triptalkie.domain.TravelInfo;
+import com.walkietalkie.triptalkie.domain.TravelReview;
+import com.walkietalkie.triptalkie.service.TravelInfoService;
+import com.walkietalkie.triptalkie.service.TravelReviewService;
 
 // Thymeleaf 연습을 위한 컨트롤러
 @Controller
 public class HomeController {
 
+	private final TravelReviewService travelReviewService;
+	private final TravelInfoService travelInfoService;
+//	private final Customer
+
+	
+	
+	public HomeController(TravelReviewService travelReviewService, TravelInfoService travelInfoService) {
+		super();
+		this.travelReviewService = travelReviewService;
+		this.travelInfoService = travelInfoService;
+	}
+	
+
 	@GetMapping("/")
 	public String home(Model model) {
+		List<TravelReview> topReviews =  travelReviewService.findTravelreviewTop3();
+		model.addAttribute("topReviews", topReviews);
+		
+		List<TravelInfo> topInfos = travelInfoService.findTravelInfoTop3();
+		model.addAttribute("topInfos", topInfos);
+		System.out.println("topInfos : " + topInfos);
 		return "home";
 	}
 
-	@GetMapping("/test01")
-	public String test(Model model) {
-		return "test01";
-	}
-
-	
 	
 }
