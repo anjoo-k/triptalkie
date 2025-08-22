@@ -9,5 +9,4 @@ public class TriptalkieApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TriptalkieApplication.class, args);
 	}
-
 }

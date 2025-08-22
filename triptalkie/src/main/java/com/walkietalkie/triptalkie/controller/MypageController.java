@@ -67,7 +67,7 @@ public class MypageController {
 		return "pages/mypage/update-myinfo";
 	}
 
-	// 내정보 수정 처리 : 리다이렉트 하면 model 값은 리다이렉트하는 페이지로 넘어가지 않는다.
+	// 내정보 수정 처리
 	@PostMapping("/update-myinfo")
 	public String myinfoupdateTest(HttpSession session, Member member) {
 		String id = (String) session.getAttribute("loginId");
