@@ -16,7 +16,7 @@
 	<section>
 		<div class="row">
 			<div class="col-sm-11">
-				<h3>파리로 2주 정도 같이 놀러가요</h3>
+				<h3 th:text="${makemate.title}">파리로 2주 정도 같이 놀러가요</h3>
 			</div>
 			<div class="col-sm-1">
 				<img id="bookmarkBtn"
@@ -28,13 +28,13 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-7">
-				<span>조회수 16 </span>
-				<span>북마크 2 </span>
-				<span>메세지 1 </span>
+				<span>조회수 </span><span th:text="${makemate.view}">16 </span>·
+				<span>북마크 2 </span>· <!-- 북마크 구현 후 처리 필요 --> 
+				<span>메세지 1 </span> <!-- 채팅 구현 후 처리 필요 -->
 			</div>
 			
-			<div class="col-sm-5">
-				<span>작성일 2025.05.05</span>
+			<div class="col-sm-5 d-flex justify-content-end">
+				<span>작성일 </span><span th:text="${#temporals.format(makemate.createdAt, 'yyyy-MM-dd')}">2025.05.05</span>
 			</div>
 		</div>
 		<hr>
@@ -48,15 +48,16 @@
 						<img th:src="@{/images/여행일정.png}">
 					</div>
 					<div class="col-sm-11">
-						<p>2025.08.10 ~ 2025.08.24.(15일)</p>
+						<span class="startdate" th:text="${#temporals.format(makemate.startdate, 'yyyy-MM-dd')}">2025.08.17</span>
+						 ~ <span class="enddate" th:text="${#temporals.format(makemate.enddate, 'yyyy-MM-dd')}">2025.08.20</span>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-1">
+					<div class="col-sm-1 mx-auto">
 						<img th:src="@{/images/장소.png}">
 					</div>
 					<div class="col-sm-11">
-						<p>유럽 프랑스 파리</p>
+						<span th:text="${land.name}">유럽 </span>&nbsp;<span th:text="${country.name}">프랑스 </span>&nbsp;<span th:text="${city.name}">파리 </span>
 					</div>
 				</div>
 				<div class="row">
@@ -64,7 +65,7 @@
 						<img th:src="@{/images/파티원수.png}">
 					</div>
 					<div class="col-sm-11">
-						<p>1/4</p>
+						<span th:text="${numbersOfMembers}">1</span>/<span th:text="${makemate.maxPeople}">4</span>
 					</div>
 				</div>
 				<div class="row">
@@ -72,7 +73,7 @@
 						<img th:src="@{/images/조건.png}">
 					</div>
 					<div class="col-sm-11">
-						<p>동일 성별 모든 나이</p>
+						<span>동일 성별: 새컬럼 필요</span>·<span>모든 나이</span>
 					</div>
 				</div>
 				<div class="row">
@@ -80,7 +81,7 @@
 						<img th:src="@{/images/비용.png}">
 					</div>
 					<div class="col-sm-11">
-						<p>미정</p>
+						<span th:text="${makemate.budget}">미정</span>
 					</div>
 				</div>
 			</div>
@@ -91,7 +92,7 @@
 				<h5>여행 소개</h5>
 			</div>
 			<div>
-				<span>여유롭게 돌아다니려는데<br> 일정 맞으면 같이 관광다니며 놀아요
+				<span th:text="${makemate.content}">여유롭게 돌아다니려는데 일정 맞으면 같이 관광다니며 놀아요
 				</span>
 			</div>
 		</div>
@@ -101,18 +102,18 @@
 				<div>
 					<h5>동행 유형</h5>
 				</div>
-				<div>전체동행</div>
+				<div class="mateType text-center" th:text="${makemate.mateType}">전체동행</div>
 			</div>
 			<div class="col-sm-6">
 				<div>
-					<h5>동행 유형</h5>
+					<h5>여행 컨셉</h5>
 				</div>
-				<div>맛집/카페</div>
+				<div class="conceptType text-center" th:text="${makemate.conceptType}">맛집/카페</div>
 			</div>
 		</div>
 		<hr>
 		<div>
-			<h5>메이트 장</h5>
+			<h5>메이트 리더</h5>
 		</div>
 		<div class="row">
 			<div class="col-sm-2">
@@ -121,9 +122,9 @@
 			</div>
 			<div class="col-sm-8 d-flex flex-column justify-content-center">
 				<div>
-					<strong>피곤한제니</strong>
+					<strong th:text="${member.nickname}">피곤한제니</strong>
 				</div>
-				<div>30대 여자 한국</div>
+				<div><span class="birth">30대</span>·<span th:text="${member.gender}">여자</span>·<span th:text="${member.address}">한국</span></div>
 			</div>
 		</div>
 

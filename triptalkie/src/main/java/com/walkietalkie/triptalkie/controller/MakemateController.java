@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,7 +46,7 @@ public class MakemateController {
 		- startPage = 1, endPage = 3 (버튼 [1~3] 보여줌)
 		 */
 	
-	// makemate 리스트 페이지
+	// 글 목록 페이지
 	@GetMapping("/list")	// 추후 전체 출력 + 검색 + 페이지네이션으로 변경 필요
 	public String makemateAllList(@RequestParam(defaultValue = "1") int currentPage,
 									@RequestParam(defaultValue = "4") int size,
@@ -54,15 +55,30 @@ public class MakemateController {
 		Map<String, Object> result = makemateService.findMakematesAllList(currentPage, size);
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
-		logger.info("{}", result.get("combinedList"));
 		return "pages/make-mate/list";
 	}
 	
 	// 글 상세 페이지
-	@GetMapping("/detailPage")
-	public String detailMatematePage(){
+	@GetMapping("/detailPage/{idx}")
+	public String detailMatematePage(@PathVariable int idx, Model model){
+		// 1. makemate 정보 o, 2. member 정보(글쓴이) o, 
+		// 3. memberlist 정보-join 두 번 묶어서 사진만 내려보내주면 되는건가?, 
+		// 4. land, country, city 정보 o, 5. bookmark 정보
+		// 6. viewCount 증가
+		
+		// 조회수 증가
+		makemateService.increaseViewCount(idx);
+		
+		// makemate, member, land, country, city 
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(idx);
+		model.addAllAttributes(combinedMap);
 		return "pages/make-mate/detail";
 	}
+	
+	
+	
+	// 파티원 다차면 state 모집완료로 바꾸고 더 신청 못하게 해야함
+	// 파티원 채울 때 리더는 어떻게 처리해야하나? - 채팅에서 해야하네
 	
 	// 글쓰기 페이지
 	@GetMapping("/registerPage")
