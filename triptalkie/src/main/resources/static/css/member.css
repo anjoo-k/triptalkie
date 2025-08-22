@@ -76,3 +76,7 @@
     color: var(--color-secondary);
 }
 
+.login-card {
+	min-height: 500px;   /* 카드 세로 최소 크기 */
+}
+

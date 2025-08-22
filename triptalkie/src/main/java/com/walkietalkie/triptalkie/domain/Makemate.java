@@ -174,5 +174,4 @@ public class Makemate {
 				+ startdate + ", enddate=" + enddate + ", cityId=" + cityId + ", memberId=" + memberId + "]";
 	}
 
-	
 }
