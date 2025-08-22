@@ -65,13 +65,12 @@
 								<span id="cityId" class="badge badge--category"
 									th:text="${review['cityName']}">도시</span>
 								<!-- 조회수 주석 처리 -->
-								<!-- <span class="badge--sub-desc">조회수 · <span th:text="${review.viewCount}">0</span></span> -->
+								<span class="badge--sub-desc" th:text="|조회수 · ${review['view']}|"></span>
 							</div>
 
 							<!-- 2행: 글 제목 + 작성자 + 작성일 -->
 							<div class="row-stats">
-								<a th:href="@{/travel-review/detail-review/{idx}(idx=${review.idx})}" id="title"
-									class="card-title h5 mb-1 list-title" th:text="${review['title']}">글 제목</a> <span
+								<a th:href="@{/travel-review/detail-review/{idx}(idx=${review.idx})}" class="card-title h5 mb-1 title list-title" th:data-id="${review.idx}" th:text="${review['title']}">글 제목</a> <span
 									class="badge badge--sub-desc" th:text="${review['memberNickname']}">작성자</span> <span
 									id="createdAt" class="badge--sub-desc"
 									th:text="${#temporals.format(review['createdAt'], 'yyyy-MM-dd')}">2025-08-17</span>

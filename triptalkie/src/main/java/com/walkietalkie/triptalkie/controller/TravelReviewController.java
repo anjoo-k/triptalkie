@@ -63,6 +63,14 @@ public class TravelReviewController {
 		return "pages/travel-review/findTravelreviewAllList";
 	}
 	
+	@PostMapping("/increment-view/{idx}")
+	@ResponseBody
+	public void incrementView(@PathVariable Long idx) {
+		System.out.println("조회수 올릴 idx : " + idx);
+
+		travelReviewService.incrementView(idx);
+	}
+	
 	/*
 	 * 	여행 후기 상세 조회
 	 */
@@ -85,7 +93,6 @@ public class TravelReviewController {
 	@GetMapping("/registerReviewPage")
 	public String registerReviewPage(Model model, HttpSession session) {
 		String loginMember = (String) session.getAttribute("loginId");
-		System.out.println("loginMember : " + loginMember);
 		// 세션이 비어있을 경우 에러 처리 추가
 		if (loginMember == null) {
 			return "redirect:/member/loginPage";
@@ -102,11 +109,6 @@ public class TravelReviewController {
 	 */
 	@PostMapping("/registerTravelreview")
 	public String registerTravelreview(TravelReview travelReview) {
-
-		if (!(travelReview.getMateType() == null)) {
-			travelReview.setMateUse(true);
-		}
-
 		Long newIdx = travelReviewService.registerTravelreview(travelReview);
 
 		return "redirect:/travel-review/detail-review/" + newIdx;
@@ -150,7 +152,7 @@ public class TravelReviewController {
 	    }
 	    
 		if (!(travelReview.getMateType() == null)) {
-			travelReview.setMateUse(true);
+			travelReview.setMateUse(1);
 		}
 		travelReviewService.updateTravelreviewByIdxAndMemberId(travelReview);
 

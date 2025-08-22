@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+	// 조회수 증가
+	document.querySelectorAll(".title").forEach(countView => {
+		countView.addEventListener("click", async (e) => {
+			e.preventDefault();
+			const idx = countView.dataset.id;
+			console.log("idx : " + idx);
+			try {
+				const response = await fetch(`/travel-review/increment-view/${idx}`, {
+					method: "POST"
+				});
+				
+				if(response.ok) {
+					window.location.href = `/travel-review/detail-review/${idx}`;
+				} else {
+					console.log("조회수 증가 실패");
+				}
+				
+			} catch(error) {
+				console.error(error);
+			}
+		});
+	});
+	
 	// 글쓰기 버튼
 	const writeBtn = document.querySelector(".btn-write");
 	if (writeBtn) {
@@ -70,33 +93,36 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// 검색 기능
-	document.getElementById('countrySelect').addEventListener('change', function() {
-		const countryId = this.value;
-		console.log("selected country countryId : " + countryId);
-		const citySelect = document.getElementById('citySelect');
+	const countrySelect = document.getElementById('countrySelect');
+	if(countrySelect) {
+		countrySelect.addEventListener('change', function() {
+			const countryId = this.value;
+			console.log("selected country countryId : " + countryId);
+			const citySelect = document.getElementById('citySelect');
 
-		fetch(`/cities/findCitiesByCountry?countryId=${countryId}`)
-			.then(res => {
-				if (!res.ok) {
-					throw new Error("서버 오류: " + res.status);
-				}
-				return res.json();
-			})
-			.then(cities => {
-				citySelect.innerHTML = '<option value="">도시 선택</option>';
-				cities.forEach(city => {
-					const option = document.createElement('option');
+			fetch(`/cities/findCitiesByCountry?countryId=${countryId}`)
+				.then(res => {
+					if (!res.ok) {
+						throw new Error("서버 오류: " + res.status);
+					}
+					return res.json();
+				})
+				.then(cities => {
+					citySelect.innerHTML = '<option value="">도시 선택</option>';
+					cities.forEach(city => {
+						const option = document.createElement('option');
 
-					// 서버 JSON 필드명이 cityId인지 확인!
-					option.value = city.cityId || city.id || '';
-					option.textContent = city.name;
+						// 서버 JSON 필드명이 cityId인지 확인!
+						option.value = city.cityId || city.id || '';
+						option.textContent = city.name;
 
-					citySelect.appendChild(option);
+						citySelect.appendChild(option);
+					});
+				})
+				.catch(err => {
+					console.error("도시 목록 불러오기 실패:", err);
+					citySelect.innerHTML = '<option value="">도시를 불러올 수 없습니다</option>';
 				});
-			})
-			.catch(err => {
-				console.error("도시 목록 불러오기 실패:", err);
-				citySelect.innerHTML = '<option value="">도시를 불러올 수 없습니다</option>';
-			});
-	});
+		});
+	}
 });
