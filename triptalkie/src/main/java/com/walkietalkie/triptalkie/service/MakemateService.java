@@ -1,7 +1,5 @@
 package com.walkietalkie.triptalkie.service;
 
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
+import com.walkietalkie.triptalkie.domain.Country;
+import com.walkietalkie.triptalkie.domain.Land;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.mapper.MakemateMapper;
@@ -26,7 +26,8 @@ public class MakemateService {
 		super();
 		this.makemateMapper = makemateMapper;
 	}
-
+	
+	// 글 목록 페이지
 	public Map<String, Object> findMakematesAllList(int currentPage, int size) {
 		// 페이지네이션
 		if(currentPage < 1) currentPage = 1;
@@ -69,6 +70,31 @@ public class MakemateService {
 		result.put("combinedList", combinedList);
 
 		return result;
+	}
+
+	// 글 상세 페이지
+	public Map<String, Object> findMakemateByIdx(int idx) {
+		Makemate makemate = makemateMapper.findMakemateByIdx(idx);
+		Member member = makemateMapper.findMemberById(makemate.getMemberId());
+		City city = makemateMapper.findCityByIdx(makemate.getCityId());
+		Country country = makemateMapper.findCountryByIdx(city.getCountryId());
+		Land land = makemateMapper.findLandByIdx(country.getLandId());
+		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
+
+	    Map<String, Object> combinedMap = new HashMap<>();
+	    combinedMap.put("makemate", makemate);
+	    combinedMap.put("member", member);
+	    combinedMap.put("city", city);
+	    combinedMap.put("country", country);
+	    combinedMap.put("land", land);
+	    combinedMap.put("numbersOfMembers", numbersOfMembers);
+	    
+		return combinedMap;
+	}
+	
+	// 조회수 증가
+	public void increaseViewCount(int idx) {
+		int result = makemateMapper.increaseViewCount(idx);
 	}
 
 }
