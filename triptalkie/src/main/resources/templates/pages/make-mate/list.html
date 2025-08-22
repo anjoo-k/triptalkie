@@ -77,7 +77,7 @@
 							</div>
 							<!-- 글 제목 + 내용 -->
 							<div class="flex-grow-1">
-								<a href="/makemate/detailPage" class="card-title d-block mb-1 text-truncate" th:text="${list.makemate.title}">환상의 섬 아름다운 제주도로 떠나보아요</a>
+								<a th:href="@{'/makemate/detailPage/' + ${list.makemate.idx}}" class="card-title d-block mb-1 text-truncate" th:text="${list.makemate.title}">환상의 섬 아름다운 제주도로 떠나보아요</a>
 								<p class="text-muted small mb-0 text-truncate" th:text="${list.makemate.content}">시원한 렌터카 타고 설레는 가을 맞이 제주 여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도
 									찍어드림요</p>
 							</div>
