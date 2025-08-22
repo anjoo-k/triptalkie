@@ -26,4 +26,6 @@ public interface TravelReviewMapper {
 	int findCountByConditions(String keyword, String countryId, String cityId, String conceptType);
 
 	void incrementView(Long idx);
+
+	List<TravelReview> findTravelreviewTop3();
 }

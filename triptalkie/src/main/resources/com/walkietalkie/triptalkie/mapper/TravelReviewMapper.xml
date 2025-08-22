@@ -133,4 +133,8 @@
 		WHERE idx = #{idx}
 	</delete>
 
+	<select id="findTravelreviewTop3">
+		SELECT idx, title, member_id 
+		FROM travelreview ORDER BY view DESC LIMIT 3
+	</select>
 </mapper>
