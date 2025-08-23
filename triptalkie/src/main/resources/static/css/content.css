@@ -48,3 +48,12 @@
 	border-radius: 16px;
 }
 
+/* 공지사항, faq */
+.main-cs-link {
+	color: var(--color-text-primary);
+}
+
+.main-cs-link:hover {
+	color: var(--color-primary);
+}
+
