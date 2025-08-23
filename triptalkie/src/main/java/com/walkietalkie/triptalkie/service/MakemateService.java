@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,5 +97,27 @@ public class MakemateService {
 	public void increaseViewCount(int idx) {
 		int result = makemateMapper.increaseViewCount(idx);
 	}
+	
+	public Map<String, Object> findAllRegion() {
+		List<City> city = makemateMapper.findAllCityName();
+		List<Country> country = makemateMapper.findAllCountryName();
+		List<Land> land = makemateMapper.findAllLandName();
+		
+		Map<String, Object> combinedMap = new HashMap<>();
+		combinedMap.put("city", city);
+		combinedMap.put("country", country);
+		combinedMap.put("land", land);
+		    
+		return combinedMap;
+	}
+
+	public void registerMakemate(Makemate makemate) {
+		if (makemate.getEnddate().isBefore(makemate.getStartdate())) {
+		    throw new IllegalArgumentException("종료일은 시작일 이후여야 합니다.");
+		}
+		int result = makemateMapper.registerMakemate(makemate);
+	}
+
+
 
 }
