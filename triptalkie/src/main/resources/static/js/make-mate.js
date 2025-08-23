@@ -52,16 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	const backBtn = document.querySelector(".btn-back");
 	if (backBtn) {
 		backBtn.addEventListener("click", function() {
-			location.href = "/make-mate/list";
+			location.href = "/makemate/list";
 		});
 	}
 
-	// 완료 버튼
+/*	// 완료 버튼
 	const complete = document.querySelector(".btn-complete");
 	if(complete) {
 		complete.addEventListener("click", async () => {
 			alert("완료 버튼 활성화!");
 		});
-	}
+	}*/
 		
 });

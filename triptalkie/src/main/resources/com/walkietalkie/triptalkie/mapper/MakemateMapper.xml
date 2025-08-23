@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.MakemateMapper">
+	<resultMap id="cityCountryLandMap"
+		type="com.walkietalkie.triptalkie.domain.City">
+		<id property="id" column="city_id" />
+		<result property="name" column="city_name" />
+		<result property="countryId" column="country_id" />
+
+		<association property="country" javaType="com.walkietalkie.triptalkie.domain.Country">
+			<id property="id" column="country_id" />
+			<result property="name" column="country_name" />
+			<result property="landId" column="land_id" />
+
+			<association property="land" javaType="com.walkietalkie.triptalkie.domain.Land">
+				<id property="id" column="land_id" />
+				<result property="name" column="land_name" />
+			</association>
+		</association>
+	</resultMap>
+
 	<select id="countMakemate" resultType="int">
 		SELECT COUNT(*)
 		FROM
@@ -13,7 +31,7 @@
 		updated_at, startdate, enddate, city_id, member_id, concept_type
 		FROM
 		makemate
-		ORDER BY created_at
+		ORDER BY created_at DESC
 		LIMIT #{size} OFFSET #{offset}
 	</select>
 	<!-- id로 멤버 조회 -->
@@ -27,13 +45,15 @@
 	<select id="findCityByIdx">
 		SELECT id, name, country_id
 		FROM city
-		WHERE id=#{cityId}
+		WHERE
+		id=#{cityId}
 	</select>
 	<!-- idx로 나라 조회 -->
 	<select id="findCountryByIdx">
 		SELECT id, name, land_id
 		FROM country
-		WHERE id=#{countryId}
+		WHERE
+		id=#{countryId}
 	</select>
 	<!-- idx로 대륙 조회 -->
 	<select id="findLandByIdx">
@@ -44,10 +64,11 @@
 	<!-- idx로 makemate 조회 -->
 	<select id="findMakemateByIdx">
 		SELECT idx, title, content, state, created_at,
-		updated_at, 
+		updated_at,
 		view, matetype, max_people, budget, state,
 		startdate,
-		enddate, city_id, member_id, concept_type
+		enddate, city_id,
+		member_id, concept_type
 		FROM makemate
 		WHERE idx=#{idx}
 	</select>
@@ -60,8 +81,51 @@
 	<select id="findCountMemberByIdx">
 		SELECT COUNT(*)
 		FROM memberlist
-		WHERE makemate_idx=#{idx}
+		WHERE
+		makemate_idx=#{idx}
 	</select>
+	<!-- 메이크메이트 글등록 -->
+	<!-- <select id="findAllRegion" resultMap="cityCountryLandMap">
+		SELECT
+			c.id AS city_id,
+			c.name AS city_name,
+			c.country_id,
+	
+			co.id AS country_id,
+			co.name AS country_name,
+			co.land_id,
+	
+			l.id AS land_id,
+			l.name AS land_name
+		FROM city c
+		JOIN country co ON c.country_id = co.id
+		JOIN land l ON co.land_id = l.id;
+	</select> -->
+	<select id="findAllCityName">
+		SELECT id, name, country_id
+		FROM city
+	</select>
+	<select id="findAllCountryName">
+		SELECT id, name, land_id
+		FROM country
+	</select>
+	<select id="findAllLandName">
+		SELECT id, name
+		FROM land
+	</select>
+	<insert id="registerMakemate"
+		parameterType="com.walkietalkie.triptalkie.domain.Makemate">
+		INSERT INTO makemate (title, content, matetype,
+		concept_type,
+		max_people, age_group, budget, startdate,
+		enddate,
+		city_id, member_id)
+		VALUES (#{title}, #{content}, #{mateType},
+		#{conceptType},
+		#{maxPeople},#{ageGroup}, #{budget},
+		#{startdate}, #{enddate}, #{cityId}, #{memberId})
+	</insert>
+
 
 	<!-- 사진만 내려주면 되나? <select id="findMemberListByIdx"> SELECT ml.makemate_idx, 
 		ml.member_id FROM memberlist ml JOIN makemate mm ON (mm.idx = ml.makemate_idx) 

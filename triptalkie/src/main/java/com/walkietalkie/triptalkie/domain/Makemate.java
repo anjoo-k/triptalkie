@@ -10,7 +10,8 @@ public class Makemate {
 	private String mateType;
 	private String conceptType;
 	private int maxPeople;
-	private long budget;
+	private String ageGroup;
+	private String budget;
 	private String state;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -26,7 +27,7 @@ public class Makemate {
 	}
 
 	public Makemate(long idx, String title, String content, long view, String mateType, String conceptType,
-			int maxPeople, long budget, String state, LocalDateTime createdAt, LocalDateTime updatedAt,
+			int maxPeople, String ageGroup, String budget, String state, LocalDateTime createdAt, LocalDateTime updatedAt,
 			LocalDateTime startdate, LocalDateTime enddate, String cityId, String memberId) {
 		super();
 		this.idx = idx;
@@ -36,6 +37,7 @@ public class Makemate {
 		this.mateType = mateType;
 		this.conceptType = conceptType;
 		this.maxPeople = maxPeople;
+		this.ageGroup = ageGroup;
 		this.budget = budget;
 		this.state = state;
 		this.createdAt = createdAt;
@@ -102,11 +104,19 @@ public class Makemate {
 		this.maxPeople = maxPeople;
 	}
 
-	public long getBudget() {
+	public String getAgeGroup() {
+		return ageGroup;
+	}
+
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
+	}
+
+	public String getBudget() {
 		return budget;
 	}
 
-	public void setBudget(long budget) {
+	public void setBudget(String budget) {
 		this.budget = budget;
 	}
 
@@ -169,9 +179,10 @@ public class Makemate {
 	@Override
 	public String toString() {
 		return "Makemate [idx=" + idx + ", title=" + title + ", content=" + content + ", view=" + view + ", mateType="
-				+ mateType + ", conceptType=" + conceptType + ", maxPeople=" + maxPeople + ", budget=" + budget
-				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startdate="
-				+ startdate + ", enddate=" + enddate + ", cityId=" + cityId + ", memberId=" + memberId + "]";
+				+ mateType + ", conceptType=" + conceptType + ", maxPeople=" + maxPeople + ", ageGroup=" + ageGroup
+				+ ", budget=" + budget + ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", startdate=" + startdate + ", enddate=" + enddate + ", cityId=" + cityId + ", memberId=" + memberId
+				+ "]";
 	}
 
 }

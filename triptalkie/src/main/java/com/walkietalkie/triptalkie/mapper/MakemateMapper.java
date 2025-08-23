@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -30,5 +31,15 @@ public interface MakemateMapper {
 	int increaseViewCount(long idx);
 
 	int findCountMemberByIdx(long idx);
+
+	int registerMakemate(Makemate makemate);
+
+//	List<City> findAllRegion();
+
+	List<City> findAllCityName();
+
+	List<Country> findAllCountryName();
+
+	List<Land> findAllLandName();
 
 }
