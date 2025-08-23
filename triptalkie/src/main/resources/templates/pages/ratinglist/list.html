@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>깡총지수 평가</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+        img.profile { width: 40px; height: 40px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+<h2>깡총지수 평가 대상 목록</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>프로필</th>
+            <th>참여자 ID</th>
+            <th>모집글 제목</th>
+            <th>종료일</th>
+            <th>평가</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="p : ${participants}">
+            <td>
+                <img th:src="@{${p.imagePath != null ? p.imagePath : '/images/default-profile.png'}}"
+                     alt="프로필 이미지" class="profile">
+            </td>
+            <td th:text="${p.memberId}">참여자</td>
+            <td th:text="${p.title}">모집글</td>
+            <td th:text="${#temporals.format(p.enddate, 'yyyy-MM-dd')}">종료일</td>
+            <td>
+                <button th:onclick="'openModal(\'' + ${p.memberId} + '\', \'' + ${p.title} + '\')'">
+                    평가하기
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- 모달 or JS 이벤트는 따로 정의 -->
+
+</body>
+</html>

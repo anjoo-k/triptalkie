@@ -13,7 +13,7 @@ import com.walkietalkie.triptalkie.mapper.RatingListMapper;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/Rating")
+@RequestMapping("/rating")
 public class RatingListController {
 	private final RatingListMapper ratingListMapper;
 
@@ -21,14 +21,14 @@ public class RatingListController {
 		this.ratingListMapper = ratingListMapper;
 	}
 	
-	@GetMapping("/List")
+	@GetMapping("/list")
 	public String showMateList(HttpSession session, Model model) {
 		
 		String hostId = (String)session.getAttribute("loginId");
 		List<RatingList> mates = ratingListMapper.findMateList(hostId);
 		model.addAttribute("mates",mates);
 		
-		return null;
+		return "/pages/ratinglist/list";
 	}
 	
 	
