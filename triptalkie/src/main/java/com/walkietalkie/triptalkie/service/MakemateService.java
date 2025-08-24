@@ -42,6 +42,7 @@ public class MakemateService {
 		int startPage = ((currentPage - 1) / blockSize) * blockSize + 1;
 		int endPage = Math.min(startPage + blockSize - 1, totalPage);
 		if(totalCount == 0) {
+			currentPage = 1;
 			startPage = 1;
 			endPage = 1;
 			totalPage = 1;

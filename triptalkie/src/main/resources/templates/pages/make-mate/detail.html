@@ -167,6 +167,7 @@
 				<a th:href="@{/makemate/list}" class="btn btn-backToList">목록</a>
 			</div>
 			<div class="col-sm-6"></div>
+			<th:block th:if="${session.loginId != null and session.loginId == makemate.memberId}">
 			<div class="col-sm-2">
 				<a
 					th:href="@{/makemate/editPage/{makemateId}(makemateId=${makemate.idx})}"
@@ -177,6 +178,7 @@
 				method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 				<button type="submit" class="btn btn-makemate-edit">삭제하기</button>
 			</form>
+			</th:block>
 		</div>
 	</section>
 	<script src="/js/make-mate.js"></script>

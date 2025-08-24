@@ -54,11 +54,11 @@ public class MakemateController {
 	
 	// 글 목록 페이지
 	@GetMapping("/list")	// 추후 전체 출력 + 검색 + 페이지네이션으로 변경 필요
-	public String makemateAllList(@RequestParam(defaultValue = "1") int currentPage,
-									@RequestParam(defaultValue = "4") int size,
+	public String makemateAllList(@RequestParam(defaultValue = "1") int page,
 									Model model) {
 		
-		Map<String, Object> result = makemateService.findMakematesAllList(currentPage, size);
+		int size = 4; // 한 페이지에 보이는 글 수
+		Map<String, Object> result = makemateService.findMakematesAllList(page, size);
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
 		return "pages/make-mate/list";
