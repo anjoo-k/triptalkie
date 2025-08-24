@@ -8,11 +8,10 @@
 		
 		<!-- 여행 후기 작성 폼 -->
 		<div class="form-container">
-			<form th:action="@{/travel-review/registerTravelreview}" method="post">
+			<form th:action="@{/travel-review/registerTravelreview}" method="post" enctype="multipart/form-data">
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<input type="text" id="title" name="title" class="form-control" placeholder="나의 후기를 모두에게 알려줄 제목을 작성해주세요" required>
-						<input type="hidden" th:name="memberId" th:value="${session.memberId}">
 					</div>
 				</div>
 
@@ -58,8 +57,8 @@
 						<input type="radio" id="stayMate" name="mateType" value="숙박 메이트" hidden>
 						<label for="stayMate" class="btn mate-type">숙박 메이트</label>
 						
-						<input type="radio" id="stayMate" name="mateType" value="사용 안함" hidden>
-						<label for="stayMate" class="btn mate-type">사용 안함</label>
+						<input type="radio" id="notUsed" name="mateType" value="사용 안함" hidden>
+						<label for="notUsed" class="btn mate-type">사용 안함</label>
 					</div>
 
 					<!-- 여행 컨셉 -->
@@ -78,13 +77,27 @@
 
 
 				<div class="board-divider mb-3"></div>
-
-				<div class="custom-file">
-					<p>사진 첨부</p>
-					<input type="file" class="custom-file-input" id="customFile">
-					<label class="custom-file-label" for="customFile">Choose file</label>
-				</div>
-
+				<section class="upload-section">
+					<!-- 사진 첨부 -->
+					<div class="row mt-1">
+						<div class="col-sm-12">
+							<div class="photo-upload mb-3">
+								<p class="mb-1 mt-0">
+									<strong>사진 첨부</strong> <span class="text-muted small">등록하지 않으면 기본 이미지가 표시돼요</span>
+								</p>
+								<div class="d-flex align-items-center">
+									<!-- 클릭 가능한 타일 -->
+									<label for="photo" class="upload-tile mb-0" id="uploadTile"> <span class="plus">+</span>
+									</label>
+									<!-- 미리보기 이미지 -->
+									<img id="preview" src="" style="display: none; width: 80px; height: 80px; margin-left: 10px;">
+								</div>
+								<!-- 실제 파일 입력(숨김) -->
+								<input type="file" id="photo" name="photo" accept="image/*" class="sr-only form-control-file">
+							</div>
+						</div>
+					</div>
+				</section>
 				<div class="d-flex justify-content-between align-items-center">
 					<button type="button" class="btn btn-back">목록</button>
 					<button type="submit" class="btn btn-primary btn-complete-editing">완료</button>

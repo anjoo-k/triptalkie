@@ -27,18 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* 여행 일수 계산 */
 document.addEventListener("DOMContentLoaded", () => {
-	const startStr = document.querySelector("startdate").innerText;
-	const endStr = document.querySelector("enddate").innerText;
+	const startStr = document.querySelector(".startdate").innerText;
+	const endStr = document.querySelector(".enddate").innerText;
 	
 	const partsStart = startStr.split("-");
-	const yearStart = Number(parts[0]);
-	const monthStart = Number(parts[1]); // 0부터 시작하는 월 인덱스
-	const dayStart = Number(parts[2]);
+	const yearStart = Number(partsStart[0]);
+	const monthStart = Number(partsStart[1]); // 0부터 시작하는 월 인덱스
+	const dayStart = Number(partsStart[2]);
 	
 	const partsEnd = endStr.split("-");
-	const yearEnd = Number(parts[0]);
-	const monthEnd = Number(parts[1]);
-	const dayEnd = Number(parts[2]);
+	const yearEnd = Number(partsEnd[0]);
+	const monthEnd = Number(partsEnd[1]);
+	const dayEnd = Number(partsEnd[2]);
 	
 	const startDate = new Date(yearStart, monthStart - 1, dayStart);
 	const endDate = new Date(yearEnd, monthEnd - 1, dayEnd);
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// (1000 * 60 * 60 * 24) : 자바스크립트에서 Date 객체끼리 뺄셈을 하면 → 두 날짜의 밀리초 차이(ms) 를 반환
 	// +1 : 시작일과 종료일을 모두 포함해서 계산
 	const diffDate = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
-	document.querySelector(".days").innerText = `${diff}일`
+	document.querySelector(".days").innerText = `${diffDate}일`
 })
 
 /* 여행종료일 선택: 시작일보다 앞의 날짜 선택 불가 */
