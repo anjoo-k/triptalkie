@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.walkietalkie.triptalkie.domain.ChatMessage;
 import com.walkietalkie.triptalkie.domain.ChatRoom;
 import com.walkietalkie.triptalkie.mapper.ChatMapper;
 
@@ -32,11 +33,17 @@ public class ChatService {
 	        // room 객체에 멤버 2에 변수값을 넣는다.
 	        room.setMakemateIdx(makemateIdx);
 	        // room 객체에 메이크메이트 idx 변수값을 넣는다.
-	        chatMapper.insertChatRoom(room);
+	        chatMapper.registerChatRoom(room);
 	    }
-	    
-	    
 	    return room;
+	}
+	
+	public void saveMessage(ChatMessage message) {
+		chatMapper.registerMessage(message);
+	}
+	
+	public List<ChatMessage> getMessageByRoom(Long chatroomId) {
+		return chatMapper.findMessagesByRoom(chatroomId);
 	}
 	
 }

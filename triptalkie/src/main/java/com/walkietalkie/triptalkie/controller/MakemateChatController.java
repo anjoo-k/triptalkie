@@ -1,15 +1,49 @@
 package com.walkietalkie.triptalkie.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.walkietalkie.triptalkie.domain.ChatRoom;
+import com.walkietalkie.triptalkie.service.ChatService;
 
 @Controller
-@RequestMapping("/makemate-chat")
+@RequestMapping("/makemate/chat")
 public class MakemateChatController {
 
-	@GetMapping("/chat")
-	public String chatPage() {
-		return "pages/makemate-chat/chat";
-	}
+	  private final ChatService chatService;
+
+	  public MakemateChatController(ChatService chatService) {
+	    this.chatService = chatService;
+	  }
+
+	  // 채팅 신청 페이지
+	  @GetMapping("/request")
+	  public String chatRequestPage(@RequestParam Long makamateIdx, Model model) {
+	    model.addAttribute("makamateIdx", makamateIdx);
+	    return "chat_request";
+	  }
+
+	  // 채팅 목록
+	  @GetMapping("/list")
+	  public String chatListPage(@RequestParam String memberId, Model model) {
+	    List<ChatRoom> rooms = chatService.getChatRoomsByMember(memberId);
+	    model.addAttribute("rooms", rooms);
+	    model.addAttribute("memberId", memberId);
+	    return "chat_list";
+	  }
+
+	  // 채팅방 페이지
+	  @GetMapping("/room")
+	  public String chatRoomPage(@RequestParam Long chatroomId,
+	                             @RequestParam String memberId,
+	                             Model model) {
+	    model.addAttribute("chatroomId", chatroomId);
+	    model.addAttribute("memberId", memberId);
+	    return "chatroom";
+	  }
 }

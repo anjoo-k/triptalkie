@@ -10,11 +10,11 @@
       AND makamate_idx = #{makamateIdx}
   </select>
 
-  <insert id="insertChatRoom" parameterType="com.walkietalkie.triptalkie.domain.ChatRoom" useGeneratedKeys="true" keyProperty="idx">
+  <insert id="registerChatRoom" parameterType="com.walkietalkie.triptalkie.domain.ChatRoom" useGeneratedKeys="true" keyProperty="idx">
     INSERT INTO chatroom(member1_id, member2_id, makamate_idx) VALUES(#{member1Id}, #{member2Id}, #{makamateIdx})
   </insert>
 
-  <insert id="insertMessage" parameterType="com.walkietalkie.triptalkie.domain.ChatMessage">
+  <insert id="registerMessage" parameterType="com.walkietalkie.triptalkie.domain.ChatMessage">
     INSERT INTO chatmessage(chatroom_id, member_id, content) VALUES(#{chatroomId}, #{memberId}, #{content})
   </insert>
 
