@@ -43,4 +43,6 @@ public interface MakemateMapper {
 
 	int updateMakemate(Makemate makemate);
 
+	int deleteMakemateByIdx(String memberId, Long makemateId);
+
 }

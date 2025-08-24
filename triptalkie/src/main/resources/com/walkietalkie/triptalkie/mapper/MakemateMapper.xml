@@ -136,6 +136,12 @@
 			concept_type =#{conceptType}
 		WHERE idx=#{idx}
 	</update>
+	<!-- 글삭제 -->
+	<delete id="deleteMakemateByIdx">
+		DELETE FROM makemate
+		WHERE idx=#{makemateId}
+		AND member_id=#{memberId}
+	</delete>
 
 	<!-- 사진만 내려주면 되나? <select id="findMemberListByIdx"> SELECT ml.makemate_idx, 
 		ml.member_id FROM memberlist ml JOIN makemate mm ON (mm.idx = ml.makemate_idx) 

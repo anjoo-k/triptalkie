@@ -117,12 +117,22 @@ public class MakemateService {
 		}
 		
 		int result = makemateMapper.registerMakemate(makemate);
+		if (result <= 0) {
+		    throw new IllegalArgumentException("글 등록에 실패했습니다.");
+		}
 	}
 
 	public void updateMakemate(Makemate makemate) {
 		int result = makemateMapper.updateMakemate(makemate);
+		if (result <= 0) {
+		    throw new IllegalArgumentException("글 수정에 실패했습니다.");
+		}
 	}
 
-
-
+	public void deleteMakemateByIdx(String memberId, Long makemateId) {
+		int result = makemateMapper.deleteMakemateByIdx(memberId, makemateId);		
+		if (result <= 0) {
+		    throw new IllegalArgumentException("글 삭제에 실패했습니다.");
+		}
+	}
 }
