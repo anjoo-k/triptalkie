@@ -9,19 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
 				const response = await fetch(`/travel-review/increment-view/${idx}`, {
 					method: "POST"
 				});
-				
-				if(response.ok) {
+
+				if (response.ok) {
 					window.location.href = `/travel-review/detail-review/${idx}`;
 				} else {
 					console.log("조회수 증가 실패");
 				}
-				
-			} catch(error) {
+
+			} catch (error) {
 				console.error(error);
 			}
 		});
 	});
-	
+
 	// 글쓰기 버튼
 	const writeBtn = document.querySelector(".btn-write");
 	if (writeBtn) {
@@ -36,6 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
 				location.href = "/travel-review/registerReviewPage";
 			}
 		});
+	}
+
+	// 파일 첨부 시 사진 한 장 미리 보여주기
+	const photoInput = document.getElementById("photo");
+	const preview = document.getElementById("preview");
+
+	if (photoInput) {
+
+		photoInput.addEventListener("change", (e) => {
+			const file = e.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					preview.src = e.target.result;
+					preview.style.display = "inline-block"; // 이미지 보이게
+				}
+				reader.readAsDataURL(file);
+			}
+		});
+
 	}
 
 	// 뒤로 가기 버튼
@@ -78,12 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			let idx = idxInput.value;
 			try {
 				const response = await fetch(`/travel-review/deleteTravelreviewByIdx?idx=${idx}`, {
-					method: 'GET',
+					method: 'POST',
 				});
-				if (response.ok) {
+				const data = await response.json();
+				
+				if (data.success) {
+					alert(data.message);
 					window.location.href = '/travel-review/findTravelreviewAllList';
 				} else {
-					alert('삭제 실패');
+					alert(data.message);
 				}
 			} catch (e) {
 				console.error(e);
@@ -94,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 검색 기능
 	const countrySelect = document.getElementById('countrySelect');
-	if(countrySelect) {
+	if (countrySelect) {
 		countrySelect.addEventListener('change', function() {
 			const countryId = this.value;
 			console.log("selected country countryId : " + countryId);
