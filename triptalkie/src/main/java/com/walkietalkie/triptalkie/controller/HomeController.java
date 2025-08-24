@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.domain.TravelReview;
-import com.walkietalkie.triptalkie.domain.TravelReviewImage;
+import com.walkietalkie.triptalkie.domain.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
 import com.walkietalkie.triptalkie.service.TravelReviewImageService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;
@@ -18,29 +18,28 @@ import com.walkietalkie.triptalkie.service.TravelReviewService;
 public class HomeController {
 
 	private final TravelReviewService travelReviewService;
-	private final TravelReviewImageService travelReviewImageService;
 	private final TravelInfoService travelInfoService;
 //	private final Customer
 	
-	public HomeController(TravelReviewService travelReviewService, TravelReviewImageService travelReviewImageService,
+	public HomeController(TravelReviewService travelReviewService,
 			TravelInfoService travelInfoService) {
 		super();
 		this.travelReviewService = travelReviewService;
-		this.travelReviewImageService = travelReviewImageService;
 		this.travelInfoService = travelInfoService;
 	}
 
 
 	@GetMapping("/")
 	public String home(Model model) {
-		List<TravelReview> topReviews =  travelReviewService.findTravelreviewTop3();
+		
+		List<TravelReviewTop3DTO> topReviews = travelReviewService.findTravelreviewTop3();
 		model.addAttribute("topReviews", topReviews);
+		System.out.println("topReviews : " + topReviews);
 		
 		List<TravelInfo> topInfos = travelInfoService.findTravelInfoTop3();
 		model.addAttribute("topInfos", topInfos);
 		System.out.println("topInfos : " + topInfos);
 		
-//		List<TravelReviewImage> topReviewImages = travelReviewImageService.findTravelireviewTop3(topReviews.g);
 		return "home";
 	}
 
