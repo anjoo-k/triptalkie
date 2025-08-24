@@ -1,41 +1,51 @@
 package com.walkietalkie.triptalkie.service;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.TravelReview;
 import com.walkietalkie.triptalkie.mapper.TravelReviewMapper;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class TravelReviewService {
 	private final TravelReviewMapper travelReviewMapper;
+	private final TravelReviewImageService travelReviewImageService;
 
-	public TravelReviewService(TravelReviewMapper travelReviewMapper) {
+	public TravelReviewService(TravelReviewMapper travelReviewMapper,
+			TravelReviewImageService travelReviewImageService) {
 		super();
 		this.travelReviewMapper = travelReviewMapper;
+		this.travelReviewImageService = travelReviewImageService;
 	}
 
 	public Map<String, Object> findTravelreviewByIdx(Long idx) {
 		return travelReviewMapper.findTravelreviewByIdx(idx);
 	}
 
+	@Transactional
 	public int deleteTravelreviewByIdx(Long idx) {
+		travelReviewImageService.deleteReviewImageByIdx(idx);
+		
 		return travelReviewMapper.deleteTravelreviewByIdx(idx);
 	}
 
-	public Long registerTravelreview(TravelReview travelReview) {
-		System.out.println("mateUse=" + travelReview.getMateUse());
-		System.out.println("conceptType=" + travelReview.getConceptType());
-		System.out.println("mateType=" + travelReview.getMateType());
-		
+	public Long registerTravelreview(TravelReview travelReview, HttpSession session) {
+		String loginMember = (String) session.getAttribute("loginId");
+
+		travelReview.setMemberId(loginMember);
+
 		travelReview.setMateUse(travelReview.getMateType().equals("사용 안함") ? 0 : 1);
 
-		List<String> allowedConcept = Arrays.asList("맛집/카페", "같이 여행", "술/친목", "액티비티/투어", "전시회/공연", "기타");
+		List<String> allowedConcept = Arrays.asList("맛집/카페", "술/친목", "액티비티/투어", "전시회/공연", "기타");
 		if (!allowedConcept.contains(travelReview.getConceptType())) {
 			throw new IllegalArgumentException("허용되지 않은 여행 컨셉입니다.");
 		}
@@ -48,7 +58,42 @@ public class TravelReviewService {
 		return travelReview.getIdx();
 	}
 
-	public void updateTravelreviewByIdxAndMemberId(TravelReview travelReview) {
+	public void updateTravelreviewByIdxAndMemberId(TravelReview travelReview, String loginMember, MultipartFile file) {
+		// 기존 글 db 조회
+		Map<String, Object> originalReview = travelReviewMapper.findTravelreviewByIdx(travelReview.getIdx());
+		String originalMemberId = (String) originalReview.get("memberId");
+
+		// 본인 글이 아니면 예외 처리
+		if (!loginMember.equals(originalMemberId)) {
+			throw new IllegalArgumentException("본인 글만 수정할 수 있습니다.");
+		}
+
+		// mateUse 처리
+		travelReview.setMateUse(travelReview.getMateType().equals("사용 안함") ? 0 : 1);
+
+		// conceptType 검증
+		List<String> allowedConcept = Arrays.asList("맛집/카페", "술/친목", "액티비티/투어", "전시회/공연", "기타");
+		if (!allowedConcept.contains(travelReview.getConceptType())) {
+			throw new IllegalArgumentException("허용되지 않은 여행 컨셉입니다.");
+		}
+
+		// mateType null 처리
+		if (travelReview.getMateType() != null && travelReview.getMateType().isEmpty()) {
+			travelReview.setMateType(null);
+		}
+		
+		// memberId 세팅
+	    travelReview.setMemberId(loginMember);
+	    
+	    if (file != null && !file.isEmpty()) {
+			// 기존 이미지 삭제 후 새 이미지 등록
+	    	try {
+				travelReviewImageService.updateReviewImage(travelReview.getIdx(), file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		travelReviewMapper.updateTravelreviewByIdxAndMemberId(travelReview);
 
 	}
@@ -96,7 +141,7 @@ public class TravelReviewService {
 	}
 
 	/*
-	 *  메인에 출력할 조회수 top 3
+	 * 메인에 출력할 조회수 top 3
 	 */
 	@Transactional(readOnly = true)
 	public List<TravelReview> findTravelreviewTop3() {

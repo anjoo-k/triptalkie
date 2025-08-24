@@ -4,12 +4,20 @@
 <!-- 여행 후기 글작성 페이지 -->
 <!-- 여행 후기 상세 페이지 -->
 <main layout:fragment="content">
-    <h4 class="text-center content--title">메이트의 여행 후기를 알아보세요</h4>
-    <div class="register-containers bg--containers pt-5 pb-5">
-        
+    <!-- <h4 class="text-center content--title">메이트의 여행 후기를 알아보세요</h4> -->
+    <div class="register-containers bg--containers pt-3 pb-3">
         <!-- 상세 내용 컨테이너 -->
         <div class="form-container detail-review">
-
+        
+        	<!-- 사진 -->
+			<div class="form-group row mb-2">
+				<div class="col-sm-12">
+					<div class="review-imagebox">
+						<img th:src="@{${reviewImageUrl}}" alt="travelreview-image">
+					</div>
+				</div>
+			</div>
+			
             <!-- 제목 -->
             <div class="form-group row mb-2 px-1">
                 <div class="col-sm-12">
@@ -69,20 +77,10 @@
                 </div>
             </div>
 
-            <!-- 첨부 사진 -->
-<!--             <div class="form-group row">
-                <div class="col-sm-12">
-                    <p class="subheading mb-2">사진</p>
-                    <img th:src="@{${board.imagePath}}" alt="여행 사진" class="img-fluid rounded">
-                </div>
-            </div> -->
-
-            <!-- <div class="board-divider mb-3"></div> -->
-
             <!-- 버튼 영역 -->
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <button type="button" class="btn btn-back">목록</button>
-				<th:block th:if="${session.memberId != null && session.memberId == travelreview['memberId']}">
+				<th:block th:if="${memberId != null && memberId == travelreview['memberId']}">
 	                <div>
             	        <button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${travelreview.idx}">수정</button>
 						<button id="btn-delete" type="button" class="btn btn-delete" th:attr="data-idx=${travelreview.idx}">삭제</button>

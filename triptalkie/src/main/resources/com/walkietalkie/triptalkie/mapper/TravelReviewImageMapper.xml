@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.TravelReviewImageMapper">
+	<!-- 사진 등록 -->
+	<insert id="registerTravelReviewImage" parameterType="com.walkietalkie.triptalkie.domain.TravelReviewImage"
+			useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO travelreview_image (uuid, original_name, saved_name, file_path, file_size, travelreview_idx)
+		VALUES (#{uuid}, #{originalName}, #{savedName}, #{filePath}, #{fileSize}, #{travelReviewIdx})
+	</insert>
+	
+	<!-- 사진 조회 -->
+	<select id="findImageUrlByIdx" parameterType="Long" resultType="com.walkietalkie.triptalkie.domain.TravelReviewImage">
+		SELECT * 
+		FROM travelreview_image
+		WHERE travelreview_idx = #{travelreviewIdx}
+		ORDER BY created_at DESC
+		LIMIT 1
+	</select>
+	
+	<!-- 사진 삭제 -->
+	<delete id="deleteReviewImageByIdx" parameterType="Long">
+		DELETE FROM travelreview_image
+		WHERE travelreview_idx = #{travelreviewIdx}
+	</delete>
+	
+	<delete id="deleteReviewImageByUuid" parameterType="String">
+		DELETE FROM travelreview_image
+		WHERE uuid = #{uuid}
+	</delete>
+</mapper>

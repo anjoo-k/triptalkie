@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.domain.TravelReview;
+import com.walkietalkie.triptalkie.domain.TravelReviewImage;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
+import com.walkietalkie.triptalkie.service.TravelReviewImageService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;
 
 // Thymeleaf 연습을 위한 컨트롤러
@@ -16,17 +18,18 @@ import com.walkietalkie.triptalkie.service.TravelReviewService;
 public class HomeController {
 
 	private final TravelReviewService travelReviewService;
+	private final TravelReviewImageService travelReviewImageService;
 	private final TravelInfoService travelInfoService;
 //	private final Customer
-
 	
-	
-	public HomeController(TravelReviewService travelReviewService, TravelInfoService travelInfoService) {
+	public HomeController(TravelReviewService travelReviewService, TravelReviewImageService travelReviewImageService,
+			TravelInfoService travelInfoService) {
 		super();
 		this.travelReviewService = travelReviewService;
+		this.travelReviewImageService = travelReviewImageService;
 		this.travelInfoService = travelInfoService;
 	}
-	
+
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -36,8 +39,12 @@ public class HomeController {
 		List<TravelInfo> topInfos = travelInfoService.findTravelInfoTop3();
 		model.addAttribute("topInfos", topInfos);
 		System.out.println("topInfos : " + topInfos);
+		
+//		List<TravelReviewImage> topReviewImages = travelReviewImageService.findTravelireviewTop3(topReviews.g);
 		return "home";
 	}
+
+
 
 	
 }
