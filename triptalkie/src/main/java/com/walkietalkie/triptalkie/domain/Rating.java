@@ -2,18 +2,29 @@ package com.walkietalkie.triptalkie.domain;
 
 import java.time.LocalDateTime;
 
-public class RatingList {
+public class Rating {
 	private String title;
 	private String memberId;
 	private LocalDateTime enddate;
 	private String imagePath;
-	public RatingList(String title, String memberId, LocalDateTime enddate, String imagePath) {
-		super();
+	public Rating(String title, String memberId, LocalDateTime enddate, String imagePath) {
 		this.title = title;
 		this.memberId = memberId;
 		this.enddate = enddate;
-		this.imagePath = imagePath;
+		this.imagePath = imagePath; 
 	}
+	
+	
+	public Rating(String title, String memberId, LocalDateTime enddate) {
+		this.title = title;
+		this.memberId = memberId;
+		this.enddate = enddate;
+	}
+	
+	public Rating() {
+    }
+
+
 	public String getTitle() {
 		return title;
 	}
@@ -40,7 +51,7 @@ public class RatingList {
 	}
 	@Override
 	public String toString() {
-		return "RatingList [title=" + title + ", memberId=" + memberId + ", enddate=" + enddate + ", imagePath="
+		return "Rating [title=" + title + ", memberId=" + memberId + ", enddate=" + enddate + ", imagePath="
 				+ imagePath + "]";
 	}
 	
