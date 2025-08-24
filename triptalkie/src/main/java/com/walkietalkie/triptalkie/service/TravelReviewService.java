@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.TravelReview;
+import com.walkietalkie.triptalkie.domain.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.mapper.TravelReviewMapper;
 
 import jakarta.servlet.http.HttpSession;
@@ -144,8 +145,8 @@ public class TravelReviewService {
 	 * 메인에 출력할 조회수 top 3
 	 */
 	@Transactional(readOnly = true)
-	public List<TravelReview> findTravelreviewTop3() {
-		return travelReviewMapper.findTravelreviewTop3();
+	public List<TravelReviewTop3DTO> findTravelreviewTop3() {
+		return travelReviewMapper.findTravelreviewTop3ByView();
 	}
 
 }

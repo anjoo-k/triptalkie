@@ -19,8 +19,9 @@
 			<div class="row g-4">
 				<div class="col-12 col-md-4" th:each="reviews : ${topReviews}">
 					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> 
-						<img th:src="@{/images/bangkok.jpg}" class="img-fluid square-img">
+						<img th:src="@{'/uploads/review/' + ${reviews.thumbnail}}" class="img-fluid square-img">
 					</a>
+					<p class="topReviewsCountry" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
 				</div>
 			</div>
 		</div>
