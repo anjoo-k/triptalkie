@@ -1,0 +1,28 @@
+<mapper namespace="com.walkietalkie.triptalkie.mapper.ChatMapper">
+  <select id="findRoomsByMember" parameterType="string" resultType="com.walkietalkie.triptalkie.domain.ChatRoom">
+    SELECT * FROM chatroom WHERE member1_id = #{memberId} OR member2_id = #{memberId} ORDER BY created_at DESC
+  </select>
+
+  <select id="findRoom" resultType="com.walkietalkie.triptalkie.domain.ChatRoom">
+    SELECT * FROM chatroom
+    WHERE ((member1_id = #{member1Id} AND member2_id = #{member2Id}) 
+        OR (member1_id = #{member2Id} AND member2_id = #{member1Id}))
+      AND makamate_idx = #{makamateIdx}
+  </select>
+
+  <insert id="insertChatRoom" parameterType="com.walkietalkie.triptalkie.domain.ChatRoom" useGeneratedKeys="true" keyProperty="idx">
+    INSERT INTO chatroom(member1_id, member2_id, makamate_idx) VALUES(#{member1Id}, #{member2Id}, #{makamateIdx})
+  </insert>
+
+  <insert id="insertMessage" parameterType="com.walkietalkie.triptalkie.domain.ChatMessage">
+    INSERT INTO chatmessage(chatroom_id, member_id, content) VALUES(#{chatroomId}, #{memberId}, #{content})
+  </insert>
+
+  <select id="findMessagesByRoom" parameterType="long" resultType="com.walkietalkie.triptalkie.domain.ChatMessage">
+    SELECT * FROM chatmessage WHERE chatroom_id = #{chatroomId} ORDER BY created_at
+  </select>
+
+  <select id="countUnreadMessages" resultType="int">
+    SELECT COUNT(*) FROM chatmessage WHERE chatroom_id = #{chatroomId} AND member_id != #{memberId} AND readcheck = 0
+  </select>
+</mapper>
