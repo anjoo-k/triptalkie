@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class MakemateService {
 		int startPage = ((currentPage - 1) / blockSize) * blockSize + 1;
 		int endPage = Math.min(startPage + blockSize - 1, totalPage);
 		if(totalCount == 0) {
+			currentPage = 1;
 			startPage = 1;
 			endPage = 1;
 			totalPage = 1;
@@ -73,8 +75,8 @@ public class MakemateService {
 	}
 
 	// 글 상세 페이지
-	public Map<String, Object> findMakemateByIdx(int idx) {
-		Makemate makemate = makemateMapper.findMakemateByIdx(idx);
+	public Map<String, Object> findMakemateByIdx(Long makemateId) {
+		Makemate makemate = makemateMapper.findMakemateByIdx(makemateId);
 		Member member = makemateMapper.findMemberById(makemate.getMemberId());
 		City city = makemateMapper.findCityByIdx(makemate.getCityId());
 		Country country = makemateMapper.findCountryByIdx(city.getCountryId());
@@ -93,8 +95,45 @@ public class MakemateService {
 	}
 	
 	// 조회수 증가
-	public void increaseViewCount(int idx) {
-		int result = makemateMapper.increaseViewCount(idx);
+	public void increaseViewCount(Long makemateId) {
+		int result = makemateMapper.increaseViewCount(makemateId);
+	}
+	
+	public Map<String, Object> findAllRegion() {
+		List<City> city = makemateMapper.findAllCityName();
+		List<Country> country = makemateMapper.findAllCountryName();
+		List<Land> land = makemateMapper.findAllLandName();
+		
+		Map<String, Object> combinedMap = new HashMap<>();
+		combinedMap.put("city", city);
+		combinedMap.put("country", country);
+		combinedMap.put("land", land);
+		    
+		return combinedMap;
 	}
 
+	public void registerMakemate(Makemate makemate) {
+		if (makemate.getEnddate().isBefore(makemate.getStartdate())) {
+		    throw new IllegalArgumentException("종료일은 시작일 이후여야 합니다.");
+		}
+		
+		int result = makemateMapper.registerMakemate(makemate);
+		if (result <= 0) {
+		    throw new IllegalArgumentException("글 등록에 실패했습니다.");
+		}
+	}
+
+	public void updateMakemate(Makemate makemate) {
+		int result = makemateMapper.updateMakemate(makemate);
+		if (result <= 0) {
+		    throw new IllegalArgumentException("글 수정에 실패했습니다.");
+		}
+	}
+
+	public void deleteMakemateByIdx(String memberId, Long makemateId) {
+		int result = makemateMapper.deleteMakemateByIdx(memberId, makemateId);		
+		if (result <= 0) {
+		    throw new IllegalArgumentException("글 삭제에 실패했습니다.");
+		}
+	}
 }

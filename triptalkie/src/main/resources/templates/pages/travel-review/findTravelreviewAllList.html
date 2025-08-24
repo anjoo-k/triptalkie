@@ -4,7 +4,7 @@
 
 <!-- 여행 후기 게시판 리스트 -->
 <main layout:fragment="content">
-	<h4 class="text-center content--title">여행 후기 게시판</h4>
+	<h4 class="text-center content--title"></h4>
 	<div class="travel-review-containers bg--containers pt-5 pb-5">
 		<!-- 검색 기능 : 추후 컴포넌트화 -->
 		<div class="form-container">
@@ -71,9 +71,8 @@
 							<!-- 2행: 글 제목 + 작성자 + 작성일 -->
 							<div class="row-stats">
 								<a th:href="@{/travel-review/detail-review/{idx}(idx=${review.idx})}" class="card-title h5 mb-1 title list-title" th:data-id="${review.idx}" th:text="${review['title']}">글 제목</a> <span
-									class="badge badge--sub-desc" th:text="${review['memberNickname']}">작성자</span> <span
-									id="createdAt" class="badge--sub-desc"
-									th:text="${#temporals.format(review['createdAt'], 'yyyy-MM-dd')}">2025-08-17</span>
+									class="badge badge--sub-desc" th:text="${review['memberNickname']}">작성자</span> 
+									<span id="createdAt" class="badge--sub-desc" th:text="${#temporals.format(review['createdAt'], 'yyyy-MM-dd')}">2025-08-17</span>
 							</div>
 
 							<!-- 3행: 여행일자 -->

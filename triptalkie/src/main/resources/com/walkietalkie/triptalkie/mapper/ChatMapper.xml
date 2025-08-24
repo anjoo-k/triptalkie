@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walkietalkie.triptalkie.mapper.ChatMapper">
+	<select id="findRoomsByMember" parameterType="string"
+		resultType="com.walkietalkie.triptalkie.domain.ChatRoom">
+		SELECT * FROM chatroom WHERE member1_id = #{memberId} OR
+		member2_id =
+		#{memberId} ORDER BY created_at DESC
+	</select>
+
+	<select id="findRoom"
+		resultType="com.walkietalkie.triptalkie.domain.ChatRoom">
+		SELECT * FROM chatroom
+		WHERE ((member1_id = #{member1Id} AND
+		member2_id = #{member2Id})
+		OR (member1_id = #{member2Id} AND member2_id
+		= #{member1Id}))
+		AND makemate_idx = #{makemateIdx}
+	</select>
+
+	<!-- 특정 chatroom 조회 -->
+	<select id="findRoomByChatRoomIdx"
+		resultType="com.walkietalkie.triptalkie.domain.ChatRoom">
+		SELECT * FROM chatroom WHERE idx = #{idx}
+	</select>
+
+
+	<insert id="registerChatRoom"
+		parameterType="com.walkietalkie.triptalkie.domain.ChatRoom"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO chatroom(member1_id,
+		member2_id, makemate_idx)
+		VALUES(#{member1Id}, #{member2Id},
+		#{makemateIdx})
+	</insert>
+
+	<insert id="registerMessage"
+		parameterType="com.walkietalkie.triptalkie.domain.ChatMessage">
+		INSERT INTO chatmessage(chatroom_idx, member_id, content)
+		VALUES(#{chatroomIdx}, #{memberId}, #{content})
+	</insert>
+
+	<select id="findMessagesByRoom"
+		resultType="com.walkietalkie.triptalkie.domain.ChatMessage">
+		SELECT * FROM chatmessage WHERE chatroom_idx =
+		#{chatroomIdx}
+		ORDER BY
+		created_at
+	</select>
+
+	<select id="countUnreadMessages" resultType="int">
+		SELECT COUNT(*) FROM
+		chatmessage WHERE chatroom_idx = #{chatroomIdx} AND
+		member_id !=
+		#{memberId} AND readcheck = 0
+	</select>
+</mapper>

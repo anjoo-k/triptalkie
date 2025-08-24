@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.walkietalkie.triptalkie.domain.TravelReview;
+import com.walkietalkie.triptalkie.domain.TravelReviewTop3DTO;
 
 @Mapper
 public interface TravelReviewMapper {
@@ -27,5 +28,5 @@ public interface TravelReviewMapper {
 
 	void incrementView(Long idx);
 
-	List<TravelReview> findTravelreviewTop3();
+	List<TravelReviewTop3DTO> findTravelreviewTop3ByView();
 }

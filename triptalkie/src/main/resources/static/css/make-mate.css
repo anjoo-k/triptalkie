@@ -127,7 +127,7 @@
 	padding-top: 5px;
 }
 
-.button-section .row {
+.button-sectionz .row {
     display: flex;
     justify-content: flex-start; /* 버튼들이 왼쪽부터 */
     align-items: center;
@@ -144,6 +144,10 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
+}
+
+.button-section{
+	background-color: #fff;
 }
 
 .btn-back {

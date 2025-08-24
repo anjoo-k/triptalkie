@@ -25,10 +25,24 @@ public interface MakemateMapper {
 
 	Land findLandByIdx(String landId);
 
-	Makemate findMakemateByIdx(long idx);
+	Makemate findMakemateByIdx(long makemateId);
 
-	int increaseViewCount(long idx);
+	int increaseViewCount(long makemateId);
 
-	int findCountMemberByIdx(long idx);
+	int findCountMemberByIdx(long makemateId);
+
+	int registerMakemate(Makemate makemate);
+
+//	List<City> findAllRegion();
+
+	List<City> findAllCityName();
+
+	List<Country> findAllCountryName();
+
+	List<Land> findAllLandName();
+
+	int updateMakemate(Makemate makemate);
+
+	int deleteMakemateByIdx(String memberId, Long makemateId);
 
 }
