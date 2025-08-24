@@ -2,48 +2,159 @@ package com.walkietalkie.triptalkie.controller;
 
 import java.util.List;
 
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.walkietalkie.triptalkie.domain.ChatMessage;
 import com.walkietalkie.triptalkie.domain.ChatRoom;
 import com.walkietalkie.triptalkie.service.ChatService;
+import com.walkietalkie.triptalkie.service.MemberService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/makemate/chat")
 public class MakemateChatController {
 
-	  private final ChatService chatService;
+	// [] 의존성 주입
+	private final ChatService chatService;
+	private final MemberService memberService;
+	private final SimpMessagingTemplate messagingTemplate; // 추가
 
-	  public MakemateChatController(ChatService chatService) {
-	    this.chatService = chatService;
-	  }
 
-	  // 채팅 신청 페이지
-	  @GetMapping("/request")
-	  public String chatRequestPage(@RequestParam Long makamateIdx, Model model) {
-	    model.addAttribute("makamateIdx", makamateIdx);
-	    return "chat_request";
-	  }
+	public MakemateChatController(ChatService chatService,
+			MemberService memberService, SimpMessagingTemplate messagingTemplate) {
+		this.chatService = chatService;
+		this.memberService = memberService;
+		this.messagingTemplate = messagingTemplate;
+	}
 
-	  // 채팅 목록
-	  @GetMapping("/list")
-	  public String chatListPage(@RequestParam String memberId, Model model) {
-	    List<ChatRoom> rooms = chatService.getChatRoomsByMember(memberId);
-	    model.addAttribute("rooms", rooms);
-	    model.addAttribute("memberId", memberId);
-	    return "chat_list";
-	  }
+	// 채팅 신청 페이지 이동
+	// http://localhost:8080/makemate/chat/requestpage
+	@GetMapping("/requestpage")
+	public String chatRequestPage(Long makemateIdx, HttpSession session,
+			Model model) {
 
-	  // 채팅방 페이지
-	  @GetMapping("/room")
-	  public String chatRoomPage(@RequestParam Long chatroomId,
-	                             @RequestParam String memberId,
-	                             Model model) {
-	    model.addAttribute("chatroomId", chatroomId);
-	    model.addAttribute("memberId", memberId);
-	    return "chatroom";
-	  }
+		return "pages/makemate-chat/request-chat";
+		// 뷰 page로 이동
+	}
+
+	/*
+	// 채팅 신청 요청 처리 (채팅방 생성 or 조회 후 채팅방 페이지 이동)
+	// http://localhost:8080/makemate/chat/request
+	@PostMapping("/request")
+	public String chatRequest(@RequestParam Long makemateIdx,
+			@RequestParam String targetMemberId, HttpSession session,
+			Model model) {
+		String loginId = memberService.getLoginId(session);
+		// 로그인한 ID 반환받아서 변수에 저장
+
+		ChatRoom room = chatService.createOrGetChatRoom(makemateIdx, loginId,
+				targetMemberId);
+		// 채팅방을 만들거나 이미 있으면 채팅방 객체를 반환하는 createOrGetChatRoom 매서드 사용
+
+		model.addAttribute("chatroomIdx", room.getIdx());
+		// room 객체에서 chatroomIdx 받아옴
+		model.addAttribute("loginId", loginId);
+		model.addAttribute("chatRoom", room); // 필요하면 전체 객체 전달
+		System.out.println("채팅방 idx : " + room.getIdx());
+
+		return "pages/makemate-chat/chatroom-chat";
+		// model 객체에 저장된 chatroomIdx, loginId 변수의 값을 이 페이지에 전달
+		// 컨트롤러 url로 이동
+	}
+	 */
+	
+    // 채팅방 생성 요청 처리 (리다이렉션으로 분리)
+    @PostMapping("/request")
+    public RedirectView chatRequest(@RequestParam Long makemateIdx,
+            @RequestParam String targetMemberId, HttpSession session) {
+        String loginId = memberService.getLoginId(session);
+
+        ChatRoom room = chatService.createOrGetChatRoom(makemateIdx, loginId, targetMemberId);
+        
+        System.out.println("채팅방 idx : " + room.getIdx());
+
+        // PRG 패턴 적용: 채팅방 URL로 리다이렉트
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/makemate/chat/room?chatroomIdx=" + room.getIdx());
+        return redirectView;
+    }
+
+    // 채팅방 페이지를 보여주는 새로운 GET 메서드
+    @GetMapping("/room")
+    public String showChatRoom(@RequestParam Long chatroomIdx, HttpSession session, Model model) {
+        String loginId = memberService.getLoginId(session);
+        if (loginId == null) {
+            return "redirect:/member/login";
+        }
+
+        ChatRoom room = chatService.findRoomByChatRoomIdx(chatroomIdx);
+        if (room == null) {
+            // 채팅방이 존재하지 않으면 에러 페이지 또는 목록 페이지로 리다이렉트
+            return "redirect:/makemate/chat/list";
+        }
+        
+        // 중요한 부분: 현재 로그인한 사용자가 이 채팅방의 참여자인지 확인
+        if (!room.getMember1Id().equals(loginId) && !room.getMember2Id().equals(loginId)) {
+            // 참여자가 아니면 접근 거부 또는 목록 페이지로 리다이렉트
+            System.out.println("접근 권한 없음: " + loginId + "는 해당 채팅방의 멤버가 아닙니다.");
+            return "redirect:/makemate/chat/list";
+        }
+        
+        model.addAttribute("chatroomIdx", room.getIdx());
+        model.addAttribute("loginId", loginId);
+        model.addAttribute("chatRoom", room);
+        
+        return "pages/makemate-chat/chatroom-chat";
+    }
+
+	// 채팅 목록
+	// http://localhost:8080/makemate/chat/list
+	@GetMapping("/list")
+	public String chatListPage(HttpSession session, Model model) {
+		String loginId = memberService.getLoginId(session);
+	    if (loginId == null) {
+	        // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
+	        return "redirect:/member/login"; // 예시 URL, 실제 로그인 페이지 URL로 변경
+	    }
+		
+		List<ChatRoom> rooms = chatService.getChatRoomsByMember(loginId);
+		model.addAttribute("rooms", rooms);
+		model.addAttribute("loginId", loginId);
+		return "pages/makemate-chat/list-chat";
+	}
+	
+	
+    
+    // WebSocket 메시지 처리
+    @MessageMapping("/send") // 클라이언트에서 /app/send로 보냄
+    public void handleMessage(ChatMessage message) {
+        // 메시지의 chatroomIdx가 존재하는지 확인
+        ChatRoom room = chatService.findRoomByChatRoomIdx(message.getChatroomIdx());
+        if(room == null) throw new IllegalArgumentException("존재하지 않는 채팅방입니다.");
+
+        chatService.addMessage(message);
+
+        // 특정 채팅방을 구독한 클라이언트에게만 메시지 전송
+        messagingTemplate.convertAndSend("/topic/chatroom/" + message.getChatroomIdx(), message);
+    }
+    
+
+    // 채팅방 메시지 조회 (AJAX)
+    @GetMapping("/messages")
+    @ResponseBody
+    public List<ChatMessage> getMessages(@RequestParam Long chatroomIdx) {
+        return chatService.getMessages(chatroomIdx);
+    }
 }
