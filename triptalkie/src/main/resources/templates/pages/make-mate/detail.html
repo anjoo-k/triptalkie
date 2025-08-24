@@ -50,6 +50,7 @@
 					<div class="col-sm-11">
 						<span class="startdate" th:text="${#temporals.format(makemate.startdate, 'yyyy-MM-dd')}">2025.08.17</span>
 						 ~ <span class="enddate" th:text="${#temporals.format(makemate.enddate, 'yyyy-MM-dd')}">2025.08.20</span>
+						 (<span class="days">n일</span>)
 					</div>
 				</div>
 				<div class="row">
@@ -73,7 +74,7 @@
 						<img th:src="@{/images/조건.png}">
 					</div>
 					<div class="col-sm-11">
-						<span>동일 성별: 새컬럼 필요</span>·<span>모든 나이</span>
+						<span th:text="${makemate.mateType}">동일 성별</span>·<span th:text="${makemate.ageGroup}">모든 나이</span>
 					</div>
 				</div>
 				<div class="row">
@@ -124,7 +125,7 @@
 				<div>
 					<strong th:text="${member.nickname}">피곤한제니</strong>
 				</div>
-				<div><span class="birth">30대</span>·<span th:text="${member.gender}">여자</span>·<span th:text="${member.address}">한국</span></div>
+				<div><span th:text="${member.birth}" class="birth">30대</span>·<span th:text="${member.gender}">여자</span>·<span th:text="${member.address}">한국</span></div>
 			</div>
 		</div>
 
@@ -155,12 +156,14 @@
 			</div>
 			<div class="col-sm-6"></div>
 			<div class="col-sm-2">
-				<button class="btn btn-makemate-delete">수정하기</button>
+				<a th:href="@{/makemate/editPage/{makemateId}(makemateId=${makemate.idx})}" class="btn btn-makemate-delete">수정하기</a>
 			</div>
 			<div class="col-sm-2">
 				<button class="btn btn-makemate-edit">삭제하기</button>
 			</div>
 		</div>
 	</section>
+	<script src="/js/make-mate.js"></script>
+	<script src="/js/make-mate-knj.js"></script>
 </main>
 </html>
