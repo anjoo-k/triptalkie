@@ -5,12 +5,17 @@ public class ChatMessage {
 	private String content;
 	private String readcheck;
 	private String createdAt;
-	private long chatroomId;
+	private long chatroomIdx;
 	private String memberId;
+	
 	public ChatMessage() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
+	public ChatMessage(String memberId, String content, Long chatroomIdx) {
+		this.memberId = memberId;
+		this.content = content;
+		this.chatroomIdx = chatroomIdx;
+	}
+
 	public long getIdx() {
 		return idx;
 	}
@@ -35,11 +40,11 @@ public class ChatMessage {
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
-	public long getChatroomId() {
-		return chatroomId;
+	public long getChatroomIdx() {
+		return chatroomIdx;
 	}
-	public void setChatroomId(long chatroomId) {
-		this.chatroomId = chatroomId;
+	public void setChatroomIdx(long chatroomIdx) {
+		this.chatroomIdx = chatroomIdx;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -51,7 +56,7 @@ public class ChatMessage {
 	public String toString() {
 		return "ChatMessage [idx=" + idx + ", content=" + content
 				+ ", readcheck=" + readcheck + ", createdAt=" + createdAt
-				+ ", chatroomId=" + chatroomId + ", memberId=" + memberId + "]";
+				+ ", chatroomIdx=" + chatroomIdx + ", memberId=" + memberId + "]";
 	}
 
 }
