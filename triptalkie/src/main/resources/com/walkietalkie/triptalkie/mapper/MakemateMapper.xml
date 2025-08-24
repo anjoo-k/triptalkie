@@ -64,13 +64,13 @@
 	<!-- idx로 makemate 조회 -->
 	<select id="findMakemateByIdx">
 		SELECT idx, title, content, state, created_at,
-		updated_at,
+		updated_at, age_group,
 		view, matetype, max_people, budget, state,
 		startdate,
 		enddate, city_id,
 		member_id, concept_type
 		FROM makemate
-		WHERE idx=#{idx}
+		WHERE idx=#{makemateId}
 	</select>
 	<!-- 조회수 증가 -->
 	<update id="increaseViewCount">
@@ -125,7 +125,17 @@
 		#{maxPeople},#{ageGroup}, #{budget},
 		#{startdate}, #{enddate}, #{cityId}, #{memberId})
 	</insert>
-
+	<!-- 글수정 -->
+	<update id="updateMakemate">
+		UPDATE makemate
+		SET title=#{title},
+			max_people=#{maxPeople},
+			budget=#{budget},
+			content=#{content},
+			matetype=#{mateType},
+			concept_type =#{conceptType}
+		WHERE idx=#{idx}
+	</update>
 
 	<!-- 사진만 내려주면 되나? <select id="findMemberListByIdx"> SELECT ml.makemate_idx, 
 		ml.member_id FROM memberlist ml JOIN makemate mm ON (mm.idx = ml.makemate_idx) 

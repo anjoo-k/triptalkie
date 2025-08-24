@@ -1,5 +1,7 @@
 package com.walkietalkie.triptalkie.controller;
 
+import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -65,8 +67,8 @@ public class MakemateController {
 	// 글 상세 페이지
 	// 파티원 다차면 state 모집완료로 바꾸고 더 신청 못하게 해야함
 	// 파티원 채울 때 리더는 어떻게 처리해야하나? - 채팅에서 해야하네
-	@GetMapping("/detailPage/{idx}")
-	public String detailMatematePage(@PathVariable int idx, HttpSession session, Model model){
+	@GetMapping("/detailPage/{makemateId}")
+	public String detailMatematePage(@PathVariable Long makemateId, HttpSession session, Model model){
 		// 1. makemate 정보 o, 2. member 정보(글쓴이) o, 
 		// 3. memberlist 정보-join 두 번 묶어서 사진만 내려보내주면 되는건가?, 
 		// 4.  land, country, city 정보 o, 5. bookmark 정보
@@ -76,10 +78,10 @@ public class MakemateController {
 		if (id == null)
 			return "redirect:/member/loginPage";
 		// 조회수 증가
-		makemateService.increaseViewCount(idx);
+		makemateService.increaseViewCount(makemateId);
 		
 		// makemate, member, land, country, city 
-		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(idx);
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
 		model.addAllAttributes(combinedMap);
 		return "pages/make-mate/detail";
 	}
@@ -97,20 +99,44 @@ public class MakemateController {
 	}
 	
 	// 글등록
+	// memberlist에 글리더 등록해줘야함
 	@PostMapping("/register")
 	public String registerMatemate(HttpSession session, Makemate makemate, Model model){
 		String id = (String) session.getAttribute("loginId");
 		if (id == null)
 			return "redirect:/member/loginPage";
-		
-		try {
-			logger.info("{}", makemate);
+
 			makemateService.registerMakemate(makemate);
-		}catch(IllegalArgumentException e){
-			model.addAttribute("errorMessage", e.getMessage());
-			return "pages/makemate/register";
-		}
-		
 		return "redirect:/makemate/list";
+	}
+	
+	// 글수정페이지
+	@GetMapping("/editPage/{makemateId}")
+	public String updateMakematePage(@PathVariable Long makemateId, HttpSession session, Model model) throws AccessDeniedException{
+		String id = (String) session.getAttribute("loginId");
+		if (id == null)
+			return "redirect:/member/loginPage";
+		
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
+		Makemate makemate = (Makemate)combinedMap.get("makemate");
+		if(!makemate.getMemberId().equals(id))
+			throw new AccessDeniedException("본인 글만 수정 가능합니다.");
+
+		model.addAllAttributes(combinedMap);
+		return "pages/make-mate/edit";
+	}
+	
+	// 글수정
+	@PostMapping("/edit/{makemateId}")
+	public String updateMakemate(@PathVariable Long makemateId, HttpSession session, Makemate makemate) throws AccessDeniedException {
+		String id = (String) session.getAttribute("loginId");
+		if (id == null)
+			return "redirect:/member/loginPage";
+		
+		if(!makemate.getMemberId().equals(id))
+			throw new AccessDeniedException("본인 글만 수정 가능합니다.");
+		makemate.setIdx(makemateId);
+		makemateService.updateMakemate(makemate);
+		return "redirect:/makemate/detailPage/" + makemateId;
 	}
 }

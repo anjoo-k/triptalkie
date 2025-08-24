@@ -74,8 +74,8 @@ public class MakemateService {
 	}
 
 	// 글 상세 페이지
-	public Map<String, Object> findMakemateByIdx(int idx) {
-		Makemate makemate = makemateMapper.findMakemateByIdx(idx);
+	public Map<String, Object> findMakemateByIdx(Long makemateId) {
+		Makemate makemate = makemateMapper.findMakemateByIdx(makemateId);
 		Member member = makemateMapper.findMemberById(makemate.getMemberId());
 		City city = makemateMapper.findCityByIdx(makemate.getCityId());
 		Country country = makemateMapper.findCountryByIdx(city.getCountryId());
@@ -94,8 +94,8 @@ public class MakemateService {
 	}
 	
 	// 조회수 증가
-	public void increaseViewCount(int idx) {
-		int result = makemateMapper.increaseViewCount(idx);
+	public void increaseViewCount(Long makemateId) {
+		int result = makemateMapper.increaseViewCount(makemateId);
 	}
 	
 	public Map<String, Object> findAllRegion() {
@@ -115,7 +115,12 @@ public class MakemateService {
 		if (makemate.getEnddate().isBefore(makemate.getStartdate())) {
 		    throw new IllegalArgumentException("종료일은 시작일 이후여야 합니다.");
 		}
+		
 		int result = makemateMapper.registerMakemate(makemate);
+	}
+
+	public void updateMakemate(Makemate makemate) {
+		int result = makemateMapper.updateMakemate(makemate);
 	}
 
 
