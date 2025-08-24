@@ -1,0 +1,23 @@
+.rating {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  display: inline-flex;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  width: 60px;
+  height: 60px;
+  background-image: url("/images/rabbit-empty.png");
+  background-size: cover;
+  cursor: pointer;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  background-image: url("/images/rabbit-full.png");
+}
