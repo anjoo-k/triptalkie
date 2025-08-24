@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>채팅 신청</title>
+</head>
+<body>
+	<h2>채팅 신청 페이지</h2>
+
+	<form action="/makemate/chat/request" method="post">
+		<div class="form-group">
+			<label for="makamateIdx">메이트 번호 입력</label> <input type="number"
+				id="makamateIdx" name="makamateIdx" class="form-control"
+				placeholder="메이트 번호 입력" required>
+		</div>
+
+		<div class="form-group">
+			<label for="targetMemberId">채팅 상대 ID</label> <input type="text"
+				id="targetMemberId" name="targetMemberId" class="form-control"
+				placeholder="상대방 ID 입력" required>
+		</div>
+
+		<button type="submit" class="btn btn-primary mt-2">채팅방 생성 /
+			입장</button>
+	</form>
+
+
+</body>
+</html>

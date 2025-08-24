@@ -11,7 +11,8 @@ public interface ChatMapper {
   List<ChatRoom> findRoomsByMember(String memberId);
   ChatRoom findRoom(@Param("member1Id") String member1Id,
                     @Param("member2Id") String member2Id,
-                    @Param("makamateIdx") Long makamateIdx);
+                    @Param("makemateIdx") Long makemateIdx);
+  ChatRoom findRoomByChatRoomIdx(Long chatroomIdx);
   int registerChatRoom(ChatRoom room);
   int registerMessage(ChatMessage message);
   List<ChatMessage> findMessagesByRoom(Long chatroomId);
