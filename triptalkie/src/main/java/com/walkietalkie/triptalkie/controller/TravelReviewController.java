@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,28 +22,27 @@ import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelReview;
-import com.walkietalkie.triptalkie.service.CityService;
-import com.walkietalkie.triptalkie.service.CountryService;
-import com.walkietalkie.triptalkie.service.TravelReviewImageService;
-import com.walkietalkie.triptalkie.service.TravelReviewService;
-
+import com.walkietalkie.triptalkie.service.*;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/travel-review")
 public class TravelReviewController {
+
+    private final TravelInfoService travelInfoService;
 	private final TravelReviewService travelReviewService;
 	private final TravelReviewImageService travelReviewImageService;
 	private final CountryService countryService;
 	private final CityService cityService;
 
 	public TravelReviewController(TravelReviewService travelReviewService,
-			TravelReviewImageService travelReviewImageService, CountryService countryService, CityService cityService) {
+			TravelReviewImageService travelReviewImageService, CountryService countryService, CityService cityService, TravelInfoService travelInfoService) {
 		super();
 		this.travelReviewService = travelReviewService;
 		this.travelReviewImageService = travelReviewImageService;
 		this.countryService = countryService;
 		this.cityService = cityService;
+		this.travelInfoService = travelInfoService;
 	}
 
 	/*
@@ -95,7 +95,7 @@ public class TravelReviewController {
 
 		System.out.println("게시글 번호로 조회한 여행 후기 정보 : " + travelreview);
 		System.out.println("게시글 번호로 조회한 사진 URL 정보 : " + reviewImageUrl);
-
+		
 		model.addAttribute("travelreview", travelreview);
 		model.addAttribute("reviewImageUrl", reviewImageUrl);
 
