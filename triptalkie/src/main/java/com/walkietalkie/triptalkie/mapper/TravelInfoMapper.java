@@ -17,6 +17,8 @@ public interface TravelInfoMapper {
   TravelInfo findTravelInfoIdx(long idx);
   // 여행 정보 글 idx 기준으로 상세 정보 찾기
   
+  
+  
   int updateTravelInfoByIdxAndMemberId(TravelInfo travelInfo);
   // 여행정보 글 업데이트
   

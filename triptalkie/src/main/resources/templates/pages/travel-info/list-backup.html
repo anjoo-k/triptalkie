@@ -32,8 +32,7 @@
 								<div class="d-flex align-items-center">
 									<div class="small mt-1 mr-2" th:text="${info.cityId}">지역</div>
 									<div class="small mt-1 mr-2" th:text="${info.infotype}">여행정보종류</div>
-									<div class="small mt-1"
-										th:text="${info.member != null ? info.member.nickname : '닉네임 출력 오류'}">닉네임</div>
+									<div class="small mt-1" th:text="${info.member.nickname}">닉네임</div>
 								</div>
 								<div>
 									<a class="h3"
@@ -47,7 +46,8 @@
 							</div>
 							<div class="small ml-auto d-flex align-items-center">
 								<div class="mr-2" th:text="${info.view}">조회수</div>
-								<div th:text="${#temporals.format(info.createdAt, 'yyyy-MM')}">2025-08</div>
+								<div
+									th:text="${#temporals.format(info.createdAt, 'yyyy-MM-dd')}">2025-08-19</div>
 							</div>
 
 						</div>
@@ -56,6 +56,31 @@
 			</div>
 		</div>
 
+		<!-- 페이징 -->
+		<nav class="mt-4">
+			<ul class="pagination justify-content-center">
+				<!-- 이전 블록 -->
+				<li class="page-item"
+					th:classappend="${pageData.currentPage == 1} ? 'disabled'"><a
+					class="page-link"
+					th:href="@{/travel-info/list(page=${pageData.currentPage - 1})}">&laquo;</a>
+				</li>
+
+				<!-- 페이지 번호 -->
+				<li class="page-item"
+					th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
+					th:classappend="${i == pageData.currentPage} ? 'active'"><a
+					class="page-link" th:href="@{/travel-info/list(page=${i})}"
+					th:text="${i}">1</a></li>
+
+				<!-- 다음 블록 -->
+				<li class="page-item"
+					th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
+					<a class="page-link"
+					th:href="@{/travel-info/list(page=${pageData.currentPage + 1})}">&raquo;</a>
+				</li>
+			</ul>
+		</nav>
 		<div class="d-flex justify-content-end mt-3 mx-4">
 			<a th:href="@{/travel-info/register}" class="btn btn-warning">글쓰기</a>
 		</div>
