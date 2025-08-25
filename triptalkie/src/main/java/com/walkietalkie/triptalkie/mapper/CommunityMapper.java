@@ -22,5 +22,8 @@ public interface CommunityMapper {
 
 
 	int deleteCommunity(long idx);
+
+
+	List<Community> findCommunityByMemberId(String loginMember);
 	
 }

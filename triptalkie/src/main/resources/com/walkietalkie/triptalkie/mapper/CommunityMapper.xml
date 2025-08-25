@@ -41,5 +41,9 @@
         DELETE FROM community
         WHERE idx = #{idx}
     </delete>
+    
+    <select id="findCommunityByMemberId">
+    	SELECT idx, title, member_id, created_at FROM community WHERE member_id= #{memberId} ORDER BY created_at DESC
+    </select>
 
 </mapper>

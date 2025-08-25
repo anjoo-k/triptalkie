@@ -152,6 +152,10 @@
 		)
 		LEFT JOIN city c ON tr.city_id = c.id LEFT JOIN country co ON c.country_id = co.id
 		ORDER BY tr.view DESC
-		LIMIT 3;
+		LIMIT 3
+	</select>
+	
+	<select id="findtravelReviewByMemberId">
+		SELECT idx, title, created_at FROM travelreview WHERE member_id = #{memberId} ORDER BY created_at DESC
 	</select>
 </mapper>

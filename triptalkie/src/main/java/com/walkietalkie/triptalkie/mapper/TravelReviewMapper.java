@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.walkietalkie.triptalkie.DTO.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.domain.TravelReview;
-import com.walkietalkie.triptalkie.domain.TravelReviewTop3DTO;
 
 @Mapper
 public interface TravelReviewMapper {
@@ -29,4 +29,6 @@ public interface TravelReviewMapper {
 	void incrementView(Long idx);
 
 	List<TravelReviewTop3DTO> findTravelreviewTop3ByView();
+
+	List<TravelReview> findtravelReviewByMemberId(String loginMember);
 }
