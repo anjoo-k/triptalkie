@@ -39,30 +39,32 @@
 		view DESC LIMIT 3
 	</select>
 
-	<resultMap id="TravelInfoWithMember"
-		type="com.walkietalkie.triptalkie.domain.TravelInfo">
-		<id property="idx" column="travelinfo_idx" />
-		<result property="title" column="title" />
-		<result property="view" column="view" />
-		<result property="createdAt" column="created_at" />
-		<result property="updatedAt" column="updated_at" />
-		<result property="infotype" column="infotype" />
-		<result property="infodate" column="infodate" />
-		<result property="cityId" column="city_id" />
-		<result property="content" column="content" />
-
-		<association property="member"
-			javaType="com.walkietalkie.triptalkie.domain.Member">
-			<id property="id" column="id" />
-			<result property="nickname" column="nickname" />
-			<result property="email" column="email" />
-		</association>
-	</resultMap>
-
-
-	
 	<select id="findTravelInfoByMemberId">
-		SELECT idx, title, member_id, created_at FROM travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
+		SELECT idx, title, member_id, created_at FROM
+		travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
 	</select>
-	
+
+    <!-- 페이지 단위 조회 -->
+    <select id="selectTravelInfoListPage" resultType="com.walkietalkie.triptalkie.DTO.TravelInfoListDTO">
+        SELECT
+            t.idx,
+            t.title,
+            t.view,
+            t.created_at AS createdAt,
+            t.infotype,
+            t.infodate,
+            c.name AS cityName,
+            m.nickname AS memberNickname
+        FROM travelinfo t
+        LEFT JOIN city c ON t.city_id = c.id
+        LEFT JOIN member m ON t.member_id = m.id
+        ORDER BY t.created_at DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- travelinfo 테이블 전체 레코드 갯수 조회 -->
+    <select id="selectTravelInfoCount" resultType="int">
+        SELECT COUNT(*) FROM travelinfo
+    </select>
+
 </mapper>

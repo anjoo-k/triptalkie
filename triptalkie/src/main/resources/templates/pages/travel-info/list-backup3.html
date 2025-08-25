@@ -41,14 +41,16 @@
 				th:each="info, stat : ${travelInfoList}">
 				<div class="card mb-3">
 					<div class="card-body card-body-grid d-flex align-items-center">
-						<div class="number mr-3"
-							th:text="${(pageData.currentPage - 1) * pageData.size + stat.index + 1}">1</div>
+						<!-- 글 번호 -->
+						<div class="number mr-3" th:text="${stat.count}">1</div>
 
+						<!-- 카드 내용 -->
 						<div class="right-content flex-fill">
 							<div class="row-badges mb-1">
-								<span class="badge badge--category" th:text="${info.cityName}">지역</span>
+								<span class="badge badge--category" th:text="{info.cityName}">지역</span>
 								<span class="badge--sub-desc" th:text="|조회수 · ${info.view}|">조회수</span>
-								<span class="badge--sub-desc" th:text="${info.memberNickname}">작성자</span>
+								<span class="badge--sub-desc"
+									th:text="${info.member != null ? info.memberNickname : '작성자 없음'}">작성자</span>
 							</div>
 
 							<div class="row-stats mb-1">
@@ -62,13 +64,15 @@
 					</div>
 				</div>
 
+				<!-- 카드 사이 구분선 -->
 				<div class="card-divider" th:if="${!stat.last}"></div>
 			</div>
+
+			<!-- 리스트 비어있을 때 -->
 			<div
 				th:if="${travelInfoList == null or #lists.isEmpty(travelInfoList)}"
 				class="text-center p-3">검색 결과가 없습니다.</div>
 		</div>
-
 
 		<!-- 페이지네이션 + 글쓰기 버튼 -->
 		<div class="row mb-3 mt-4">

@@ -17,6 +17,7 @@ public class TravelInfo {
 	// db에 없는 변수, nickName 사용을 위해서 사용
 
 	private Member member;
+	// Member 객체 생성
 
 	// form에서 년-월만 받을 임시 필드
 	private String tempMonth;

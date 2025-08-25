@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 
 @Mapper
@@ -17,8 +18,6 @@ public interface TravelInfoMapper {
   TravelInfo findTravelInfoIdx(long idx);
   // 여행 정보 글 idx 기준으로 상세 정보 찾기
   
-  
-  
   int updateTravelInfoByIdxAndMemberId(TravelInfo travelInfo);
   // 여행정보 글 업데이트
   
@@ -28,4 +27,9 @@ public interface TravelInfoMapper {
   List<TravelInfo> findTravelInfoTop3();
 
   List<TravelInfo> findTravelInfoByMemberId(String loginMember);
+  
+  List<TravelInfoListDTO> selectTravelInfoListPage(int offset, int size);
+  
+  int selectTravelInfoCount();
+  
 }
