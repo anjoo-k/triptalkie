@@ -266,3 +266,16 @@ input[type="radio"]:checked+label.mate-type {
 	background-color: #ff9900;
 	color: #fff;
 }
+
+.comment-section {
+	background-color: var(--color-secondary);
+}
+
+.comment-content {
+	width: 100%;
+	border-radius: 10px;
+}
+
+.comment-content, .comment-write-btn {
+	height: 40px;
+}

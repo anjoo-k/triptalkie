@@ -2,11 +2,11 @@
  * comment를 위한 JavaScript
  */
 
-console.log("✅ comment.js loaded");
+/*console.log("✅ comment.js loaded");
 async function loadComments() {
 	const commentList = document.querySelector('#comment-list');
-	/*const boardId -> 각자 게시판 id 담음,
-	 hidden input 등으로 전달*/
+	const boardId -> 각자 게시판 id 담음,
+	 hidden input 등으로 전달
 	try {
 		const response = await fetch("/comment/list");
 		const result = await response.json();
@@ -25,17 +25,17 @@ async function loadComments() {
 	} catch (error) {
 		console.error(error);
 	}
-}
+}*/
 
 
-document.addEventListener("DOMContentLoaded", function() {
-	const commentBtn = document.querySelector('#commentBtn');
+//document.addEventListener("DOMContentLoaded", function() {
+/*	const commentBtn = document.querySelector('#commentBtn');
 	const textarea = document.querySelector('#comment');
-	const commentList = document.querySelector('#comment-list');
+	const commentList = document.querySelector('#comment-list');*/
 
-	loadComments();
+/*	loadComments();*/
 
-	commentBtn.addEventListener("click", async () => {
+	/*commentBtn.addEventListener("click", async () => {
 		const text = textarea.value.trim();
 		if (!text) {
 			alert("댓글을 입력하세요");
@@ -66,5 +66,19 @@ document.addEventListener("DOMContentLoaded", function() {
 			console.log(error);
 			alert("댓글 저장 실패!");
 		}
-	});
+	});*/
+//});
+
+document.addEventListener('DOMContentLoaded', () => {
+	
+	const commentBtn = document.getElementById('comment-write-btn');
+	if(commentBtn){
+		commentBtn.addEventListener("click", async () => {
+			const loginMember = document.getElementById('memberId').dataset.member;
+			const commentContents = document.getElementById('commentContents').value;
+			alert(commentContents);
+			alert("로그인 한 member : " + loginMember);
+		});
+	}
+	
 });

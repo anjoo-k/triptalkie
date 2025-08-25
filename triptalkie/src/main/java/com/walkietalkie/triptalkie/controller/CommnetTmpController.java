@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walkietalkie.triptalkie.domain.Comment;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CommnetTmpController {
 	
 	// 댓글 등록
 	@GetMapping("/comment")
-	public String comment() {
+	public String comment(Model model, HttpSession session) {
+		String loginMember = (String)session.getAttribute("loginId");
 	    return "pages/comment-tmp";
 	}
 	
