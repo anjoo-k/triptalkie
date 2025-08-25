@@ -159,7 +159,7 @@ public class TravelInfoController {
 
 		travelInfo.setMemberId(loginId);
 
-		System.out.println("업데이트 실행 데이터: " + travelInfo);
+		System.out.println("업데이트 실행 데이터`: " + travelInfo);
 
 		// 3. 업데이트
 		int success = travelInfoService.updateTravelInfoByIdxAndMemberId(travelInfo, session);
