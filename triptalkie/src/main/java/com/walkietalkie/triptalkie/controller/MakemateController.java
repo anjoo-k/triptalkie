@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.Makemate;
-import com.walkietalkie.triptalkie.domain.MakemateImage;
-import com.walkietalkie.triptalkie.service.MakemateImageService;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
 import jakarta.servlet.http.HttpSession;
@@ -112,7 +110,7 @@ public class MakemateController {
 		if (id == null)
 			return "redirect:/member/loginPage";
 		
-		Long makemateId = makemateService.registerMakemate(makemate, photo);
+		makemateService.registerMakemate(makemate, photo);
 			
 		return "redirect:/makemate/list";
 	}
@@ -126,6 +124,7 @@ public class MakemateController {
 		
 		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
 		Makemate makemate = (Makemate)combinedMap.get("makemate");
+		
 		if(!makemate.getMemberId().equals(id))
 			throw new AccessDeniedException("본인 글만 수정 가능합니다.");
 
@@ -135,7 +134,7 @@ public class MakemateController {
 	
 	// 글수정
 	@PostMapping("/edit/{makemateId}")
-	public String updateMakemate(@PathVariable Long makemateId, HttpSession session, Makemate makemate) throws AccessDeniedException {
+	public String updateMakemate(@PathVariable Long makemateId, HttpSession session, Makemate makemate, MultipartFile photo) throws IOException {
 		String id = (String) session.getAttribute("loginId");
 		if (id == null)
 			return "redirect:/member/loginPage";
@@ -143,7 +142,7 @@ public class MakemateController {
 		if(!makemate.getMemberId().equals(id))
 			throw new AccessDeniedException("본인 글만 수정 가능합니다.");
 		makemate.setIdx(makemateId);
-		makemateService.updateMakemate(makemate);
+		makemateService.updateMakemate(makemate, photo);
 		return "redirect:/makemate/detailPage/" + makemateId;
 	}
 	
