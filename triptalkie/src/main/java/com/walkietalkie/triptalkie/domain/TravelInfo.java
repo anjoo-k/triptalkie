@@ -15,13 +15,20 @@ public class TravelInfo {
 	private String memberId;
 	private String memberNickname;
 	// db에 없는 변수, nickName 사용을 위해서 사용
-
+	private String countryId;
+	// 나라 선택 변수를 받기 위해서 사용
 	private Member member;
 	// Member 객체 생성
 
 	// form에서 년-월만 받을 임시 필드
 	private String tempMonth;
 
+	// 생성자
+	public TravelInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	// getter / setter
 	public String getTempMonth() {
 		return tempMonth;
@@ -30,12 +37,15 @@ public class TravelInfo {
 	public void setTempMonth(String tempMonth) {
 		this.tempMonth = tempMonth;
 	}
-
-	// 생성자
-	public TravelInfo() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+	public String getCountryId() {
+	    return countryId;
 	}
+
+	public void setCountryId(String countryId) {
+	    this.countryId = countryId;
+	}
+
 
 	public long getIdx() {
 		return idx;

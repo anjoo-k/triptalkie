@@ -40,4 +40,6 @@ public interface TravelInfoMapper {
   
   List<City> getAllCities();
   
+  City findCityById(String id);
+  
 }

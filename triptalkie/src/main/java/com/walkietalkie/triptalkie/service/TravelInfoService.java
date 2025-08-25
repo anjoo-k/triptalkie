@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
-import com.walkietalkie.triptalkie.domain.Community;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.mapper.TravelInfoMapper;
@@ -124,5 +123,11 @@ public class TravelInfoService {
     public List<City> getAllCities() {
     	return travelInfoMapper.getAllCities();
     }
+    
+    public City findCityById(String id) {
+    	return travelInfoMapper.findCityById(id);
+    }
+    
+    
 
 }
