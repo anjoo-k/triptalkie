@@ -1,5 +1,6 @@
 package com.walkietalkie.triptalkie.controller;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -55,9 +56,17 @@ public class TravelInfoController {
 
 	@PostMapping("/register")
 	public String TravelInfoRegister(TravelInfo travelInfo, HttpSession session) {
+		System.out.println("tempMonth: " + travelInfo.getTempMonth());
+		
+	    if (travelInfo.getTempMonth() != null && !travelInfo.getTempMonth().isEmpty()) {
+	        // "2025-08" → LocalDateTime 변환 (1일 00:00:00 기준)
+	        travelInfo.setInfodate(LocalDate.parse(travelInfo.getTempMonth() + "-01")
+	                                         .atStartOfDay());
+	    }
 
+	    System.out.println("infodate: " + travelInfo.getInfodate());
+		
 		travelInfoService.registerTravelInfo(travelInfo, session);
-
 		return "redirect:/travel-info/list";
 	}
 
