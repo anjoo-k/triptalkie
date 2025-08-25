@@ -113,5 +113,18 @@ public class MemberController {
 			return "redirect:/member/loginPage?error"; // 로그인 페이지로 리다이렉트 (error 파라미터 포함)
 		}
 	}
+	
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		memberService.logout(session);
+		// 세션 전체 삭제 수행
+		
+		return "redirect:/";
+		// 로그아웃 후 메인 페이지로 이동
+	}
+	
+	
 
 }

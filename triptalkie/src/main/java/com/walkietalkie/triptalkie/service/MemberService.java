@@ -45,10 +45,10 @@ public class MemberService {
   
   public void logout(HttpSession session) {
     // 세션에 저장된 사용자 정보 제거
-    session.removeAttribute("loginId");
-    session.removeAttribute("loginNickname");
+    //session.removeAttribute("loginId");
+    //session.removeAttribute("loginNickname");
     
-    // session.invalidate();
+    session.invalidate();
     // 세션 전체를 초기화하고 싶다면 아래를 사용
     
     logger.info("로그아웃 완료");
