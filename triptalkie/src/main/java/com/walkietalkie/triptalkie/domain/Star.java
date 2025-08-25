@@ -8,7 +8,7 @@ public class Star {
 	private String ratedId;
 	private double rating;
 	private LocalDateTime createdAt;
-	private Long makemateIdx;
+	private Long makemateIdx;	
 	private boolean israted;
 	
 	public Star() {}

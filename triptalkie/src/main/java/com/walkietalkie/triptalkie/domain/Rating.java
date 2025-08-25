@@ -6,25 +6,16 @@ public class Rating {
 	private String title;
 	private String memberId;
 	private LocalDateTime enddate;
-	private String imagePath;
-	public Rating(String title, String memberId, LocalDateTime enddate, String imagePath) {
+	private Long makemateIdx;
+	private Boolean israted;
+	public Rating(String title, String memberId, LocalDateTime enddate, Long makemateIdx, Boolean israted) {
+		super();
 		this.title = title;
 		this.memberId = memberId;
 		this.enddate = enddate;
-		this.imagePath = imagePath; 
+		this.makemateIdx = makemateIdx;
+		this.israted = israted;
 	}
-	
-	
-	public Rating(String title, String memberId, LocalDateTime enddate) {
-		this.title = title;
-		this.memberId = memberId;
-		this.enddate = enddate;
-	}
-	
-	public Rating() {
-    }
-
-
 	public String getTitle() {
 		return title;
 	}
@@ -43,19 +34,23 @@ public class Rating {
 	public void setEnddate(LocalDateTime enddate) {
 		this.enddate = enddate;
 	}
-	public String getImagePath() {
-		return imagePath;
+	public Long getMakemateIdx() {
+		return makemateIdx;
 	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setMakemateIdx(Long makemateIdx) {
+		this.makemateIdx = makemateIdx;
+	}
+	public Boolean getIsrated() {
+		return israted;
+	}
+	public void setIsrated(Boolean israted) {
+		this.israted = israted;
 	}
 	@Override
 	public String toString() {
-		return "Rating [title=" + title + ", memberId=" + memberId + ", enddate=" + enddate + ", imagePath="
-				+ imagePath + "]";
+		return "Rating [title=" + title + ", memberId=" + memberId + ", enddate=" + enddate + ", makemateIdx="
+				+ makemateIdx + ", israted=" + israted + "]";
 	}
-	
-	
 	
 }
 

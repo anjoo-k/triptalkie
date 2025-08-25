@@ -11,5 +11,7 @@ public interface RatingMapper {
 	List<Rating> findMateList(String hostId);
 
 	void insertRating(Star star);
+	
+	void updateRating(Star star);
 
 }

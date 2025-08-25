@@ -6,20 +6,41 @@
 		resultType="com.walkietalkie.triptalkie.domain.Rating">
 		SELECT mk.title,
 		ml.member_id AS memberId,
-		mk.enddate
+		mk.enddate,
+		mk.idx AS makemateIdx,
+		COALESCE(st.israted, 0) AS israted
 		FROM makemate mk
-		JOIN memberlist ml ON mk.idx = ml.makemate_idx
-		WHERE
-		mk.member_id = #{hostId};
+		JOIN memberlist ml
+		ON mk.idx = ml.makemate_idx
+		LEFT JOIN star st
+		ON st.makemate_idx = mk.idx
+		AND st.rated_id = ml.member_id
+		AND st.rater_id = #{hostId}
+		WHERE mk.member_id = #{hostId};
 	</select>
+
 
 	<insert id="insertRating"
 		parameterType="com.walkietalkie.triptalkie.domain.Star">
 		INSERT INTO star (
-		rater_id, rated_id, rating, makemate_idx, israted
+		rater_id, rated_id, rating,
+		makemate_idx, israted
 		) VALUES (
-		#{raterId}, #{ratedId}, #{rating}, #{makemateIdx}, #{israted}
+		#{raterId}, #{ratedId}, #{rating},
+		#{makemateIdx}, #{israted}
 		)
 	</insert>
+
+	<update id="updateRating"
+		parameterType="com.walkietalkie.triptalkie.domain.Star">
+		UPDATE star
+		SET rating = #{rating},
+		israted = #{israted},
+		created_at = CURRENT_TIMESTAMP
+		WHERE rater_id = #{raterId}
+		AND rated_id
+		= #{ratedId}
+		AND makemate_idx = #{makemateIdx}
+	</update>
 
 </mapper>

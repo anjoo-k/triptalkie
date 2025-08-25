@@ -32,9 +32,24 @@ public class RatingController {
 	public String showMateList(HttpSession session, Model model) {
 		
 		String hostId = (String)session.getAttribute("loginId");
-		List<Rating> mates = ratingService.findRatingList(hostId);
-		model.addAttribute("mates",mates);
+		System.out.println("hostId = " + hostId);
 		
+		// loginId 가 세션에 없는 경우 방어
+	    if (hostId == null) {
+	        model.addAttribute("mates", List.of()); // 빈 리스트 넘겨주기
+	        return "/pages/ratinglist/list";
+	    }
+	    
+	    List<Rating> mates = ratingService.findRatingList(hostId);
+	    
+	    // mates 가 null 인 경우도 방어
+	    if (mates == null) {
+	        mates = List.of();
+	    }
+	    
+	    System.out.println("mates = " + mates);
+	    model.addAttribute("mates", mates);
+
 		return "/pages/ratinglist/list";
 	}
 	
@@ -47,9 +62,19 @@ public class RatingController {
 
         star.setIsrated(true);
         ratingService.saveRating(star);
-        return "redirect:/ratinglist";
+        System.out.println("makemateIdx: "+star.getMakemateIdx());
+        return "redirect:/rating/list";
     }
 	
-	
+	@PostMapping("/update")
+	public String updateRating(@ModelAttribute Star star) {
+		 if (star.getRaterId().equals(star.getRatedId())) {
+		        throw new IllegalArgumentException("자기 자신을 평가할 수 없습니다.");
+		    }
+		 
+		 star.setIsrated(true);
+		 ratingService.reRating(star);
+		 return "redirect:/rating/list";
+	}
 	
 }
