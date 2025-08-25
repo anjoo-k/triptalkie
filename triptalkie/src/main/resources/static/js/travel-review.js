@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					method: 'POST',
 				});
 				const data = await response.json();
-				
+
 				if (data.success) {
 					alert(data.message);
 					window.location.href = '/travel-review/findTravelreviewAllList';
@@ -146,6 +146,48 @@ document.addEventListener('DOMContentLoaded', () => {
 					console.error("도시 목록 불러오기 실패:", err);
 					citySelect.innerHTML = '<option value="">도시를 불러올 수 없습니다</option>';
 				});
+		});
+	}
+
+	// 댓글 기능
+	const commentBtn = document.getElementById('comment-write-btn');
+	let travelReviewId = null;
+	if (commentBtn) {
+		commentBtn.addEventListener("click", async () => {
+			travelReviewId = commentBtn.getAttribute('data-idx');
+			const loginMember = document.getElementById('memberId').value;
+			// const nickname = document.getElementById('nickname').value;
+			const commentContents = document.getElementById('comment-content').value;
+
+			if (!commentContents.trim()) {
+				alert("댓글 내용을 입력하세요.");
+				return;
+			}
+			
+			try {
+				const response = await fetch(`/travelReviewComment/register`, {
+					method: 'POST',
+					headers:{'Content-Type' : 'application/json'},
+					body: JSON.stringify({
+						travelReviewIdx: travelReviewId,
+						memberId: loginMember,
+						content:commentContents
+					})
+				});
+				
+				const result = await response.json();
+				
+				if(response.ok){
+					alert(result.message);
+					location.reload();	// 페이지 혹은 댓글 영역 새로 고침
+				} else {
+					alert("댓글 작성 실패 : " + result.message);
+				}
+
+			} catch (e) {
+				console.error(e);
+				alert('삭제 중 오류 발생');
+			}
 		});
 	}
 });
