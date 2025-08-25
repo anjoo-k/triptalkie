@@ -70,6 +70,23 @@
 					<input type="hidden" name="conceptType" th:value="${travelreview['conceptType']}" /> <label class="btn selected-mate-type" th:text="${travelreview['conceptType']}"></label>
 				</div>
 			</div>
+			
+			<div class="board-divider mb-3 mt-3"></div>
+			
+			<!-- 댓글 -->
+			<section class="comment-section mb-3">
+				<div class="row">
+					<div class="col-sm-11">
+						<input type="text" id="comment-content" class="comment-content" placeholder="댓글을 작성해보세요">
+						<input type="hidden" id="memberId" th:value="${memberId}">
+<!-- 						<input type="hidden" id="nickname" th:value="${loginNickname}">
+ -->					</div>
+					<div>
+						<button type="button" id="comment-write-btn" class="comment-write-btn"  th:attr="data-idx=${travelreview.idx}">완료</button>
+					</div>
+				</div>
+			</section>
+			
 			<!-- 버튼 영역 -->
 			<div class="d-flex justify-content-between align-items-center mt-3">
 				<button type="button" class="btn btn-back">목록</button>
@@ -80,6 +97,7 @@
 					</div>
 				</th:block>
 			</div>
+			
 		</div>
 	</div>
 	<!-- The Modal -->

@@ -90,7 +90,10 @@ public class TravelReviewController {
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx(@PathVariable Long idx, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");
+		String loginNickname = (String) session.getAttribute("loginNickname");
 		model.addAttribute("memberId", id);
+		model.addAttribute("loginNickname", loginNickname);
+		System.out.println("세션 닉네임 : " + loginNickname);
 		System.out.println("넘어 온 게시글 번호 : " + idx);
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
 
