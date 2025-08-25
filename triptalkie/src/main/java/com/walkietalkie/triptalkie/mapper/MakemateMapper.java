@@ -8,6 +8,7 @@ import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.Land;
 import com.walkietalkie.triptalkie.domain.Makemate;
+import com.walkietalkie.triptalkie.domain.MakemateImage;
 import com.walkietalkie.triptalkie.domain.Member;
 
 @Mapper

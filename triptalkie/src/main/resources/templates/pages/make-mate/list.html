@@ -73,7 +73,8 @@
 						<div class="d-flex mb-2">
 							<!-- 썸네일 -->
 							<div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
-								<img src="/images/bangkok.jpg" class="img-fluid" alt="썸네일" style="height: 100px;">
+								<img th:src="${list.photo != null} ? '/uploads/' + ${list.photo.savedName} : '/images/bangkok.jpg'"
+								class="img-fluid" th:alt="@{'list.photo.originalName'}" style="height: 100px;">
 							</div>
 							<!-- 글 제목 + 내용 -->
 							<div class="flex-grow-1">
