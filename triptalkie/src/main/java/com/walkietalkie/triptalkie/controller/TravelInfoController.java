@@ -68,8 +68,12 @@ public class TravelInfoController {
 
 	@GetMapping("/detail/{idx}")
 	public String TravelInfoDetailPage(@PathVariable("idx") long idx, Model model) {
+	    // 1. 조회수 증가
+	    travelInfoService.increaseViewCount(idx);
+		
 		TravelInfo info = travelInfoService.findTravelInfoIdx(idx);
 		model.addAttribute("travelInfo", info);
+		
 
 		return "pages/travel-info/detail";
 	}

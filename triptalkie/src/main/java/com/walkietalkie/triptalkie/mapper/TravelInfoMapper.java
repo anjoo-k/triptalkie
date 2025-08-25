@@ -32,4 +32,6 @@ public interface TravelInfoMapper {
   
   int selectTravelInfoCount();
   
+  int updateViewCount(long idx);
+  
 }

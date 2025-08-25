@@ -4,11 +4,16 @@ import java.util.List;
 
 public class CommonPage<T> {
 	private List<T> content;
-	private int size;	// 한 페이지에 보여줄 아이템 수
+	private int size;
+	// 한 페이지에 보여줄 아이템 수
 	private int currentPage;
+	// 현재 페이지
 	private int totalPage;
+	// 총 페이지 수
 	private int startPage;
+	// 페이지 블록 시작
 	private int endPage;
+	// 페이지 플록 종료
 	
 	public CommonPage() {
 		super();

@@ -110,5 +110,9 @@ public class TravelInfoService {
 
         return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
     }
+    
+    public void increaseViewCount(long idx) {
+        travelInfoMapper.updateViewCount(idx);
+    }
 
 }

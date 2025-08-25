@@ -66,5 +66,11 @@
     <select id="selectTravelInfoCount" resultType="int">
         SELECT COUNT(*) FROM travelinfo
     </select>
+    
+    <update id="updateViewCount">
+    	UPDATE travelinfo
+    	SET view = view + 1
+    	WHERE idx = #{idx}
+    </update>
 
 </mapper>
