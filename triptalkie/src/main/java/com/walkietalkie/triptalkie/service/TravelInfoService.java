@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.walkietalkie.triptalkie.domain.Community;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.mapper.TravelInfoMapper;
 
@@ -79,6 +80,11 @@ public class TravelInfoService {
 
   public List<TravelInfo> findTravelInfoTop3() {
 	return travelInfoMapper.findTravelInfoTop3();
+  }
+
+  //내가 쓴 글 목록을 아이디로 조회하기 위한 메서드
+  public List<TravelInfo> findTravelInfoByMemberId(String loginMember) {
+	return travelInfoMapper.findTravelInfoByMemberId(loginMember);
   }
   
 }

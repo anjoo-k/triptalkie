@@ -24,4 +24,6 @@ public interface TravelInfoMapper {
   // 여행정보 글 삭제
 
   List<TravelInfo> findTravelInfoTop3();
+
+  List<TravelInfo> findTravelInfoByMemberId(String loginMember);
 }

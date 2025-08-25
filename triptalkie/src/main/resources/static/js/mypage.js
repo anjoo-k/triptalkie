@@ -31,3 +31,26 @@ document.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 })
+
+// ==== 이미지 변경 시 ====
+document.addEventListener('DOMContentLoaded', function() {
+    const profileImg = document.getElementById('profilePreview');
+    const fileInput = document.getElementById('profileImage');
+
+    // 이미지 클릭 시 파일 선택창 열기
+    profileImg.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // 파일 선택 시 미리보기
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profileImg.src = e.target.result; // 미리보기 반영
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});

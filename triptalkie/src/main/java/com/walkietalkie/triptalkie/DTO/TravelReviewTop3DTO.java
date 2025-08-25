@@ -1,4 +1,4 @@
-package com.walkietalkie.triptalkie.domain;
+package com.walkietalkie.triptalkie.DTO;
 
 import java.time.LocalDateTime;
 

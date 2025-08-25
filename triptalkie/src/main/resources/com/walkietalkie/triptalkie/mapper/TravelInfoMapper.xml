@@ -21,4 +21,8 @@
 		SELECT idx, title, member_id FROM travelinfo ORDER BY view DESC LIMIT 3
 	</select>
 	
+	<select id="findTravelInfoByMemberId">
+		SELECT idx, title, member_id, created_at FROM travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
+	</select>
+	
 </mapper>

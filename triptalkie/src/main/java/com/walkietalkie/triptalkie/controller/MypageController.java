@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.walkietalkie.triptalkie.DTO.MyPostsDTO;
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.domain.MemberImage;
 import com.walkietalkie.triptalkie.service.MemberImageService;
@@ -127,6 +129,33 @@ public class MypageController {
 	    session.setAttribute("profileImageUrl", profileImageUrl);
 
 		return "redirect:/mypage/myinformation";
+	}
+	
+	@GetMapping("/my-posts")
+	public String myPostPage(Model model, HttpSession session) {
+		String loginMember = (String) session.getAttribute("loginId");
+		System.out.println(loginMember);
+		// 세션이 비어있을 경우 에러 처리 추가
+		if (loginMember == null) {
+			return "redirect:/member/loginPage";
+		}
+		
+		MyPostsDTO myPosts = mypageService.findMyPosts(loginMember);
+		
+		if (myPosts.getCommunityList() == null) {
+			myPosts.setCommunityList(new ArrayList<>());
+		}
+		if (myPosts.getTravelInfoList() == null) {
+			myPosts.setTravelInfoList(new ArrayList<>());
+		}
+		if (myPosts.getTravelReviewList() == null) {
+			myPosts.setTravelReviewList(new ArrayList<>());
+		}
+		
+		System.out.println("myPosts" + myPosts);
+		model.addAttribute("myPosts", myPosts);
+		
+		return "pages/mypage/my-posts";
 	}
 
 }
