@@ -36,7 +36,7 @@
 	</select>
 	<!-- id로 멤버 조회 -->
 	<select id="findMemberById">
-		SELECT nickname, birth, gender, address
+		SELECT id, nickname, birth, gender, address
 		FROM member
 		WHERE
 		id=#{memberId}

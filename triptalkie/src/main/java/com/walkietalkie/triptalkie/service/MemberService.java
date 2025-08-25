@@ -106,4 +106,13 @@ public class MemberService {
     return memberMapper.checkMemberByEmail(email);
   }
 
+  public Member findMemberById(String memberId) {
+	  Member member = memberMapper.findMemberById(memberId);
+	  logger.info(memberId);
+	if (member == null) {
+		throw new IllegalArgumentException("프로필 보기 실패");
+	}
+	return member;
+  }
+
 }
