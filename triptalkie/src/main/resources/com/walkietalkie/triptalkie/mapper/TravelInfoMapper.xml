@@ -2,27 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoMapper">
-	<insert id="registerTravelInfo" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		INSERT INTO travelinfo (title, infotype, infodate, city_id, content, member_id) VALUES (#{title}, #{infotype}, #{infodate}, #{cityId}, #{content}, #{memberId})
+	<!-- 여행 정보 글을 등록 -->
+	<insert id="registerTravelInfo"
+		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		INSERT INTO travelinfo (title, infotype, infodate,
+		city_id, content, member_id) VALUES (#{title}, #{infotype},
+		#{infodate}, #{cityId}, #{content}, #{memberId})
 	</insert>
-	<select id="findTravelInfoAllList" resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		select idx, title, view, created_at, updated_at, infotype, infodate, city_id, content, member_id from travelinfo
+	<!-- 여행 정보 목록을 모두 출력 -->
+	<select id="findTravelInfoAllList"
+		resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		select idx, title, view, created_at, updated_at, infotype,
+		infodate, city_id, content, member_id from travelinfo
 	</select>
-	<select id="findTravelInfoIdx" resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		select idx, title, view, created_at, updated_at, infotype, infodate, city_id, content, member_id from travelinfo where idx=#{idx}
+	<!-- 여행 정보 idx을 사용해서 여행 정보 객체 반환 -->
+	<select id="findTravelInfoIdx"
+		resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		select idx, title, view, created_at, updated_at, infotype,
+		infodate, city_id, content, member_id from travelinfo where idx=#{idx}
 	</select>
-	<update id="updateTravelInfoByIdxAndMemberId" parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		update travelinfo set title=#{title}, infotype=#{infotype}, infodate=#{infodate}, city_id=#{cityId}, content=#{content}, updated_at = NOW()  where idx=#{idx} and member_id=#{memberId}
+	<!-- 여행 정보 글 idx와 회원 id에 해당하는 글을 수정 -->
+	<update id="updateTravelInfoByIdxAndMemberId"
+		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		update travelinfo set title=#{title},
+		infotype=#{infotype}, infodate=#{infodate}, city_id=#{cityId},
+		content=#{content}, updated_at = NOW() where idx=#{idx} and
+		member_id=#{memberId}
 	</update>
+	<!-- 여행 정보 idx에 해당하는 여행 정보를 삭제 -->
 	<delete id="deleteTravelInfoByIdx">
-		delete from travelinfo where idx = #{idx} and member_id=#{memberId}
+		delete from travelinfo where idx = #{idx} and
+		member_id=#{memberId}
 	</delete>
 	<select id="findTravelInfoTop3">
-		SELECT idx, title, member_id FROM travelinfo ORDER BY view DESC LIMIT 3
+		SELECT idx, title, member_id FROM travelinfo ORDER BY
+		view DESC LIMIT 3
 	</select>
-	
+
 	<select id="findTravelInfoByMemberId">
-		SELECT idx, title, member_id, created_at FROM travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
+		SELECT idx, title, member_id, created_at FROM
+		travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
 	</select>
-	
+
+    <!-- 페이지 단위 조회 -->
+    <select id="selectTravelInfoListPage" resultType="com.walkietalkie.triptalkie.DTO.TravelInfoListDTO">
+        SELECT
+            t.idx,
+            t.title,
+            t.view,
+            t.created_at AS createdAt,
+            t.infotype,
+            t.infodate,
+            c.name AS cityName,
+            m.nickname AS memberNickname
+        FROM travelinfo t
+        LEFT JOIN city c ON t.city_id = c.id
+        LEFT JOIN member m ON t.member_id = m.id
+        ORDER BY t.created_at DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- travelinfo 테이블 전체 레코드 갯수 조회 -->
+    <select id="selectTravelInfoCount" resultType="int">
+        SELECT COUNT(*) FROM travelinfo
+    </select>
+    
+    <update id="updateViewCount">
+    	UPDATE travelinfo
+    	SET view = view + 1
+    	WHERE idx = #{idx}
+    </update>
+
 </mapper>

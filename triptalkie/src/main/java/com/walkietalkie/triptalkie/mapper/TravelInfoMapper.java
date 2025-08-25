@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 
 @Mapper
@@ -26,4 +27,11 @@ public interface TravelInfoMapper {
   List<TravelInfo> findTravelInfoTop3();
 
   List<TravelInfo> findTravelInfoByMemberId(String loginMember);
+  
+  List<TravelInfoListDTO> selectTravelInfoListPage(int offset, int size);
+  
+  int selectTravelInfoCount();
+  
+  int updateViewCount(long idx);
+  
 }
