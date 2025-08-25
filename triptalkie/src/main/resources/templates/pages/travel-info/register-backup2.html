@@ -52,22 +52,21 @@
 
 				<div class="form-group row">
 					<!-- 나라 선택 -->
-					<div class="form-group col">
+					<div class="form-group col-md-6">
 						<label for="country">나라</label> <select id="country"
-							class="form-control" required>
+							th:field="*{countryId}" class="form-control" required>
 							<option value="">-- 나라 선택 --</option>
 							<option th:each="country : ${countryList}"
 								th:value="${country.id}" th:text="${country.name}"></option>
 						</select>
 					</div>
-
 					<!-- 도시 선택 -->
-					<div class="form-group col">
-						<label for="city">도시</label> <!-- <select id="city"
-							th:field="*{cityId}" class="form-control" required> -->
-							<select id="city" name="cityId" class="form-control" required>
-								<option value="">-- 도시 선택 --</option>
-								<!-- AJAX로 동적 채움 -->
+					<div class="form-group">
+						<label for="city">도시</label> <select id="city"
+							th:field="*{cityId}" class="form-control" required>
+							<option value="">-- 도시 선택 --</option>
+							<option th:each="city : ${cityList}" th:value="${city.id}"
+								th:text="${city.name}"></option>
 						</select>
 					</div>
 				</div>
