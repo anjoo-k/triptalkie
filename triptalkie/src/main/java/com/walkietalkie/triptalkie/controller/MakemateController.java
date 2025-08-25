@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.Makemate;
-import com.walkietalkie.triptalkie.domain.MakemateImage;
-import com.walkietalkie.triptalkie.service.MakemateImageService;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
 import jakarta.servlet.http.HttpSession;

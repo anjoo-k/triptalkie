@@ -143,7 +143,7 @@ public class MakemateService {
 		int imageUpdateResult = 0;
 		if(photo != null && !photo.isEmpty()) {
 			try {
-				imageUpdateResult = makemateImageService.updateImageByUuidAndMakemateId(makemate.getIdx(), photo);
+				imageUpdateResult = makemateImageService.updateImageByUuidAndMakemateIdx(makemate.getIdx(), photo);
 			} catch (IllegalStateException e) {
 				throw new IllegalStateException("사진 수정에 실패했습니다.");
 			} catch (IOException e) {
@@ -151,15 +151,16 @@ public class MakemateService {
 			}
 		}
 
-		if (makemateUpdateResult <= 0 || imageUpdateResult <= 0) {
+		if (makemateUpdateResult <= 0 && imageUpdateResult <= 0) {
 		    throw new IllegalArgumentException("글 수정에 실패했습니다.");
 		}
 	}
 
 	public void deleteMakemateByIdx(String memberId, Long makemateId) {
+		int imageResult = makemateImageService.deleteImageByUuidAndMakemateIdx(makemateId);
 		int makemateResult = makemateMapper.deleteMakemateByIdx(memberId, makemateId);
-		int imageResult = makemateImageService.deleteImageByUuidAndMakemateId(makemateId);
-		if (makemateResult <= 0) {
+		
+		if (makemateResult <= 0 && imageResult <= 0) {
 		    throw new IllegalArgumentException("글 삭제에 실패했습니다.");
 		}
 	}

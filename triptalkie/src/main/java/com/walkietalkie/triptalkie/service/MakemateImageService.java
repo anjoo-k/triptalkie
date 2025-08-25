@@ -31,7 +31,7 @@ public class MakemateImageService {
 		this.fileProperties = fileProperties;
 	}
 
-	public void registerImage(MultipartFile photo, Long makemateId) throws IOException {
+	public void registerImage(MultipartFile photo, Long makemateIdx) throws IOException {
 		String originalName = photo.getOriginalFilename();
 		String uuid = UUID.randomUUID().toString();
 		String savedName = uuid + "_" + originalName;
@@ -39,19 +39,19 @@ public class MakemateImageService {
 		Files.createDirectories(savePath.getParent());
 		photo.transferTo(savePath.toFile());
 		int result = makemateImageMapper.registerImage(
-				new MakemateImage(uuid, originalName, savedName, savePath.toString(), photo.getSize(), makemateId));
+				new MakemateImage(uuid, originalName, savedName, savePath.toString(), photo.getSize(), makemateIdx));
 		if (result <= 0) {
 			throw new IllegalArgumentException("이미지 등록에 실패했습니다.");
 		}
 	}
 
-	public MakemateImage findImageByMakemateIdx(Long makemateId) {
-		return makemateImageMapper.findImageByMakemateIdx(makemateId);
+	public MakemateImage findImageByMakemateIdx(Long makemateIdx) {
+		return makemateImageMapper.findImageByMakemateIdx(makemateIdx);
 	}
 
-	public int updateImageByUuidAndMakemateId(long makemateId, MultipartFile newPhoto)
+	public int updateImageByUuidAndMakemateIdx(long makemateIdx, MultipartFile newPhoto)
 			throws IllegalStateException, IOException {
-		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateId);
+		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateIdx);
 		int result = 0;
 		if (originalImage != null) {
 			File originalFile = new File(originalImage.getFilePath());
@@ -72,7 +72,7 @@ public class MakemateImageService {
 			photo.setMakemateIdx(originalImage.getMakemateIdx());
 			photo.setUuid(originalImage.getUuid());
 			logger.info("{}", photo);
-			result = makemateImageMapper.updateImageByUuidAndMakemateId(photo);
+			result = makemateImageMapper.updateImageByUuidAndMakemateIdx(photo);
 		}
 		if (result <= 0) {
 			throw new IllegalArgumentException("이미지 수정에 실패했습니다.");
@@ -80,9 +80,9 @@ public class MakemateImageService {
 		return result;
 	}
 
-	public int deleteImageByUuidAndMakemateId(Long makemateId) {
-		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateId);
-		int result = makemateImageMapper.deleteImageByUuidAndMakemateId(originalImage.getUuid(), makemateId);
+	public int deleteImageByUuidAndMakemateIdx(Long makemateIdx) {
+		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateIdx);
+		int result = makemateImageMapper.deleteImageByUuidAndMakemateIdx(originalImage.getUuid(), makemateIdx);
 		if (originalImage != null) {
 			File originalFile = new File(originalImage.getFilePath());
 			if (originalFile.exists()) {

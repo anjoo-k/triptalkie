@@ -10,14 +10,14 @@
 		#{originalName}, #{savedName}, #{filePath}, #{fileSize},
 		#{makemateIdx})
 	</insert>
-	<select id="findImageByMakemateIdx">
+	<select id="findImageByMakemateIdx" resultType="com.walkietalkie.triptalkie.domain.MakemateImage">
 		SELECT uuid, original_name, saved_name, file_path,
 		file_size, makemate_idx
 		FROM makemate_image
 		WHERE
 		makemate_idx=#{makemateIdx}
 	</select>
-	<update id="updateImageByUuidAndMakemateId">
+	<update id="updateImageByUuidAndMakemateIdx">
 		UPDATE makemate_image
 		SET original_name=#{originalName},
 		saved_name=#{savedName},
@@ -26,7 +26,7 @@
 		WHERE uuid=#{uuid}
 		AND makemate_idx=#{makemateIdx}
 	</update>
-	<delete id="makemateId">
+	<delete id="deleteImageByUuidAndMakemateIdx">
 		DELETE FROM makemate_image
 		WHERE uuid=#{uuid}
 		AND makemate_idx=#{makemateIdx}

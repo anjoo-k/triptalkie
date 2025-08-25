@@ -9,10 +9,10 @@ public interface MakemateImageMapper {
 
 	int registerImage(MakemateImage makemateImage);
 
-	MakemateImage findImageByMakemateIdx(Long makemateId);
+	MakemateImage findImageByMakemateIdx(Long makemateIdx);
 
-	int updateImageByUuidAndMakemateId(MakemateImage photo);
+	int updateImageByUuidAndMakemateIdx(MakemateImage photo);
 
-	int deleteImageByUuidAndMakemateId(String uuid, Long makemateId);
+	int deleteImageByUuidAndMakemateIdx(String uuid, Long makemateIdx);
 
 }
