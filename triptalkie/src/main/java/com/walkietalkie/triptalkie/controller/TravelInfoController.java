@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
+import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
+import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.mapper.TravelInfoMapper;
 import com.walkietalkie.triptalkie.service.MemberService;
@@ -38,8 +40,16 @@ public class TravelInfoController {
 
 	@GetMapping("/register")
 	public String TravelInfoRegisterPage(Model model) {
-		model.addAttribute("trvaleInfo", new TravelInfo());
+		model.addAttribute("travelInfo", new TravelInfo());
 		// th:object가 사용가능 하도록 비여있는 TravelInfo 객체를 만들어서 전달한다.
+		
+		// 데이터베이스에서 나라/도시 리스트 가져오기.
+		List<Country> countryList = travelInfoService.getAllCountries();
+		List<City> cityList = travelInfoService.getAllCities();
+		
+		model.addAttribute("countryList", countryList);
+		model.addAttribute("cityList", cityList);
+		
 		return "pages/travel-info/register";
 	}
 
@@ -53,13 +63,12 @@ public class TravelInfoController {
 
 	@GetMapping("/list")
 	public String travelInfoListPage(@RequestParam(defaultValue = "1") int page,
-	                                 @RequestParam(defaultValue = "10") int size,
+	                                 @RequestParam(defaultValue = "5") int size,
 	                                 Model model) {
 
 	    CommonPage<TravelInfoListDTO> pageData = travelInfoService.getTravelInfoListPage(page, size);
 	    // 서비스에서 페이지 데이터 가져오기
 	    
-
 	    model.addAttribute("travelInfoList", pageData.getContent());
 	    model.addAttribute("pageData", pageData);
 

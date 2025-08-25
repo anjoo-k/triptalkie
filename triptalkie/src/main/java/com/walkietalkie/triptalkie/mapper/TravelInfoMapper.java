@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
+import com.walkietalkie.triptalkie.domain.City;
+import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 
 @Mapper
@@ -33,5 +35,9 @@ public interface TravelInfoMapper {
   int selectTravelInfoCount();
   
   int updateViewCount(long idx);
+  
+  List<Country> getAllCountries();
+  
+  List<City> getAllCities();
   
 }

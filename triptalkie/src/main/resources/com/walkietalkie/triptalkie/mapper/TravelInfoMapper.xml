@@ -72,5 +72,13 @@
     	SET view = view + 1
     	WHERE idx = #{idx}
     </update>
+    
+    <select id="getAllCountires" resultType="com.walkietalkie.triptalkie.domain.Country">
+    	SELECT id, name, land_id FROM country ORDER BY name
+    </select>
+    
+    <select id="getAllCities" resultType="com.walkietalkie.triptalkie.domain.City">
+    	SELECT id, name, country_id FROM city ORDER BY name
+    </select>
 
 </mapper>
