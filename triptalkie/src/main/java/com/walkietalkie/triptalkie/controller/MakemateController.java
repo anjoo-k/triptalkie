@@ -1,7 +1,7 @@
 package com.walkietalkie.triptalkie.controller;
 
+import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.Makemate;
+import com.walkietalkie.triptalkie.service.MakemateImageService;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,11 +26,13 @@ import jakarta.servlet.http.HttpSession;
 public class MakemateController {
 
 	private final MakemateService makemateService;
+	private final MakemateImageService makemateImageService;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public MakemateController(MakemateService makemateService) {
+	public MakemateController(MakemateService makemateService, MakemateImageService makemateImageService) {
 		super();
 		this.makemateService = makemateService;
+		this.makemateImageService = makemateImageService;
 	}
 	
 	/*
@@ -83,6 +87,7 @@ public class MakemateController {
 		// makemate, member, land, country, city 
 		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
 		model.addAllAttributes(combinedMap);
+		
 		return "pages/make-mate/detail";
 	}
 	
@@ -101,12 +106,17 @@ public class MakemateController {
 	// 글등록
 	// memberlist에 글리더 등록해줘야함
 	@PostMapping("/register")
-	public String registerMatemate(HttpSession session, Makemate makemate, Model model){
+	public String registerMatemate(HttpSession session, Makemate makemate,
+									MultipartFile photo, Model model) throws IOException{
 		String id = (String) session.getAttribute("loginId");
 		if (id == null)
 			return "redirect:/member/loginPage";
-
-			makemateService.registerMakemate(makemate);
+		
+		Long makemateId = makemateService.registerMakemate(makemate);
+		if (!photo.isEmpty()) {
+			makemateImageService.registerImage(photo, makemateId);
+		}
+			
 		return "redirect:/makemate/list";
 	}
 	

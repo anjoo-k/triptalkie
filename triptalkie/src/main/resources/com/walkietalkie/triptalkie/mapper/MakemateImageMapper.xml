@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.MakemateImageMapper">
+	<insert id="registerImage" parameterType="com.walkietalkie.triptalkie.domain.MakemateImage">
+		INSERT INTO makemate_image(uuid, original_name, saved_name, file_path, file_size, makemate_idx)
+		VALUES (#{uuid}, #{originalName}, #{savedName}, #{filePath}, #{fileSize}, #{makemateId})
+	</insert>
+	<select id="">
+		SELECT *
+		FROM makemate_image
+		WHERE makemate_id=#{makemateId}
+	</select>
+</mapper>
