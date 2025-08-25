@@ -89,7 +89,7 @@ public class MakemateService {
 		Land land = makemateMapper.findLandByIdx(country.getLandId());
 		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
-
+		
 	    Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("photo", photo);
 	    combinedMap.put("makemate", makemate);

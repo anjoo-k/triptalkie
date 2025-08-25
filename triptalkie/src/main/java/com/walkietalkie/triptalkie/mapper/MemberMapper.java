@@ -18,4 +18,6 @@ public interface MemberMapper {
 	int checkMemberByEmail(String email);
 
 	Member findById(String id);
+
+	Member findMemberById(String memberId);
 }
