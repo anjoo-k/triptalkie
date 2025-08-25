@@ -6,9 +6,9 @@
 		INSERT INTO makemate_image(uuid, original_name, saved_name, file_path, file_size, makemate_idx)
 		VALUES (#{uuid}, #{originalName}, #{savedName}, #{filePath}, #{fileSize}, #{makemateId})
 	</insert>
-	<select id="">
-		SELECT *
+	<select id="findImagesByIdx">
+		SELECT  uuid, original_name, saved_name, file_path, file_size, makemate_idx
 		FROM makemate_image
-		WHERE makemate_id=#{makemateId}
+		WHERE makemate_idx=#{makemateId}
 	</select>
 </mapper>

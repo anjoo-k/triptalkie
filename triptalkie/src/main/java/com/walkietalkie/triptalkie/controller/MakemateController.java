@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.Makemate;
+import com.walkietalkie.triptalkie.domain.MakemateImage;
 import com.walkietalkie.triptalkie.service.MakemateImageService;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
@@ -26,13 +27,11 @@ import jakarta.servlet.http.HttpSession;
 public class MakemateController {
 
 	private final MakemateService makemateService;
-	private final MakemateImageService makemateImageService;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public MakemateController(MakemateService makemateService, MakemateImageService makemateImageService) {
+	public MakemateController(MakemateService makemateService) {
 		super();
 		this.makemateService = makemateService;
-		this.makemateImageService = makemateImageService;
 	}
 	
 	/*
@@ -63,6 +62,7 @@ public class MakemateController {
 		
 		int size = 4; // 한 페이지에 보이는 글 수
 		Map<String, Object> result = makemateService.findMakematesAllList(page, size);
+		
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
 		return "pages/make-mate/list";
@@ -112,10 +112,7 @@ public class MakemateController {
 		if (id == null)
 			return "redirect:/member/loginPage";
 		
-		Long makemateId = makemateService.registerMakemate(makemate);
-		if (!photo.isEmpty()) {
-			makemateImageService.registerImage(photo, makemateId);
-		}
+		Long makemateId = makemateService.registerMakemate(makemate, photo);
 			
 		return "redirect:/makemate/list";
 	}

@@ -54,4 +54,6 @@ public class MakemateImageService {
 		}
 	}
 
+	public MakemateImage findMakemateByIdx(Long makemateId) {
+		return makemateImageMapper.findImagesByIdx(makemateId);	}
 }

@@ -7,7 +7,7 @@
 	<section>
 		<div class="row">
 			<div class="col-sm-12">
-				<img th:src="@{/images/photo1.jpg}" alt="여행사진"
+				<img th:src="@{'/uploads/' + ${photo.savedName}}" th:alt="${photo.originalName}"
 					class="img-fluid rounded d-block">
 			</div>
 		</div>

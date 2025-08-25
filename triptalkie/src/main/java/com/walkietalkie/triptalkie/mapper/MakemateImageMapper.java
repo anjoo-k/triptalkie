@@ -9,4 +9,6 @@ public interface MakemateImageMapper {
 
 	int registerImage(MakemateImage makemateImage);
 
+	MakemateImage findImagesByIdx(Long makemateId);
+
 }
