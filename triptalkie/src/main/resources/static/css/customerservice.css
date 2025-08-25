@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 .list-group {
-	border:1px solid #dee2e6;
-	border-radius:.25rem;
+	border:1px solid var(--color-border);
+	border-radius:10px;
 }
 
 .list-group-item {
@@ -11,7 +11,9 @@
 	border:0;
 }
 
-.list-group-item.active {
-	background-color:#7CD3C2;
-	color:#FAFAFA
+.list-group-item:hover {
+	background-color:var(--color-primary);
+	color:var(--color-secondary);
+	opacity: 0.5;
+	border-radius: 10px;
 }

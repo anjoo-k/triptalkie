@@ -60,9 +60,5 @@
 	</resultMap>
 
 
-	
-	<select id="findTravelInfoByMemberId">
-		SELECT idx, title, member_id, created_at FROM travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
-	</select>
-	
+
 </mapper>

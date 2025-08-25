@@ -35,5 +35,10 @@ public class CommunityService {
 	    return communityMapper.deleteCommunity(idx);
 	}
 
+	// 내가 쓴 글 목록을 아이디로 조회하기 위한 메서드
+	public List<Community> findCommunityByMemberId(String loginMember) {
+		return communityMapper.findCommunityByMemberId(loginMember);
+	}
+
 	
 }
