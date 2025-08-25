@@ -1,7 +1,6 @@
 package com.walkietalkie.triptalkie.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,12 @@ import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelReview;
-import com.walkietalkie.triptalkie.service.*;
+import com.walkietalkie.triptalkie.service.CityService;
+import com.walkietalkie.triptalkie.service.CountryService;
+import com.walkietalkie.triptalkie.service.TravelInfoService;
+import com.walkietalkie.triptalkie.service.TravelReviewImageService;
+import com.walkietalkie.triptalkie.service.TravelReviewService;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -86,7 +90,10 @@ public class TravelReviewController {
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx(@PathVariable Long idx, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");
+		String loginNickname = (String) session.getAttribute("loginNickname");
 		model.addAttribute("memberId", id);
+		model.addAttribute("loginNickname", loginNickname);
+		System.out.println("세션 닉네임 : " + loginNickname);
 		System.out.println("넘어 온 게시글 번호 : " + idx);
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
 

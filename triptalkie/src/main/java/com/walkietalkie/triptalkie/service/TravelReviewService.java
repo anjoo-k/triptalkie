@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.walkietalkie.triptalkie.DTO.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.TravelReview;
-import com.walkietalkie.triptalkie.domain.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.mapper.TravelReviewMapper;
 
 import jakarta.servlet.http.HttpSession;
@@ -147,6 +147,14 @@ public class TravelReviewService {
 	@Transactional(readOnly = true)
 	public List<TravelReviewTop3DTO> findTravelreviewTop3() {
 		return travelReviewMapper.findTravelreviewTop3ByView();
+	}
+
+	/*
+	 *  내가 쓴 글 목록을 아이디로 조회하기 위한 메서드
+	 */
+	@Transactional(readOnly = true)
+	public List<TravelReview> findtravelReviewByMemberId(String loginMember) {
+		return travelReviewMapper.findtravelReviewByMemberId(loginMember);
 	}
 
 }

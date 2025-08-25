@@ -36,7 +36,7 @@
 	</select>
 	<!-- id로 멤버 조회 -->
 	<select id="findMemberById">
-		SELECT nickname, birth, gender, address
+		SELECT id, nickname, birth, gender, address
 		FROM member
 		WHERE
 		id=#{memberId}
@@ -114,7 +114,9 @@
 		FROM land
 	</select>
 	<insert id="registerMakemate"
-		parameterType="com.walkietalkie.triptalkie.domain.Makemate">
+		parameterType="com.walkietalkie.triptalkie.domain.Makemate"
+		useGeneratedKeys="true"
+		keyProperty="idx">
 		INSERT INTO makemate (title, content, matetype,
 		concept_type,
 		max_people, age_group, budget, startdate,

@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.walkietalkie.triptalkie.DTO.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.domain.TravelReview;
-import com.walkietalkie.triptalkie.domain.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
 import com.walkietalkie.triptalkie.service.TravelReviewImageService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;

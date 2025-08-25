@@ -1,19 +1,21 @@
 package com.walkietalkie.triptalkie.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.Land;
 import com.walkietalkie.triptalkie.domain.Makemate;
+import com.walkietalkie.triptalkie.domain.MakemateImage;
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.mapper.MakemateMapper;
 
@@ -22,12 +24,14 @@ import com.walkietalkie.triptalkie.mapper.MakemateMapper;
 public class MakemateService {
 	
 	private final MakemateMapper makemateMapper;
-	
-	public MakemateService(MakemateMapper makemateMapper) {
+	private final MakemateImageService makemateImageService;
+
+	public MakemateService(MakemateMapper makemateMapper, MakemateImageService makemateImageService) {
 		super();
 		this.makemateMapper = makemateMapper;
+		this.makemateImageService = makemateImageService;
 	}
-	
+
 	// 글 목록 페이지
 	public Map<String, Object> findMakematesAllList(int currentPage, int size) {
 		// 페이지네이션
@@ -57,11 +61,13 @@ public class MakemateService {
 		for(Makemate makemate : makeMateList) {
 			Member member = makemateMapper.findMemberById(makemate.getMemberId());
 			City city = makemateMapper.findCityByIdx(makemate.getCityId());
+			MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemate.getIdx());
 			
 		    Map<String, Object> combinedListMap = new HashMap<>();
 		    combinedListMap.put("makemate", makemate);
 		    combinedListMap.put("member", member);
 		    combinedListMap.put("city", city);
+		    combinedListMap.put("photo", photo);
 
 		    combinedList.add(combinedListMap);
 		}
@@ -81,9 +87,11 @@ public class MakemateService {
 		City city = makemateMapper.findCityByIdx(makemate.getCityId());
 		Country country = makemateMapper.findCountryByIdx(city.getCountryId());
 		Land land = makemateMapper.findLandByIdx(country.getLandId());
+		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
-
+		
 	    Map<String, Object> combinedMap = new HashMap<>();
+		combinedMap.put("photo", photo);
 	    combinedMap.put("makemate", makemate);
 	    combinedMap.put("member", member);
 	    combinedMap.put("city", city);
@@ -112,28 +120,49 @@ public class MakemateService {
 		return combinedMap;
 	}
 
-	public void registerMakemate(Makemate makemate) {
+	public Long registerMakemate(Makemate makemate, MultipartFile photo) throws IOException {
 		if (makemate.getEnddate().isBefore(makemate.getStartdate())) {
 		    throw new IllegalArgumentException("종료일은 시작일 이후여야 합니다.");
 		}
 		
 		int result = makemateMapper.registerMakemate(makemate);
+		if (!photo.isEmpty()) {
+			makemateImageService.registerImage(photo, makemate.getIdx());
+		}
 		if (result <= 0) {
 		    throw new IllegalArgumentException("글 등록에 실패했습니다.");
 		}
+		
+		return makemate.getIdx();
 	}
+	
+	// 이미지 update 동시에 서버에 있는 파일 삭제와 DB에 있는 image 정보 업데
+	public void updateMakemate(Makemate makemate, MultipartFile photo) throws IOException {
+		int makemateUpdateResult = makemateMapper.updateMakemate(makemate);
 
-	public void updateMakemate(Makemate makemate) {
-		int result = makemateMapper.updateMakemate(makemate);
-		if (result <= 0) {
+		int imageUpdateResult = 0;
+		if(photo != null && !photo.isEmpty()) {
+			try {
+				imageUpdateResult = makemateImageService.updateImageByUuidAndMakemateIdx(makemate.getIdx(), photo);
+			} catch (IllegalStateException e) {
+				throw new IllegalStateException("사진 수정에 실패했습니다.");
+			} catch (IOException e) {
+				throw new IOException("사진 수정에 실패했습니다.");
+			}
+		}
+
+		if (makemateUpdateResult <= 0 && imageUpdateResult <= 0) {
 		    throw new IllegalArgumentException("글 수정에 실패했습니다.");
 		}
 	}
 
 	public void deleteMakemateByIdx(String memberId, Long makemateId) {
-		int result = makemateMapper.deleteMakemateByIdx(memberId, makemateId);		
-		if (result <= 0) {
+		int imageResult = makemateImageService.deleteImageByUuidAndMakemateIdx(makemateId);
+		int makemateResult = makemateMapper.deleteMakemateByIdx(memberId, makemateId);
+		
+		if (makemateResult <= 0 && imageResult <= 0) {
 		    throw new IllegalArgumentException("글 삭제에 실패했습니다.");
 		}
 	}
+
 }

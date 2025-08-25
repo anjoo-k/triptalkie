@@ -45,10 +45,10 @@ public class MemberService {
   
   public void logout(HttpSession session) {
     // 세션에 저장된 사용자 정보 제거
-    session.removeAttribute("loginId");
-    session.removeAttribute("loginNickname");
+    //session.removeAttribute("loginId");
+    //session.removeAttribute("loginNickname");
     
-    // session.invalidate();
+    session.invalidate();
     // 세션 전체를 초기화하고 싶다면 아래를 사용
     
     logger.info("로그아웃 완료");
@@ -104,6 +104,15 @@ public class MemberService {
       throw new IllegalArgumentException("이메일을 입력하세요");
     }
     return memberMapper.checkMemberByEmail(email);
+  }
+
+  public Member findMemberById(String memberId) {
+	  Member member = memberMapper.findMemberById(memberId);
+	  logger.info(memberId);
+	if (member == null) {
+		throw new IllegalArgumentException("프로필 보기 실패");
+	}
+	return member;
   }
 
 }

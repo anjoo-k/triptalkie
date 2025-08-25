@@ -11,11 +11,15 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-9">
-				<textarea class="form-control" rows="1" id="comment"
-					placeholder="댓글입력"></textarea>
-			</div>
+				<!-- <textarea class="form-control" rows="1" id="comment"
+					placeholder="댓글입력"></textarea> -->
+					<!-- <input type="text" id="commentWriter" placeholder="작성자"> -->
+					<p id="memberId" th:text="${loginMember}" th:attr="data-member=${loginMember}">작성자</p>
+					<input type="text" id="commentContents" placeholder="내용">
+<!-- 					<a href="/">답글</a>
+ -->			</div>
 			<div class="col-sm-3 d-flex align-items-center justify-content-left">
-				<button type="button" class="btn btn-write" id="commentBtn">댓글쓰기</button>
+				<button type="button" class="btn btn-write" id="comment-write-btn">댓글쓰기</button>
 			</div>
 		</div>
 	</section>
@@ -52,3 +56,4 @@
 	</section>
 	<script src="/js/comment.js"></script>
 </main>
+</html>
