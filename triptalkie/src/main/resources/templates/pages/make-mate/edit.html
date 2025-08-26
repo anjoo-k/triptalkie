@@ -38,7 +38,7 @@
 									th:text="${#temporals.format(makemate.startdate, 'yyyy-MM-dd')}">2025.08.17</span>
 								~ <span class="enddate"
 									th:text="${#temporals.format(makemate.enddate, 'yyyy-MM-dd')}">2025.08.20</span>
-								(<span class="days">n일</span>)
+								<span class="days">n일</span>
 							</div>
 						</div>
 						<div class="row mt-1">
@@ -171,20 +171,20 @@
 											style="display: none; width: 80px; height: 80px; margin-left: 10px;">
 									</div>
 									<!-- 실제 파일 입력(숨김) -->
-									<input type="hidden" name="uuid" th:value="${photo.uuid}">
+									<input type="hidden" name="uuid" th:if="${photo != null}" th:value="${photo.uuid}">
 									<input type="file" id="photo" name="photo" accept="image/*"
 										class="sr-only">
 								</div>
 							</div>
 						</div>
 					</section>
-					<section class="button-section">
+					<section class="button-mm-section">
 						<div class="row m-0">
-							<div class="col-ms-3 pr-2">
-								<button type="button" class="btn btn-back">목록</button>
+							<div class="col-sm-3 pr-2">
+								<button type="button" class="btn btn-mm-back">목록</button>
 							</div>
-							<div class="col-ms-9">
-								<button type="submit" class="btn btn-complete">완료</button>
+							<div class="col-sm-9">
+								<button type="submit" class="btn btn-mm-complete">완료</button>
 							</div>
 						</div>
 					</section>
@@ -194,6 +194,6 @@
 
 	</section>
 	<script src="/js/make-mate.js"></script>
-	<script src="/js/make-mate-knj.js"></script>
+	<script src="/js/make-mate-edit.js"></script>
 </main>
 </html>

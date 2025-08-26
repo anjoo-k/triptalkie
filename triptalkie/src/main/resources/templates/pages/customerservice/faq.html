@@ -1,116 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/base}">
-
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
 <!-- content fragement 선언 부분 -->
 <body>
-	<main layout:fragment="content" class="row">
-		<!-- 좌측 list -->
-		<aside class="col-sm-3">
-			<div th:replace="fragments/customerservice-list :: customerserviceList"></div>
-		</aside>
-		<!-- 게시판 -->
-		<section class="col-sm-9">
-			<article>
-				<table class="table table-hover">
-					<thead class="list-title">
-						<tr>
-							<th>글번호</th>
-							<th>글제목</th>
-							<th>닉네임</th>
-							<th>날짜</th>
-						</tr>
-					</thead>
-					<tbody class="list-content">
-						<tr>
-							<td>1</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>9</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>10</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-					</tbody>
-				</table>
-			</article>
-			<!-- 페이지네이션 -->
-			<article class="d-flex mx-auto justify-content-center">
-				<ul class="pagination list-content">
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&laquo;</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&lsaquo;</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">1</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">2</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">3</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">4</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">5</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&rsaquo;</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&raquo;</a></li>
+	<main layout:fragment="content">
+		<div class="row">
+			<div class="col-sm-3">
+				<!-- 좌측 list -->
+				<aside>
+					<div th:replace="fragments/customerservice-list :: customerserviceList"></div>
+				</aside>
+			</div>
+			<!-- 게시판 -->
+			<div class="col-sm-9">
+				<h4 class="mb-3 mypage-title">FAQ</h4>
+				<div id="accordion">
+					<div class="card" th:each="faq, stat : ${faqList}">
+						<div class="card-header">
+							<a class="card-link subheading" data-toggle="collapse" th:href="'#collapse' + ${stat.index}" th:text="${faq.title}">메이크 메이트는 어떤건가요?</a>
+						</div>
+						<div id="collapseOne" th:class="'collapse' + (${stat.index == 0} ? ' show' : '')" data-parent="#accordion" th:id="'collapse' + ${stat.index}">
+							<div class="card-body" th:text="${faq.content}">메이크 메이트는 말 그대로 여행을 함께하여 풍부한 친구들을 만들며 좋은 추억을 남길 수 있습니다. 상단 탭에서 메이트들을 구성해 여행을 다녀보세요!</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 페이지네이션 -->
+		<div class="text-center" th:if="${pageData.totalPage > 0}">
+			<nav class="p-2 pagination--bottom">
+				<ul class="pagination justify-content-center mb-0">
+					<!-- 처음으로, 이전 -->
+					<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/faq(page=1)}">&laquo;</a></li>
+					<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/faq(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a></li>
+					<!-- 페이지 번호 반복 -->
+					<li th:each="i : ${#numbers.sequence(pageData.startPage > 0 ? pageData.startPage : 1, pageData.endPage)}" th:classappend="${i == pageData.currentPage} ? 'active' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/faq(page=${i})}" th:text="${i}">1</a></li>
+					<!-- 다음, 마지막 -->
+					<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/faq(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a></li>
+					<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/faq(page=${pageData.totalPage})}">&raquo;</a></li>
 				</ul>
-			</article>
-		</section>
+			</nav>
+		</div>
 	</main>
 </body>
-
 </html>

@@ -20,6 +20,7 @@ import com.walkietalkie.triptalkie.domain.Land;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.domain.MakemateImage;
 import com.walkietalkie.triptalkie.domain.Member;
+import com.walkietalkie.triptalkie.domain.Memberlist;
 import com.walkietalkie.triptalkie.mapper.MakemateMapper;
 
 @Service
@@ -100,7 +101,8 @@ public class MakemateService {
 		Land land = makemateMapper.findLandByIdx(country.getLandId());
 		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
-		
+		List<Memberlist> memberlistPhoto = makemateMapper.findAllMemberlist(makemateId);
+		logger.info("{memberlist}", memberlistPhoto);
 	    Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("photo", photo);
 	    combinedMap.put("makemate", makemate);
@@ -109,6 +111,7 @@ public class MakemateService {
 	    combinedMap.put("country", country);
 	    combinedMap.put("land", land);
 	    combinedMap.put("numbersOfMembers", numbersOfMembers);
+	    combinedMap.put("memberlistPhoto", memberlistPhoto);
 	    
 		return combinedMap;
 	}

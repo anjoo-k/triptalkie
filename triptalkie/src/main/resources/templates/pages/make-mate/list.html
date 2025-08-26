@@ -114,71 +114,11 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- 카드와 카드 사이 구분선: 마지막 카드가 아닐 때만 표시 -->
-					<div class="card-divider m-1"></div>
-
 					
-				</div>
-
-				<div class="row mb-3">
-					<div class="col-3"></div>
-
-					<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
-					<div class="col-6 text-center">
-						<nav class="p-2 pagination--bottom">
-							<ul class="pagination justify-content-center mb-0 py-1">
-								<!-- 처음으로, 이전 -->
-								<li th:classappend="${page.currentPage == 1} ? ' disabled'" class="page-item pagination--spacing">
-									<a class="page-link square" th:href="@{/makemate/list(page=1)}">«</a>
-								</li>
-								<li th:classappend="${page.currentPage == 1} ? ' disabled'" class="page-item pagination--spacing">
-									<a class="page-link square" th:href="@{/makemate/list(page=${page.currentPage - 1})}">‹</a>
-								</li>
-
-								<!-- 페이지 번호 반복 -->
-								<li th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}" 
-								th:classappend="${p == page.currentPage} ? ' active'"
-								class="page-item pagination--spacing">
-									<a class="page-link square" th:href="@{/makemate/list(page=${p})}" th:text="${p}">1</a>
-								</li>
-
-								<!-- 다음, 마지막 -->
-								<li th:classappend="${page.currentPage == page.totalPage} ? ' disabled'" class="page-item pagination--spacing">
-									<a class="page-link square" th:href="@{/makemate/list(page=${page.currentPage + 1})}">›</a>
-								</li>
-								<li th:classappend="${page.currentPage == page.totalPage} ? ' disabled'" class="page-item pagination--spacing">
-									<a class="page-link square" th:href="@{/makemate/list(page=${page.totalPage})}">»</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-					<!-- 검색 결과 없을 때 메시지 -->
-					<!--s<div th:if="${pageData.totalPage == 0}" class="col-6 text-center p-3">
-								검색 결과가 없습니다.
-							</div>-->
-
-					<!-- 오른쪽 글쓰기 버튼 -->
-					<th:block th:if="${session.loginId != null}">
-					<div class="col d-flex justify-content-center align-items-center mt-1">
-						<a class="btn btn-write px-2 py-1" th:href="@{/makemate/registerPage}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-								class="bi bi-pencil-square" viewBox="0 0 16 16">
-								<path
-									d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
-								</path>
-								<path fill-rule="evenodd"
-									d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z">
-								</path>
-							</svg>
-						</a>
-					</div>
-					</th:block>
-				</div>
 			</div>
 		</div>
 	</section>
 	<script src="/js/make-mate.js"></script>
-	<script src="/js/make-mate-knj.js"></script>
+	<script src="/js/make-mate-list.js"></script>
 </main>
 </html>

@@ -2,24 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.MakemateMapper">
-	<resultMap id="cityCountryLandMap"
-		type="com.walkietalkie.triptalkie.domain.City">
-		<id property="id" column="city_id" />
-		<result property="name" column="city_name" />
-		<result property="countryId" column="country_id" />
+	<resultMap id="AllMemberlistMap"
+		type="com.walkietalkie.triptalkie.domain.Memberlist">
+		<result property="makemateIdx" column="makemate_idx" />
+		<result property="memberId" column="member_id" />
 
-		<association property="country" javaType="com.walkietalkie.triptalkie.domain.Country">
-			<id property="id" column="country_id" />
-			<result property="name" column="country_name" />
-			<result property="landId" column="land_id" />
-
-			<association property="land" javaType="com.walkietalkie.triptalkie.domain.Land">
-				<id property="id" column="land_id" />
-				<result property="name" column="land_name" />
-			</association>
+		<association property="member_image" javaType="com.walkietalkie.triptalkie.domain.MemberImage">
+			<id property="idx" column="idx"/>
+			<result property="originalName" column="original_name" />
+			<result property="filePath" column="file_path" />
+			<result property="savedName" column="saved_name" />
 		</association>
 	</resultMap>
-
+	<!-- 총 글 갯수 + 검색 -->
 	<select id="countMakemate" resultType="int">
 		SELECT COUNT(*)
 		FROM makemate m
@@ -115,23 +110,14 @@
 		WHERE
 		makemate_idx=#{idx}
 	</select>
+	<!-- 멤버사진 담아오기 -->
+	<select id="findAllMemberlist" resultMap="AllMemberlistMap">
+		SELECT mi.idx, mi.original_name, mi.file_path, mi.saved_name
+		FROM memberlist ml
+		JOIN member_image mi ON (ml.member_id = mi.member_id)
+		WHERE makemate_idx=#{makemateId}
+	</select>
 	<!-- 메이크메이트 글등록 -->
-	<!-- <select id="findAllRegion" resultMap="cityCountryLandMap">
-		SELECT
-			c.id AS city_id,
-			c.name AS city_name,
-			c.country_id,
-	
-			co.id AS country_id,
-			co.name AS country_name,
-			co.land_id,
-	
-			l.id AS land_id,
-			l.name AS land_name
-		FROM city c
-		JOIN country co ON c.country_id = co.id
-		JOIN land l ON co.land_id = l.id;
-	</select> -->
 	<select id="findAllCityName">
 		SELECT id, name, country_id
 		FROM city

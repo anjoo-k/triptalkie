@@ -89,33 +89,34 @@
 								</div>
 								<th:block th:if="${memberId != null && memberId == c.memberId}">
 									<div class="col-sm-3 text-end">
-										<a class="text-muted me-1 update-reply" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> | <a class="text-muted delete-reply" th:attr="data-id=${c.idx}">삭제</a>
+										<a class="text-muted me-1 update-reply btn btn-edit" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a>
+										<a class="text-muted delete-reply btn btn-delete" th:attr="data-id=${c.idx}">삭제</a>
 									</div>
 								</th:block>
 							</div>
 							<div class="row">
 								<div class="col-sm-12 text-end">
-									<span class="text-muted" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd')}">2025-08-25</span>
+									<span class="text-muted comment-date" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd')}">2025-08-25</span>
 								</div>
 							</div>
 							<!-- 둘째 줄: 댓글 내용 | 답글 버튼 -->
 							<div class="row reply-content-box">
 								<div class="col-sm-12">
-									<span class="reply-content subheading" th:text="${c.content}">댓글 내용이 여기에 들어갑니다. 길어도 자동 줄바꿈 됩니다.</span>
+									<span class="reply-content content-text" th:text="${c.content}">댓글 내용이 여기에 들어갑니다. 길어도 자동 줄바꿈 됩니다.</span>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!-- 댓글 작성하는 곳 -->
-				<div class="row">
-					<div class="col-sm-11">
+				<div class="row py-3">
+					<div class="col-sm-10">
 						<input type="text" id="comment-content" class="comment-content" placeholder="댓글을 작성해보세요"> <input type="hidden" id="memberId" th:value="${memberId}">
 						<!-- 						<input type="hidden" id="nickname" th:value="${loginNickname}">
  -->
 					</div>
-					<div>
-						<button type="button" id="comment-write-btn" class="comment-write-btn" th:attr="data-idx=${travelreview.idx}">완료</button>
+					<div class="col-sm-2 button-style">
+						<button type="button" id="comment-write-btn" class="comment-write-btn btn-primary" th:attr="data-idx=${travelreview.idx}">완료</button>
 					</div>
 				</div>
 				<!-- 댓글 삭제 모달 -->
