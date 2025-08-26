@@ -70,23 +70,69 @@
 					<input type="hidden" name="conceptType" th:value="${travelreview['conceptType']}" /> <label class="btn selected-mate-type" th:text="${travelreview['conceptType']}"></label>
 				</div>
 			</div>
-			
 			<div class="board-divider mb-3 mt-3"></div>
-			
 			<!-- 댓글 -->
 			<section class="comment-section mb-3">
+				<!-- 댓글이 보이는 곳 -->
+				<div id="comment-list">
+					<div class="row mb-3" th:each="c : ${comment}">
+						<!-- 프로필 사진 -->
+						<div class="col-sm-1">
+							<img th:src="@{/images/original-profile.png}" style="width: 40px; height: 40px;" alt="avatar" class="rounded-circle">
+						</div>
+						<!-- 댓글 내용 -->
+						<div class="col-sm-11">
+							<!-- 첫 줄: 닉네임 + 수정/삭제 | 작성일 -->
+							<div class="row mb-1">
+								<div class="col-sm-9 d-flex align-items-center">
+									<span class="nickname subheading me-2" th:text="${c.nickName}">닉네임</span>
+								</div>
+								<th:block th:if="${memberId != null && memberId == c.memberId}">
+									<div class="col-sm-3 text-end">
+										<a class="text-muted me-1 update-reply" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> | <a class="text-muted delete-reply" th:attr="data-id=${c.idx}">삭제</a>
+									</div>
+								</th:block>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 text-end">
+									<span class="text-muted" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd')}">2025-08-25</span>
+								</div>
+							</div>
+							<!-- 둘째 줄: 댓글 내용 | 답글 버튼 -->
+							<div class="row reply-content-box">
+								<div class="col-sm-12">
+									<span class="reply-content subheading" th:text="${c.content}">댓글 내용이 여기에 들어갑니다. 길어도 자동 줄바꿈 됩니다.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 댓글 작성하는 곳 -->
 				<div class="row">
 					<div class="col-sm-11">
-						<input type="text" id="comment-content" class="comment-content" placeholder="댓글을 작성해보세요">
-						<input type="hidden" id="memberId" th:value="${memberId}">
-<!-- 						<input type="hidden" id="nickname" th:value="${loginNickname}">
- -->					</div>
+						<input type="text" id="comment-content" class="comment-content" placeholder="댓글을 작성해보세요"> <input type="hidden" id="memberId" th:value="${memberId}">
+						<!-- 						<input type="hidden" id="nickname" th:value="${loginNickname}">
+ -->
+					</div>
 					<div>
-						<button type="button" id="comment-write-btn" class="comment-write-btn"  th:attr="data-idx=${travelreview.idx}">완료</button>
+						<button type="button" id="comment-write-btn" class="comment-write-btn" th:attr="data-idx=${travelreview.idx}">완료</button>
+					</div>
+				</div>
+				<!-- 댓글 삭제 모달 -->
+				<div class="modal fade" id="commentDeleteModal">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content py-4">
+							<!-- Modal body -->
+							<div class="modal-body text-center">정말 댓글을 삭제하시겠습니까?</div>
+							<!-- Modal footer -->
+							<div class="modal-footer btn-no-border">
+								<button type="button" id="confirm-comment-delete" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-comment-delete">예</button>
+								<button type="button" class="btn btn-secondary btn--radius mx-auto d-block" data-dismiss="modal">아니요</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
-			
 			<!-- 버튼 영역 -->
 			<div class="d-flex justify-content-between align-items-center mt-3">
 				<button type="button" class="btn btn-back">목록</button>
@@ -97,7 +143,6 @@
 					</div>
 				</th:block>
 			</div>
-			
 		</div>
 	</div>
 	<!-- The Modal -->

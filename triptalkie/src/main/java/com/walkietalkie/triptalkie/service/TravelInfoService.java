@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -126,6 +127,17 @@ public class TravelInfoService {
     
     public City findCityById(String id) {
     	return travelInfoMapper.findCityById(id);
+    }
+    
+    public TravelInfo getTravelInfoDetail(long idx) {
+    	TravelInfo travelInfo = travelInfoMapper.getTravelInfoDetail(idx);
+    	
+    	// DB infodate를 년-월 문자열로 변환해서 tempMonth에 저장
+    	if (travelInfo.getInfodate() != null) {
+    		travelInfo.setTempMonth(travelInfo.getInfodate().format(DateTimeFormatter.ofPattern("yyyy-MM")));
+    	}
+    	
+    	return travelInfo;
     }
     
     

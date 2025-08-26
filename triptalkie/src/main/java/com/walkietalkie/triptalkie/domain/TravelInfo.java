@@ -19,6 +19,8 @@ public class TravelInfo {
 	// 나라 선택 변수를 받기 위해서 사용
 	private Member member;
 	// Member 객체 생성
+	private City city;
+	// 계층형 매핑을 위한 city
 
 	// form에서 년-월만 받을 임시 필드
 	private String tempMonth;
@@ -28,7 +30,7 @@ public class TravelInfo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	// getter / setter
 	public String getTempMonth() {
 		return tempMonth;
@@ -37,15 +39,14 @@ public class TravelInfo {
 	public void setTempMonth(String tempMonth) {
 		this.tempMonth = tempMonth;
 	}
-	
+
 	public String getCountryId() {
-	    return countryId;
+		return countryId;
 	}
 
 	public void setCountryId(String countryId) {
-	    this.countryId = countryId;
+		this.countryId = countryId;
 	}
-
 
 	public long getIdx() {
 		return idx;
@@ -143,14 +144,21 @@ public class TravelInfo {
 		this.member = member;
 	}
 
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
 	@Override
 	public String toString() {
 		return "TravelInfo [idx=" + idx + ", title=" + title + ", view=" + view + ", createdAt=" + createdAt
 				+ ", updatedAt=" + updatedAt + ", infotype=" + infotype + ", infodate=" + infodate + ", cityId="
 				+ cityId + ", content=" + content + ", memberId=" + memberId + ", memberNickname=" + memberNickname
-				+ ", member=" + member + ", tempMonth=" + tempMonth + "]";
+				+ ", countryId=" + countryId + ", member=" + member + ", city=" + city + ", tempMonth=" + tempMonth
+				+ "]";
 	}
-
-	
 
 }
