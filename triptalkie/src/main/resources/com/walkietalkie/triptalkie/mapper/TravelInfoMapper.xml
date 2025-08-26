@@ -44,45 +44,92 @@
 		travelinfo WHERE member_id=#{memberId} ORDER BY created_at DESC
 	</select>
 
-    <!-- 페이지 단위 조회 -->
-    <select id="selectTravelInfoListPage" resultType="com.walkietalkie.triptalkie.DTO.TravelInfoListDTO">
-        SELECT
-            t.idx,
-            t.title,
-            t.view,
-            t.created_at AS createdAt,
-            t.infotype,
-            t.infodate,
-            c.name AS cityName,
-            m.nickname AS memberNickname
-        FROM travelinfo t
-        LEFT JOIN city c ON t.city_id = c.id
-        LEFT JOIN member m ON t.member_id = m.id
-        ORDER BY t.created_at DESC
-        LIMIT #{size} OFFSET #{offset}
-    </select>
+	<!-- 페이지 단위 조회 -->
+	<select id="selectTravelInfoListPage"
+		resultType="com.walkietalkie.triptalkie.DTO.TravelInfoListDTO">
+		SELECT
+		t.idx,
+		t.title,
+		t.view,
+		t.created_at AS createdAt,
+		t.infotype,
+		t.infodate,
+		c.name AS cityName,
+		m.nickname AS memberNickname
+		FROM travelinfo t
+		LEFT JOIN city c ON t.city_id = c.id
+		LEFT JOIN member
+		m ON t.member_id = m.id
+		ORDER BY t.created_at DESC
+		LIMIT #{size} OFFSET
+		#{offset}
+	</select>
 
-    <!-- travelinfo 테이블 전체 레코드 갯수 조회 -->
-    <select id="selectTravelInfoCount" resultType="int">
-        SELECT COUNT(*) FROM travelinfo
-    </select>
-    
-    <update id="updateViewCount">
-    	UPDATE travelinfo
-    	SET view = view + 1
-    	WHERE idx = #{idx}
-    </update>
-    
-    <select id="getAllCountries" resultType="com.walkietalkie.triptalkie.domain.Country">
-    	SELECT id, name, land_id FROM country ORDER BY name
-    </select>
-    
-    <select id="getAllCities" resultType="com.walkietalkie.triptalkie.domain.City">
-    	SELECT id, name, country_id FROM city ORDER BY name
-    </select>
-    
-    <select id="findCityById" resultType="com.walkietalkie.triptalkie.domain.City">
-    	SELECT id, name, country_id FROM city where id = #{id}
+	<!-- travelinfo 테이블 전체 레코드 갯수 조회 -->
+	<select id="selectTravelInfoCount" resultType="int">
+		SELECT COUNT(*)
+		FROM travelinfo
+	</select>
+
+	<update id="updateViewCount">
+		UPDATE travelinfo
+		SET view = view + 1
+		WHERE idx =
+		#{idx}
+	</update>
+
+	<select id="getAllCountries"
+		resultType="com.walkietalkie.triptalkie.domain.Country">
+		SELECT id, name, land_id FROM country ORDER BY name
+	</select>
+
+	<select id="getAllCities"
+		resultType="com.walkietalkie.triptalkie.domain.City">
+		SELECT id, name, country_id FROM city ORDER BY name
+	</select>
+
+	<select id="findCityById"
+		resultType="com.walkietalkie.triptalkie.domain.City">
+		SELECT id, name, country_id FROM city where id = #{id}
+	</select>
+
+    <!-- 계층형 resultMap -->
+    <resultMap id="TravelInfoMap" type="com.walkietalkie.triptalkie.domain.TravelInfo">
+        <id property="idx" column="idx"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="infotype" column="infotype"/>
+        <result property="infodate" column="infodate"/>
+
+        <!-- City 매핑 -->
+        <association property="city" javaType="com.walkietalkie.triptalkie.domain.City">
+            <id property="id" column="city_id"/>
+            <result property="name" column="city_name"/>
+
+            <!-- Country 매핑 -->
+            <association property="country" javaType="com.walkietalkie.triptalkie.domain.Country">
+                <id property="id" column="country_id"/>
+                <result property="name" column="country_name"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <!-- 상세 조회 -->
+    <select id="getTravelInfoDetail" parameterType="long" resultMap="TravelInfoMap">
+        SELECT 
+            ti.idx,
+            ti.title,
+            ti.content,
+            ti.infotype,
+            ti.infodate,
+            c.id AS city_id,
+            c.name AS city_name,
+            co.id AS country_id,
+            co.name AS country_name
+        FROM travelinfo ti
+        JOIN city c ON ti.city_id = c.id
+        JOIN country co ON c.country_id = co.id
+        WHERE ti.idx = #{idx}
     </select>
 
 </mapper>
