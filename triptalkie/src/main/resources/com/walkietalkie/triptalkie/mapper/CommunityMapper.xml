@@ -1,49 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.walkietalkie.triptalkie.mapper.CommunityMapper">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.CommunityMapper">
+	<!--글 등록 -->
+	<insert id="register"
+		parameterType="com.walkietalkie.triptalkie.domain.Community"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO community(title,
+		content, created_at, member_id)
+		VALUES (#{title}, #{content}, NOW(),
+		#{memberId})
+	</insert>
+	<!--글 조회 <select id="findCommunityByIdx" parameterType="long" resultType="com.walkietalkie.triptalkie.domain.Community"> 
+		SELECT * FROM community WHERE idx = #{idx} </select> -->
+	<!--글 조회 -->
+	<select id="findByIdx" parameterType="long"
+		resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT * FROM community
+		WHERE idx = #{idx}
+	</select>
+	<!--글 목록 조회 -->
+	<select id="findAllList"
+		resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT
+		c.idx,
+		c.title,
+		c.view,
+		c.created_at AS createdAt,
+		c.updated_at AS updatedAt,
+		c.content,
+		c.member_id AS memberId,
+		m.nickname AS memberNickname
+		FROM community c
+		LEFT JOIN member m ON m.id
+		= c.member_id
+		ORDER BY c.idx DESC
+	</select>
+	<!--글 수정 -->
+	<update id="updateCommunity"
+		parameterType="com.walkietalkie.triptalkie.domain.Community">
+		UPDATE community
+		SET title = #{title},
+		content = #{content},
+		updated_at =
+		NOW()
+		WHERE idx = #{idx}
+		AND member_id = #{memberId} <!-- ✅ 작성자 일치할 때만 수정 -->
+	</update>
+	<!--글 삭제 -->
+	<delete id="deleteCommunity" parameterType="Long">
+		DELETE FROM community
+		WHERE idx = #{idx}
+	</delete>
+	<!--내가 쓴 글을 조회 -->
+	<select id="findCommunityByMemberId">
+		SELECT idx, title, member_id, created_at FROM
+		community WHERE member_id=
+		#{memberId} ORDER BY created_at DESC
+	</select>
+	<!--조회수 증가 -->
+	<update id="increaseViewCount">
+		UPDATE community
+		SET view = view + 1
+		WHERE idx=#{idx}
+	</update>
 
-    <insert id="register"
-            parameterType="com.walkietalkie.triptalkie.domain.Community"
-            useGeneratedKeys="true" keyProperty="idx">
-        INSERT INTO community(title, content, created_at, member_id)
-        VALUES (#{title}, #{content}, NOW(), #{memberId})
-    </insert>
+	<!-- 전체 게시글 개수 -->
+	<select id="countAll" resultType="int">
+		SELECT COUNT(*) FROM community
+	</select>
 
-    <select id="findCommunityByIdx" parameterType="long"
-            resultType="com.walkietalkie.triptalkie.domain.Community">
-        SELECT * FROM community
-        WHERE idx = #{idx}
-    </select>
+	<!-- 페이징 처리된 게시글 목록 -->
+	<select id="findPaged"
+		resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT
+		c.idx,
+		c.title,
+		c.view,
+		c.created_at AS createdAt,
+		c.updated_at AS updatedAt,
+		c.content,
+		c.member_id AS memberId,
+		m.nickname AS memberNickname
+		FROM community c
+		LEFT JOIN member m ON m.id=c.member_id
+		ORDER BY c.idx DESC
+		LIMIT #{size}
+		OFFSET #{startRow}
+	</select>
 
-    <select id="findByIdx" parameterType="long"
-            resultType="com.walkietalkie.triptalkie.domain.Community">
-        SELECT * FROM community
-        WHERE idx = #{idx}
-    </select>
-
-    <select id="findAllList"
-            resultType="com.walkietalkie.triptalkie.domain.Community">
-        SELECT * FROM community
-        ORDER BY idx DESC
-    </select>
-
-    <update id="updateCommunity"
-            parameterType="com.walkietalkie.triptalkie.domain.Community">
-        UPDATE community
-        SET title = #{title},
-            content = #{content},
-            updated_at = NOW()
-        WHERE idx = #{idx}
-          AND member_id = #{memberId} <!-- ✅ 작성자 일치할 때만 수정 -->
-    </update>
-
-    <delete id="deleteCommunity" parameterType="Long">
-        DELETE FROM community
-        WHERE idx = #{idx}
-    </delete>
-    
-    <select id="findCommunityByMemberId">
-    	SELECT idx, title, member_id, created_at FROM community WHERE member_id= #{memberId} ORDER BY created_at DESC
-    </select>
 
 </mapper>

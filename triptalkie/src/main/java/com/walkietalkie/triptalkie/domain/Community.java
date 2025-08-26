@@ -6,10 +6,12 @@ public class Community {
 	// 인스턴스 변수
 	private long idx;
 	private String title;
-	LocalDateTime createdAt;
-	LocalDateTime updatedAt;
-	String content;
-	String memberId;
+	private Long view;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
+	private String content;
+	private String memberId;
+	private String memberNickname;
 	// 생성자
 	public Community() {
 		super();
@@ -51,13 +53,27 @@ public class Community {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-
-	// toString
+	public Long getView() {
+		return view;
+	}
+	public void setView(Long view) {
+		this.view = view;
+	}
+	
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
 	@Override
 	public String toString() {
-		return "Community [idx=" + idx + ", title=" + title + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + ", content="
-				+ content + ", memberId=" + memberId + "]";
+		return "Community [idx=" + idx + ", title=" + title + ", view=" + view + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", content=" + content + ", memberId=" + memberId + ", memberNickname="
+				+ memberNickname + "]";
 	}
+	
+
+	
 
 }
