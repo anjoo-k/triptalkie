@@ -54,7 +54,7 @@ public class MypageController {
 		model.addAttribute("profileImageUrl", profileImageUrl);
 		// model 객체를 사용해서 profileImageUrl 값 저장, 뷰로 전달된다.
 
-		return "pages/mypage/myinformation-profiletest";
+		return "pages/mypage/myinformation";
 	}
 
 	// 내 정보 수정 화면
@@ -65,7 +65,13 @@ public class MypageController {
 			return "redirect:/member/loginPage";
 
 		Member member = mypageService.findMemberById(id);
+		
+		// 등록된 이미지 URL 가져오기
+		String profileImageUrl = memberImageService.getImageUrlByMemberId(id);
+
 		model.addAttribute("member", member);
+		model.addAttribute("profileImageUrl", profileImageUrl);
+		// model 객체를 사용해서 profileImageUrl 값 저장, 뷰로 전달된다.
 		return "pages/mypage/update-myinfo";
 	}
 
