@@ -31,7 +31,7 @@ import jakarta.websocket.Session;
 @Controller
 @RequestMapping("/travel-info")
 public class TravelInfoController {
-
+	
 	private final MemberService memberService;
 	private final TravelInfoService travelInfoService;
 	private final CountryService countryService;
@@ -92,14 +92,18 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/detail/{idx}")
-	public String TravelInfoDetailPage(@PathVariable("idx") long idx, Model model) {
+	public String TravelInfoDetailPage(@PathVariable("idx") long idx, Model model, HttpSession session) {
 	    // 1. 조회수 증가
 	    travelInfoService.increaseViewCount(idx);
 		
-		TravelInfo travelinfo = travelInfoService.findTravelInfoIdx(idx);
-		model.addAttribute("travelInfo", travelinfo);
-		
-
+	    // 2. 뷰에 데이터 전달을 위해서 model 객체에 저장
+	    TravelInfo travelInfo = travelInfoService.getTravelInfoDetail(idx);
+	    model.addAttribute("travelInfo", travelInfo);
+	    String loginId = memberService.getLoginId(session);
+	    // 로그인 정보 가져오기
+	    model.addAttribute("loginId", loginId);
+	    
+	    
 		return "pages/travel-info/detail";
 	}
 

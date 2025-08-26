@@ -1,51 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/base}">
-<head>
-<meta charset="UTF-8">
-<title th:text="${travelInfo.title}">여행 정보 상세</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-</head>
+
 <main layout:fragment="content">
-	<div class="container mt-5">
-		<div class="card">
-			<div class="card-header">
-				<h2 th:text="${travelInfo.title}">글 제목</h2>
-			</div>
-			<div class="card-body">
-				<p>
-					<strong>작성자:</strong> <span th:text="${travelInfo.memberId}">작성자</span>
-				</p>
-				<p>
-					<strong>작성일:</strong> <span
-						th:text="${#temporals.format(travelInfo.createdAt, 'yyyy-MM-dd')}">2025-08-19</span>
-				</p>
-				<p>
-					<strong>정보유형:</strong> <span th:text="${travelInfo.infotype}">관광지</span>
-				</p>
-				<p>
-					<strong>여행일자:</strong> <span
-						th:text="${#temporals.format(travelInfo.infodate, 'yyyy-MM-dd')}">2025-08-20</span>
-				</p>
-				<hr>
-				<div th:utext="${travelInfo.content}">내용</div>
-			</div>
-			<div class="card-footer text-right">
-				<a th:href="@{/travel-info/list}" class="btn btn-secondary">목록으로</a>
+	<div class="register-containers bg--containers pt-3 pb-3">
+		<div class="form-container detail-review">
 
-				<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}"
-					class="btn btn-secondary">수정</a>
-
-				<form
-					th:action="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
-					method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');"
-					style="display: inline;">
-					<button type="submit" class="btn btn-danger">삭제</button>
-				</form>
+			<!-- 제목 -->
+			<div class="form-group row mb-2 px-1">
+				<div class="col-sm-12">
+					<h5 class="font-weight-bold py-2 px-1 detail-title"
+						th:text="${travelInfo.title}">제목</h5>
+				</div>
 			</div>
 
+			<!-- 조회수 + 작성일 -->
+			<div class="form-group row mb-2 px-1">
+				<div class="col-sm-10">
+					<span class="badge--sub-desc" th:text="|조회수 · ${travelInfo.view}|"></span>
+				</div>
+				<div class="col-sm-2">
+					<span class="badge--sub-desc"
+						th:text="${#temporals.format(travelInfo.infodate, 'yyyy-MM-dd')}">날짜</span>
+				</div>
+			</div>
+			<div class="board-divider mb-2"></div>
+
+			<!-- 여행 도시 -->
+			<div class="form-group px-2 py-2 travel-city">
+				<p class="subheading mb-1">여행 장소</p>
+				<div class="d-flex align-items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+						fill="currentColor" class="bi bi-geo-alt-fill mr-2 text-icon"
+						viewBox="0 0 16 16">
+            <path
+							d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 
+                     0 1 1 0-6 3 3 0 0 1 0 6" />
+          </svg>
+					<span class="detail-text" th:text="${travelInfo.city.name}">도시</span>
+					<span style="white-space: pre;"> - </span> <span
+						class="detail-text" th:text="${travelInfo.city.country.name}">나라</span>
+
+				</div>
+				<div class="board-divider mt-2 mb-2"></div>
+
+				<!-- 본문 -->
+				<div class="form-group row">
+					<div class="col-sm-12 detail-review">
+						<p class="subheading mb-2">소개</p>
+						<pre class="detail-content" th:text="${travelInfo.content}"
+							style="white-space: pre-wrap;">본문</pre>
+					</div>
+				</div>
+				<div class="board-divider mb-3"></div>
+
+				<!-- 정보 종류 & 기준일 -->
+				<div class="form-group row mate-travel-type py-2">
+					<div class="col col-sm-4">
+						<p class="subheading mb-2">정보 종류</p>
+						<label class="btn selected-mate-type"
+							th:text="${travelInfo.infotype}"></label>
+					</div>
+					<div class="col">
+						<p class="subheading mb-2">정보 기준일</p>
+						<label class="btn selected-mate-type"
+							th:text="${#temporals.format(travelInfo.infodate, 'yyyy-MM')}"></label>
+					</div>
+				</div>
+				<div class="board-divider mb-3 mt-3"></div>
+
+				<!-- 버튼 영역 -->
+				<div class="d-flex justify-content-between align-items-center mt-3">
+					<button type="button" class="btn btn-back"
+						onclick="history.back();">목록</button>
+					<th:block
+						th:if="${loginId != null and loginId == travelInfo.memberId}">
+						<div>
+							<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}"
+								class="btn btn-edit">수정</a> <a
+								th:href="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
+								class="btn btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+						</div>
+					</th:block>
+				</div>
+<!-- 				<p>
+					loginId: <span th:text="${loginId}"></span>
+				</p>
+				<p>
+					travelInfo.memberId: <span th:text="${travelInfo.memberId}"></span>
+				</p> -->
+
+			</div>
 		</div>
-	</div>
 </main>
 </html>
