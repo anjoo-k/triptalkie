@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
@@ -25,6 +28,7 @@ public class MakemateService {
 	
 	private final MakemateMapper makemateMapper;
 	private final MakemateImageService makemateImageService;
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public MakemateService(MakemateMapper makemateMapper, MakemateImageService makemateImageService) {
 		super();
@@ -33,11 +37,11 @@ public class MakemateService {
 	}
 
 	// 글 목록 페이지
-	public Map<String, Object> findMakematesAllList(int currentPage, int size) {
+	public Map<String, Object> findMakematesAllList(int currentPage, int size, SearchCriteria criteria) {
 		// 페이지네이션
 		if(currentPage < 1) currentPage = 1;
 
-		int totalCount = makemateMapper.countMakemate(); // 전체 데이터 개수
+		int totalCount = makemateMapper.countMakemate(criteria); // 전체 데이터 개수
 		int offset = (currentPage - 1) * size;                   // 몇 번째부터 가져올지
 		int totalPage = (int) Math.ceil((double) totalCount / size); // 전체 페이지 개수
 		if(currentPage > totalPage) currentPage = totalPage;
@@ -52,21 +56,26 @@ public class MakemateService {
 			totalPage = 1;
 		}
  
-		List<Makemate> makeMateList = makemateMapper.findMakematesAllList(size, offset);
+		List<Makemate> makeMateList = makemateMapper.findMakematesAllList(size, offset, criteria);
 		CommonPage<Makemate> commonPage = new CommonPage<>(makeMateList, size, currentPage, totalPage, startPage, endPage);
 		
+		List<City> cityList = makemateMapper.findAllCityName();
+		List<Country> countryList = makemateMapper.findAllCountryName();
+
 		// list에서 보여줄 값 세팅 : makemate, member, city
 		List<Map<String, Object>> combinedList = new ArrayList<>();
 
 		for(Makemate makemate : makeMateList) {
 			Member member = makemateMapper.findMemberById(makemate.getMemberId());
 			City city = makemateMapper.findCityByIdx(makemate.getCityId());
+			Country country = makemateMapper.findCountryByIdx(city.getCountryId());
 			MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemate.getIdx());
 			
 		    Map<String, Object> combinedListMap = new HashMap<>();
 		    combinedListMap.put("makemate", makemate);
 		    combinedListMap.put("member", member);
 		    combinedListMap.put("city", city);
+		    combinedListMap.put("country", country);
 		    combinedListMap.put("photo", photo);
 
 		    combinedList.add(combinedListMap);
@@ -76,6 +85,8 @@ public class MakemateService {
 		Map<String, Object> result = new HashMap<>();
 		result.put("commonPage", commonPage);
 		result.put("combinedList", combinedList);
+		result.put("cityList", cityList);
+		result.put("countryList", countryList);
 
 		return result;
 	}
@@ -125,11 +136,12 @@ public class MakemateService {
 		    throw new IllegalArgumentException("종료일은 시작일 이후여야 합니다.");
 		}
 		
-		int result = makemateMapper.registerMakemate(makemate);
+		int makemateResult = makemateMapper.registerMakemate(makemate);
+		int listResult = makemateMapper.registerMemberlist(makemate.getIdx(), makemate.getMemberId());
 		if (!photo.isEmpty()) {
 			makemateImageService.registerImage(photo, makemate.getIdx());
 		}
-		if (result <= 0) {
+		if (makemateResult <= 0 && listResult<= 0) {
 		    throw new IllegalArgumentException("글 등록에 실패했습니다.");
 		}
 		

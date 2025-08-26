@@ -6,7 +6,7 @@
 <main layout:fragment="content">
 	<section>
 		<div class="form-container">
-			<form th:action="@{/travel-review/findTravelreviewAllList}" method="get">
+			<form th:action="@{/makemate/list}" method="get">
 				<div class="form-group row">
 					<div class="col-sm-10">
 						<input type="text" name="keyword" class="form-control search-box" placeholder="무엇을 찾아볼까요?">
@@ -18,16 +18,18 @@
 				<!-- 카테고리 필터 -->
 				<div class="form-group row">
 					<div class="col-md">
-						<select id="countrySelect" class="form-control select-box mr-2" name="countryId">
+						<select id="countrySelectList" class="form-control select-box mr-2" name="countryId">
 							<option value="">나라 선택</option>
-							<option th:each="country : ${countryList}" th:value="${country.id}"
+							<option th:each="country:${countryList}" th:value="${country.id}"
 								th:text="${country.name}"></option>
 						</select>
 					</div>
 
 					<div class="col-md">
-						<select id="citySelect" class="form-control select-box mr-2" name="cityId">
+						<select id="citySelectList" class="form-control select-box mr-2" name="cityId">
 							<option value="">도시 선택</option>
+							<option th:each="city:${cityList}" th:value="${city.id}" th:data-country-id="${city.countryId}" 
+								th:text="${city.name}"></option>
 						</select>
 					</div>
 
@@ -74,7 +76,7 @@
 							<!-- 썸네일 -->
 							<div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
 								<img th:src="${list.photo != null} ? '/uploads/' + ${list.photo.savedName} : '/images/bangkok.jpg'"
-								class="img-fluid" th:alt="@{'list.photo.originalName'}" style="height: 100px;">
+								class="img-fluid"  th:alt="${list.photo != null} ? ${list.photo.originalName} : '기본이미지'"  style="height: 100px;">
 							</div>
 							<!-- 글 제목 + 내용 -->
 							<div class="flex-grow-1">
@@ -175,7 +177,6 @@
 				</div>
 			</div>
 		</div>
-
 	</section>
 	<script src="/js/make-mate.js"></script>
 	<script src="/js/make-mate-knj.js"></script>

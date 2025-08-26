@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
@@ -55,14 +57,17 @@ public class MakemateController {
 	
 	// 글 목록 페이지
 	@GetMapping("/list")	// 추후 전체 출력 + 검색 + 페이지네이션으로 변경 필요
-	public String makemateAllList(@RequestParam(defaultValue = "1") int page,
+	public String makemateAllList(@RequestParam(defaultValue = "1")int page,
+									@ModelAttribute SearchCriteria criteria, 
 									Model model) {
 		
 		int size = 4; // 한 페이지에 보이는 글 수
-		Map<String, Object> result = makemateService.findMakematesAllList(page, size);
+		Map<String, Object> result = makemateService.findMakematesAllList(page, size, criteria);
 		
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
+		model.addAttribute("countryList", result.get("countryList"));
+		model.addAttribute("cityList", result.get("cityList"));
 		return "pages/make-mate/list";
 	}
 	
@@ -74,7 +79,6 @@ public class MakemateController {
 		// 1. makemate 정보 o, 2. member 정보(글쓴이) o, 
 		// 3. memberlist 정보-join 두 번 묶어서 사진만 내려보내주면 되는건가?, 
 		// 4.  land, country, city 정보 o, 5. bookmark 정보
-		// 6. viewCount 증가
 		
 		String id = (String) session.getAttribute("loginId");
 		if (id == null)
@@ -102,7 +106,6 @@ public class MakemateController {
 	}
 	
 	// 글등록
-	// memberlist에 글리더 등록해줘야함
 	@PostMapping("/register")
 	public String registerMatemate(HttpSession session, Makemate makemate,
 									MultipartFile photo, Model model) throws IOException{
