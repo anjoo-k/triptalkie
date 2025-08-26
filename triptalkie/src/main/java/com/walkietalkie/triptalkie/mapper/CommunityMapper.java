@@ -29,5 +29,12 @@ public interface CommunityMapper {
 	int countAll();
 	
     List<Community> findPaged(@Param("size") int size, @Param("startRow") int startRow);
+
+	int countByTitle(@Param("search") String search);
+
+	List<Community> findPagedByTitle(@Param("size") int size, 
+									 @Param("startRow") int startRow, 
+									 @Param("search") String search);
+	
 	
 }

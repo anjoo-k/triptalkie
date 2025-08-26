@@ -3,106 +3,109 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/base}">
 
-<div layout:fragment="content">
+<main layout:fragment="content">
+	<div class="pt-5 pb-5">
 
-	<!-- 🔎 검색 영역 -->
-	<div class="d-flex mb-3 gap-2">
-		<input type="text" class="form-control" placeholder="검색어를 입력해 주세요.">
-		<button class="btn btn-outline-success">검색</button>
-	</div>
-
-	<div class="d-flex mb-4 gap-2">
-		<select class="form-select w-auto">
-			<option selected>여행컨셉</option>
-			<option value="1">맛집</option>
-			<option value="2">액티비티</option>
-			<option value="3">문화/공연</option>
-		</select> <select class="form-select w-auto">
-			<option selected>동행유형</option>
-			<option value="1">부분동행</option>
-			<option value="2">전체동행</option>
-			<option value="3">숙박공유</option>
-		</select>
-	</div>
-
-	<!-- 📋 게시판 리스트 -->
-	<table class="table table-hover align-middle">
-		<thead class="table-light">
-			<tr>
-				<th style="width: 100px;">번호</th>
-				<th style="width: 300px">글제목</th>
-				<th style="width: 150px;">닉네임</th>
-				<th style="width: 80px;">조회수</th>
-				<th style="width: 150px;">작성일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="post, stat : ${communityList}">
-				<td th:text="${stat.count}">번호</td>
-				<td><a
-					th:href="@{/community/detail-community/{idx}(idx=${post.idx})}"
-					th:text="${post.title}">글 제목</a></td>
-				<td th:text="${post.memberNickname}">작성자 닉네임</td>
-				<td th:text="${post.view}">조회수</td>
-				<td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2025-08-19</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<!-- 페이지네이션, 글쓰기 버튼 -->
-	<div class="d-flex justify-content-between align-items-center mb-3">
-
-		<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
-		<div class="flex-grow-1 text-center" th:if="${pageData.totalPage > 0}">
-			<nav class="p-2 pagination--bottom">
-				<ul class="pagination justify-content-center mb-0">
-
-					<!-- 처음으로 -->
-					<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
-						class="page-item pagination--spacing"><a class="page-link"
-						th:href="@{/community/list(page=1)}">&laquo;</a></li>
-
-					<!-- 이전 -->
-					<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
-						class="page-item pagination--spacing"><a class="page-link"
-						th:href="@{/community/list(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a>
-					</li>
-
-					<!-- 페이지 번호 반복 -->
-					<li
-						th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
-						th:classappend="${i == pageData.currentPage} ? 'active' : ''"
-						class="page-item pagination--spacing"><a class="page-link"
-						th:href="@{/community/list(page=${i})}" th:text="${i}">1</a></li>
-
-					<!-- 다음 -->
-					<li
-						th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
-						class="page-item pagination--spacing"><a class="page-link"
-						th:href="@{/community/list(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a>
-					</li>
-
-					<!-- 마지막 -->
-					<li
-						th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
-						class="page-item pagination--spacing"><a class="page-link"
-						th:href="@{/community/list(page=${pageData.totalPage})}">&raquo;</a>
-					</li>
-				</ul>
-			</nav>
+		<!-- 🔎 검색 영역 -->
+		<div class="form-container">
+			<form th:action="@{/community/list}" method="get">
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="search"
+							placeholder="검색어를 입력해 주세요." th:value="${search}">
+					</div>
+					<div class="col-sm-2">
+						<button type="submit" class="btn btn-block btn-search">검색</button>
+					</div>
+				</div>
+			</form>
 		</div>
 
-		<!-- 검색 결과 없을 때 메시지 -->
-		<div th:if="${pageData.totalPage == 0}" class="col-6 text-center p-3">
-			검색 결과가 없습니다.</div>
+		<!-- 📋 게시판 리스트 -->
+		<div class="board-divider mx-4 px-2"></div>
 
-		<!-- 오른쪽 글쓰기 버튼 -->
-		<div class="text-end">
-			<a class="btn btn-write" th:href="@{/community/register}">글쓰기</a>
+		<div class="review-list-container mt-4 mx-4">
+			<table class="table table-hover align-middle">
+				<thead class="table-light">
+					<tr>
+						<th style="width: 100px;">번호</th>
+						<th style="width: 300px">글제목</th>
+						<th style="width: 150px;">닉네임</th>
+						<th style="width: 80px;">조회수</th>
+						<th style="width: 150px;">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="post, stat : ${communityList}">
+						<td th:text="${stat.count}">번호</td>
+						<td><a style="color: var(--color-text-primary);"
+							th:href="@{/community/detail-community/{idx}(idx=${post.idx})}"
+							th:text="${post.title}">글 제목</a></td>
+						<td th:text="${post.memberNickname}">작성자 닉네임</td>
+						<td th:text="${post.view}">조회수</td>
+						<td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2025-08-19</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- 페이지네이션, 글쓰기 버튼 -->
+		<div class="d-flex justify-content-between align-items-center mb-3">
+
+			<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
+			<div class="flex-grow-1 text-center"
+				th:if="${pageData.totalPage > 0}">
+				<nav class="p-2 pagination--bottom">
+					<ul class="pagination justify-content-center mb-0">
+
+						<!-- 처음으로 -->
+						<li
+							th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
+							class="page-item pagination--spacing"><a class="page-link"
+							th:href="@{/community/list(page=1)}">&laquo;</a></li>
+
+						<!-- 이전 -->
+						<li
+							th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
+							class="page-item pagination--spacing"><a class="page-link"
+							th:href="@{/community/list(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a>
+						</li>
+
+						<!-- 페이지 번호 반복 -->
+						<li
+							th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
+							th:classappend="${i == pageData.currentPage} ? 'active' : ''"
+							class="page-item pagination--spacing"><a class="page-link"
+							th:href="@{/community/list(page=${i})}" th:text="${i}">1</a></li>
+
+						<!-- 다음 -->
+						<li
+							th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
+							class="page-item pagination--spacing"><a class="page-link"
+							th:href="@{/community/list(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a>
+						</li>
+
+						<!-- 마지막 -->
+						<li
+							th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
+							class="page-item pagination--spacing"><a class="page-link"
+							th:href="@{/community/list(page=${pageData.totalPage})}">&raquo;</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- 검색 결과 없을 때 메시지 -->
+			<div th:if="${pageData.totalPage == 0}" class="col-6 text-center p-3">
+				검색 결과가 없습니다.</div>
+
+			<!-- 오른쪽 글쓰기 버튼 -->
+			<div class="text-end">
+				<a class="btn btn-write" th:href="@{/community/register}">글쓰기</a>
+			</div>
 		</div>
 	</div>
-
-</div>
+</main>
 </html>
 
 
