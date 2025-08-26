@@ -268,21 +268,51 @@ input[type="radio"]:checked+label.mate-type {
 }
 
 /* 댓글 */
-
 .comment-section {
 	background-color: var(--color-secondary);
 }
 
-.comment-content {
-	width: 100%;
+#comment-list {
+	background: var(--color-secondary);
 	border-radius: 10px;
+	padding: 10px;
+}
+
+.comment-content, .edit-comment {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid var(--color-primary);
+}
+
+.comment-content:focus, .edit-comment:focus {
+  border-color: var(--color-primary); /* 포커스 시 보더 컬러 강제 */
+  outline: none; /* 브라우저 기본 파란 테두리 제거 */
 }
 
 .comment-content, .comment-write-btn {
 	height: 40px;
+	width: 100%;
 }
+
+/* .comment-write-btn {
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	border: none;
+} */
+
+/* .comment-write-btn:hover {
+	
+} */
 
 .edit-comment {
 	width: 100%;
 	border-radius: 10px;
+}
+
+.button-style {
+	padding-left: 0px;
+}
+
+.comment-date {
+	font-size: small;
 }

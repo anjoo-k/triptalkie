@@ -222,12 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			            </div>
 			            <div class="row mb-1">
 			                <div class="col-sm-12 text-end">
-			                    <span class="text-muted">${dateText}</span>
+			                    <span class="text-muted comment-date">${dateText}</span>
 			                </div>
 			            </div>
 			            <div class="row">
 			                <div class="col-sm-12">
-			                    <span class="reply-content subheading">${comment.content}</span>
+			                    <span class="reply-content content-text">${comment.content}</span>
 			                </div>
 			            </div>
 			        </div>
@@ -257,8 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 수정 버튼 생성
 	function updateComment(updateReplyBtn, comment, idxToUpdateReply) {
-		const commentRow = updateReplyBtn.closest('.row.mb-3'); // 수정 버튼과 내용이 들어있는 큰 블록
-		const commentDiv = commentRow.querySelector('.reply-content-box'); // 그 안에서 댓글 내용 span
+		const commentRow = updateReplyBtn.closest('.row.reply-content-box'); // 수정 버튼과 내용이 들어있는 큰 블록
+		const commentDiv = commentRow.querySelector('.col-sm-12'); // 그 안에서 댓글 내용 span
 		if (!commentDiv) return;
 
 		console.log('넘어 온 값 : ' + comment.content);
@@ -273,18 +273,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		const input = document.createElement('input');
 		input.type = 'text';
 		input.value = comment.content;
+		input.id = "edit-comment";
 		input.classList.add('edit-comment');
 
 		// 저장 버튼 생성
 		const saveBtn = document.createElement('button');
 		saveBtn.textContent = '저장';
-/*		saveBtn.classList.add('save-btn');
-*/
+		saveBtn.classList.add('save-btn');
+		
 		// 취소 버튼 생성
 		const cancelBtn = document.createElement('button');
 		cancelBtn.textContent = '취소';
-/*		saveBtn.classList.add('cancel-btn');
-*/
+		saveBtn.classList.add('cancel-btn');
+
 		// input + 버튼 삽입
 		commentDiv.appendChild(input);
 		commentDiv.appendChild(saveBtn);
