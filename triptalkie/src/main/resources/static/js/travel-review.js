@@ -151,43 +151,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 댓글 기능
 	const commentBtn = document.getElementById('comment-write-btn');
-	let travelReviewId = null;
-	if (commentBtn) {
-		commentBtn.addEventListener("click", async () => {
-			travelReviewId = commentBtn.getAttribute('data-idx');
-			const loginMember = document.getElementById('memberId').value;
-			// const nickname = document.getElementById('nickname').value;
-			const commentContents = document.getElementById('comment-content').value;
+		if (commentBtn) {
+			commentBtn.addEventListener("click", async () => {
+				const travelReviewId = commentBtn.getAttribute('data-idx');
+				const loginMember = document.getElementById('memberId').value;
+				const commentContents = document.getElementById('comment-content').value;
 
-			if (!commentContents.trim()) {
-				alert("댓글 내용을 입력하세요.");
-				return;
-			}
-			
-			try {
-				const response = await fetch(`/travelReviewComment/register`, {
-					method: 'POST',
-					headers:{'Content-Type' : 'application/json'},
-					body: JSON.stringify({
-						travelReviewIdx: travelReviewId,
-						memberId: loginMember,
-						content:commentContents
-					})
-				});
-				
-				const result = await response.json();
-				
-				if(response.ok){
-					alert(result.message);
-					location.reload();	// 페이지 혹은 댓글 영역 새로 고침
-				} else {
-					alert("댓글 작성 실패 : " + result.message);
+				if (!commentContents.trim()) {
+					alert("댓글 내용을 입력하세요.");
+					return;
 				}
 
-			} catch (e) {
-				console.error(e);
-				alert('삭제 중 오류 발생');
+				try {
+					const response = await fetch(`/travelReviewComment/register`, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							travelReviewIdx: travelReviewId,
+							memberId: loginMember,
+							content: commentContents
+						})
+					});
+
+					const result = await response.json();
+
+					if (response.ok) {
+						showComment(result.comment);
+						document.getElementById('comment-content').value = '';	// 입력창을 비워줌
+					} else {
+						alert("댓글 작성 실패 : " + result.message);
+					}
+
+				} catch (e) {
+					console.error(e);
+					alert('댓글 등록 중 오류 발생');
+				}
+			});
+		}
+
+		// 댓글 처리
+		function showComment(comment) {
+			const commentList = document.getElementById('comment-list');
+			if (!commentList) return;
+			alert(comment.createdAt);
+			// createdAt 포맷 YYYY-MM-DD
+			let dateText = '';
+			if (comment.createdAt) {
+				const d = new Date(comment.createdAt);
+				const year = d.getFullYear();
+				const month = String(d.getMonth() + 1).padStart(2, '0');
+				const day = String(d.getDate()).padStart(2, '0');
+				dateText = `${year}-${month}-${day}`;
 			}
+
+			const div = document.createElement('div');
+			div.className = 'row mb-3';
+			div.innerHTML = `
+			        <div class="col-sm-1">
+			            <img src="/images/original-profile.png" class="rounded-circle" style="width:40px;height:40px;">
+			        </div>
+			        <div class="col-sm-11">
+			            <div class="row mb-1">
+			                <div class="col-sm-9 d-flex align-items-center">
+			                    <span class="nickname subheading">${comment.nickName}</span>
+			                </div>
+			                <div class="col-sm-3 text-end">
+			                    <a href="#" class="text-muted me-1">수정</a> | 
+			                    <a href="#" class="text-muted">삭제</a>
+			                </div>
+			            </div>
+			            <div class="row mb-1">
+			                <div class="col-sm-12 text-end">
+			                    <span class="text-muted">${dateText}</span>
+			                </div>
+			            </div>
+			            <div class="row">
+			                <div class="col-sm-12">
+			                    <span class="reply-content subheading">${comment.content}</span>
+			                </div>
+			            </div>
+			        </div>
+			    `;
+			commentList.prepend(div);
+		}
+
+		// 수정 
+
+		// 삭제
+		const commentDeleteModal = document.getElementById('commentDeleteModal');
+		const confirmCommentDeleteBtn = document.getElementById('confirm-comment-delete');
+
+		let idxToDeleteReply = null;
+
+		// 댓글 삭제 버튼 클릭
+		document.querySelectorAll('.delete-reply').forEach(btn => {
+			btn.addEventListener('click', function() {
+				idxToDeleteReply = this.getAttribute('data-id'); // 클릭한 댓글 ID
+				if (idxToDeleteReply) {
+					// Bootstrap 4 모달 열기
+					$(commentDeleteModal).modal('show');
+				}
+			});
 		});
-	}
+
+		// 모달에서 '예' 버튼 클릭
+		if (confirmCommentDeleteBtn) {
+			confirmCommentDeleteBtn.addEventListener('click', async function() {
+				if (!idxToDeleteReply) return;
+
+				try {
+					const response = await fetch(`/travelReviewComment/delete?idx=${idxToDeleteReply}`, {
+						method: 'POST',
+					});
+					const data = await response.json();
+
+					if (data.success) {
+						alert(data.message);
+						location.reload(); // 삭제 후 새로고침
+					} else {
+						alert(data.message);
+					}
+				} catch (e) {
+					console.error(e);
+					alert('댓글 삭제 중 오류 발생');
+				}
+			});
+		}
 });

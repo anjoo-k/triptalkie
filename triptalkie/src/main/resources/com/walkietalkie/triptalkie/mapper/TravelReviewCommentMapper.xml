@@ -2,10 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.TravelReviewCommentMapper">
-	<insert id="registerComment" parameterType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO" useGeneratedKeys="true" keyProperty="idx">
+	<insert id="registerComment"
+		parameterType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO"
+		useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO travelreview_comment
-		(travelreview_idx, parent_id, content, member_id, created_at, updated_at)
+		(travelreview_idx, content, member_id, created_at,
+		updated_at)
 		VALUES
-		(#{travelReviewIdx}, #{parentId}, #{content}, #{memberId}, NOW(), NOW())
+		(#{travelReviewIdx}, #{content},
+		#{memberId}, NOW(), NOW())
 	</insert>
+
+	<select id="findAllReplyByIdx"
+		resultType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO">
+		SELECT
+		c.idx,
+		c.travelreview_idx AS travelReviewIdx,
+		c.member_id AS memberId,
+		m.nickname AS nickName,
+		c.content,
+		c.created_at AS createdAt,
+		c.updated_at AS updatedAt
+		FROM travelreview_comment c
+		JOIN member m ON c.member_id = m.id
+		WHERE c.travelreview_idx = #{travelReviewIdx}
+		ORDER BY c.created_at DESC
+	</select>
+
+	<select id="findByIdx"
+		resultType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO">
+		SELECT
+		c.idx,
+		c.travelreview_idx AS travelReviewIdx,
+		c.member_id AS memberId,
+		m.nickname AS nickName,
+		c.content,
+		c.created_at
+		AS createdAt,
+		c.updated_at AS updatedAt
+		FROM travelreview_comment c
+		JOIN
+		member m ON c.member_id = m.id
+		WHERE c.idx = #{idx}
+		ORDER BY
+		c.created_at DESC
+	</select>
+	
+	<delete id="deleteCommentByIdx">
+		DELETE FROM travelreview_comment
+		WHERE idx = #{idx}
+	</delete>
 </mapper>
