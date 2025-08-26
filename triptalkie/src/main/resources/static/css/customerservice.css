@@ -17,3 +17,9 @@
 	opacity: 0.5;
 	border-radius: 10px;
 }
+
+.pagination-wrapper {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0; /* footer와 약간 띄우기 */
+}

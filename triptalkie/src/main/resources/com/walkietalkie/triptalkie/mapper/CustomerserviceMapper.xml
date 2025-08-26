@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.CustomerserviceMapper">
+	<select id="findAllFqa">
+		SELECT idx, title, view, content, created_at, member_id 
+		FROM faq
+		ORDER BY created_at DESC
+	</select>
+	
+	<select id="findCountFaq">
+		SELECT COUNT(*) FROM faq
+	</select>
+	
+	<select id="findFaqPaged" resultType="map" parameterType="map">
+		SELECT idx, title, view, content, created_at, member_id 
+		FROM faq
+		ORDER BY created_at DESC
+		LIMIT #{startRow}, #{size}
+	</select>
+</mapper>
