@@ -1,7 +1,6 @@
 package com.walkietalkie.triptalkie.controller;
 
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,17 +27,24 @@ public class CommunityController {
     // 커뮤니티 목록 페이지
     @GetMapping("/list")
     public String communityList(@RequestParam(defaultValue = "1") int page,
-    							@RequestParam(defaultValue = "5") int size,
-    							Model model) {
-    	//전체 목록
-        List<Community> communityList = communityService.findCommunityAllList();
-        model.addAttribute("communityList", communityList);
-        
-        //페이지 목록
-        CommonPage<Community> pageData = communityService.findCommunityPage(page, size);
+                                @RequestParam(defaultValue = "5") int size,
+                                @RequestParam(required = false) String search,
+                                Model model) {
+
+        CommonPage<Community> pageData;
+
+        // 검색어가 있을 경우
+        if (search != null && !search.trim().isEmpty()) {
+            pageData = communityService.findCommunityPageByTitle(page, size, search);
+            model.addAttribute("search", search);
+        } else {
+            // 전체 목록
+            pageData = communityService.findCommunityPage(page, size);
+        }
+
         model.addAttribute("pageData", pageData);
         model.addAttribute("communityList", pageData.getContent());
-        
+
         return "pages/community/list";
     }
 
@@ -54,12 +60,12 @@ public class CommunityController {
     public String registerCommunity(@ModelAttribute Community community,
                                     HttpSession session,
                                     RedirectAttributes redirectAttributes) {
-        String loingId = memberService.getLoginId(session);
-        if (loingId == null) {
+        String loginId = memberService.getLoginId(session);
+        if (loginId == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
             return "redirect:/member/login";
         }
-        community.setMemberId(loingId);
+        community.setMemberId(loginId);
         communityService.registerCommunity(community);
         return "redirect:/community/list";
     }
@@ -82,9 +88,9 @@ public class CommunityController {
                              HttpSession session,
                              RedirectAttributes redirectAttributes) {
         Community community = communityService.findCommunityByIdx(idx);
-        String loingId = memberService.getLoginId(session);
+        String loginId = memberService.getLoginId(session);
 
-        if (loingId == null || !loingId.equals(community.getMemberId())) {
+        if (loginId == null || !loginId.equals(community.getMemberId())) {
             redirectAttributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
             return "redirect:/community/detail-community/" + idx;
         }
@@ -98,21 +104,21 @@ public class CommunityController {
     public String updateCommunity(@ModelAttribute Community community,
                                   HttpSession session,
                                   RedirectAttributes redirectAttributes) {
-        String loingId = memberService.getLoginId(session);
-        if (loingId == null) {
+        String loginId = memberService.getLoginId(session);
+        if (loginId == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
             return "redirect:/member/login";
         }
         
         // ✅ DB에서 작성자 확인
         Community dbCommunity = communityService.findCommunityByIdx(community.getIdx());
-        if (!loingId.equals(dbCommunity.getMemberId())) {
+        if (!loginId.equals(dbCommunity.getMemberId())) {
         		System.out.println("수정 권한 오류");
             redirectAttributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
             return "redirect:/community/detail-community/" + community.getIdx();
         }
         
-        community.setMemberId(loingId);
+        community.setMemberId(loginId);
         
         int rowsAffected = communityService.updateCommunityByIdxAndMemberId(community);
         System.out.println("업데이트 메서드 실행 성공!!!");
@@ -128,9 +134,9 @@ public class CommunityController {
                                   HttpSession session,
                                   RedirectAttributes redirectAttributes) {
         Community community = communityService.findCommunityByIdx(idx);
-        String loingId = memberService.getLoginId(session);
+        String loginId = memberService.getLoginId(session);
 
-        if (loingId == null || !loingId.equals(community.getMemberId())) {
+        if (loginId == null || !loginId.equals(community.getMemberId())) {
             redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
             return "redirect:/community/detail-community/" + idx;
         }

@@ -35,8 +35,6 @@ public interface MakemateMapper {
 
 	int registerMakemate(Makemate makemate);
 
-//	List<City> findAllRegion();
-
 	List<City> findAllCityName();
 
 	List<Country> findAllCountryName();
