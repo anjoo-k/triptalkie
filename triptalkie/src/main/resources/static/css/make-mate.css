@@ -90,7 +90,7 @@
 }
 
 /* 작성하기 */
-.title-section, .category-section, .content-section, .button-section {
+.title-section, .category-section, .content-section, .button-mm-section {
 	padding: 10px;
 }
 
@@ -104,7 +104,6 @@
     gap: 10px; /* input/라벨과 이미지 간격 */
     padding: 10px;
     background-color: var(--color-board-background);
-    
 }
 
 .upload-tile {
@@ -127,15 +126,14 @@
 	padding-top: 5px;
 }
 
-.button-sectionz .row {
+.button-mm-section .row {
     display: flex;
     justify-content: flex-start; /* 버튼들이 왼쪽부터 */
     align-items: center;
-    gap: 16px; /* 버튼 사이 간격 */
 }
 
-.btn-back,
-.btn-complete {
+.btn-mm-back,
+.btn-mm-complete {
     height: 48px;
     min-width: 150px;  /* 버튼 최소 가로 길이 */
     border-radius: 24px; /* pill 모양 */
@@ -146,23 +144,23 @@
     align-items: center;
 }
 
-.button-section{
+.button-mm-section{
 	background-color: #fff;
 }
 
-.btn-back {
-    border: 1px solidvar(--color-primary);
+.btn-mm-back {
+    border: 1px solid var(--color-primary);
     background-color: #fff;
     color: var(--color-primary);
 }
-.btn-complete {
+.btn-mm-complete {
     border: none;
     background-color: var(--color-secondary);
     color: var(--color-text-secondary);
-    min-width: 536px;
+    width: 100%
 }
 
-.btn-complete:hover {
+.btn-mm-complete:hover {
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
 }
