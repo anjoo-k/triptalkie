@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Community;
 import com.walkietalkie.triptalkie.service.CommunityService;
 import com.walkietalkie.triptalkie.service.MemberService;
@@ -26,9 +27,18 @@ public class CommunityController {
 
     // 커뮤니티 목록 페이지
     @GetMapping("/list")
-    public String communityList(Model model) {
+    public String communityList(@RequestParam(defaultValue = "1") int page,
+    							@RequestParam(defaultValue = "5") int size,
+    							Model model) {
+    	//전체 목록
         List<Community> communityList = communityService.findCommunityAllList();
         model.addAttribute("communityList", communityList);
+        
+        //페이지 목록
+        CommonPage<Community> pageData = communityService.findCommunityPage(page, size);
+        model.addAttribute("pageData", pageData);
+        model.addAttribute("communityList", pageData.getContent());
+        
         return "pages/community/list";
     }
 
@@ -59,6 +69,9 @@ public class CommunityController {
     public String communityDetail(@PathVariable("idx") long idx, Model model) {
         Community community = communityService.findCommunityByIdx(idx);
         model.addAttribute("community", community);
+        
+        // 조회수 증가
+     	communityService.increaseViewCount(idx);
         return "pages/community/detail-community";
     }
 
@@ -124,4 +137,7 @@ public class CommunityController {
         communityService.deleteCommunityByIdx(idx);
         return "redirect:/community/list";
     }
+    
+    
+
 }
