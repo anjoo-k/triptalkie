@@ -2,38 +2,38 @@ package com.walkietalkie.triptalkie.domain;
 
 public class Memberlist {
 
-	private int makemate_idx;
-	private String member_id;
+	private long makemateIdx;
+	private String memberId;
 
 	public Memberlist() {
 		super();
 	}
 
-	public Memberlist(int makemate_idx, String member_id) {
+	public Memberlist(long makemateIdx, String memberId) {
 		super();
-		this.makemate_idx = makemate_idx;
-		this.member_id = member_id;
+		this.makemateIdx = makemateIdx;
+		this.memberId = memberId;
 	}
 
-	public int getMakemate_idx() {
-		return makemate_idx;
+	public long getMakemateIdx() {
+		return makemateIdx;
 	}
 
-	public void setMakemate_idx(int makemate_idx) {
-		this.makemate_idx = makemate_idx;
+	public void setMakemateIdx(long makemateIdx) {
+		this.makemateIdx = makemateIdx;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override
 	public String toString() {
-		return "Memberlist [makemate_idx=" + makemate_idx + ", member_id=" + member_id + "]";
+		return "Memberlist [makemateIdx=" + makemateIdx + ", memberId=" + memberId + "]";
 	}
 
 }

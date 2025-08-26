@@ -3,7 +3,9 @@ package com.walkietalkie.triptalkie.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.Land;
@@ -13,9 +15,9 @@ import com.walkietalkie.triptalkie.domain.Member;
 @Mapper
 public interface MakemateMapper {
 
-	int countMakemate();
+	int countMakemate(SearchCriteria criteria);
 
-	List<Makemate> findMakematesAllList(int size, int offset);
+	List<Makemate> findMakematesAllList(int size, int offset, SearchCriteria criteria);
 
 	Member findMemberById(String memberId);
 
@@ -44,5 +46,7 @@ public interface MakemateMapper {
 	int updateMakemate(Makemate makemate);
 
 	int deleteMakemateByIdx(String memberId, Long makemateId);
+
+	int registerMemberlist(long makemateIdx, String memberId);
 
 }
