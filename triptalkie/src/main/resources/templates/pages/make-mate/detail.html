@@ -7,8 +7,10 @@
 	<section>
 		<div class="row">
 			<div class="col-sm-12">
-				<img th:src="${photo != null} ? '/uploads/' + ${photo.savedName} : '/images/bangkok.jpg'"
-					 th:alt="${photo != null} ? ${photo.originalName} : '기본이미지'"  class="img-fluid rounded d-block">
+				<img
+					th:src="${photo != null} ? '/uploads/' + ${photo.savedName} : '/images/bangkok.jpg'"
+					th:alt="${photo != null} ? ${photo.originalName} : '기본이미지'"
+					class="img-fluid rounded d-block">
 			</div>
 		</div>
 	</section>
@@ -130,7 +132,8 @@
 			</form>
 			<div class="col-sm-2" id="profile" th:data-id="${member.id}">
 				<img th:src="@{/images/original-profile.png}"
-					class="img-fluid rounded-circle d-block border" style="cursor: pointer;">
+					class="img-fluid rounded-circle d-block border"
+					style="cursor: pointer;">
 			</div>
 			<div class="col-sm-8 d-flex flex-column justify-content-center">
 				<div>
@@ -149,13 +152,14 @@
 			<div>
 				<h5>함께하는 메이트들</h5>
 			</div>
-			<div class="row">
-				<div class="col-sm-1">
-					<img th:src="@{/images/original-profile.png}"
-						class="img-fluid rounded-circle d-block border">
-				</div>
-				<div class="col-sm-1">
-					<img th:src="@{/images/original-profile.png}"
+			<div class="row" th:if="${#lists.isEmpty(memberlistPhoto)}">
+				<span class="col-sm-5">아직 함께하는 메이트가 없습니다.</span>
+			</div>
+			<div class="row" th:each="memberlist : ${memberlistPhoto}">
+				<div class="col-sm-1" th:each="memberPhoto : ${memberlistPhoto.memberImage}">
+					<img th:if="${memberlist.savedName != null}"
+						th:src="@{|/uploads/${memberlist.savedName}|}"
+						th:alt="${memberlist.originalName}"
 						class="img-fluid rounded-circle d-block border">
 				</div>
 			</div>
