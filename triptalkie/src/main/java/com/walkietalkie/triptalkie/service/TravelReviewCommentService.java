@@ -17,20 +17,15 @@ public class TravelReviewCommentService {
 	}
 
 	public TravelReviewCommentDTO registerComment(TravelReviewCommentDTO travelReivewCommentDTO) {
-		System.out.println("댓글 매퍼 진입");
 		travelReviewCommentMapper.registerComment(travelReivewCommentDTO);
 		return travelReivewCommentDTO;
 	}
 
 	public List<TravelReviewCommentDTO> findAllReplyByIdx(Long idx) {
-		System.out.println("findAllReplyByIdx 매퍼 진입");
-		System.out.println("넘어 온 값 : " + idx);
 		return travelReviewCommentMapper.findAllReplyByIdx(idx);
 	}
 
 	public TravelReviewCommentDTO findByIdx(Integer idx) {
-		System.out.println("findByIdx 매퍼 진입");
-		System.out.println("넘어 온 값 : " + idx);
 		return travelReviewCommentMapper.findByIdx(idx);
 	}
 
@@ -39,4 +34,15 @@ public class TravelReviewCommentService {
 		
 	}
 
+	public TravelReviewCommentDTO updateCommentByIdx(TravelReviewCommentDTO travelReviewCommentDTO) {
+		System.out.println("updateCommentByIdx 매퍼 진입");
+		System.out.println("넘어 온 값 : " + travelReviewCommentDTO);
+		int updated = travelReviewCommentMapper.updateCommentByIdx(travelReviewCommentDTO);
+		System.out.println("updated : " + updated);
+		if (updated > 0) {
+			return travelReviewCommentMapper.findByIdx(travelReviewCommentDTO.getIdx());
+		}
+		
+		return null;
+	}
 }

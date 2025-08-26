@@ -17,4 +17,6 @@ public interface TravelReviewCommentMapper {
 
 	void deleteCommentByIdx(Integer idx);
 
+	int updateCommentByIdx(TravelReviewCommentDTO travelReviewCommentDTO);
+
 }
