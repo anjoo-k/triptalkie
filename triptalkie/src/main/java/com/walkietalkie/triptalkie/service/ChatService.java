@@ -36,6 +36,24 @@ public class ChatService {
 		}
 		return room;
 	}
+	
+	// 채팅방 생성 또는 조회
+	@Transactional
+	public ChatRoom createOrGetChatRoom2(Long makemateIdx, String member1Id,
+			String member2Id) {
+		ChatRoom room = chatMapper.findRoom(member1Id, member2Id, makemateIdx);
+		if (room == null) {
+			ChatRoom newRoom = new ChatRoom();
+			newRoom.setMember1Id(member1Id);
+			newRoom.setMember2Id(member2Id);
+			newRoom.setMakemateIdx(makemateIdx);
+			chatMapper.registerChatRoom(newRoom); // useGeneratedKeys="true"
+			if (newRoom.getIdx() == 0)
+				throw new IllegalStateException("채팅방 IDX 생성 실패");
+			room = newRoom;
+		}
+		return room;
+	}
 
 	// 채팅방 리스트
 	public List<ChatRoom> findRoomByMemberId(String memberId) {

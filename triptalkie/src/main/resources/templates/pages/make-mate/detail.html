@@ -156,7 +156,8 @@
 				<span class="col-sm-5">아직 함께하는 메이트가 없습니다.</span>
 			</div>
 			<div class="row" th:each="memberlist : ${memberlistPhoto}">
-				<div class="col-sm-1" th:each="memberPhoto : ${memberlistPhoto.memberImage}">
+				<div class="col-sm-1"
+					th:each="memberPhoto : ${memberlistPhoto.memberImage}">
 					<img th:if="${memberlist.savedName != null}"
 						th:src="@{|/uploads/${memberlist.savedName}|}"
 						th:alt="${memberlist.originalName}"
@@ -167,7 +168,11 @@
 	</section>
 	<section>
 		<div>
-			<button class="btn btn-chatting btn-primary">채팅</button>
+			<!-- <button class="btn btn-chatting btn-primary">채팅</button> -->
+			<form th:action="@{/makemate/chat/request}" method="post">
+				<input type="hidden" name="makemateIdx" th:value="${makemate.idx}" />
+				<button class="btn btn-chatting btn-primary" type="submit">채팅</button>
+			</form>
 		</div>
 		<div class="row">
 			<div class="col-sm-2">
