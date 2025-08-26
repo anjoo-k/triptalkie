@@ -38,4 +38,10 @@
 	<select id="findMemberById" resultType="com.walkietalkie.triptalkie.domain.Member">
 		SELECT id, nickname, name, gender, email, travel_concept, credit FROM member WHERE id = #{memberId}
 	</select>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="withdrawMemberById">
+		UPDATE member SET active = 0 WHERE id = #{id}
+	</update>
+	
 </mapper>

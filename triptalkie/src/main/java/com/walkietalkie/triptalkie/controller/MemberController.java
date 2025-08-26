@@ -114,24 +114,46 @@ public class MemberController {
 			return "redirect:/member/loginPage?error"; // 로그인 페이지로 리다이렉트 (error 파라미터 포함)
 		}
 	}
-	
+
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		
+
 		memberService.logout(session);
 		// 세션 전체 삭제 수행
-		
+
 		return "redirect:/";
 		// 로그아웃 후 메인 페이지로 이동
 	}
-	
+
 	// 멤버 프로필 확인
 	@PostMapping("/profile")
 	public String findProfile(@RequestParam String memberId, Model model) {
-	    Member member = memberService.findMemberById(memberId);
-	    model.addAttribute("member", member);
-	    return "pages/member/memberInformation";
+		Member member = memberService.findMemberById(memberId);
+		model.addAttribute("member", member);
+		return "pages/member/memberInformation";
+	}
+
+	@PostMapping("/deactivate")
+	public String deactivateMember(HttpSession session, RedirectAttributes redirectAttributes) {
+		String loginId = (String) session.getAttribute("loginId");
+
+		if (loginId == null) {
+			redirectAttributes.addFlashAttribute("error", "로그인이 필요합니다.");
+			return "redirect:/login";
+		}
+
+		boolean success = memberService.withdrawMemberById(loginId);
+		System.out.println("회원 탈퇴 결과 : " + success);
+
+		if (success) {
+			session.invalidate(); // 세션 종료 (로그아웃)
+			redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
+			return "redirect:/";
+		} else {
+			redirectAttributes.addFlashAttribute("error", "회원 탈퇴 처리 중 오류가 발생했습니다.");
+			return "redirect:/mypage";
+		}
 	}
 
 }

@@ -114,5 +114,10 @@ public class MemberService {
 	}
 	return member;
   }
+  
+  public boolean withdrawMemberById(String id) {
+	  int result = memberMapper.withdrawMemberById(id);
+	  return result>0;
+  }
 
 }
