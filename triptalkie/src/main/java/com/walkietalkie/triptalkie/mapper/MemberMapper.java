@@ -20,4 +20,6 @@ public interface MemberMapper {
 	Member findById(String id);
 
 	Member findMemberById(String memberId);
+	
+	int withdrawMemberById(String id);
 }

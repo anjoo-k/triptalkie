@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
-	
+
 	private final MypageService mypageService;
 	private final MemberImageService memberImageService;
 	private final MemberService memberService;
@@ -65,7 +65,7 @@ public class MypageController {
 			return "redirect:/member/loginPage";
 
 		Member member = mypageService.findMemberById(id);
-		
+
 		// 등록된 이미지 URL 가져오기
 		String profileImageUrl = memberImageService.getImageUrlByMemberId(id);
 
@@ -110,7 +110,6 @@ public class MypageController {
 		}
 	}
 
-
 	@PostMapping("/updateProfileImage")
 	public String updateProfileImage(@RequestParam("profileImage") MultipartFile profileImage, Model model,
 			HttpSession session) throws IOException {
@@ -132,11 +131,11 @@ public class MypageController {
 		String profileImageUrl = memberImageService.getImageUrlByMemberId(loginId);
 
 		// 뷰에 전달
-	    session.setAttribute("profileImageUrl", profileImageUrl);
+		session.setAttribute("profileImageUrl", profileImageUrl);
 
 		return "redirect:/mypage/myinformation";
 	}
-	
+
 	@GetMapping("/my-posts")
 	public String myPostPage(Model model, HttpSession session) {
 		String loginMember = (String) session.getAttribute("loginId");
@@ -145,9 +144,9 @@ public class MypageController {
 		if (loginMember == null) {
 			return "redirect:/member/loginPage";
 		}
-		
+
 		MyPostsDTO myPosts = mypageService.findMyPosts(loginMember);
-		
+
 		if (myPosts.getCommunityList() == null) {
 			myPosts.setCommunityList(new ArrayList<>());
 		}
@@ -157,11 +156,66 @@ public class MypageController {
 		if (myPosts.getTravelReviewList() == null) {
 			myPosts.setTravelReviewList(new ArrayList<>());
 		}
-		
+
 		System.out.println("myPosts" + myPosts);
 		model.addAttribute("myPosts", myPosts);
-		
+
 		return "pages/mypage/my-posts";
 	}
 
+	// 비밀번호 체크 화면
+	@GetMapping("/password-check-withdraw")
+	public String checkPasswordPageWithdraw() {
+		return "pages/mypage/password-check-withdraw";
+		// 비밀번호 췍해서 맞으면 회원 삭제 수행
+	}
+
+	// 회원 삭제 로직 처리
+	@PostMapping("/password-check-withdraw")
+	public String checkPasswordPageWithdraw(HttpSession session, String password, RedirectAttributes ra)
+			throws Exception {
+		String loginId = (String) session.getAttribute("loginId");
+		if (loginId == null) {
+			ra.addFlashAttribute("error", "로그인이 필요합니다.");
+			return "redirect:/member/loginPage";
+		}
+
+		boolean passwordValid = mypageService.checkPassword(loginId, password);
+		// id와 패스워드를 확인
+
+		if (!passwordValid) {
+			ra.addFlashAttribute("error", "비밀번호가 올바르지 않습니다.");
+			return "redirect:/mypage/password-check-withdraw";
+		}
+
+		// 비밀번호가 맞으면 바로 회원 탈퇴 수행
+		boolean success = memberService.withdrawMemberById(loginId);
+		if (success) {
+			session.invalidate(); // 세션 종료
+			ra.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
+			return "redirect:/"; // 홈으로 이동
+		} else {
+			ra.addFlashAttribute("error", "회원 탈퇴 처리 중 오류가 발생했습니다.");
+			return "redirect:/mypage";
+		}
+	}
+
+//	@PostMapping("/password-check-withdraw")
+//	public String checkPasswordPageWithdraw2(HttpSession session, String password, RedirectAttributes ra)
+//			throws Exception {
+//		String id = (String) session.getAttribute("loginId");
+//		if (id == null)
+//			return "redirect:/member/loginPage";
+//
+//		Boolean result = mypageService.checkPassword(id, password);
+//		// id와 패스워드를 확인
+//
+//		System.out.println("실행 체크 1");
+//		if (result) {
+//			return "redirect:/member/deactivate";
+//		} else {
+//			ra.addFlashAttribute("error", true);
+//			return "redirect:/mypage/password-check-withdraw";
+//		}
+//	}
 }
