@@ -9,7 +9,7 @@ application-local.properties
 application-local.yml
 
 ### upload 폴더 하부 항목 제외 ###
-/upload/*
+/uploads/*
 
 ### Eclipse ###
 .metadata
