@@ -24,7 +24,6 @@ import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelReview;
 import com.walkietalkie.triptalkie.service.CityService;
 import com.walkietalkie.triptalkie.service.CountryService;
-import com.walkietalkie.triptalkie.service.TravelInfoService;
 import com.walkietalkie.triptalkie.service.TravelReviewCommentService;
 import com.walkietalkie.triptalkie.service.TravelReviewImageService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;

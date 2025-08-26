@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO;
 import com.walkietalkie.triptalkie.service.TravelReviewCommentService;
+
 
 @Controller
 @RequestMapping("/travelReviewComment")
@@ -36,6 +38,59 @@ public class TravelReviewCommentController {
 		result.put("comment", savedComment);
 		System.out.println("등록 완료 travelReviewCommentDTO : " + savedComment);
 		return result;
+	}
+	
+	@GetMapping("/findByIdx")
+	@ResponseBody
+	public Map<String, Object> findCommentByIdx(@RequestParam Integer idx) {
+//		System.out.println("조회 controller 진입");
+//		System.out.println("넘어 온 idx 값 : " + idx);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try {
+			TravelReviewCommentDTO comment = travelReviewCommentService.findByIdx(idx);
+			resultMap.put("success", true);
+			resultMap.put("comment", comment);
+			resultMap.put("message", "댓글을 조회 하였습니다.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "삭제 중 오류가 발생했습니다.");
+		}
+		
+		return resultMap;
+	}
+	
+	@PostMapping("/update")
+	@ResponseBody
+	public Map<String, Object> updateCommentByIdx(@RequestBody TravelReviewCommentDTO travelReviewCommentDTO) {
+		System.out.println("수정 controller 진입");
+		System.out.println("넘어 온 idx 값 : " + travelReviewCommentDTO);
+	    System.out.println("DTO 확인: " + travelReviewCommentDTO.getIdx() + ", " + travelReviewCommentDTO.getContent());
+
+		
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try {
+            TravelReviewCommentDTO updatedComment = travelReviewCommentService.updateCommentByIdx(travelReviewCommentDTO);
+
+			if (updatedComment != null) {
+                resultMap.put("success", true);
+                resultMap.put("comment", updatedComment);
+            } else {
+                resultMap.put("success", false);
+                resultMap.put("message", "댓글 수정 실패");
+            }
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "삭제 중 오류가 발생했습니다.");
+		}
+		
+		return resultMap;
 	}
 
 	@PostMapping("/delete")
