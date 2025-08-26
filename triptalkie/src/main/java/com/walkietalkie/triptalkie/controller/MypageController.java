@@ -2,20 +2,23 @@ package com.walkietalkie.triptalkie.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.walkietalkie.triptalkie.DTO.MyPostsDTO;
+import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.domain.MemberImage;
+import com.walkietalkie.triptalkie.service.MakemateService;
 import com.walkietalkie.triptalkie.service.MemberImageService;
 import com.walkietalkie.triptalkie.service.MemberService;
 import com.walkietalkie.triptalkie.service.MypageService;
@@ -29,13 +32,15 @@ public class MypageController {
 	private final MypageService mypageService;
 	private final MemberImageService memberImageService;
 	private final MemberService memberService;
+	private final MakemateService makemateService;
 
-	public MypageController(MypageService mypageService, MemberImageService memberImageService,
-			MemberService memberService) {
+	public MypageController(MypageService mypageService, MemberImageService memberImageService, MakemateService makemateService
+			, MemberService memberService) {
 		super();
 		this.mypageService = mypageService;
 		this.memberImageService = memberImageService;
 		this.memberService = memberService;
+		this.makemateService = makemateService;
 	}
 
 	// 마이페이지 화면
@@ -93,7 +98,6 @@ public class MypageController {
 		return "pages/mypage/password-check";
 	}
 
-	// 비밀번호 췍해서 맞으면 업데이트 내정보 페이지로
 	// 비밀번호 체크 처리
 	@PostMapping("/password-check")
 	public String checkPassword(HttpSession session, String password, RedirectAttributes ra) throws Exception {
@@ -134,6 +138,22 @@ public class MypageController {
 		session.setAttribute("profileImageUrl", profileImageUrl);
 
 		return "redirect:/mypage/myinformation";
+	}
+	
+
+	// 내 여행 리스트
+	@GetMapping("/my-travel-list")
+	public String myTravelList(@RequestParam(defaultValue = "1") int page, @ModelAttribute SearchCriteria criteria,
+			Model model) {
+		
+		int size = 4; // 한 페이지에 보이는 글 수
+		Map<String, Object> result = makemateService.findMakematesAllList(page, size, criteria);
+
+		model.addAttribute("page", result.get("commonPage"));
+		model.addAttribute("combinedList", result.get("combinedList"));
+		model.addAttribute("countryList", result.get("countryList"));
+		model.addAttribute("cityList", result.get("cityList"));
+		return "pages/mypage/my-travel-list";
 	}
 
 	@GetMapping("/my-posts")
