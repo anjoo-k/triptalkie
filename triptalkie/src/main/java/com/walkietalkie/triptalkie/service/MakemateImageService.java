@@ -53,13 +53,17 @@ public class MakemateImageService {
 			throws IllegalStateException, IOException {
 		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateIdx);
 		int result = 0;
-		if (originalImage != null) {
+		if (originalImage == null || originalImage.getUuid() == null || originalImage.getUuid().isEmpty()) {
+			registerImage(newPhoto, makemateIdx);
+			result = 1;
+		} else {
 			File originalFile = new File(originalImage.getFilePath());
 			if (originalFile.exists()) {
 				originalFile.delete();
 			}
-			logger.info("originalImage {}", originalImage);
+
 			MakemateImage photo = new MakemateImage();
+
 			String originalName = newPhoto.getOriginalFilename();
 			String savedName = originalImage.getUuid() + "_" + originalName;
 			Path savePath = Paths.get(System.getProperty("user.dir"), fileProperties.getUploadDir(), savedName);
@@ -71,7 +75,6 @@ public class MakemateImageService {
 			photo.setFileSize(newPhoto.getSize());
 			photo.setMakemateIdx(originalImage.getMakemateIdx());
 			photo.setUuid(originalImage.getUuid());
-			logger.info("{}", photo);
 			result = makemateImageMapper.updateImageByUuidAndMakemateIdx(photo);
 		}
 		if (result <= 0) {
@@ -82,12 +85,15 @@ public class MakemateImageService {
 
 	public int deleteImageByUuidAndMakemateIdx(Long makemateIdx) {
 		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateIdx);
-		int result = makemateImageMapper.deleteImageByUuidAndMakemateIdx(originalImage.getUuid(), makemateIdx);
-		if (originalImage != null) {
+		int result = 0;
+		if (originalImage == null || originalImage.getUuid() == null || originalImage.getUuid().isEmpty()) {
+			result = 1;
+		} else {
 			File originalFile = new File(originalImage.getFilePath());
 			if (originalFile.exists()) {
 				originalFile.delete();
 			}
+			result = makemateImageMapper.deleteImageByUuidAndMakemateIdx(originalImage.getUuid(), makemateIdx);
 		}
 		return result;
 	}
