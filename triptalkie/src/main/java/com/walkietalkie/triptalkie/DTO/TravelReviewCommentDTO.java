@@ -1,8 +1,6 @@
 package com.walkietalkie.triptalkie.DTO;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TravelReviewCommentDTO {
 	private Integer idx;	// 댓글 번호

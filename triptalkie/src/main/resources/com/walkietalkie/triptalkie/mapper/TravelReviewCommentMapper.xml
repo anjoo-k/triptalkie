@@ -21,11 +21,14 @@
 		c.member_id AS memberId,
 		m.nickname AS nickName,
 		c.content,
-		c.created_at AS createdAt,
+		c.created_at
+		AS createdAt,
 		c.updated_at AS updatedAt
 		FROM travelreview_comment c
-		JOIN member m ON c.member_id = m.id
-		WHERE c.travelreview_idx = #{travelReviewIdx}
+		JOIN
+		member m ON c.member_id = m.id
+		WHERE c.travelreview_idx =
+		#{travelReviewIdx}
 		ORDER BY c.created_at DESC
 	</select>
 
@@ -47,7 +50,14 @@
 		ORDER BY
 		c.created_at DESC
 	</select>
-	
+
+	<update id="updateCommentByIdx" parameterType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO">
+		UPDATE travelreview_comment
+		SET content = #{content},
+		updated_at = NOW()
+		WHERE idx = #{idx}
+	</update>
+
 	<delete id="deleteCommentByIdx">
 		DELETE FROM travelreview_comment
 		WHERE idx = #{idx}
