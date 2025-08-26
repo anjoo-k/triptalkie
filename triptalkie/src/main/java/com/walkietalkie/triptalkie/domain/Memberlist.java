@@ -1,18 +1,22 @@
 package com.walkietalkie.triptalkie.domain;
 
+import java.util.List;
+
 public class Memberlist {
 
 	private long makemateIdx;
 	private String memberId;
+	private List<MemberImage> memberImage;
 
 	public Memberlist() {
 		super();
 	}
 
-	public Memberlist(long makemateIdx, String memberId) {
+	public Memberlist(long makemateIdx, String memberId, List<MemberImage> memberImage) {
 		super();
 		this.makemateIdx = makemateIdx;
 		this.memberId = memberId;
+		this.memberImage = memberImage;
 	}
 
 	public long getMakemateIdx() {
@@ -31,9 +35,18 @@ public class Memberlist {
 		this.memberId = memberId;
 	}
 
+	public List<MemberImage> getMemberImage() {
+		return memberImage;
+	}
+
+	public void setMemberImage(List<MemberImage> memberImage) {
+		this.memberImage = memberImage;
+	}
+
 	@Override
 	public String toString() {
-		return "Memberlist [makemateIdx=" + makemateIdx + ", memberId=" + memberId + "]";
+		return "Memberlist [makemateIdx=" + makemateIdx + ", memberId=" + memberId + ", memberImage=" + memberImage
+				+ "]";
 	}
 
 }
