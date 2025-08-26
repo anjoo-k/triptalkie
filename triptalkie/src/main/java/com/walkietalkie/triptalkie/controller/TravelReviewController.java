@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
@@ -24,6 +25,7 @@ import com.walkietalkie.triptalkie.domain.TravelReview;
 import com.walkietalkie.triptalkie.service.CityService;
 import com.walkietalkie.triptalkie.service.CountryService;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
+import com.walkietalkie.triptalkie.service.TravelReviewCommentService;
 import com.walkietalkie.triptalkie.service.TravelReviewImageService;
 import com.walkietalkie.triptalkie.service.TravelReviewService;
 
@@ -33,20 +35,23 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/travel-review")
 public class TravelReviewController {
 
-    private final TravelInfoService travelInfoService;
 	private final TravelReviewService travelReviewService;
 	private final TravelReviewImageService travelReviewImageService;
+	private final TravelReviewCommentService travelReviewCommentService;
 	private final CountryService countryService;
 	private final CityService cityService;
 
+	
+
 	public TravelReviewController(TravelReviewService travelReviewService,
-			TravelReviewImageService travelReviewImageService, CountryService countryService, CityService cityService, TravelInfoService travelInfoService) {
+			TravelReviewImageService travelReviewImageService, TravelReviewCommentService travelReviewCommentService,
+			CountryService countryService, CityService cityService) {
 		super();
 		this.travelReviewService = travelReviewService;
 		this.travelReviewImageService = travelReviewImageService;
+		this.travelReviewCommentService = travelReviewCommentService;
 		this.countryService = countryService;
 		this.cityService = cityService;
-		this.travelInfoService = travelInfoService;
 	}
 
 	/*
@@ -90,18 +95,18 @@ public class TravelReviewController {
 	@GetMapping("/detail-review/{idx}")
 	public String findTravelreviewByIdx(@PathVariable Long idx, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");
-		String loginNickname = (String) session.getAttribute("loginNickname");
+//		String loginNickname = (String) session.getAttribute("loginNickname");
 		model.addAttribute("memberId", id);
-		model.addAttribute("loginNickname", loginNickname);
-		System.out.println("세션 닉네임 : " + loginNickname);
-		System.out.println("넘어 온 게시글 번호 : " + idx);
+//		model.addAttribute("loginNickname", loginNickname);
 		Map<String, Object> travelreview = travelReviewService.findTravelreviewByIdx(idx);
 
 		// 등록된 이미지 url 가져오기
 		String reviewImageUrl = travelReviewImageService.findImageUrlByIdx(idx);
-
-		System.out.println("게시글 번호로 조회한 여행 후기 정보 : " + travelreview);
-		System.out.println("게시글 번호로 조회한 사진 URL 정보 : " + reviewImageUrl);
+		
+		// 댓글 조회
+		List<TravelReviewCommentDTO> commentsList = travelReviewCommentService.findAllReplyByIdx(idx);
+		System.out.println("조회된 댓글 리스트 : " + commentsList);
+		model.addAttribute("comment", commentsList);
 		
 		model.addAttribute("travelreview", travelreview);
 		model.addAttribute("reviewImageUrl", reviewImageUrl);
