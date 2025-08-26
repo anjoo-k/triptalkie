@@ -32,8 +32,12 @@ public class MemberService {
   
   public boolean login(String id, String password, HttpSession session) {
     Member member = memberMapper.findById(id);
-
-    if (member != null && passwordEncoder.matches(password, member.getPassword())) {
+    
+    boolean active = member.isActive();
+    
+    System.out.println("active 값 출력 : "+active);
+    
+    if (member != null && active && passwordEncoder.matches(password, member.getPassword())) {
       session.setAttribute("loginId", member.getId());
       session.setAttribute("loginNickname", member.getNickname());
       logger.info("로그인 성공: {}", member.getId());
