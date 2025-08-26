@@ -22,15 +22,46 @@
 
 	<select id="countMakemate" resultType="int">
 		SELECT COUNT(*)
-		FROM
-		makemate;
+		FROM makemate m
+  		JOIN city c ON m.city_id = c.id
+		<where>
+			<if test="keyword != null and keyword != ''">
+				(m.title LIKE CONCAT('%', #{keyword} ,'%'))
+				OR (m.content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="countryId != null and countryId != ''">
+				AND c.country_id = #{countryId}
+			</if>
+			<if test="cityId != null and cityId != ''">
+				AND m.city_id = #{cityId}
+			</if>
+			<if test="conceptType != null and conceptType != ''">
+				AND m.concept_type = #{conceptType}
+			</if>
+		</where>
 	</select>
 	<!-- 목록 조회 -->
 	<select id="findMakematesAllList">
 		SELECT idx, title, content, state, created_at,
 		updated_at, startdate, enddate, city_id, member_id, concept_type
 		FROM
-		makemate
+		makemate m
+  		JOIN city c ON m.city_id = c.id
+		<where>
+			<if test="criteria.keyword != null and criteria.keyword != ''">
+				(m.title LIKE CONCAT('%', #{criteria.keyword} ,'%'))
+				OR (m.content LIKE CONCAT('%', #{criteria.keyword}, '%'))
+			</if>
+			<if test="criteria.countryId != null and criteria.countryId != ''">
+				AND c.country_id = #{criteria.countryId}
+			</if>
+			<if test="criteria.cityId != null and criteria.cityId != ''">
+				AND m.city_id = #{criteria.cityId}
+			</if>
+			<if test="criteria.conceptType != null and criteria.conceptType != ''">
+				AND m.concept_type = #{criteria.conceptType}
+			</if>
+		</where>
 		ORDER BY created_at DESC
 		LIMIT #{size} OFFSET #{offset}
 	</select>
@@ -126,6 +157,10 @@
 		#{conceptType},
 		#{maxPeople},#{ageGroup}, #{budget},
 		#{startdate}, #{enddate}, #{cityId}, #{memberId})
+	</insert>
+	<insert id="registerMemberlist" parameterType="com.walkietalkie.triptalkie.domain.Memberlist">
+		INSERT INTO memberlist(makemate_idx, member_id)
+		VALUES (#{makemateIdx}, #{memberId})
 	</insert>
 	<!-- 글수정 -->
 	<update id="updateMakemate">
