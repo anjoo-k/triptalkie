@@ -1,47 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>북마크 테스트 페이지</title>
-</head>
-<body>
-<h2>북마크 테스트 페이지</h2>
-
-<!-- 로그인된 사용자 (임시) -->
-<p>현재 사용자: <span th:text="${memberId}">user1</span></p>
-
-<hr>
-
-<!-- 북마크 리스트 -->
-<div th:if="${bookmarks != null}">
-    <ul>
-        <li th:each="mate : ${bookmarks}">
-            <span th:text="${mate.title}">제목</span>
-            <img th:src="@{/images/bookmark-off.png}"  
-                 th:attr="data-member-id=${memberId}, data-makemate-idx=${mate.idx}"
-                 class="bookmarkBtn"
-                 style="cursor:pointer; width:24px; height:24px;">
-        </li>
-    </ul>
-</div>
-
-<!-- ✅ 강제 더미 버튼 (bookmarks 없어도 무조건 표시됨) -->
-<hr>
-<h3>더미 버튼 (테스트용)</h3>
-<img src="/images/bookmark-off.png"
-     data-member-id="user1"
-     data-makemate-idx="999"
-     class="bookmarkBtn"
-     style="cursor:pointer; width:32px; height:32px;">
-
-<hr>
-<p>아이콘 클릭 시 DB에서 state 값이 바뀌고, 이미지가 on/off로 전환됩니다.</p>
-
-<!-- ✅ JS 코드 -->
-<script>
 document.addEventListener('DOMContentLoaded', () => {
-    alert("✅ test.html 실행됨!");  // 페이지 로드 확인용
-
+    
     const btns = document.querySelectorAll(".bookmarkBtn");
     console.log("📌 북마크 버튼 개수:", btns.length);
 
@@ -75,7 +33,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-</script>
-
-</body>
-</html>

@@ -17,11 +17,11 @@ public class BookMarkService {
 
     /**
      * 북마크 토글
-     * - 존재하지 않으면 INSERT + state=1
-     * - 존재하면 state 값에 따라 활성/비활성 전환
+     * 북마크 상태 업데이트
+     * 존재하지 않으면 INSERT + state=1
+     * 존재하면 state 값에 따라 활성/비활성 전환
      * @return true = 활성, false = 비활성
      */
-
 	@SuppressWarnings("unused")
 	public boolean toggleBookmark(String memberId, long makemateIdx) {
 		Integer currentState = bookMarkMapper.existBookmark(memberId, makemateIdx);
@@ -38,6 +38,13 @@ public class BookMarkService {
 		}
 
     }
+	
+	//북마크 상태를 조회
+    public boolean isBookmarked(String memberId, long makemateIdx) {
+        Integer state = bookMarkMapper.existBookmark(memberId, makemateIdx);
+        return state != null && state == 1;
+    }
+	
 
     /**
      * 사용자의 북마크된 메이트 목록 조회

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.service.BookMarkService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/bookmark")
 public class BookMarkController {
@@ -29,20 +31,27 @@ public class BookMarkController {
 	}
 	
 	@GetMapping("/list")
-	public String showBookmarks(@RequestParam String memberId, Model model) {
+	public String showBookmarks(HttpSession session, Model model) {
+		String memberId = (String) session.getAttribute("loginId");
+		if (memberId == null) {
+			return "redirect:/member/loginPage";
+		}
+		
 	    List<Makemate> bookmarks = bookMarkService.getBookMarkedMakemates(memberId);
 	    model.addAttribute("bookmarks", bookmarks);
-	    return "bookmark/list"; // 타임리프 템플릿 경로
+	    model.addAttribute("active", "bookmarkList");
+	    
+	    return "/pages/bookmark/list"; // 타임리프 템플릿 경로
 	}
 	
-	@GetMapping("/test")
-	public String testBookmarkPage(@RequestParam(required = false, defaultValue = "user1") String memberId,
-	                               Model model) {
-	    List<Makemate> bookmarks = bookMarkService.getBookMarkedMakemates(memberId);
-	    model.addAttribute("bookmarks", bookmarks);
-	    model.addAttribute("memberId", memberId); // JS에서 쓸 수 있게 전달
-	    return "pages/bookmark/test";
-	}
+//	@GetMapping("/test")
+//	public String testBookmarkPage(@RequestParam(required = false, defaultValue = "user1") String memberId,
+//	                               Model model) {
+//	    List<Makemate> bookmarks = bookMarkService.getBookMarkedMakemates(memberId);
+//	    model.addAttribute("bookmarks", bookmarks);
+//	    model.addAttribute("memberId", memberId); // JS에서 쓸 수 있게 전달
+//	    return "pages/make-mate/detail";
+//	}
 
 
 	

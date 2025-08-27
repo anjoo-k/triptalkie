@@ -11,7 +11,7 @@ import com.walkietalkie.triptalkie.domain.Makemate;
 public interface BookMarkMapper {
 
     // 북마크 존재 여부 확인
-    int existBookmark(@Param("memberId") String memberId,
+    Integer existBookmark(@Param("memberId") String memberId,
                       @Param("makemateIdx") long makemateIdx);
 
     // 북마크 최초 추가
