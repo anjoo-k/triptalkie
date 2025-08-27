@@ -1,11 +1,114 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>북마크 테스트 페이지</title>
-</head>
-<body>
-<h2>관심여행목록 페이지</h2>
-</body>
-<
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<main layout:fragment="content" class="row">
+    <!-- 좌측 사이드바 -->
+    <section class="sidebar-section">
+        <aside class="mr-3">
+            <div th:replace="fragments/mypage-list :: mypageList"></div>
+        </aside>
+    </section>
+
+    <!-- 메인 영역 -->
+    <section>
+        <div class="myposts-container">
+            <h4 class="mb-3 mypage-title">관심 여행 목록</h4>
+
+            <!-- 여행 카드 반복 -->
+            <div class="col-xl-12">
+                <div class="trip-card" th:each="bookmark : ${bookmarks}">
+                    <div class="card border-1 p-2 card-border">
+                        <!-- 배지 -->
+                        <div class="mb-2">
+                            <span class="badge badge--category travel-type"
+                                  th:text="${bookmark.conceptType}">여행 컨셉</span>
+                            <span class="badge badge--category travel-type mt-auto"
+                                  th:text="${bookmark.cityName}">도시명</span>
+                        </div>
+
+                        <!-- 썸네일 + 글 제목/내용 -->
+                        <div class="d-flex mb-2">
+                            <div class="thumbnail mr-2" style="flex: 0 0 100px; height: 100px;">
+                                <img th:src="@{/images/bangkok.jpg}"
+                                     class="img-fluid"
+                                     alt="기본이미지"
+                                     style="height: 100px;">
+                            </div>
+                            <div class="flex-grow-1">
+                                <a th:href="@{/makemate/detailPage/{id}(id=${bookmark.makemateIdx})}"
+                                   class="card-title d-block mb-1 text-truncate"
+                                   th:text="${bookmark.title}">여행 제목</a>
+                                <p class="text-muted small mb-0 text-truncate"
+                                   th:text="${bookmark.content}">여행 내용</p>
+                            </div>
+                        </div>
+
+                        <!-- 유저 정보 + 날짜 -->
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div class="d-flex justify-content-end align-items-center"
+                                 style="font-size: x-small;">
+                                <div class="ml-2 text-left">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <img src="/images/bangkok.jpg" class="rounded-circle mr-1"
+                                             style="width: 16px; height: 16px;" alt="프로필">
+                                        <span th:text="${bookmark.memberNickname}">닉네임</span> ·
+                                        <span class="birth">--</span> ·
+                                        <span th:text="${bookmark.memberGender}">성별</span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-calendar-fill mr-1"
+                                             viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 1 1 1 0V1h1a2 2 0 0 1 
+                                                2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 
+                                                2 0 0 1 2-2h1V.5a.5.5 0 1 1 .5-.5" />
+                                        </svg>
+                                        <span th:text="${#temporals.format(bookmark.startdate, 'yyyy-MM-dd')}">시작일</span>
+                                        ~
+                                        <span th:text="${#temporals.format(bookmark.enddate, 'yyyy-MM-dd')}">종료일</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /card -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="row mb-3">
+            <div class="col-3"></div>
+            <div class="col-6 text-center">
+                <nav class="p-2 pagination--bottom">
+                    <ul class="pagination justify-content-center mb-0 py-1">
+                        <li th:classappend="${page.currentPage == 1} ? ' disabled'" class="page-item pagination--spacing">
+                            <a class="page-link square" th:href="@{/bookmark/list(page=1)}">«</a>
+                        </li>
+                        <li th:classappend="${page.currentPage == 1} ? ' disabled'" class="page-item pagination--spacing">
+                            <a class="page-link square" th:href="@{/bookmark/list(page=${page.currentPage - 1})}">‹</a>
+                        </li>
+                        <li th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}"
+                            th:classappend="${p == page.currentPage} ? ' active'"
+                            class="page-item pagination--spacing">
+                            <a class="page-link square" th:href="@{/bookmark/list(page=${p})}" th:text="${p}">1</a>
+                        </li>
+                        <li th:classappend="${page.currentPage == page.totalPage} ? ' disabled'" class="page-item pagination--spacing">
+                            <a class="page-link square" th:href="@{/bookmark/list(page=${page.currentPage + 1})}">›</a>
+                        </li>
+                        <li th:classappend="${page.currentPage == page.totalPage} ? ' disabled'" class="page-item pagination--spacing">
+                            <a class="page-link square" th:href="@{/bookmark/list(page=${page.totalPage})}">»</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS -->
+    <script src="/js/make-mate.js"></script>
+    <script src="/js/make-mate-list.js"></script>
+    <script src="/js/mypage.js"></script>
+</main>
 </html>

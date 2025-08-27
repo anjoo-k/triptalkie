@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.walkietalkie.triptalkie.DTO.BookmarkDTO;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.mapper.BookMarkMapper;
 
@@ -49,7 +50,7 @@ public class BookMarkService {
     /**
      * 사용자의 북마크된 메이트 목록 조회
      */
-    public List<Makemate> getBookMarkedMakemates(String memberId) {
+    public List<BookmarkDTO> getBookMarkedMakemates(String memberId) {
         return bookMarkMapper.findBookmarksWithMakemate(memberId);
     }
 }

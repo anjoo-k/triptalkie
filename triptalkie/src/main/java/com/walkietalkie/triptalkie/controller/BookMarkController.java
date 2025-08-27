@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.walkietalkie.triptalkie.DTO.BookmarkDTO;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.service.BookMarkService;
 
@@ -32,16 +34,17 @@ public class BookMarkController {
 	
 	@GetMapping("/list")
 	public String showBookmarks(HttpSession session, Model model) {
+		//로그인한 사용자 ID 가져오기
 		String memberId = (String) session.getAttribute("loginId");
 		if (memberId == null) {
 			return "redirect:/member/loginPage";
 		}
-		
-	    List<Makemate> bookmarks = bookMarkService.getBookMarkedMakemates(memberId);
+		// 북마크된 글 목록 조회하기
+	    List<BookmarkDTO> bookmarks = bookMarkService.getBookMarkedMakemates(memberId);
 	    model.addAttribute("bookmarks", bookmarks);
 	    model.addAttribute("active", "bookmarkList");
 	    
-	    return "/pages/bookmark/list"; // 타임리프 템플릿 경로
+	    return "pages/bookmark/list"; // 타임리프 템플릿 경로
 	}
 	
 //	@GetMapping("/test")
