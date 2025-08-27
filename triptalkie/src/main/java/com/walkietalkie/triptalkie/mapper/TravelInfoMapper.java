@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
+import com.walkietalkie.triptalkie.DTO.TravelInfoTop3DTO;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
@@ -28,7 +29,7 @@ public interface TravelInfoMapper {
 	int deleteTravelInfoByIdx(Long idx, String memberId);
 	// 여행정보 글 삭제
 
-	List<TravelInfo> findTravelInfoTop3();
+	List<TravelInfoTop3DTO> findTravelInfoTop3();
 
 	List<TravelInfo> findTravelInfoByMemberId(String loginMember);
 
