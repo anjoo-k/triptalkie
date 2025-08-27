@@ -83,11 +83,42 @@
 		c.member_id AS memberId,
 		m.nickname AS memberNickname
 		FROM community c
-		LEFT JOIN member m ON m.id=c.member_id
+		LEFT JOIN member m ON
+		m.id=c.member_id
 		ORDER BY c.idx DESC
 		LIMIT #{size}
 		OFFSET #{startRow}
 	</select>
+
+	<!--검색된 글 개수 -->
+	<select id="countByTitle" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		community
+		WHERE title LIKE CONCAT('%', #{search}, '%')
+	</select>
+
+	<!--검색된 글 목록(페이징 포함) -->
+	<select id="findPagedByTitle"
+		resultType="com.walkietalkie.triptalkie.domain.Community">
+		SELECT
+		c.idx,
+		c.title,
+		c.view,
+		c.created_at AS createdAt,
+		c.updated_at AS updatedAt,
+		c.content,
+		c.member_id AS memberId,
+		m.nickname AS memberNickname
+		FROM community c
+		LEFT JOIN member m ON m.id = c.member_id
+		WHERE c.title LIKE CONCAT('%', #{search}, '%')
+		ORDER BY c.idx DESC
+		LIMIT #{size}
+		OFFSET #{startRow}
+	</select>
+
+
 
 
 </mapper>

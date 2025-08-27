@@ -68,6 +68,33 @@ public class CommunityService {
 
         return new CommonPage<>(list, size, page, totalPages, startPage, endPage);
     }
+    // 검색어 조회
+    public CommonPage<Community> findCommunityPageByTitle(int page, int size, String search) {
+        if (page < 1) page = 1;
+        if (size < 1) size = 10;
+
+        // 검색 조건에 맞는 전체 게시글 개수
+        int totalCount = communityMapper.countByTitle(search);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        if (totalCount == 0) {
+            totalPages = 0;
+            page = 0;
+        } else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        int startRow = (page > 0) ? (page - 1) * size : 0;
+
+        // 검색 조건에 맞는 게시글 리스트 조회
+        List<Community> list = communityMapper.findPagedByTitle(size, startRow, search);
+
+        int pageBlock = 4;
+        int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+        int endPage = Math.min(startPage + pageBlock - 1, totalPages);
+
+        return new CommonPage<>(list, size, page, totalPages, startPage, endPage);
+    }
 
 	
 }
