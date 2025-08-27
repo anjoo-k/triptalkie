@@ -22,8 +22,22 @@
 	border-radius: 15px;
 }
 
-.btn-backToList:hover, .btn-makemate-delete:hover, .btn-makemate-edit:hover
-	{
+.btn-makemate-apply{
+	background: #fff;
+	border-color: #ff9900;
+	color: #ff9900;
+	font-size: 1.1rem;
+	cursor: pointer;
+	border-radius: 15px;
+}
+
+
+.btn-makemate-apply:hover{
+	background: #ff9900;
+	color: #fff;
+}
+
+.btn-backToList:hover, .btn-makemate-delete:hover, .btn-makemate-edit:hover{
 	background: #7cd3c2;
 	color: #fff;
 }

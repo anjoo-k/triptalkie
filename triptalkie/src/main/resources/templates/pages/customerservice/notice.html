@@ -9,10 +9,11 @@
 	<main layout:fragment="content" class="row">
 		<!-- 좌측 list -->
 		<aside class="col-sm-3">
-			<div th:replace="fragments/customerservice-list :: customerserviceList"></div>
+			<div
+				th:replace="fragments/customerservice-list :: customerserviceList"></div>
 		</aside>
 		<!-- 게시판 -->
-		<section class="col-sm-9">
+		<section class="col-sm-9" style="color: #333333;">
 			<article>
 				<table class="table table-hover">
 					<thead class="list-title">
@@ -24,94 +25,57 @@
 						</tr>
 					</thead>
 					<tbody class="list-content">
-						<tr>
-							<td>1</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>9</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
-						</tr>
-						<tr>
-							<td>10</td>
-							<td>공지사항입니다.</td>
-							<td>관리자1</td>
-							<td>2025-08-17</td>
+						<tr th:each="row : ${noticeList}">
+							<td th:text="${row.noticeList.idx}"></td>
+							<td><a
+								th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${row.noticeList.idx})}">
+									<span th:text="${row.noticeList.title}" style="color: #333333;">공지사항입니다</span>
+							</a></td>
+							<td>관리자</td>
+							<td
+								th:text="${#temporals.format(row.noticeList.createdAt, 'yyyy-MM-dd')}"></td>
 						</tr>
 					</tbody>
 				</table>
 			</article>
 			<!-- 페이지네이션 -->
 			<article class="d-flex mx-auto justify-content-center">
-				<ul class="pagination list-content">
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&laquo;</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&lsaquo;</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">1</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">2</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">3</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">4</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">5</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&rsaquo;</a></li>
-					<li class="page-item"><a class="page-link list-content"
-						href="#">&raquo;</a></li>
-				</ul>
+				<div class="col-6 text-center">
+					<nav class="p-2 pagination--bottom">
+						<ul class="pagination justify-content-center mb-0 py-1">
+							<!-- 처음으로, 이전 -->
+							<li th:classappend="${page.currentPage == 1} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square" th:href="@{/notice(page=1)}">«</a></li>
+							<li th:classappend="${page.currentPage == 1} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/notice(page=${page.currentPage - 1})}">‹</a></li>
+
+							<!-- 페이지 번호 반복 -->
+							<li
+								th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}"
+								th:classappend="${p == page.currentPage} ? ' active'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/customerservice/notice(page=${p})}" th:text="${p}">1</a></li>
+
+							<!-- 다음, 마지막 -->
+							<li
+								th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/notice(page=${page.currentPage + 1})}">›</a></li>
+							<li
+								th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/notice(page=${page.totalPage})}">»</a></li>
+						</ul>
+					</nav>
+				</div>
 			</article>
 		</section>
 	</main>
 </body>
-
 </html>

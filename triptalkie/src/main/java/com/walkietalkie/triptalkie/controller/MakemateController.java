@@ -159,4 +159,14 @@ public class MakemateController {
 		makemateService.deleteMakemateByIdx(id, makemateId);
 		return "redirect:/makemate/list";
 	}
+	
+	// makemate 신청
+	@PostMapping("/apply/{makemateId}")
+	public String applyMakemate(@PathVariable Long makemateId, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
+		if (id == null)
+			return "redirect:/member/loginPage";
+		makemateService.applyMakemate(id, makemateId);
+		return "redirect:/makemate/detailPage/" + makemateId;
+	}
 }

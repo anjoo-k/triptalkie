@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.walkietalkie.triptalkie.domain.Faq;
+import com.walkietalkie.triptalkie.domain.Notice;
 
 @Mapper
 public interface CustomerserviceMapper {
@@ -16,5 +17,13 @@ public interface CustomerserviceMapper {
 	int findCountFaq();
 
 	List<Map<String, Object>> findFaqPaged(@Param("size") int size, @Param("startRow") int startRow);
+
+	List<Notice> findNoticeAllList(int size, int offset);
+
+	int countNotice();
+
+	int increaseViewCount(Long noticeId);
+
+	Notice findNoticeByIdx(Long noticeId);
 
 }
