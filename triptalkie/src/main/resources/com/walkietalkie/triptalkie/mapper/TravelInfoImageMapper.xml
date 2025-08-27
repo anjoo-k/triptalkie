@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoImageMapper">
+	<!-- namespace : 인터페이스 파일 경로 -->
+	<!-- 이미지 파일 등록 -->
+	<insert id="registerTravelInfoImage"
+		parameterType="com.walkietalkie.triptalkie.domain.TravelInfoImage"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO travelinfo_image  
+		(uuid, original_name, saved_name, file_path,
+		file_size, travelinfo_idx) VALUES (#{uuid}, #{originalName}, #{savedName},
+		#{filePath}, #{fileSize}, #{travelinfoIdx})
+	</insert>
+
+	<!-- 이미지 파일 조회 by TravelInfo idx가 일치하는 이미지 파일 레코드 조회 -->
+	<select id="findTravelInfoImageByIdx" resultType="com.walkietalkie.triptalkie.domain.TravelInfoImage">
+		SELECT *
+		FROM travelinfo_image 
+		WHERE travelinfo_idx = #{travelinfoIdx}
+		ORDER BY created_at DESC
+		LIMIT 1
+	</select>
+
+	<!-- 이미지 파일 uudi로 조회 -->
+	<select id="findByUuid" resultType="com.walkietalkie.triptalkie.domain.TravelInfoImage">
+		SELECT * FROM travelinfo_image WHERE uuid = #{uuid}
+	</select>
+
+	<!-- 이미지 파일 Idx로 조회 -->
+	<select id="findByIdx" resultType="com.walkietalkie.triptalkie.domain.TravelInfoImage">
+		SELECT * FROM travelinfo_image WHERE idx = #{idx}
+	</select>
+
+	<!-- 이미지 파일 uuid로 조회 -->
+	<delete id="deleteByUuid">
+		DELETE FROM travelinfo_image
+		WHERE uuid = #{uuid}
+	</delete>
+
+	<!-- 이미지 파일 Idx로 조회 -->
+	<delete id="deleteByIdx">
+		DELETE FROM travelInfo_image
+		WHERE idx = #{idx}
+	</delete>
+
+</mapper>

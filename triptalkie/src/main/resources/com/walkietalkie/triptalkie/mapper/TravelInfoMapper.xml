@@ -4,7 +4,7 @@
 	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoMapper">
 	<!-- 여행 정보 글을 등록 -->
 	<insert id="registerTravelInfo"
-		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO travelinfo (title, infotype, infodate,
 		city_id, content, member_id) VALUES (#{title}, #{infotype},
 		#{infodate}, #{cityId}, #{content}, #{memberId})

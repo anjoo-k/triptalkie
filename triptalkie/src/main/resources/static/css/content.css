@@ -63,3 +63,9 @@
 	font-weight: bold;
 	
 }
+
+.notice-table th, 
+.notice-table td {
+    text-align: center;
+    vertical-align: middle; /* 세로 가운데 정렬 */
+}

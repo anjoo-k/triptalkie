@@ -27,6 +27,15 @@
 			</div>
 			<div class="board-divider mb-2"></div>
 
+			<!-- 사진 -->
+			<div class="form-group row mb-2">
+				<div class="col-sm-12">
+					<div class="review-imagebox">
+						<img th:src="@{${infoImageUrl}}" alt="travelreview-image">
+					</div>
+				</div>
+			</div>
+
 			<!-- 여행 도시 -->
 			<div class="form-group px-2 py-2 travel-city">
 				<p class="subheading mb-1">여행 장소</p>
@@ -84,7 +93,7 @@
 						</div>
 					</th:block>
 				</div>
-<!-- 				<p>
+				<!-- 				<p>
 					loginId: <span th:text="${loginId}"></span>
 				</p>
 				<p>
