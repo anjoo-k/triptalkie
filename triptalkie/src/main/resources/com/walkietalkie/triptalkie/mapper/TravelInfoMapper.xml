@@ -4,9 +4,12 @@
 	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoMapper">
 	<!-- 여행 정보 글을 등록 -->
 	<insert id="registerTravelInfo"
-		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo" useGeneratedKeys="true" keyProperty="idx">
-		INSERT INTO travelinfo (title, infotype, infodate,
-		city_id, content, member_id) VALUES (#{title}, #{infotype},
+		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO travelinfo (title,
+		infotype, infodate,
+		city_id, content, member_id) VALUES (#{title},
+		#{infotype},
 		#{infodate}, #{cityId}, #{content}, #{memberId})
 	</insert>
 	<!-- 여행 정보 목록을 모두 출력 -->
@@ -35,8 +38,21 @@
 		member_id=#{memberId}
 	</delete>
 	<select id="findTravelInfoTop3">
-		SELECT idx, title, member_id FROM travelinfo ORDER BY
-		view DESC LIMIT 3
+		SELECT
+		ti.idx,
+		ti.title,
+		ti.member_id,
+		tii.saved_name AS thumbnail
+		FROM travelinfo ti
+		LEFT JOIN travelinfo_image tii
+		ON tii.travelinfo_idx = ti.idx
+		AND tii.created_at = (
+		SELECT MIN(created_at)
+		FROM travelinfo_image
+		WHERE travelinfo_idx = ti.idx
+		)
+		ORDER BY ti.view DESC
+		LIMIT 3;
 	</select>
 
 	<select id="findTravelInfoByMemberId">
