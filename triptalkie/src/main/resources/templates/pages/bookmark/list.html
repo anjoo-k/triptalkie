@@ -92,7 +92,7 @@
 					<li th:classappend="${page.currentPage == 1} ? ' disabled'"
 						class="page-item pagination--spacing"><a
 						class="page-link square"
-						th:href="@{/mypage/my-travel-list(page=${page.currentPage - 1})}">‹</a>
+						th:href="@{/bookmark/list(page=${page.currentPage - 1})}">‹</a>
 					</li>
 
 					<!-- 페이지 번호 반복 -->
@@ -101,7 +101,7 @@
 						th:classappend="${p == page.currentPage} ? ' active'"
 						class="page-item pagination--spacing"><a
 						class="page-link square"
-						th:href="@{/mypage/my-travel-list(page=${p})}" th:text="${p}">1</a>
+						th:href="@{/bookmark/list(page=${p})}" th:text="${p}">1</a>
 					</li>
 
 					<!-- 다음, 마지막 -->
@@ -109,13 +109,13 @@
 						th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
 						class="page-item pagination--spacing"><a
 						class="page-link square"
-						th:href="@{/mypage/my-travel-list(page=${page.currentPage + 1})}">›</a>
+						th:href="@{/bookmark/list(page=${page.currentPage + 1})}">›</a>
 					</li>
 					<li
 						th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
 						class="page-item pagination--spacing"><a
 						class="page-link square"
-						th:href="@{/mypage/my-travel-list(page=${page.totalPage})}">»</a></li>
+						th:href="@{/bookmark/list(page=${page.totalPage})}">»</a></li>
 				</ul>
 			</nav>
 		</div>
