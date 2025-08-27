@@ -2,6 +2,7 @@ package com.walkietalkie.triptalkie.controller;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,9 +86,14 @@ public class TravelInfoController {
 
 		CommonPage<TravelInfoListDTO> pageData = travelInfoService.getTravelInfoListPage(page, size);
 		// 서비스에서 페이지 데이터 가져오기
+	    List<Country> countryList = travelInfoService.getAllCountries(); // <- 여기서 나라 리스트 가져오기
+
 
 		model.addAttribute("travelInfoList", pageData.getContent());
 		model.addAttribute("pageData", pageData);
+	    model.addAttribute("countryList", countryList);
+	    // <- 반드시 모델에 담아야 Thymeleaf에서 접근 가능
+
 
 		return "pages/travel-info/list";
 	}
@@ -204,19 +210,64 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/search")
-	public String searchTravelInfo(@RequestParam(required = false) String infotype,
-			@RequestParam(required = false) String cityId, @RequestParam(required = false) String title, Model model) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("infotype", infotype);
-		params.put("cityId", cityId);
-		params.put("title", title);
+	public String search(
+	        @RequestParam(required = false) String title,
+	        @RequestParam(required = false) String infotype,
+	        @RequestParam(required = false) String cityId,
+	        @RequestParam(defaultValue = "1") int page,
+	        @RequestParam(defaultValue = "5") int size,
+	        Model model
+	) {
+	    // 검색 파라미터 null-safe Map 생성
+	    Map<String, Object> params = new HashMap<>();
+	    if (title != null && !title.isEmpty()) params.put("title", title);
+	    if (infotype != null && !infotype.isEmpty()) params.put("infotype", infotype);
+	    if (cityId != null && !cityId.isEmpty()) params.put("cityId", cityId);
 
-		List<TravelInfoListDTO> results = travelInfoService.searchTravelInfo(params);
+	    // 서비스 호출
+	    CommonPage<TravelInfo> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
 
-		model.addAttribute("travelInfoList", results);
-		model.addAttribute("params", params); // 검색 조건 유지
-		return "pages/travel-info/search";
+	    // 검색 결과가 없으면 기본값으로 초기화
+	    if (pageData == null) {
+	        pageData = new CommonPage<>();
+	        pageData.setContent(Collections.emptyList());
+	        pageData.setSize(size);
+	        pageData.setCurrentPage(page);
+	        pageData.setTotalPage(0);
+	        pageData.setStartPage(1);
+	        pageData.setEndPage(1);
+	    }
+	    
+	    System.out.println("pageData.totalPage = " + pageData.getTotalPage());
+	    pageData.getContent().forEach(info -> System.out.println(info.getTitle()));
 
+	    // Model에 null-safe로 추가
+	    model.addAttribute("travelInfoList", pageData.getContent() != null ? pageData.getContent() : Collections.emptyList());
+	    model.addAttribute("pageData", pageData);
+
+	    model.addAttribute("title", title != null ? title : "");
+	    model.addAttribute("infotype", infotype != null ? infotype : "");
+	    model.addAttribute("cityId", cityId != null ? cityId : "");
+
+	    // 나라 리스트 null-safe 처리 (필요시)
+	    List<Country> countryList = travelInfoService.getAllCountries();
+	    model.addAttribute("countryList", countryList != null ? countryList : Collections.emptyList());
+
+	    // 선택된 나라/도시 id
+	    // cityId로 countryId를 역추적해서 selectedCountryId 설정 가능
+	    String selectedCountryId = null;
+	    if (cityId != null && !cityId.isEmpty()) {
+	        City city = travelInfoService.findCityById(cityId);
+	        if (city != null) {
+	            selectedCountryId = city.getCountryId();
+	        }
+	    }
+	    
+	    // 선택된 나라/도시 id null-safe
+	    model.addAttribute("selectedCountryId", selectedCountryId);
+	    model.addAttribute("selectedCityId", cityId != null ? cityId : null);
+
+	    return "pages/travel-info/search";
 	}
 
 }
