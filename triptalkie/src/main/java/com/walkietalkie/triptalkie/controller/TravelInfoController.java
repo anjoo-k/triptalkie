@@ -170,7 +170,7 @@ public class TravelInfoController {
 	}
 
 	@PostMapping("/edit")
-	public String editSubmit(TravelInfo travelInfo, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String editSubmit(TravelInfo travelInfo, @RequestParam(value="photo", required =false) MultipartFile file, HttpSession session, RedirectAttributes redirectAttributes) {
 		// 1. 로그인 사용자 확인
 		String loginId = memberService.getLoginId(session);
 
@@ -198,6 +198,24 @@ public class TravelInfoController {
 		// 3. 업데이트
 		int success = travelInfoService.updateTravelInfoByIdxAndMemberId(travelInfo, session);
 
+		System.out.println("업데이트 실행 시 file 객체 값 : "+file);
+		
+	    // 4. 선택적 사진 업데이트
+	    if (file != null && !file.isEmpty()) {
+	        try {
+	            // 기존 이미지 삭제
+	            boolean deleteresult = travelInfoImageService.deleteImageByTravelInfoIdx(travelInfo.getIdx());
+	            System.out.println("이미지 삭제 결과 : " +deleteresult);
+	            // 새 이미지 업로드
+	            travelInfoImageService.uploadImage(file, travelInfo.getIdx());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            redirectAttributes.addFlashAttribute("msg", "이미지 업로드 중 오류가 발생했습니다.");
+	            return "redirect:/travel-info/edit/" + travelInfo.getIdx();
+	        }
+	    }
+		
+		
 		if (success > 0) {
 			redirectAttributes.addFlashAttribute("msg", "글이 수정되었습니다.");
 			return "redirect:/travel-info/detail/" + travelInfo.getIdx();
