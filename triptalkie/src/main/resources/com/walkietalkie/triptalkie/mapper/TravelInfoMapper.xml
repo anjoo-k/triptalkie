@@ -93,72 +93,91 @@
 		SELECT id, name, country_id FROM city where id = #{id}
 	</select>
 
-    <!-- 계층형 resultMap -->
-    <resultMap id="TravelInfoMap" type="com.walkietalkie.triptalkie.domain.TravelInfo">
-        <id property="idx" column="idx"/>
-        <result property="title" column="title"/>
-        <result property="content" column="content"/>
-        <result property="infotype" column="infotype"/>
-        <result property="infodate" column="infodate"/>
-        <result property="memberId" column="member_id" />
+	<!-- 계층형 resultMap -->
+	<resultMap id="TravelInfoMap"
+		type="com.walkietalkie.triptalkie.domain.TravelInfo">
+		<id property="idx" column="idx" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="infotype" column="infotype" />
+		<result property="infodate" column="infodate" />
+		<result property="memberId" column="member_id" />
 
-        <!-- City 매핑 -->
-        <association property="city" javaType="com.walkietalkie.triptalkie.domain.City">
-            <id property="id" column="city_id"/>
-            <result property="name" column="city_name"/>
+		<!-- City 매핑 -->
+		<association property="city"
+			javaType="com.walkietalkie.triptalkie.domain.City">
+			<id property="id" column="city_id" />
+			<result property="name" column="city_name" />
 
-            <!-- Country 매핑 -->
-            <association property="country" javaType="com.walkietalkie.triptalkie.domain.Country">
-                <id property="id" column="country_id"/>
-                <result property="name" column="country_name"/>
-            </association>
-        </association>
-    </resultMap>
+			<!-- Country 매핑 -->
+			<association property="country"
+				javaType="com.walkietalkie.triptalkie.domain.Country">
+				<id property="id" column="country_id" />
+				<result property="name" column="country_name" />
+			</association>
+		</association>
+	</resultMap>
 
-    <!-- 상세 조회 -->
-    <select id="getTravelInfoDetail" parameterType="long" resultMap="TravelInfoMap">
-        SELECT 
-            ti.idx,
-            ti.title,
-            ti.content,
-            ti.infotype,
-            ti.infodate,
-            ti.member_id,
-            c.id AS city_id,
-            c.name AS city_name,
-            co.id AS country_id,
-            co.name AS country_name
-        FROM travelinfo ti
-        JOIN city c ON ti.city_id = c.id
-        JOIN country co ON c.country_id = co.id
-        WHERE ti.idx = #{idx}
-    </select>
-    
-      <select id="searchTravelInfo" parameterType="map"
-          resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-    SELECT 
-      idx,
-      title,
-      infotype,
-      city_id,
-      created_at,
-      view,
-      member_id
-    FROM travelinfo
-    <where>
-      <if test="infotype != null and infotype != ''">
-        AND infotype = #{infotype}
-      </if>
-      <if test="cityId != null and cityId != ''">
-        AND city_id = #{cityId}
-      </if>
-      <if test="title != null and title != ''">
-        AND title LIKE CONCAT('%', #{title}, '%')
-      </if>
-    </where>
-    ORDER BY created_at DESC
-  </select>
-    
-    
+	<!-- 상세 조회 -->
+	<select id="getTravelInfoDetail" parameterType="long"
+		resultMap="TravelInfoMap">
+		SELECT
+		ti.idx,
+		ti.title,
+		ti.content,
+		ti.infotype,
+		ti.infodate,
+		ti.member_id,
+		c.id AS city_id,
+		c.name AS city_name,
+		co.id AS country_id,
+		co.name AS country_name
+		FROM travelinfo ti
+		JOIN city c ON ti.city_id =
+		c.id
+		JOIN country co ON c.country_id = co.id
+		WHERE ti.idx = #{idx}
+	</select>
+
+	<!-- 검색 + 페이징 -->
+	<select id="searchTravelInfo" parameterType="map"
+		resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
+		SELECT *
+		FROM travelinfo
+		<where>
+			<if test="params.title != null and params.title != ''">
+				AND title LIKE CONCAT('%', #{params.title}, '%')
+			</if>
+			<if test="params.infotype != null and params.infotype != ''">
+				AND infotype = #{params.infotype}
+			</if>
+			<if test="params.cityId != null and params.cityId != ''">
+				AND city_id = #{params.cityId}
+			</if>
+		</where>
+		ORDER BY created_at DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<!-- 검색 결과 총 개수 -->
+	<select id="countSearchTravelInfo" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM travelinfo
+		<where>
+			<if test="params.title != null and params.title != ''">
+				AND title LIKE CONCAT('%', #{params.title}, '%')
+			</if>
+			<if test="params.infotype != null and params.infotype != ''">
+				AND infotype = #{params.infotype}
+			</if>
+			<if test="params.cityId != null and params.cityId != ''">
+				AND city_id = #{params.cityId}
+			</if>
+		</where>
+	</select>
+
+
+
 
 </mapper>

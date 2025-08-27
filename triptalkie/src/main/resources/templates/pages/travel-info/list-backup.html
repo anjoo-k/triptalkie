@@ -9,81 +9,174 @@
 	<div class="travel-info-containers bg--containers pt-5 pb-5">
 		<!-- 검색 폼 -->
 		<div class="form-container mb-3">
-			<form th:action="@{/travel-info/list}" method="get">
+			<form th:action="@{/travel-info/search}" method="get">
 				<div class="form-group row">
 					<div class="col-sm-10">
-						<input type="text" name="keyword" class="form-control"
+						<input type="text" name="keyword" class="form-control search-box"
 							placeholder="무엇을 찾아볼까요?" th:value="${keyword}">
 					</div>
 					<div class="col-sm-2">
 						<button type="submit" class="btn btn-block btn-search">검색</button>
 					</div>
 				</div>
-			</form>
-		</div>
 
-		<div class="info-list-container mt-4 mx-4">
-			<div th:each="info : ${travelInfoList}">
-				<div class="card mb-3">
-					<div class="card-body">
-						<div class="d-flex align-items-center">
-							<div class="mr-2">글 번호</div>
-							<div class="mb-0 flex-fill">
-								<div class="d-flex align-items-center">
-									<div class="small mt-1 mr-2" th:text="${info.cityId}">지역</div>
-									<div class="small mt-1 mr-2" th:text="${info.infotype}">여행정보종류</div>
-									<div class="small mt-1" th:text="${info.member.nickname}">닉네임</div>
-								</div>
-								<div>
-									<a class="h3"
-										th:href="@{/travel-info/detail/{idx}(idx=${info.idx})}"
-										th:text="${info.title}">글 제목</a>
-								</div>
-								<div>
-									<div class="small mt-1"
-										th:text="${#temporals.format(info.infodate, 'yyyy-MM')}">여행정보기준일</div>
-								</div>
-							</div>
-							<div class="small ml-auto d-flex align-items-center">
-								<div class="mr-2" th:text="${info.view}">조회수</div>
-								<div
-									th:text="${#temporals.format(info.createdAt, 'yyyy-MM-dd')}">2025-08-19</div>
-							</div>
+				<!-- 카테고리 필터 -->
+				<div class="form-group row">
+					<div class="col-md">
+						<select class="form-control select-box" name="infotype">
+							<option value="">정보 종류</option>
+							<option value="팁">팁</option>
+							<option value="교통">교통</option>
+							<option value="숙박">숙박</option>
+							<option value="음식점">음식점</option>
+							<option value="관광지">관광지</option>
+							<option value="축제">축제</option>
+							<option value="비용">비용</option>
+							<option value="안전">안전</option>
+							<option value="날씨">날씨</option>
+							<option value="기타">기타</option>
+						</select>
+					</div>
 
+					<div class="form-group row">
+						<!-- 나라 선택 -->
+						<div class="form-group col">
+							<label for="country">나라</label> <select id="country"
+								class="form-control">
+								<option value="">-- 나라 선택 --</option>
+								<option th:each="country : ${countryList}"
+									th:value="${country.id}" th:text="${country.name}"></option>
+							</select>
+						</div>
+
+						<!-- 도시 선택 -->
+						<div class="form-group col">
+							<label for="city">도시</label> <select id="city" name="cityId"
+								class="form-control">
+								<option value="">-- 도시 선택 --</option>
+								<!-- AJAX로 동적 채움 -->
+							</select>
 						</div>
 					</div>
 				</div>
+			</form>
+		</div>
+
+		<div class="board-divider mx-4 px-2"></div>
+
+		<!-- 리스트 -->
+		<div class="info-list-container mt-4 mx-4">
+			<div th:if="${travelInfoList != null}"
+				th:each="info, stat : ${travelInfoList}">
+				<div class="card mb-3">
+					<div class="card-body card-body-grid d-flex align-items-center">
+						<div class="number mr-3"
+							th:text="${(pageData.currentPage - 1) * pageData.size + stat.index + 1}">1</div>
+
+						<div class="right-content flex-fill">
+							<!-- 1행 : 지역 + 조회수 -->
+							<div class="row-badges mb-1">
+								<span class="badge badge--category" th:text="${info.cityName}">지역</span>
+								<span class="badge--sub-desc" th:text="|조회수 · ${info.view}|">조회수</span>
+
+							</div>
+							<!-- 2행 : 글 제목 + 닉네임 + 글쓴 날짜 -->
+							<div class="row-stats mb-1">
+								<a th:href="@{/travel-info/detail/{idx}(idx=${info.idx})}"
+									class="card-title h5 mb-1 title list-title"
+									th:data-id="${info.idx}" th:text="${info.title}">글 제목</a> <span
+									class="badge--sub-desc" th:text="${info.memberNickname}">작성자</span>
+								<span class="badge--sub-desc"
+									th:text="${#temporals.format(info.createdAt, 'yyyy-MM-dd')}">글작성일</span>
+							</div>
+							<!-- 3행 : 여행 정보 종류, 여행 정보 기준일 -->
+							<div>
+								<span th:text="${info.infotype}">여행 정보</span> <span
+									class="badge--sub-desc"
+									th:text="${info.infodate != null ? #temporals.format(info.infodate, 'yyyy-MM') : ''}">여행정보기준일</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-divider" th:if="${!stat.last}"></div>
+			</div>
+			<div
+				th:if="${travelInfoList == null or #lists.isEmpty(travelInfoList)}"
+				class="text-center p-3">검색 결과가 없습니다.</div>
+		</div>
+
+		<!-- 페이지네이션, 글쓰기 버튼 -->
+		<div class="row mb-3">
+			<div class="col"></div>
+
+			<!-- 가운데 페이지네이션 -->
+			<div class="col-6 text-center" th:if="${pageData.totalPage > 0}">
+				<nav class="p-2 pagination--bottom">
+					<ul class="pagination justify-content-center mb-0">
+
+						<!-- 처음으로 -->
+						<li class="page-item pagination--spacing"
+							th:classappend="${pageData.currentPage == 1} ? 'disabled'">
+							<a class="page-link"
+							th:href="@{/travel-info/list(page=1, size=${pageData.size})}">&laquo;</a>
+						</li>
+
+						<!-- 이전 -->
+						<li class="page-item pagination--spacing"
+							th:classappend="${pageData.currentPage == 1} ? 'disabled'">
+							<a class="page-link"
+							th:href="@{/travel-info/list(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1}, size=${pageData.size})}">&lt;</a>
+						</li>
+
+						<!-- 페이지 번호 반복 -->
+						<li class="page-item pagination--spacing"
+							th:each="i : ${#numbers.sequence(pageData.startPage > 0 ? pageData.startPage : 1, pageData.endPage)}"
+							th:classappend="${i == pageData.currentPage} ? 'active'"><a
+							class="page-link"
+							th:href="@{/travel-info/list(page=${i}, size=${pageData.size})}"
+							th:text="${i}">1</a></li>
+
+						<!-- 다음 -->
+						<li class="page-item pagination--spacing"
+							th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
+							<a class="page-link"
+							th:href="@{/travel-info/list(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage}, size=${pageData.size})}">&gt;</a>
+						</li>
+
+						<!-- 마지막 -->
+						<li class="page-item pagination--spacing"
+							th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
+							<a class="page-link"
+							th:href="@{/travel-info/list(page=${pageData.totalPage}, size=${pageData.size})}">&raquo;</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- 검색 결과 없을 때 메시지 -->
+			<div th:if="${pageData.totalPage == 0}" class="col-6 text-center p-3">
+				검색 결과가 없습니다.</div>
+
+			<!-- 오른쪽 글쓰기 버튼 -->
+			<div
+				class="col d-flex justify-content-center align-items-center mt-1">
+				<a class="btn btn-write" th:href="@{/travel-info/register}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-pencil-square"
+						viewBox="0 0 16 16">
+        <path
+							d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+        <path fill-rule="evenodd"
+							d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+      </svg>
+				</a>
 			</div>
 		</div>
 
-		<!-- 페이징 -->
-		<nav class="mt-4">
-			<ul class="pagination justify-content-center">
-				<!-- 이전 블록 -->
-				<li class="page-item"
-					th:classappend="${pageData.currentPage == 1} ? 'disabled'"><a
-					class="page-link"
-					th:href="@{/travel-info/list(page=${pageData.currentPage - 1})}">&laquo;</a>
-				</li>
 
-				<!-- 페이지 번호 -->
-				<li class="page-item"
-					th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
-					th:classappend="${i == pageData.currentPage} ? 'active'"><a
-					class="page-link" th:href="@{/travel-info/list(page=${i})}"
-					th:text="${i}">1</a></li>
 
-				<!-- 다음 블록 -->
-				<li class="page-item"
-					th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
-					<a class="page-link"
-					th:href="@{/travel-info/list(page=${pageData.currentPage + 1})}">&raquo;</a>
-				</li>
-			</ul>
-		</nav>
-		<div class="d-flex justify-content-end mt-3 mx-4">
-			<a th:href="@{/travel-info/register}" class="btn btn-warning">글쓰기</a>
-		</div>
 	</div>
+	<script th:src="@{/js/travel-info.js}"></script>
 </main>
 </html>
