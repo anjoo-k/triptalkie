@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>채팅 목록</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container mt-4">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content">
   <h3>채팅 목록</h3>
   <ul class="list-group">
     <li class="list-group-item" th:each="room : ${rooms}">
@@ -15,6 +13,4 @@
       </a>
     </li>
   </ul>
-</div>
-</body>
-</html>
+</main>

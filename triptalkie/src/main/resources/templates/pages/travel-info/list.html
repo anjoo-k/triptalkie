@@ -8,9 +8,9 @@
 
 	<div class="travel-info-containers bg--containers pt-5 pb-5">
 		<!-- 검색 폼 -->
-		<div class="form-container mb-3">
-			<form th:action="@{/travel-info/list}" method="get">
-				<div class="form-group row">
+		<div class="travel-info-containers bg--containers pt-5 pb-5">
+			<form th:action="@{/travel-info/search}" method="get">
+				<div class="form-row mb-3">
 					<div class="col-sm-10">
 						<input type="text" name="keyword" class="form-control search-box"
 							placeholder="무엇을 찾아볼까요?" th:value="${keyword}">
@@ -20,11 +20,11 @@
 					</div>
 				</div>
 
-				<!-- 카테고리 필터 -->
-				<div class="form-group row">
+				<div class="form-row mb-3">
 					<div class="col-md">
-						<select class="form-control select-box" name="infotype">
-							<option value="">정보 종류</option>
+						<label for="country">정보 종류</label> <select class="form-control"
+							name="infotype">
+							<option value="">-- 정보 종류 선택 --</option>
 							<option value="팁">팁</option>
 							<option value="교통">교통</option>
 							<option value="숙박">숙박</option>
@@ -39,24 +39,25 @@
 					</div>
 
 					<div class="col-md">
-						<select id="countrySelect" class="form-control select-box mr-2"
-							name="countryId">
-							<option value="">나라 선택</option>
+						<label for="country">나라</label> <select id="country"
+							class="form-control">
+							<option value="">-- 나라 선택 --</option>
 							<option th:each="country : ${countryList}"
-								th:value="${country.id}" th:text="${country.name}"></option>
+								th:value="${country.id}" th:text="${country.name}"
+								th:selected="${country.id == selectedCountryId}"></option>
 						</select>
 					</div>
 
 					<div class="col-md">
-						<select id="citySelect" class="form-control select-box mr-2"
-							name="cityId">
-							<option value="">도시 선택</option>
+						<label for="city">도시</label> <select id="city" name="cityId"
+							class="form-control"
+							th:attr="data-selected-city=${selectedCityId}">
+							<option value="">-- 도시 선택 --</option>
 						</select>
 					</div>
 				</div>
 			</form>
 		</div>
-
 		<div class="board-divider mx-4 px-2"></div>
 
 		<!-- 리스트 -->
@@ -172,5 +173,6 @@
 
 
 	</div>
+	<script th:src="@{/js/travel-info.js}"></script>
 </main>
 </html>

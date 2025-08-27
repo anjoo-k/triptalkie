@@ -1,8 +1,10 @@
 package com.walkietalkie.triptalkie.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
 import com.walkietalkie.triptalkie.domain.City;
@@ -43,5 +45,9 @@ public interface TravelInfoMapper {
 	City findCityById(String id);
 
 	TravelInfo getTravelInfoDetail(Long idx);
+
+	List<TravelInfo> searchTravelInfo(@Param("params") Map<String, Object> params, @Param("offset") int offset,@Param("limit") int limit);
+
+	int countSearchTravelInfo(@Param("params") Map<String, Object> params);
 
 }

@@ -58,6 +58,10 @@ public class CustomerserviceService {
 
 		return new CommonPage<>(list, size, page, totalPages, startPage, endPage);
 	}
+	
+	public List<Faq> findFaqTop5() {
+		return customerserviceMapper.findFaqTop5();
+	}
 
 	public Map<String, Object> findNoticeAllList(int currentPage, int size) {
 		if(currentPage < 1) currentPage = 1;

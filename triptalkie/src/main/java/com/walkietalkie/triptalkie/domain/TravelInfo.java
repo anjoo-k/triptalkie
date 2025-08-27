@@ -151,6 +151,10 @@ public class TravelInfo {
 	public void setCity(City city) {
 		this.city = city;
 	}
+	
+    public String getCityName() {
+        return city != null ? city.getName() : "";
+    }
 
 	@Override
 	public String toString() {

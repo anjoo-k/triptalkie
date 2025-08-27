@@ -26,4 +26,6 @@ public interface CustomerserviceMapper {
 
 	Notice findNoticeByIdx(Long noticeId);
 
+	List<Faq> findFaqTop5();
+
 }

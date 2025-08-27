@@ -3,6 +3,7 @@ package com.walkietalkie.triptalkie.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,9 +49,6 @@ public class TravelInfoService {
 	public List<TravelInfo> findTravelInfoAllList() {
 		return travelInfoMapper.findTravelInfoAllList();
 	}
-	
-
-
 
 	// 여행 정보 글 idx 기준으로 상세 정보 찾기
 	public TravelInfo findTravelInfoIdx(long idx) {
@@ -89,57 +87,70 @@ public class TravelInfoService {
 	public List<TravelInfo> findTravelInfoByMemberId(String loginMember) {
 		return travelInfoMapper.findTravelInfoByMemberId(loginMember);
 	}
-	
-    /**
-     * 모든 여행 정보 목록을 조회합니다.
-     * @return TravelInfoListDTO 객체들의 리스트
-     */
-    public CommonPage<TravelInfoListDTO> getTravelInfoListPage(int page, int size) {
-        // offset 계산
-        int offset = (page - 1) * size;
 
-        // 페이지 데이터 조회
-        List<TravelInfoListDTO> content = travelInfoMapper.selectTravelInfoListPage(offset, size);
+	/**
+	 * 모든 여행 정보 목록을 조회합니다.
+	 * 
+	 * @return TravelInfoListDTO 객체들의 리스트
+	 */
+	public CommonPage<TravelInfoListDTO> getTravelInfoListPage(int page, int size) {
+		// offset 계산
+		int offset = (page - 1) * size;
 
-        // 전체 데이터 개수 조회
-        int totalCount = travelInfoMapper.selectTravelInfoCount();
-        int totalPage = (int) Math.ceil((double) totalCount / size);
+		// 페이지 데이터 조회
+		List<TravelInfoListDTO> content = travelInfoMapper.selectTravelInfoListPage(offset, size);
 
-        // 페이지 블록 계산
-        int pageBlock = 5;
-        int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
-        int endPage = Math.min(startPage + pageBlock - 1, totalPage);
+		// 전체 데이터 개수 조회
+		int totalCount = travelInfoMapper.selectTravelInfoCount();
+		int totalPage = (int) Math.ceil((double) totalCount / size);
 
-        return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
-    }
-    
-    public void increaseViewCount(long idx) {
-        travelInfoMapper.updateViewCount(idx);
-    }
-    
-    public List<Country> getAllCountries() {
-    	return travelInfoMapper.getAllCountries();
-    }
-    
-    public List<City> getAllCities() {
-    	return travelInfoMapper.getAllCities();
-    }
-    
-    public City findCityById(String id) {
-    	return travelInfoMapper.findCityById(id);
-    }
-    
-    public TravelInfo getTravelInfoDetail(long idx) {
-    	TravelInfo travelInfo = travelInfoMapper.getTravelInfoDetail(idx);
-    	
-    	// DB infodate를 년-월 문자열로 변환해서 tempMonth에 저장
-    	if (travelInfo.getInfodate() != null) {
-    		travelInfo.setTempMonth(travelInfo.getInfodate().format(DateTimeFormatter.ofPattern("yyyy-MM")));
-    	}
-    	
-    	return travelInfo;
-    }
-    
-    
+		// 페이지 블록 계산
+		int pageBlock = 5;
+		int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+		int endPage = Math.min(startPage + pageBlock - 1, totalPage);
+
+		return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
+	}
+
+	public void increaseViewCount(long idx) {
+		travelInfoMapper.updateViewCount(idx);
+	}
+
+	public List<Country> getAllCountries() {
+		return travelInfoMapper.getAllCountries();
+	}
+
+	public List<City> getAllCities() {
+		return travelInfoMapper.getAllCities();
+	}
+
+	public City findCityById(String id) {
+		return travelInfoMapper.findCityById(id);
+	}
+
+	public TravelInfo getTravelInfoDetail(long idx) {
+		TravelInfo travelInfo = travelInfoMapper.getTravelInfoDetail(idx);
+
+		// DB infodate를 년-월 문자열로 변환해서 tempMonth에 저장
+		if (travelInfo.getInfodate() != null) {
+			travelInfo.setTempMonth(travelInfo.getInfodate().format(DateTimeFormatter.ofPattern("yyyy-MM")));
+		}
+
+		return travelInfo;
+	}
+
+	// 검색 결과 페이지 별 출력
+	public CommonPage<TravelInfo> searchTravelInfoPage(Map<String, Object> params, int page, int size) {
+		int totalCount = travelInfoMapper.countSearchTravelInfo(params);
+
+		int totalPage = (int) Math.ceil((double) totalCount / size);
+		int startPage = ((page - 1) / 5) * 5 + 1; // 한 블록에 5페이지
+		int endPage = Math.min(startPage + 4, totalPage);
+
+		int offset = (page - 1) * size;
+		List<TravelInfo> content = travelInfoMapper.searchTravelInfo(params, offset, size);
+
+		return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
+	}
 
 }

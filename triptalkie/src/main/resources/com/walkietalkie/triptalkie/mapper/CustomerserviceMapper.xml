@@ -3,17 +3,19 @@
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.CustomerserviceMapper">
 	<select id="findAllFqa">
-		SELECT idx, title, view, content, created_at, member_id 
+		SELECT idx, title, view, content, created_at,
+		member_id
 		FROM faq
 		ORDER BY created_at DESC
 	</select>
-	
+
 	<select id="findCountFaq">
 		SELECT COUNT(*) FROM faq
 	</select>
-	
+
 	<select id="findFaqPaged" resultType="map" parameterType="map">
-		SELECT idx, title, view, content, created_at, member_id 
+		SELECT
+		idx, title, view, content, created_at, member_id
 		FROM faq
 		ORDER BY created_at DESC
 		LIMIT #{startRow}, #{size}
@@ -41,5 +43,13 @@
 		SELECT idx, title, content, created_at, updated_at
 		FROM notice
 		WHERE idx=#{noticeId}
+	</select>
+	<!-- 메인에 조회수 별 5개 질문 조회 -->
+	<select id="findFaqTop5">
+		SELECT idx, title, view, content, created_at,
+		member_id
+		FROM faq
+		ORDER BY view DESC
+		LIMIT 5
 	</select>
 </mapper>
