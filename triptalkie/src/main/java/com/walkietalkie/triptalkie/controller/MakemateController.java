@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.domain.Makemate;
+import com.walkietalkie.triptalkie.service.BookMarkService;
 import com.walkietalkie.triptalkie.service.MakemateService;
 
 import jakarta.servlet.http.HttpSession;
@@ -28,10 +29,12 @@ public class MakemateController {
 
 	private final MakemateService makemateService;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+	private final BookMarkService bookmarkService;
 
-	public MakemateController(MakemateService makemateService) {
+	public MakemateController(MakemateService makemateService, BookMarkService bookmarkService) {
 		super();
 		this.makemateService = makemateService;
+		this.bookmarkService = bookmarkService;
 	}
 	
 	/*
@@ -90,6 +93,10 @@ public class MakemateController {
 		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
 		model.addAllAttributes(combinedMap);
 		
+		// 북마크 여부 확인 후 모델에 추가
+	    boolean bookmarked = bookmarkService.isBookmarked(id, makemateId);
+	    model.addAttribute("bookmarked", bookmarked);
+		
 		return "pages/make-mate/detail";
 	}
 	
@@ -118,7 +125,7 @@ public class MakemateController {
 		return "redirect:/makemate/list";
 	}
 	
-	// 글수정페이지
+	// 글수정 페이지
 	@GetMapping("/editPage/{makemateId}")
 	public String updateMakematePage(@PathVariable Long makemateId, HttpSession session, Model model) throws AccessDeniedException{
 		String id = (String) session.getAttribute("loginId");
@@ -158,5 +165,15 @@ public class MakemateController {
 		
 		makemateService.deleteMakemateByIdx(id, makemateId);
 		return "redirect:/makemate/list";
+	}
+	
+	// makemate 신청
+	@PostMapping("/apply/{makemateId}")
+	public String applyMakemate(@PathVariable Long makemateId, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
+		if (id == null)
+			return "redirect:/member/loginPage";
+		makemateService.applyMakemate(id, makemateId);
+		return "redirect:/makemate/detailPage/" + makemateId;
 	}
 }
