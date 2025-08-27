@@ -22,25 +22,53 @@
 	<delete id="deleteBookmark">
 		DELETE FROM bookmark
 		WHERE member_id = #{memberId}
-		AND makemate_idx = #{makemateIdx}
+		AND
+		makemate_idx = #{makemateIdx}
 
 	</delete>
 
 	<!--북마크 리스트 조회 -->
 	<select id="findBookmarksWithMakemate"
-		resultType="com.walkietalkie.triptalkie.domain.Makemate">
-		SELECT m.*
+		resultType="com.walkietalkie.triptalkie.DTO.BookmarkDTO">
+		SELECT
+		b.idx AS bookmarkIdx,
+		m.idx AS makemateIdx,
+		m.title AS title,
+		m.content AS content,
+		m.startdate AS startdate,
+		m.enddate AS enddate,
+		m.concept_type AS conceptType,
+		m.matetype AS matetype,
+		m.age_group AS ageGroup,
+		m.budget AS budget,
+		m.state AS state,
+		mem.id AS memberId,
+		mem.nickname AS memberNickname,
+		mem.gender AS memberGender,
+		c.id AS cityId,
+		c.name AS cityName,
+		ct.id AS countryId,
+		ct.name AS countryName,
+		l.id AS landId,
+		l.name AS landName
 		FROM bookmark b
 		JOIN makemate m ON b.makemate_idx = m.idx
+		JOIN member mem ON m.member_id = mem.id
+		JOIN city c ON m.city_id = c.id
+		JOIN country ct ON c.country_id = ct.id
+		JOIN land l ON ct.land_id = l.id
 		WHERE b.member_id = #{memberId}
+		ORDER BY b.created_at DESC
 	</select>
-	
+
+
 	<!-- 북마크 상태 업데이트 -->
-    <update id="updateBookmarkState">
-        UPDATE bookmark
-        SET state = #{state}
-        WHERE member_id = #{memberId}
-          AND makemate_idx = #{makemateIdx}
-    </update>
+	<update id="updateBookmarkState">
+		UPDATE bookmark
+		SET state = #{state}
+		WHERE member_id =
+		#{memberId}
+		AND makemate_idx = #{makemateIdx}
+	</update>
 
 </mapper>
