@@ -52,8 +52,7 @@ public class BookMarkService {
      * @param size 
      * @param offset 
      */
-    public List<BookmarkDTO> getBookMarkedMakemates(String memberId, int page, int size) {
-    	int offset = (page - 1) * size;
+    public List<BookmarkDTO> getBookMarkedMakemates(String memberId, int offset, int size) {
         return bookMarkMapper.findBookmarksWithMakemate(memberId,offset,size);
     }
 
