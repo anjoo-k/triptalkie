@@ -20,8 +20,6 @@
 				<div class="col-sm-12">
 					<h5 class="font-weight-bold py-2 px-1 detail-title" th:text="${travelreview['title']}">제목 예시: 제주도 여행기</h5>
 					<input id="idx" type="hidden" th:name="idx" th:value="${travelreview['idx']}">
-					<!-- 					<input type="hidden" th:name="memberId" th:value="${session.memberId}">
-					<input type="hidden" th:name="memberNickname" th:value="${travelreview['memberNickname']}"> -->
 				</div>
 			</div>
 			<!-- 조회수 + 작성일 -->
@@ -89,8 +87,7 @@
 								</div>
 								<th:block th:if="${memberId != null && memberId == c.memberId}">
 									<div class="col-sm-3 text-end">
-										<a class="text-muted me-1 update-reply btn btn-edit" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a>
-										<a class="text-muted delete-reply btn btn-delete" th:attr="data-id=${c.idx}">삭제</a>
+										<a class="text-muted me-1 update-reply btn btn-edit" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> <a class="text-muted delete-reply btn btn-delete" th:attr="data-id=${c.idx}">삭제</a>
 									</div>
 								</th:block>
 							</div>
@@ -101,7 +98,7 @@
 							</div>
 							<!-- 둘째 줄: 댓글 내용 | 답글 버튼 -->
 							<div class="row reply-content-box">
-								<div class="col-sm-12">
+								<div class="col-sm-12 comment-padding">
 									<span class="reply-content content-text" th:text="${c.content}">댓글 내용이 여기에 들어갑니다. 길어도 자동 줄바꿈 됩니다.</span>
 								</div>
 							</div>
@@ -136,7 +133,7 @@
 			</section>
 			<!-- 버튼 영역 -->
 			<div class="d-flex justify-content-between align-items-center mt-3">
-				<button type="button" class="btn btn-back">목록</button>
+				<button type="button" class="btn back-to-list">목록</button>
 				<th:block th:if="${memberId != null && memberId == travelreview['memberId']}">
 					<div>
 						<button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${travelreview.idx}">수정</button>
@@ -155,11 +152,30 @@
 				<!-- Modal footer -->
 				<div class="modal-footer btn-no-border">
 					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-delete">예</button>
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">아니요</button>
+					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-nope" data-dismiss="modal">아니요</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script src="/js/travel-review.js"></script>
+	<!-- Login Required Modal -->
+	<div class="modal fade" id="login-required-modal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content py-4">
+				<!-- Modal body -->
+				<div class="modal-body text-center">로그인이 필요한 서비스입니다.</div>
+				<!-- Modal footer -->
+				<div class="modal-footer btn-no-border">
+					<!-- 로그인 페이지로 이동 -->
+					<a th:href="@{/member/loginPage}" class="btn btn-primary btn--radius mx-auto d-block">로그인</a>
+					<!-- 그냥 닫기 -->
+					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		var loginMemberId = /*[[${memberId}]]*/null;
+	</script>
+	<script src="/js/travel-review.js" th:inline="javascript"></script>
 </main>
 </html>

@@ -73,7 +73,7 @@ public class TravelReviewImageService {
 			return "/" + uploadDir + "/review/" + image.getSavedName();
 		}
 
-		return "/image/original-review.png";
+		return "/images/original-review.png";
 	}
 
 	public void updateReviewImage(long idx, MultipartFile file) throws IOException {

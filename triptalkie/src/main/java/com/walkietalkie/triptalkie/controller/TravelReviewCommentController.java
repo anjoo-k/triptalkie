@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO;
 import com.walkietalkie.triptalkie.service.TravelReviewCommentService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/travelReviewComment")
@@ -27,13 +29,21 @@ public class TravelReviewCommentController {
 
 	@PostMapping("/register")
 	@ResponseBody
-	public Map<String, Object> registerComment(@RequestBody TravelReviewCommentDTO travelReivewCommentDTO) {
-		System.out.println("넘어 온 travelReivewCommentDTO : " + travelReivewCommentDTO);
+	public Map<String, Object> registerComment(@RequestBody TravelReviewCommentDTO travelReivewCommentDTO, HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		String loginMember = (String) session.getAttribute("loginId");
+		// 세션이 비어있을 경우 에러 처리 추가
+		if (loginMember == null) {
+			result.put("success", false);
+			result.put("message", "로그인이 필요합니다.");
+			return result;
+		}
+		
 		travelReviewCommentService.registerComment(travelReivewCommentDTO);
 
 		TravelReviewCommentDTO savedComment = travelReviewCommentService.findByIdx(travelReivewCommentDTO.getIdx());
 
-		Map<String, Object> result = new HashMap<>();
+		result.put("success", true);
 		result.put("message", "댓글이 등록되었습니다.");
 		result.put("comment", savedComment);
 		System.out.println("등록 완료 travelReviewCommentDTO : " + savedComment);
@@ -43,9 +53,7 @@ public class TravelReviewCommentController {
 	@GetMapping("/findByIdx")
 	@ResponseBody
 	public Map<String, Object> findCommentByIdx(@RequestParam Integer idx) {
-//		System.out.println("조회 controller 진입");
-//		System.out.println("넘어 온 idx 값 : " + idx);
-		
+		System.out.println("findCommentByIdx 진입 " + idx);
 		Map<String, Object> resultMap = new HashMap<>();
 
 		try {
@@ -59,6 +67,8 @@ public class TravelReviewCommentController {
 			resultMap.put("success", false);
 			resultMap.put("message", "삭제 중 오류가 발생했습니다.");
 		}
+		
+		System.out.println("조회 시 수정할 데이터 값 : " + resultMap);
 		
 		return resultMap;
 	}
