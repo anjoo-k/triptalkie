@@ -108,59 +108,43 @@
 			class="text-center p-3">검색 결과가 없습니다.</div>
 	</div>
 
-	<!-- 페이지네이션 + 글쓰기 버튼 -->
+	<!-- 페이지네이션 -->
 	<div class="row mb-3">
-
-		<!-- 좌측 빈 공간 -->
 		<div class="col"></div>
-
-		<!-- 가운데 페이지네이션 -->
 		<div class="col-6 text-center"
-			th:if="${pageData != null and pageData.totalPage > 0}">
+			th:if="${pageData != null and pageData.totalPage != null and pageData.totalPage > 0}">
 			<nav class="p-2 pagination--bottom">
 				<ul class="pagination justify-content-center mb-0">
-
-					<!-- 처음으로 -->
 					<li class="page-item pagination--spacing"
 						th:classappend="${pageData.currentPage == 1} ? 'disabled'"><a
 						class="page-link"
-						th:href="@{/travel-info/list(page=1, size=${pageData.size})}">&laquo;</a>
+						th:href="@{/travel-info/search(page=1, size=${pageData.size})}">&laquo;</a>
 					</li>
-
-					<!-- 이전 -->
 					<li class="page-item pagination--spacing"
 						th:classappend="${pageData.currentPage == 1} ? 'disabled'"><a
 						class="page-link"
-						th:href="@{/travel-info/list(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1}, size=${pageData.size})}">&lt;</a>
+						th:href="@{/travel-info/search(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1}, size=${pageData.size})}">&lt;</a>
 					</li>
-
-					<!-- 페이지 번호 반복 -->
 					<li class="page-item pagination--spacing"
-						th:each="i : ${#numbers.sequence(pageData.startPage > 0 ? pageData.startPage : 1, pageData.endPage)}"
+						th:each="i : ${#numbers.sequence(pageData.startPage != null ? pageData.startPage : 1, pageData.endPage != null ? pageData.endPage : 1)}"
 						th:classappend="${i == pageData.currentPage} ? 'active'"><a
 						class="page-link"
-						th:href="@{/travel-info/list(page=${i}, size=${pageData.size})}"
+						th:href="@{/travel-info/search(page=${i}, size=${pageData.size})}"
 						th:text="${i}">1</a></li>
-
-					<!-- 다음 -->
 					<li class="page-item pagination--spacing"
 						th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
 						<a class="page-link"
-						th:href="@{/travel-info/list(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage}, size=${pageData.size})}">&gt;</a>
+						th:href="@{/travel-info/search(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage}, size=${pageData.size})}">&gt;</a>
 					</li>
-
-					<!-- 마지막 -->
 					<li class="page-item pagination--spacing"
 						th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled'">
 						<a class="page-link"
-						th:href="@{/travel-info/list(page=${pageData.totalPage}, size=${pageData.size})}">&raquo;</a>
+						th:href="@{/travel-info/search(page=${pageData.totalPage}, size=${pageData.size})}">&raquo;</a>
 					</li>
-
 				</ul>
 			</nav>
 		</div>
 
-		<!-- 검색 결과 없을 때 메시지 -->
 		<div th:if="${pageData == null or pageData.totalPage == 0}"
 			class="col-6 text-center p-3">검색 결과가 없습니다.</div>
 
@@ -169,17 +153,14 @@
 			<a class="btn btn-write" th:href="@{/travel-info/register}"> <svg
 					xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                <path
+        <path
 						d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                <path fill-rule="evenodd"
+        <path fill-rule="evenodd"
 						d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
-            </svg>
+      </svg>
 			</a>
 		</div>
-
 	</div>
-
-
 	<script th:src="@{/js/travel-info.js}"></script>
 
 </main>
