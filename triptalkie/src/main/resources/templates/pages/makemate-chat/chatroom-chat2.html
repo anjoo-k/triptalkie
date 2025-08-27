@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+<head>
+<style>
+#chat-box {
+	height: 400px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	padding: 10px;
+	background-color: #f8f9fa;
+}
+
+.message {
+	padding: 5px 10px;
+	border-radius: 15px;
+	margin-bottom: 5px;
+	max-width: 70%;
+}
+
+.message.me {
+	background-color: #007bff;
+	color: white;
+	margin-left: auto;
+}
+
+.message.other {
+	background-color: #e2e3e5;
+	color: #333;
+	margin-right: auto;
+}
+</style>
+</head>
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content">
+	<!-- 	<div class="container mt-4"> -->
+	<div class="container bg--containers pt-5 pb-5">
+		<h3>채팅방</h3>
+		<div id="chat-box"></div>
+
+		<form id="chat-form" class="form-inline mt-2">
+			<input type="text" id="message" class="form-control mr-2 flex-grow-1"
+				placeholder="메시지 입력">
+			<button type="submit" class="btn btn-primary">전송</button>
+		</form>
+	</div>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+	<script th:inline="javascript">
+  const loginId = /*[[${loginId}]]*/ 'unknown';
+  const chatroomIdx = /*[[${chatroomIdx}]]*/ 0; // 숫자로 전달
+
+  if (!chatroomIdx || chatroomIdx <= 0) {
+    alert("채팅방 정보가 없습니다.");
+  }
+
+  const chatBox = document.getElementById('chat-box');
+  const chatForm = document.getElementById('chat-form');
+  const msgInput = document.getElementById('message');
+
+  // WebSocket 연결
+  const socket = new SockJS('/ws-chat'); // 서버에 맞게 엔드포인트 조정
+  const stompClient = Stomp.over(socket);
+
+  stompClient.connect({}, function () {
+    console.log("WebSocket 연결 성공");
+
+    // 해당 채팅방 구독
+    stompClient.subscribe('/topic/chatroom/' + chatroomIdx, function (message) {
+      const msg = JSON.parse(message.body);
+      addMessage(msg.memberId, msg.content);
+    });
+
+    // 페이지 로드 시 기존 메시지 가져오기
+    fetch('/makemate/chat/messages?chatroomIdx=' + chatroomIdx)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(msg => addMessage(msg.memberId, msg.content));
+      });
+  });
+
+  // 메시지 전송
+  chatForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const content = msgInput.value.trim();
+    if (!content) return;
+
+    const chatMessage = { memberId: loginId, content: content, chatroomIdx: chatroomIdx };
+    stompClient.send("/app/send", {}, JSON.stringify(chatMessage));
+    msgInput.value = '';
+  });
+
+  function addMessage(sender, content) {
+    const div = document.createElement('div');
+    div.className = 'message ' + (sender === loginId ? 'me' : 'other');
+    div.textContent = sender + ": " + content;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+</main>

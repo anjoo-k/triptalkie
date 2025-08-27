@@ -1,6 +1,7 @@
 package com.walkietalkie.triptalkie.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -43,5 +44,7 @@ public interface TravelInfoMapper {
 	City findCityById(String id);
 
 	TravelInfo getTravelInfoDetail(Long idx);
-
+	
+	List<TravelInfoListDTO> searchTravelInfo(Map<String, Object> params);
+	// 검색 메서드
 }

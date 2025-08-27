@@ -3,6 +3,7 @@ package com.walkietalkie.triptalkie.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,6 +140,10 @@ public class TravelInfoService {
     	
     	return travelInfo;
     }
+    
+    public List<TravelInfoListDTO> searchTravelInfo(Map<String, Object> params) {
+        return travelInfoMapper.searchTravelInfo(params);
+      }
     
     
 

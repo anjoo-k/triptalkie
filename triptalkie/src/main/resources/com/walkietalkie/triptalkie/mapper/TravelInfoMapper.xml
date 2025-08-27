@@ -133,5 +133,32 @@
         JOIN country co ON c.country_id = co.id
         WHERE ti.idx = #{idx}
     </select>
+    
+      <select id="searchTravelInfo" parameterType="map"
+          resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
+    SELECT 
+      idx,
+      title,
+      infotype,
+      city_id,
+      created_at,
+      view,
+      member_id
+    FROM travelinfo
+    <where>
+      <if test="infotype != null and infotype != ''">
+        AND infotype = #{infotype}
+      </if>
+      <if test="cityId != null and cityId != ''">
+        AND city_id = #{cityId}
+      </if>
+      <if test="title != null and title != ''">
+        AND title LIKE CONCAT('%', #{title}, '%')
+      </if>
+    </where>
+    ORDER BY created_at DESC
+  </select>
+    
+    
 
 </mapper>
