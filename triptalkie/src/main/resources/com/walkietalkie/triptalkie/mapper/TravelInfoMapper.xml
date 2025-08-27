@@ -4,9 +4,12 @@
 	namespace="com.walkietalkie.triptalkie.mapper.TravelInfoMapper">
 	<!-- 여행 정보 글을 등록 -->
 	<insert id="registerTravelInfo"
-		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo" useGeneratedKeys="true" keyProperty="idx">
-		INSERT INTO travelinfo (title, infotype, infodate,
-		city_id, content, member_id) VALUES (#{title}, #{infotype},
+		parameterType="com.walkietalkie.triptalkie.domain.TravelInfo"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO travelinfo (title,
+		infotype, infodate,
+		city_id, content, member_id) VALUES (#{title},
+		#{infotype},
 		#{infodate}, #{cityId}, #{content}, #{memberId})
 	</insert>
 	<!-- 여행 정보 목록을 모두 출력 -->
@@ -140,7 +143,7 @@
 	</select>
 
 	<!-- 검색 + 페이징 -->
-	<select id="searchTravelInfo" parameterType="map"
+	<select id="searchTravelInfo2" parameterType="map"
 		resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
 		SELECT *
 		FROM travelinfo
@@ -160,7 +163,7 @@
 	</select>
 
 	<!-- 검색 결과 총 개수 -->
-	<select id="countSearchTravelInfo" parameterType="map"
+	<select id="countSearchTravelInfo2" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM travelinfo
@@ -173,6 +176,58 @@
 			</if>
 			<if test="params.cityId != null and params.cityId != ''">
 				AND city_id = #{params.cityId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 검색 + 페이징 (TravelInfoMap 사용) -->
+	<select id="searchTravelInfo" parameterType="map"
+		resultMap="TravelInfoMap">
+		SELECT
+		ti.idx,
+		ti.title,
+		ti.content,
+		ti.infotype,
+		ti.infodate,
+		ti.member_id,
+		c.id AS city_id,
+		c.name AS city_name,
+		co.id AS country_id,
+		co.name AS country_name
+		FROM travelinfo ti
+		JOIN city c ON ti.city_id = c.id
+		JOIN country co ON c.country_id = co.id
+		<where>
+			<if test="params.title != null and params.title != ''">
+				AND ti.title LIKE CONCAT('%', #{params.title}, '%')
+			</if>
+			<if test="params.infotype != null and params.infotype != ''">
+				AND ti.infotype = #{params.infotype}
+			</if>
+			<if test="params.cityId != null and params.cityId != ''">
+				AND ti.city_id = #{params.cityId}
+			</if>
+		</where>
+		ORDER BY ti.created_at DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<!-- 검색 결과 총 개수 -->
+	<select id="countSearchTravelInfo" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM travelinfo ti
+		JOIN city c ON ti.city_id = c.id
+		JOIN country co ON c.country_id = co.id
+		<where>
+			<if test="params.title != null and params.title != ''">
+				AND ti.title LIKE CONCAT('%', #{params.title}, '%')
+			</if>
+			<if test="params.infotype != null and params.infotype != ''">
+				AND ti.infotype = #{params.infotype}
+			</if>
+			<if test="params.cityId != null and params.cityId != ''">
+				AND ti.city_id = #{params.cityId}
 			</if>
 		</where>
 	</select>
