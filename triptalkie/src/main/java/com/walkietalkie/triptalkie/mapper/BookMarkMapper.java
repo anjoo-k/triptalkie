@@ -24,10 +24,16 @@ public interface BookMarkMapper {
                         @Param("makemateIdx") long makemateIdx);
 
     // 북마크 목록 조회
-    List<BookmarkDTO> findBookmarksWithMakemate(@Param("memberId") String memberId);
+    List<BookmarkDTO> findBookmarksWithMakemate(
+            @Param("memberId") String memberId,
+            @Param("offset") int offset,
+            @Param("size") int size
+        );
 
     // 상태 업데이트 (1=활성, 0=비활성)
     void updateBookmarkState(@Param("memberId") String memberId,
                              @Param("makemateIdx") long makemateIdx,
                              @Param("state") boolean state);
+
+	int countBookmarks(@Param("memberId") String memberId);
 }

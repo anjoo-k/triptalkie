@@ -49,8 +49,16 @@ public class BookMarkService {
 
     /**
      * 사용자의 북마크된 메이트 목록 조회
+     * @param size 
+     * @param offset 
      */
-    public List<BookmarkDTO> getBookMarkedMakemates(String memberId) {
-        return bookMarkMapper.findBookmarksWithMakemate(memberId);
+    public List<BookmarkDTO> getBookMarkedMakemates(String memberId, int page, int size) {
+    	int offset = (page - 1) * size;
+        return bookMarkMapper.findBookmarksWithMakemate(memberId,offset,size);
     }
+
+	public int countBookmarks(String memberId) {
+		// TODO Auto-generated method stub
+		return bookMarkMapper.countBookmarks(memberId);
+	}
 }
