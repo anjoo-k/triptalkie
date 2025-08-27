@@ -153,9 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	const commentBtn = document.getElementById('comment-write-btn');
 	if (commentBtn) {
 		commentBtn.addEventListener("click", async () => {
+			// 세션 유무 체크
+			//let loginMemberId = /*[['${memberId}']]*/ null;
+			alert('로그인 한 사람 : ' + loginMemberId);
+			if (loginMemberId == null) {
+				$('#login-required-modal').modal('show');
+				return;
+			}
+
 			const travelReviewId = commentBtn.getAttribute('data-idx');
 			const loginMember = document.getElementById('memberId').value;
 			const commentContents = document.getElementById('comment-content').value;
+
 
 			if (!commentContents.trim()) {
 				alert("댓글 내용을 입력하세요.");
@@ -179,12 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					showComment(result.comment);
 					document.getElementById('comment-content').value = '';	// 입력창을 비워줌
 				} else {
-					alert("댓글 작성 실패 : " + result.message);
+					console.error('댓글 작성 실패', result.message);
 				}
 
 			} catch (e) {
 				console.error(e);
-				alert('댓글 등록 중 오류 발생');
+				console.error('댓글 등록 중 오류 발생', e);
 			}
 		});
 	}
@@ -193,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function showComment(comment) {
 		const commentList = document.getElementById('comment-list');
 		if (!commentList) return;
-		alert(comment.createdAt);
+
 		// createdAt 포맷 YYYY-MM-DD
 		let dateText = '';
 		if (comment.createdAt) {
@@ -216,8 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			                    <span class="nickname subheading">${comment.nickName}</span>
 			                </div>
 			                <div class="col-sm-3 text-end">
-			                    <a href="#" class="text-muted me-1">수정</a> | 
-			                    <a href="#" class="text-muted">삭제</a>
+			                    <a href="#" class="text-muted me-1 update-reply btn btn-edit" data-id="${comment.idx}" data-member-id="${comment.memberId}">수정</a> 
+			                    <a href="#" class="text-muted delete-reply btn btn-delete" data-id="${comment.idx}" data-member-id="${comment.memberId}">삭제</a>
 			                </div>
 			            </div>
 			            <div class="row mb-1">
@@ -226,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			                </div>
 			            </div>
 			            <div class="row">
-			                <div class="col-sm-12">
+			                <div class="col-sm-12 comment-padding">
 			                    <span class="reply-content content-text">${comment.content}</span>
 			                </div>
 			            </div>
@@ -257,46 +266,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 수정 버튼 생성
 	function updateComment(updateReplyBtn, comment, idxToUpdateReply) {
-		const commentRow = updateReplyBtn.closest('.row.reply-content-box'); // 수정 버튼과 내용이 들어있는 큰 블록
-		const commentDiv = commentRow.querySelector('.col-sm-12'); // 그 안에서 댓글 내용 span
+		const commentRow = updateReplyBtn.closest('.row.mb-1');
+		const commentDiv = commentRow.parentElement.querySelector('.reply-content-box');
 		if (!commentDiv) return;
 
-		console.log('넘어 온 값 : ' + comment.content);
+		if (commentDiv.querySelector('.edit-comment')) return; // 이미 편집 중이면 종료
 
-		const replyContent = commentDiv.querySelector('.reply-content'); // 기존 댓글 span
+		const replyContent = commentDiv.querySelector('.reply-content');
 		if (!replyContent) return;
 
-		// 기존 댓글 숨김
 		replyContent.style.display = 'none';
+		// 수정/삭제 버튼 숨기기
+		const btnGroup = commentRow.querySelector('.col-sm-3');
+		if (btnGroup) btnGroup.style.display = 'none';
 
-		// input 박스 생성
 		const input = document.createElement('input');
 		input.type = 'text';
 		input.value = comment.content;
 		input.id = "edit-comment";
 		input.classList.add('edit-comment');
 
-		// 저장 버튼 생성
 		const saveBtn = document.createElement('button');
 		saveBtn.textContent = '저장';
 		saveBtn.classList.add('save-btn');
-		
-		// 취소 버튼 생성
+
 		const cancelBtn = document.createElement('button');
 		cancelBtn.textContent = '취소';
-		saveBtn.classList.add('cancel-btn');
+		cancelBtn.classList.add('cancel-btn');
 
-		// input + 버튼 삽입
 		commentDiv.appendChild(input);
 		commentDiv.appendChild(saveBtn);
 		commentDiv.appendChild(cancelBtn);
-
+		
 		// 저장 이벤트
 		saveBtn.addEventListener('click', async () => {
 			alert('저장 버튼 클릭!');
 			const newComment = input.value.trim();
 			if (!newComment) return alert('댓글 내용을 입력하세요.');
-			
+
 			alert('idxToUpdateReply : ' + idxToUpdateReply);
 			alert('newComment : ' + newComment);
 
@@ -327,10 +334,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			input.remove();
 			saveBtn.remove();
 			cancelBtn.remove();
+			if (btnGroup) btnGroup.style.display = '';
 		}
 
 	}
-
 
 	// 삭제
 	const commentDeleteModal = document.getElementById('commentDeleteModal');
