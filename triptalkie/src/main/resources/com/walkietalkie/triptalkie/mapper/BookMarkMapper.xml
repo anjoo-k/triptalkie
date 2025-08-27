@@ -33,29 +33,36 @@
 		SELECT
 		b.idx AS bookmarkIdx,
 		m.idx AS makemateIdx,
-		m.title AS title,
+		m.title AS
+		title,
 		m.content AS content,
 		m.startdate AS startdate,
-		m.enddate AS enddate,
+		m.enddate AS
+		enddate,
 		m.concept_type AS conceptType,
 		m.matetype AS matetype,
 		m.age_group AS ageGroup,
 		m.budget AS budget,
 		m.state AS state,
-		mem.id AS memberId,
+		mem.id AS
+		memberId,
 		mem.nickname AS memberNickname,
 		mem.gender AS memberGender,
 		c.id AS cityId,
 		c.name AS cityName,
 		ct.id AS countryId,
-		ct.name AS countryName,
+		ct.name AS
+		countryName,
 		l.id AS landId,
 		l.name AS landName
 		FROM bookmark b
-		JOIN makemate m ON b.makemate_idx = m.idx
-		JOIN member mem ON m.member_id = mem.id
+		JOIN
+		makemate m ON b.makemate_idx = m.idx
+		JOIN member mem ON m.member_id =
+		mem.id
 		JOIN city c ON m.city_id = c.id
-		JOIN country ct ON c.country_id = ct.id
+		JOIN country ct ON c.country_id =
+		ct.id
 		JOIN land l ON ct.land_id = l.id
 		WHERE b.member_id = #{memberId}
 		ORDER BY b.created_at DESC
@@ -70,5 +77,14 @@
 		#{memberId}
 		AND makemate_idx = #{makemateIdx}
 	</update>
+
+	<!-- 북마크 총 개수 조회 (활성된 것만) -->
+	<select id="countBookmarks" resultType="int">
+		SELECT COUNT(*)
+		FROM bookmark
+		WHERE member_id = #{memberId}
+		AND state = 1
+	</select>
+
 
 </mapper>
