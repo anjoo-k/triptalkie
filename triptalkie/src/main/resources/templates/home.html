@@ -32,7 +32,7 @@
 			<!-- 3열 이미지 영역 -->
 			<div class="row g-4">
 				<div class="col-12 col-md-4" th:each="infos : ${topInfos}">
-					<a th:href="@{/travel-info/detail/{idx}(idx=${infos.idx})}"> <img th:src="@{/images/photo2.jpg}" class="img-fluid square-img">
+					<a th:href="@{/travel-info/detail/{idx}(idx=${infos.idx})}"> <img th:src="${infos.thumbnail != null ? '/uploads/review/' + infos.thumbnail : '/images/original-review.png'}" class="img-fluid square-img">
 					</a>
 					<p class="top-info-sub content-text" th:text="${infos.title}"></p>
 				</div>
