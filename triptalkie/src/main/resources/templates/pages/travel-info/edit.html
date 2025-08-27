@@ -9,11 +9,11 @@
 
 		<div class="form-container">
 			<form th:action="@{/travel-info/edit}" th:object="${travelInfo}"
-				method="post">
+				method="post" enctype="multipart/form-data">
 				<!-- id hidden input 추가 -->
 				<input type="hidden" th:field="*{idx}" />
 
-				<!-- 1️⃣ 제목 -->
+				<!-- 1️ 제목 -->
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<input type="text" th:field="*{title}" class="form-control"
@@ -23,7 +23,7 @@
 
 				<div class="board-divider mb-3"></div>
 
-				<!-- 2️⃣ 여행정보 유형 / 기준일 -->
+				<!-- 2️ 여행정보 유형 / 기준일 -->
 				<div class="form-group row">
 					<!-- 여행 정보 유형 -->
 					<div class="col-md-4">
@@ -74,7 +74,7 @@
 
 				<div class="board-divider mb-3"></div>
 
-				<!-- 3️⃣ 본문 -->
+				<!-- 3️ 본문 -->
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<textarea th:field="*{content}" class="form-control" rows="12"
@@ -82,9 +82,36 @@
 					</div>
 				</div>
 
+				<!-- 4️. 사진 첨부 -->
+				<section class="upload-section">
+					<!-- 사진 첨부 -->
+					<div class="row mt-1">
+						<div class="col-sm-12">
+							<div class="photo-upload mb-3">
+								<p class="mb-1 mt-0">
+									<strong>사진 첨부</strong> <span class="text-muted small">등록하지
+										않으면 기본 이미지가 표시돼요</span>
+								</p>
+								<div class="d-flex align-items-center">
+									<!-- 클릭 가능한 타일 -->
+									<label for="photo" class="upload-tile mb-0" id="uploadTile">
+										<span class="plus">+</span>
+									</label>
+									<!-- 미리보기 이미지 -->
+									<img id="preview" src=""
+										style="display: none; width: 80px; height: 80px; margin-left: 10px;">
+								</div>
+								<!-- 실제 파일 입력(숨김) -->
+								<input type="file" id="photo" name="photo" accept="image/*"
+									class="sr-only form-control-file">
+							</div>
+						</div>
+					</div>
+				</section>
+
 				<div class="board-divider mb-3"></div>
 
-				<!-- 4️⃣ 버튼 -->
+				<!-- 5. 버튼 -->
 				<div class="d-flex justify-content-between align-items-center">
 					<button type="button" class="btn btn-back"
 						onclick="history.back();">목록</button>

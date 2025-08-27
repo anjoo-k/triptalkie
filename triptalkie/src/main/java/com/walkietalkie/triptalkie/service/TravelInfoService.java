@@ -33,12 +33,14 @@ public class TravelInfoService {
 	// 여행 정보 글 등록
 	public int registerTravelInfo(TravelInfo travelInfo, HttpSession session) {
 		int result = 0;
-		String currentMemberId = memberService.getLoginId(session);
-		String currentgetMemberNickname = memberService.getLoginNickname(session);
+		String loginId = memberService.getLoginId(session);
+		String Nickname = memberService.getLoginNickname(session);
+		
 
 		// traveInfo 객체에 로그인한 사용자 id, nickname 넣기
-		travelInfo.setMemberId(currentMemberId);
-		travelInfo.setMemberNickname(currentgetMemberNickname);
+		travelInfo.setMemberId(loginId);
+		travelInfo.setMemberNickname(Nickname);
+
 
 		result = travelInfoMapper.registerTravelInfo(travelInfo);
 

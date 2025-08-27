@@ -28,4 +28,6 @@ public interface CustomerserviceMapper {
 
 	List<Faq> findFaqTop5();
 
+	List<Notice> findNoticeTop5();
+
 }
