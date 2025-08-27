@@ -265,7 +265,8 @@ public class TravelInfoController {
 			params.put("cityId", cityId);
 
 		// 서비스 호출
-		CommonPage<TravelInfo> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
+		// CommonPage<TravelInfo> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
+	    CommonPage<TravelInfo> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
 
 		// 검색 결과가 없으면 기본값으로 초기화
 		if (pageData == null) {
