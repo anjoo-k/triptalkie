@@ -66,7 +66,7 @@ public class MemberController {
 	@GetMapping("/registerPage")
 	public String registerPage() {
 		// return "pages/member/register";
-		return "pages/member/register-profiletest";
+		return "pages/member/register";
 		// 프로필 사진 기능이 추가된 회원가입 페이지
 	}
 

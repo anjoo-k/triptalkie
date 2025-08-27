@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walkietalkie.triptalkie.DTO.BookmarkDTO;
+import com.walkietalkie.triptalkie.DTO.PageDTO;
 import com.walkietalkie.triptalkie.domain.Makemate;
 import com.walkietalkie.triptalkie.service.BookMarkService;
 
@@ -33,15 +34,25 @@ public class BookMarkController {
 	}
 	
 	@GetMapping("/list")
-	public String showBookmarks(HttpSession session, Model model) {
+	public String showBookmarks(HttpSession session,
+								@RequestParam(defaultValue = "1") int page,
+								Model model) {
 		//로그인한 사용자 ID 가져오기
 		String memberId = (String) session.getAttribute("loginId");
 		if (memberId == null) {
 			return "redirect:/member/loginPage";
 		}
+		
+		// 페이지네이션 설정
+	    int size = 5; // 한 페이지에 보여줄 글 수
+	    int totalCount = bookMarkService.countBookmarks(memberId); // 북마크 총 개수
+	    PageDTO pageDTO = new PageDTO(page, totalCount, size);
+	 	
 		// 북마크된 글 목록 조회하기
-	    List<BookmarkDTO> bookmarks = bookMarkService.getBookMarkedMakemates(memberId);
+	    int offset = (page - 1) * size;
+	    List<BookmarkDTO> bookmarks = bookMarkService.getBookMarkedMakemates(memberId, offset, size);
 	    model.addAttribute("bookmarks", bookmarks);
+	    model.addAttribute("page", pageDTO);
 	    model.addAttribute("active", "bookmarkList");
 	    
 	    return "pages/bookmark/list"; // 타임리프 템플릿 경로

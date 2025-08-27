@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
+import com.walkietalkie.triptalkie.DTO.TravelInfoTop3DTO;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
@@ -35,12 +36,10 @@ public class TravelInfoService {
 		int result = 0;
 		String loginId = memberService.getLoginId(session);
 		String Nickname = memberService.getLoginNickname(session);
-		
 
 		// traveInfo 객체에 로그인한 사용자 id, nickname 넣기
 		travelInfo.setMemberId(loginId);
 		travelInfo.setMemberNickname(Nickname);
-
 
 		result = travelInfoMapper.registerTravelInfo(travelInfo);
 
@@ -81,7 +80,8 @@ public class TravelInfoService {
 		return result;
 	}
 
-	public List<TravelInfo> findTravelInfoTop3() {
+	@Transactional(readOnly = true)
+	public List<TravelInfoTop3DTO> findTravelInfoTop3() {
 		return travelInfoMapper.findTravelInfoTop3();
 	}
 
@@ -144,12 +144,12 @@ public class TravelInfoService {
 	// 검색 결과 페이지 별 출력
 	public CommonPage<TravelInfo> searchTravelInfoPage(Map<String, Object> params, int page, int size) {
 		int totalCount = travelInfoMapper.countSearchTravelInfo(params);
-
 		int totalPage = (int) Math.ceil((double) totalCount / size);
-		int startPage = ((page - 1) / 5) * 5 + 1; // 한 블록에 5페이지
-		int endPage = Math.min(startPage + 4, totalPage);
-
+		int pageBlock = 5;
+		int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+		int endPage = Math.min(startPage + pageBlock - 1, totalPage);
 		int offset = (page - 1) * size;
+
 		List<TravelInfo> content = travelInfoMapper.searchTravelInfo(params, offset, size);
 
 		return new CommonPage<>(content, size, page, totalPage, startPage, endPage);

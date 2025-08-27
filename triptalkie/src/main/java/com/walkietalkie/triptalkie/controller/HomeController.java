@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.walkietalkie.triptalkie.DTO.TravelInfoTop3DTO;
 import com.walkietalkie.triptalkie.DTO.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.domain.Faq;
 import com.walkietalkie.triptalkie.domain.Notice;
@@ -36,7 +37,7 @@ public class HomeController {
 		List<TravelReviewTop3DTO> topReviews = travelReviewService.findTravelreviewTop3();
 		model.addAttribute("topReviews", topReviews);
 		
-		List<TravelInfo> topInfos = travelInfoService.findTravelInfoTop3();
+		List<TravelInfoTop3DTO> topInfos = travelInfoService.findTravelInfoTop3();
 		model.addAttribute("topInfos", topInfos);
 		
 		List<Faq> faqList = customerserviceService.findFaqTop5();
