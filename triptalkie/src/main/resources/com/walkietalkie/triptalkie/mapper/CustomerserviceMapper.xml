@@ -52,4 +52,11 @@
 		ORDER BY view DESC
 		LIMIT 5
 	</select>
+	<!-- 메인에 공지사항 최신 순 5개 조회 -->
+	<select id="findNoticeTop5">
+		SELECT idx, title, view, content, created_at
+		FROM notice
+		ORDER BY created_at DESC
+		LIMIT 5
+	</select>
 </mapper>

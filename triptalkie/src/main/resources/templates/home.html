@@ -20,7 +20,7 @@
 				<div class="col-12 col-md-4" th:each="reviews : ${topReviews}">
 					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> <img th:src="@{'/uploads/review/' + ${reviews.thumbnail}}" class="img-fluid square-img">
 					</a>
-					<p class="topReviewsCountry" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
+					<p class="top-reviews-country" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
 				</div>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 			<div class="col-xl mt-4 mr-4">
 				<p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">공지 사항</p>
 				<div>
-					<table class="table">
+					<table class="table notice-table">
 						<thead>
 							<tr>
 								<th></th>
@@ -52,31 +52,11 @@
 								<th>날짜</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody th:each="notice, stat : ${noticeList}">
 							<tr>
-								<td>1</td>
-								<td><a class="main-cs-link" th:href="@{/}">항공권 럭키드로우 안내</a></td>
-								<td>2025-08-23</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td><a class="main-cs-link" th:href="@{/}">메이크메이트 이용 안내</a></td>
-								<td>2025-08-20</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td><a class="main-cs-link" th:href="@{/}">숙박권 할인 이벤트</a></td>
-								<td>2025-08-20</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td><a class="main-cs-link" th:href="@{/}">커뮤니티 공지</a></td>
-								<td>2025-08-18</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td><a class="main-cs-link" th:href="@{/}">여행 후기 공주</a></td>
-								<td>2025-08-17</td>
+								<td th:text="${stat.index + 1}">1</td>
+								<td><a class="main-cs-link" th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${notice.idx})}" th:text="${notice.title}">항공권 럭키드로우 안내</a></td>
+								<td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}">2025-08-23</td>
 							</tr>
 						</tbody>
 					</table>
@@ -85,7 +65,7 @@
 			<div class="col-xl mt-4">
 				<p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">FAQ</p>
 				<div>
-					<table class="table">
+					<table class="table faq-table">
 						<thead>
 							<tr>
 								<th>자주 묻는 질문</th>
