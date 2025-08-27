@@ -1,12 +1,18 @@
 package com.walkietalkie.triptalkie.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
+import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.Faq;
+import com.walkietalkie.triptalkie.domain.Land;
+import com.walkietalkie.triptalkie.domain.Notice;
 import com.walkietalkie.triptalkie.mapper.CustomerserviceMapper;
 
 @Service
@@ -55,6 +61,48 @@ public class CustomerserviceService {
 	
 	public List<Faq> findFaqTop5() {
 		return customerserviceMapper.findFaqTop5();
+	}
+
+	public Map<String, Object> findNoticeAllList(int currentPage, int size) {
+		if(currentPage < 1) currentPage = 1;
+
+		int totalCount = customerserviceMapper.countNotice(); // 전체 데이터 개수
+		int offset = (currentPage - 1) * size;                   // 몇 번째부터 가져올지
+		int totalPage = (int) Math.ceil((double) totalCount / size); // 전체 페이지 개수
+		if(currentPage > totalPage) currentPage = totalPage;
+		
+		int blockSize = 3; // 아래에 있는 페이지네이션의 페이지 목록 갯수
+		int startPage = ((currentPage - 1) / blockSize) * blockSize + 1;
+		int endPage = Math.min(startPage + blockSize - 1, totalPage);
+		if(totalCount == 0) {
+			currentPage = 1;
+			startPage = 1;
+			endPage = 1;
+			totalPage = 1;
+		}
+		List<Notice> noticeList = customerserviceMapper.findNoticeAllList(size, offset);
+		CommonPage<Notice> commonPage = new CommonPage<>(noticeList, size, currentPage, totalPage, startPage, endPage);
+		
+		List<Map<String, Object>> combinedList = new ArrayList<>();
+		for(Notice notice : noticeList) {
+		    Map<String, Object> combinedListMap = new HashMap<>();
+		    combinedListMap.put("noticeList", notice);
+		    combinedList.add(combinedListMap);
+		}
+		Map<String, Object> result = new HashMap<>();
+		result.put("commonPage", commonPage);
+		result.put("combinedList", combinedList);
+		
+		return result;
+	}
+
+	public void increaseViewCount(Long noticeId) {
+		int result = customerserviceMapper.increaseViewCount(noticeId);
+	}
+
+	public Notice findNoticeByIdx(Long noticeId) {
+		Notice notice = customerserviceMapper.findNoticeByIdx(noticeId);
+		return notice;
 	}
 
 }

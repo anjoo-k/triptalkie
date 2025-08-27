@@ -180,4 +180,12 @@ public class MakemateService {
 		}
 	}
 
+	public void applyMakemate(String memberId, long makemateIdx) {
+		int result = makemateMapper.registerMemberlist(makemateIdx, memberId);
+		
+		if (result <= 0) {
+		    throw new IllegalArgumentException("신청에 실패했습니다.");
+		}
+	}
+
 }

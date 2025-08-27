@@ -179,6 +179,7 @@
 				<a th:href="@{/makemate/list}" class="btn btn-backToList">목록</a>
 			</div>
 			<div class="col-sm-6"></div>
+			<!-- 글쓴이일 경우 -->
 			<th:block
 				th:if="${session.loginId != null and session.loginId == makemate.memberId}">
 				<div class="col-sm-2">
@@ -191,6 +192,16 @@
 					method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 					<button type="submit" class="btn btn-makemate-edit">삭제하기</button>
 				</form>
+			</th:block>
+
+			<!-- 글쓴이가 아닐 경우 -->
+			<th:block
+				th:if="${session.loginId != null and session.loginId != makemate.memberId}">
+				<div class="col-sm-4">
+					<form th:action="@{/makemate/apply/{makemateId}(makemateId=${makemate.idx})}" method="post">
+						<button class="btn btn-makemate-apply w-100" type="submit">신청하기</button>
+					</form>
+				</div>
 			</th:block>
 		</div>
 	</section>

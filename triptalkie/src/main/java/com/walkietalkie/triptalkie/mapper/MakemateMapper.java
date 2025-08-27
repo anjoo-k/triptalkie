@@ -48,5 +48,4 @@ public interface MakemateMapper {
 	int registerMemberlist(long makemateIdx, String memberId);
 
 	List<Memberlist> findAllMemberlist(Long makemateId);
-
 }

@@ -5,10 +5,12 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.walkietalkie.triptalkie.domain.CommonPage;
+import com.walkietalkie.triptalkie.domain.Notice;
 import com.walkietalkie.triptalkie.service.CustomerserviceService;
 
 @Controller
@@ -23,9 +25,29 @@ public class CustomerserviceController {
 
 	// 공지사항 페이지
 	@GetMapping("/notice")
-	public String noticeTest(Model model) {
+	public String noticePage(@RequestParam(defaultValue = "1")int page, Model model) {
+
+		int size = 10;
+		Map<String, Object> result = customerserviceService.findNoticeAllList(page, size);
 		model.addAttribute("active", "notice");
+		model.addAttribute("page", result.get("commonPage"));
+		model.addAttribute("noticeList", result.get("combinedList"));
+		System.out.println(result.get("combinedList"));
 		return "pages/customerservice/notice";
+	}
+	
+	// 공지사항 글상세 페이지
+	@GetMapping("/notice/detailPage/{noticeId}")
+	public String noticeDetailPage(@PathVariable Long noticeId,  Model model) {
+		model.addAttribute("active", "notice");
+		
+		// 조회수 증가
+		customerserviceService.increaseViewCount(noticeId);
+		
+		Notice notice = customerserviceService.findNoticeByIdx(noticeId);
+		model.addAttribute("notice", notice);
+		
+		return "pages/customerservice/notice-detail";
 	}
 
 	// faq 페이지
