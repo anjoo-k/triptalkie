@@ -18,12 +18,12 @@
 		<a th:href="@{/mypage/my-travel-list}"
 			class="list-group-item list-group-item-action"
 			th:classappend="${active=='qna'} ? ' active'">여행 리스트<span>></span></a>
-		<a th:href="@{/}"
+		<a th:href="@{/ratinglist/list}"
 			class="list-group-item list-group-item-action"
-			th:classappend="${active=='qna'} ? ' active'">깡총 지수<span>></span></a>
-		<a th:href="@{/}"
+			th:classappend="${active=='rating'} ? ' active'">깡총 지수<span>></span></a>
+		<a th:href="@{/bookmark/list}"
 			class="list-group-item list-group-item-action"
-			th:classappend="${active=='qna'} ? ' active'">관심 여행 목록<span>></span></a>
+			th:classappend="${active=='bookmarklist'} ? ' active'">관심 여행 목록<span>></span></a>
 		<a th:href="@{/mypage/my-posts}"
 			class="list-group-item list-group-item-action"
 			th:classappend="${active=='qna'} ? ' active'">내가 쓴 글<span>></span></a>

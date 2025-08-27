@@ -21,15 +21,18 @@
 				<h3 th:text="${makemate.title}">파리로 2주 정도 같이 놀러가요</h3>
 			</div>
 			<div class="col-sm-1">
-				<img id="bookmarkBtn" src="/images/bookmark-off.png"
-					data-member-id="user1" data-makemate-idx="1"
-					style="cursor: pointer; width: 32px; height: 32px;">
+				<img class="bookmarkBtn" 
+					 th:src="${bookmarked} ? '/images/bookmark-on.png' : '/images/bookmark-off.png'"
+					 th:data-member-id="${session.loginId}" 
+					 th:data-makemate-idx="${makemate.idx}"
+					 style="cursor: pointer; width: 32px; height: 32px;">
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-7">
-				<span>조회수 </span><span th:text="${makemate.view}">16 </span>· <span>북마크
-					2 </span>·
+				<span>조회수 </span>
+				<span th:text="${makemate.view}">16 </span>· 
+				<span >북마크2 </span>·
 				<!-- 북마크 구현 후 처리 필요 -->
 				<span>메세지 1 </span>
 				<!-- 채팅 구현 후 처리 필요 -->
@@ -197,5 +200,6 @@
 	<script src="/js/make-mate.js"></script>
 	<script src="/js/make-mate-detail.js"></script>
 	<script src="/js/memberInformation.js"></script>
+	<script src="/js/bookmark.js"></script>
 </main>
 </html>

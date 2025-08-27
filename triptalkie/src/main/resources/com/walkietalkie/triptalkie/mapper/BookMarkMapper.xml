@@ -16,7 +16,7 @@
 		from
 		bookmark
 		where member_id=#{memberId}
-		and mekemate_idx= #{makemateIdx}
+		and makemate_idx= #{makemateIdx}
 	</select>
 	<!--북마크 삭제 -->
 	<delete id="deleteBookmark">
