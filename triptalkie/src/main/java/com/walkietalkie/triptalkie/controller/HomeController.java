@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.walkietalkie.triptalkie.DTO.TravelReviewTop3DTO;
 import com.walkietalkie.triptalkie.domain.Faq;
+import com.walkietalkie.triptalkie.domain.Notice;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
 import com.walkietalkie.triptalkie.service.CustomerserviceService;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
@@ -40,6 +41,9 @@ public class HomeController {
 		
 		List<Faq> faqList = customerserviceService.findFaqTop5();
 		model.addAttribute("faqList", faqList);
+		
+		List<Notice> noticeList = customerserviceService.findNoticeTop5();
+		model.addAttribute("noticeList", noticeList);
 		
 		return "home";
 	}
