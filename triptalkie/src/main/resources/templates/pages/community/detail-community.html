@@ -49,14 +49,14 @@
                         th:onclick="|window.location.href='@{/community/list}'|">목록</button>
 
                 <!-- 로그인한 사용자가 글 작성자일 경우에만 표시 -->
-                <th:block th:if="${session.loggedInMemberId != null and session.loggedInMemberId == community.memberId}">
+                <th:block th:if="${session.loginId!= null and session.loginId == community.memberId}">
                     <div>
                         <button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${community.idx}">수정</button>
                         <button id="btn-delete" type="button" class="btn btn-delete" th:attr="data-idx=${community.idx}">삭제</button>
                     </div>
                 </th:block>
             </div>
-            <div class="card-footer text-right">
+           <!--  <div class="card-footer text-right">
 				<a th:href="@{/community/list}" class="btn btn-secondary">목록으로</a>
 
 				<a th:href="@{/community/update/{idx}(idx=${community.idx})}"
@@ -68,7 +68,7 @@
 					style="display: inline;">
 					<button type="submit" class="btn btn-danger">삭제</button>
 				</form>
-			</div>
+			</div> -->
         </div>
     </div>
 

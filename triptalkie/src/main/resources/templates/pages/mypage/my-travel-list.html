@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content" class="row">
+	<section class="sidebar-section">
+		<aside class="mr-3">
+			<div th:replace="fragments/mypage-list :: mypageList"></div>
+		</aside>
+	</section>
+	<section>
+		<div class="myposts-container">
+			<h4 class="mb-3 mypage-title">My Travel Mate</h4>
+
+			<div class="col-xl-12">
+				<div class="trip-card" th:each="list:${combinedList}">
+					<!-- 카드 -->
+					<div class="card border-1 p-2 card-border">
+						<!-- 1행: 배지 -->
+						<div class="mb-2">
+							<span class="badge badge--category travel-type"
+								th:text="${list.makemate.conceptType}">전체 동행</span>
+							<!-- 여행지 배지 -->
+							<span class="badge badge--category travel-type mt-auto"
+								th:text="${list.city.name}">제주도</span>
+						</div>
+
+						<!-- 2행: 썸네일 + 글 제목/내용 -->
+						<div class="d-flex mb-2">
+							<!-- 썸네일 -->
+							<div class="thumbnail mr-2"
+								style="flex: 0 0 100px; height: 100px;">
+								<img
+									th:src="${list.photo != null} ? '/uploads/' + ${list.photo.savedName} : '/images/bangkok.jpg'"
+									class="img-fluid"
+									th:alt="${list.photo != null} ? ${list.photo.originalName} : '기본이미지'"
+									style="height: 100px;">
+							</div>
+							<!-- 글 제목 + 내용 -->
+							<div class="flex-grow-1">
+								<a
+									th:href="@{/makemate/detailPage/{makemateId}(makemateId=${list.makemate.idx})}"
+									class="card-title d-block mb-1 text-truncate"
+									th:text="${list.makemate.title}">환상의 섬 아름다운 제주도로 떠나보아요</a>
+								<p class="text-muted small mb-0 text-truncate"
+									th:text="${list.makemate.content}">시원한 렌터카 타고 설레는 가을 맞이 제주
+									여행 외롭지 않게 함께 해요 맛집도 가고 인생샷도 찍어드림요</p>
+							</div>
+							<!-- 3행: 여행 정보 + 프로필 + 날짜 -->
+							<div
+								class="d-flex justify-content-between align-items-center flex-wrap">
+
+								<!-- 프로필 + 유저 정보 + 날짜 -->
+								<div class="d-flex justify-content-end align-items-center"
+									style="font-size: x-small;">
+									<div class="ml-2 text-left">
+										<div class="d-flex align-items-center mb-1">
+											<img src="/images/bangkok.jpg" class="rounded-circle mr-1"
+												style="width: 16px; height: 16px;" alt="프로필"> <span
+												th:text="${list.member.nickname}">킹현승</span> · <span
+												class="birth" th:text="${list.member.birth}">30대</span> · <span
+												th:text="${list.member.gender}">남성</span>
+										</div>
+										<div class="d-flex align-items-center justify-content-end">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor"
+												class="bi bi-calendar-fill mr-1" viewBox="0 0 16 16">
+											<path
+													d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5" />
+										</svg>
+											<span class="startdate"
+												th:text="${#temporals.format(list.makemate.startdate, 'yyyy-MM-dd')}">2025.08.17</span>
+											~ <span class="enddate"
+												th:text="${#temporals.format(list.makemate.enddate, 'yyyy-MM-dd')}">2025.08.20</span>
+											<span class="days">(3일)</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-3">
+								<div class="col-3"></div>
+
+								<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
+								<div class="col-6 text-center">
+									<nav class="p-2 pagination--bottom">
+										<ul class="pagination justify-content-center mb-0 py-1">
+											<!-- 처음으로, 이전 -->
+											<li th:classappend="${page.currentPage == 1} ? ' disabled'"
+												class="page-item pagination--spacing"><a
+												class="page-link square" th:href="@{/mypage/my-travel-list(page=1)}">«</a>
+											</li>
+											<li th:classappend="${page.currentPage == 1} ? ' disabled'"
+												class="page-item pagination--spacing"><a
+												class="page-link square"
+												th:href="@{/mypage/my-travel-list(page=${page.currentPage - 1})}">‹</a>
+											</li>
+
+											<!-- 페이지 번호 반복 -->
+											<li
+												th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}"
+												th:classappend="${p == page.currentPage} ? ' active'"
+												class="page-item pagination--spacing"><a
+												class="page-link square"
+												th:href="@{/mypage/my-travel-list(page=${p})}" th:text="${p}">1</a>
+											</li>
+
+											<!-- 다음, 마지막 -->
+											<li
+												th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
+												class="page-item pagination--spacing"><a
+												class="page-link square"
+												th:href="@{/mypage/my-travel-list(page=${page.currentPage + 1})}">›</a>
+											</li>
+											<li
+												th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
+												class="page-item pagination--spacing"><a
+												class="page-link square"
+												th:href="@{/mypage/my-travel-list(page=${page.totalPage})}">»</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+	</section>
+	<script src="/js/make-mate.js"></script>
+	<script src="/js/make-mate-list.js"></script>
+	<script src="/js/mypage.js"></script>
+</main>
+</html>

@@ -17,4 +17,6 @@ public interface CustomerserviceMapper {
 
 	List<Map<String, Object>> findFaqPaged(@Param("size") int size, @Param("startRow") int startRow);
 
+	List<Faq> findFaqTop5();
+
 }
