@@ -155,18 +155,18 @@
 			<div>
 				<h5>함께하는 메이트들</h5>
 			</div>
+
 			<div class="row" th:if="${#lists.isEmpty(memberlistPhoto)}">
 				<span class="col-sm-5">아직 함께하는 메이트가 없습니다.</span>
 			</div>
-			<div class="row" th:each="memberlist : ${memberlistPhoto}">
-				<div class="col-sm-1"
-					th:each="memberPhoto : ${memberlistPhoto.memberImage}">
-					<img th:if="${memberlist.savedName != null}"
-						th:src="@{|/uploads/${memberlist.savedName}|}"
-						th:alt="${memberlist.originalName}"
-						class="img-fluid rounded-circle d-block border">
-				</div>
-			</div>
+
+<div class="row" th:each="memberlist : ${memberlistPhoto}">
+    <div class="col-sm-1 pl-1 pr-1" th:each="memberPhoto : ${memberlist.memberImage}">
+        <img th:src="'/uploads/profile/' + ${memberPhoto.savedName}"
+             th:alt="${memberPhoto.originalName}"
+             class="img-fluid rounded-circle d-block border">
+    </div>
+</div>
 		</div>
 	</section>
 	<section>
