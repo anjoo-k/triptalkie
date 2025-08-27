@@ -143,16 +143,17 @@ public class MypageController {
 
 	// 내 여행 리스트
 	@GetMapping("/my-travel-list")
-	public String myTravelList(@RequestParam(defaultValue = "1") int page, @ModelAttribute SearchCriteria criteria,
+	public String myTravelList(@RequestParam(defaultValue = "1") int page, HttpSession session,
 			Model model) {
+		String loginId = (String) session.getAttribute("loginId");
+		if (loginId == null)
+			return "redirect:/member/loginPage";
 		
 		int size = 4; // 한 페이지에 보이는 글 수
-		Map<String, Object> result = makemateService.findMakematesAllList(page, size, criteria);
+		Map<String, Object> result = mypageService.findMakematesAllListByMemberId(page, size, loginId);
 
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
-		model.addAttribute("countryList", result.get("countryList"));
-		model.addAttribute("cityList", result.get("cityList"));
 		return "pages/mypage/my-travel-list";
 	}
 
