@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// 뒤로 가기 버튼
-	const backBtn = document.querySelector(".btn-back");
+	const backBtn = document.querySelector(".back-to-list");
 	if (backBtn) {
 		backBtn.addEventListener("click", function() {
 			location.href = "/travel-review/findTravelreviewAllList";
