@@ -18,7 +18,7 @@
 			<!-- 3열 이미지 영역 -->
 			<div class="row g-4">
 				<div class="col-12 col-md-4" th:each="reviews : ${topReviews}">
-					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> <img th:src="@{'/uploads/review/' + ${reviews.thumbnail}}" class="img-fluid square-img">
+					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> <img th:src="${reviews.thumbnail != null ? '/uploads/review/' + reviews.thumbnail : '/images/original-review.png'}" class="img-fluid square-img">
 					</a>
 					<p class="top-reviews-country" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
 				</div>
