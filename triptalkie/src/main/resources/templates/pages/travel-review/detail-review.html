@@ -133,7 +133,7 @@
 			</section>
 			<!-- 버튼 영역 -->
 			<div class="d-flex justify-content-between align-items-center mt-3">
-				<button type="button" class="btn btn-back">목록</button>
+				<button type="button" class="btn back-to-list">목록</button>
 				<th:block th:if="${memberId != null && memberId == travelreview['memberId']}">
 					<div>
 						<button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${travelreview.idx}">수정</button>
@@ -152,7 +152,7 @@
 				<!-- Modal footer -->
 				<div class="modal-footer btn-no-border">
 					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-delete">예</button>
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">아니요</button>
+					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-nope" data-dismiss="modal">아니요</button>
 				</div>
 			</div>
 		</div>

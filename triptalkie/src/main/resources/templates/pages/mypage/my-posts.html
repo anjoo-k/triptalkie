@@ -13,7 +13,7 @@
 			<section class="community-section">
 				<h5>커뮤니티</h5>
 				<div class="list-group">
-					<div class="list-group-item d-flex justify-content-between align-items-center no-result" th:if="${myPosts.communityList == null}">아직 작성한 내 글이 없어요</div>
+					<div class="list-group-item d-flex justify-content-between align-items-center no-result" th:if="${myPosts.communityList == null or #lists.isEmpty(myPosts.communityList)}">아직 작성한 내 글이 없어요</div>
 					<div class="list-group-item d-flex justify-content-between align-items-center" th:each="community, stat : ${myPosts.communityList}">
 						<div class="d-flex">
 							<span class="mr-3" th:text="${stat.index + 1}">1</span> <span><a th:href="@{/community/detail-community/{idx}(idx=${community.idx})}" th:text="${community.title}" class="myposts-link">첫 번째 글 제목</a></span>

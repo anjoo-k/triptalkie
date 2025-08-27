@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// 뒤로 가기 버튼
-	const backBtn = document.querySelector(".btn-back");
+	const backBtn = document.querySelector(".back-to-list");
 	if (backBtn) {
 		backBtn.addEventListener("click", function() {
 			location.href = "/travel-review/findTravelreviewAllList";
@@ -245,7 +245,26 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// 수정 
-	let idxToUpdateReply = null;
+	document.getElementById("comment-list").addEventListener("click", async function(e) {
+	    if (e.target && e.target.classList.contains("update-reply")) {
+	        e.preventDefault();
+
+	        alert("댓글 수정 버튼 클릭!");
+	        const idxToUpdateReply = e.target.getAttribute("data-id");
+
+	        try {
+	            const response = await fetch(`/travelReviewComment/findByIdx?idx=${idxToUpdateReply}`, { method: "GET" });
+	            const data = await response.json();
+	            if (data.success) {
+	                updateComment(e.target, data.comment, idxToUpdateReply);
+	            }
+	        } catch (err) {
+	            console.error(err);
+	            alert("댓글 수정 중 오류 발생");
+	        }
+	    }
+	});
+/*	let idxToUpdateReply = null;
 	document.querySelectorAll('.update-reply').forEach(updateReplyBtn => {
 		updateReplyBtn.addEventListener("click", async function() {
 			alert('댓글 수정 버튼 클릭!');
@@ -262,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				alert('댓글 수정 중 오류 발생');
 			}
 		});
-	});
+	});*/
 
 	// 수정 버튼 생성
 	function updateComment(updateReplyBtn, comment, idxToUpdateReply) {
