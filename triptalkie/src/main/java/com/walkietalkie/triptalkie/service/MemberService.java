@@ -34,15 +34,18 @@ public class MemberService {
     Member member = memberMapper.findById(id);
     
     if(member == null) {
-        throw new RuntimeException("존재하지 않는 회원입니다.");
+        logger.warn("존재하지 않는 회원입니다: {}", id);
+        return false;
     }
     
     // 회원 탈퇴시 로그인 안되게 처리
     if(!member.isActive()) {
-        throw new RuntimeException("탈퇴된 회원입니다.");
+        //throw new RuntimeException("탈퇴된 회원입니다.");
+        logger.warn("탈퇴된 회원 로그인 시도: {}", id);
+        return false; // 예외 대신 false 반환
     }
     
-    if (member != null && active && passwordEncoder.matches(password, member.getPassword())) {
+    if (member != null && member.isActive() && passwordEncoder.matches(password, member.getPassword())) {
       session.setAttribute("loginId", member.getId());
       session.setAttribute("loginNickname", member.getNickname());
       logger.info("로그인 성공: {}", member.getId());
