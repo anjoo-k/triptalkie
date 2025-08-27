@@ -102,7 +102,7 @@ public class MakemateService {
 		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
 		List<Memberlist> memberlistPhoto = makemateMapper.findAllMemberlist(makemateId);
-		logger.info("{}", memberlistPhoto);
+
 	    Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("photo", photo);
 	    combinedMap.put("makemate", makemate);
