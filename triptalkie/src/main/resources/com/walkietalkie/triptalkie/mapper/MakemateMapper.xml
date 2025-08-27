@@ -7,12 +7,12 @@
 		<result property="makemateIdx" column="makemate_idx" />
 		<result property="memberId" column="member_id" />
 
-		<association property="member_image" javaType="com.walkietalkie.triptalkie.domain.MemberImage">
+		<collection property="memberImage" ofType="com.walkietalkie.triptalkie.domain.MemberImage">
 			<id property="idx" column="idx"/>
 			<result property="originalName" column="original_name" />
 			<result property="filePath" column="file_path" />
 			<result property="savedName" column="saved_name" />
-		</association>
+		</collection>
 	</resultMap>
 	<!-- 총 글 갯수 + 검색 -->
 	<select id="countMakemate" resultType="int">
@@ -112,7 +112,7 @@
 	</select>
 	<!-- 멤버사진 담아오기 -->
 	<select id="findAllMemberlist" resultMap="AllMemberlistMap">
-		SELECT mi.idx, mi.original_name, mi.file_path, mi.saved_name
+		SELECT mi.idx, mi.original_name, mi.file_path, mi.saved_name, ml.makemate_idx, ml.member_id
 		FROM memberlist ml
 		JOIN member_image mi ON (ml.member_id = mi.member_id)
 		WHERE makemate_idx=#{makemateId}

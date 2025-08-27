@@ -38,8 +38,21 @@
 		member_id=#{memberId}
 	</delete>
 	<select id="findTravelInfoTop3">
-		SELECT idx, title, member_id FROM travelinfo ORDER BY
-		view DESC LIMIT 3
+		SELECT
+		ti.idx,
+		ti.title,
+		ti.member_id,
+		tii.saved_name AS thumbnail
+		FROM travelinfo ti
+		LEFT JOIN travelinfo_image tii
+		ON tii.travelinfo_idx = ti.idx
+		AND tii.created_at = (
+		SELECT MIN(created_at)
+		FROM travelinfo_image
+		WHERE travelinfo_idx = ti.idx
+		)
+		ORDER BY ti.view DESC
+		LIMIT 3;
 	</select>
 
 	<select id="findTravelInfoByMemberId">

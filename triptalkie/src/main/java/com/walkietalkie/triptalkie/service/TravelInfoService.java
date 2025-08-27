@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
+import com.walkietalkie.triptalkie.DTO.TravelInfoTop3DTO;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
@@ -81,7 +82,8 @@ public class TravelInfoService {
 		return result;
 	}
 
-	public List<TravelInfo> findTravelInfoTop3() {
+	@Transactional(readOnly = true)
+	public List<TravelInfoTop3DTO> findTravelInfoTop3() {
 		return travelInfoMapper.findTravelInfoTop3();
 	}
 
