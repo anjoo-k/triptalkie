@@ -105,4 +105,8 @@ public class CustomerserviceService {
 		return notice;
 	}
 
+	public List<Notice> findNoticeTop5() {
+		return customerserviceMapper.findNoticeTop5();
+	}
+
 }
