@@ -180,7 +180,7 @@ input[type="radio"]:checked+label.mate-type {
 	transform: scale(1.05);
 }
 
-.btn-complete-editing {
+.btn-complete-editing, .btn-completed-writing {
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
 	min-width: 70px;
@@ -194,7 +194,7 @@ input[type="radio"]:checked+label.mate-type {
 	transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.btn-complete-editing:hover {
+.btn-complete-editing:hover, .btn-completed-writing:hover {
 	background: var(--color-primary);
 	color: var(--color-secondary);
 	transform: scale(1.05);
@@ -384,4 +384,9 @@ input[type="radio"]:checked+label.mate-type {
 
 .modal-content {
 	border-radius: 10px;
+}
+
+/* 모달 */
+.btn-confirm-delete, .btn-confirm-nope {
+	border-radius: 30px;
 }
