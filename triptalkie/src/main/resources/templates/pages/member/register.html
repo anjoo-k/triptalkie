@@ -7,14 +7,23 @@
 <main layout:fragment="content">
 	<h4 class="text-center content--title">회원가입</h4>
 	<div class="register-containers bg--containers pt-5 pb-5">
-		<!-- 프로필 이미지 -->
-		<div class="text-center mb-5">
-			<img class="img-thumbnail original--profile" alt="original-profile"
-				th:src="@{/images/original-profile.png}"
-				style="width: 150px; height: auto; border-radius: 1.25rem;">
-		</div>
-		<div class="form-container">
-			<form th:action="@{/member/register}" method="post">
+		<form th:action="@{/member/register}" method="post"
+			enctype="multipart/form-data">
+			<!-- 프로필 이미지 + 업로드 -->
+			<!-- 미리보기용 이미지 -->
+			<div class="text-center mb-5">
+				<img class="img-thumbnail original--profile" alt="original-profile"
+					th:src="@{/images/original-profile.png}"
+					style="width: 150px; height: auto; border-radius: 1.25rem;">
+
+				<!-- 파일 선택 버튼 -->
+				<div class="mt-3">
+					<input type="file" id="profileImage" name="profileImage"
+						accept="image/*" class="form-control-file">
+				</div>
+			</div>
+			<!-- 회원 가입을 위한 필드들 -->
+			<div class="form-container">
 				<!-- 아이디 -->
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
@@ -151,13 +160,13 @@
 							value="기타"> 기타</label>
 					</div>
 				</div>
+			</div>
 
-				<!-- 완료 버튼 -->
-				<div class="form-group text-center">
-					<button type="submit"
-						class="btn btn-block btn-complete btn-primary">회원 가입</button>
-				</div>
-			</form>
-		</div>
+			<!-- 완료 버튼 -->
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-block btn-complete btn-primary">회원
+					가입</button>
+			</div>
+		</form>
 	</div>
 </main>
