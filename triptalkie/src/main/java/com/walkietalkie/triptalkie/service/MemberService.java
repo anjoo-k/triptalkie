@@ -33,9 +33,14 @@ public class MemberService {
   public boolean login(String id, String password, HttpSession session) {
     Member member = memberMapper.findById(id);
     
-    boolean active = member.isActive();
+    if(member == null) {
+        throw new RuntimeException("존재하지 않는 회원입니다.");
+    }
     
-    System.out.println("active 값 출력 : "+active);
+    // 회원 탈퇴시 로그인 안되게 처리
+    if(!member.isActive()) {
+        throw new RuntimeException("탈퇴된 회원입니다.");
+    }
     
     if (member != null && active && passwordEncoder.matches(password, member.getPassword())) {
       session.setAttribute("loginId", member.getId());
