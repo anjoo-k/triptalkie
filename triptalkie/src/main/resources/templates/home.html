@@ -18,8 +18,7 @@
 			<!-- 3열 이미지 영역 -->
 			<div class="row g-4">
 				<div class="col-12 col-md-4" th:each="reviews : ${topReviews}">
-					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> 
-						<img th:src="@{'/uploads/review/' + ${reviews.thumbnail}}" class="img-fluid square-img">
+					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> <img th:src="@{'/uploads/review/' + ${reviews.thumbnail}}" class="img-fluid square-img">
 					</a>
 					<p class="topReviewsCountry" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
 				</div>
@@ -33,9 +32,9 @@
 			<!-- 3열 이미지 영역 -->
 			<div class="row g-4">
 				<div class="col-12 col-md-4" th:each="infos : ${topInfos}">
-					<a th:href="@{/travel-info/detail/{idx}(idx=${infos.idx})}">
-						<img th:src="@{/images/photo2.jpg}" class="img-fluid square-img">
+					<a th:href="@{/travel-info/detail/{idx}(idx=${infos.idx})}"> <img th:src="@{/images/photo2.jpg}" class="img-fluid square-img">
 					</a>
+					<p class="top-info-sub content-text" th:text="${infos.title}"></p>
 				</div>
 			</div>
 		</div>
@@ -92,21 +91,9 @@
 								<th>자주 묻는 질문</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody th:each="faq : ${faqList}">
 							<tr>
-								<td><a class="main-cs-link" th:href="@{/}">Q. 메이트 신청은 어떻게 하나요?</a></td>
-							</tr>
-							<tr>
-								<td><a class="main-cs-link" th:href="@{/}">Q. 메이튿의 인증은 어떻게 하나요?</a></td>
-							</tr>
-							<tr>
-								<td><a class="main-cs-link" th:href="@{/}">Q. 회원 가입을 하려면 어떻게 하나요?</a></td>
-							</tr>
-							<tr>
-								<td><a class="main-cs-link" th:href="@{/}">Q. 비밀번호를 잊어버렸습니다.</a></td>
-							</tr>
-							<tr>
-								<td><a class="main-cs-link" th:href="@{/}">Q. 회원 탈퇴는 어떻게 하나요?</a></td>
+								<td><a class="main-cs-link" th:href="@{/customerservice/faq}" th:text="|Q. ${faq.title}|">Q. 메이트 신청은 어떻게 하나요?</a></td>
 							</tr>
 						</tbody>
 					</table>

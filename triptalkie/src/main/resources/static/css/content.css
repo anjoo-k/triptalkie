@@ -23,7 +23,7 @@
 	bottom: 20px; /* 이미지 아래쪽에서 20px */
 	right: 20px; /* 이미지 오른쪽에서 20px */
 	color: white;
-	font-size: 2.75rem;
+	font-size: clamp(1rem, 4vw, 2.75rem);
 	font-weight: bold;
 	text-align: right;
 	padding-right: 20px;
@@ -57,7 +57,7 @@
 	color: var(--color-primary);
 }
 
-.topReviewsCountry {
+.top-reviews-country, .top-info-sub {
 	border-radius: 10px;
 	padding: 0px 5px;
 	font-weight: bold;
