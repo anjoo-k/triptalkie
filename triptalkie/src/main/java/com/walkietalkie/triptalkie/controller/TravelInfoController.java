@@ -3,13 +3,11 @@ package com.walkietalkie.triptalkie.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,20 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.walkietalkie.triptalkie.DTO.TravelInfoListDTO;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
-import com.walkietalkie.triptalkie.mapper.TravelInfoMapper;
-import com.walkietalkie.triptalkie.service.CityService;
-import com.walkietalkie.triptalkie.service.CountryService;
 import com.walkietalkie.triptalkie.service.MemberService;
 import com.walkietalkie.triptalkie.service.TravelInfoImageService;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Controller
 @RequestMapping("/travel-info")
@@ -42,17 +35,12 @@ public class TravelInfoController {
 	private final MemberService memberService;
 	private final TravelInfoService travelInfoService;
 	private final TravelInfoImageService travelInfoImageService;
-	private final CountryService countryService;
-	private final CityService cityService;
 
-	@Autowired
 	public TravelInfoController(TravelInfoService travelInforService, MemberService memberService,
-			TravelInfoImageService travelInfoImageService, CountryService countryService, CityService cityService) {
+			TravelInfoImageService travelInfoImageService) {
 		this.travelInfoService = travelInforService;
 		this.memberService = memberService;
 		this.travelInfoImageService = travelInfoImageService;
-		this.countryService = countryService;
-		this.cityService = cityService;
 
 	}
 
@@ -102,81 +90,8 @@ public class TravelInfoController {
 		return "redirect:/travel-info/list";
 	}
 
-//	@GetMapping("/list")
-//	public String travelInfoListPage(@RequestParam(defaultValue = "1") int page,
-//			@RequestParam(defaultValue = "5") int size, Model model) {
-//
-//		CommonPage<TravelInfoListDTO> pageData = travelInfoService.getTravelInfoListPage(page, size);
-//		// 서비스에서 페이지 데이터 가져오기
-//		List<Country> countryList = travelInfoService.getAllCountries(); // <- 여기서 나라 리스트 가져오기
-//
-//		model.addAttribute("travelInfoList", pageData.getContent());
-//		model.addAttribute("pageData", pageData);
-//		model.addAttribute("countryList", countryList);
-//		// <- 반드시 모델에 담아야 Thymeleaf에서 접근 가능
-//
-//		return "pages/travel-info/list";
-//	}
-
-//	@GetMapping("/list")
-//	public String travelInfoListPage(@RequestParam(required = false) String title,
-//			@RequestParam(required = false) String infotype, @RequestParam(required = false) String cityId, int page,
-//			int size, Model model) {
-//		Map<String, Object> params = new HashMap<>();
-//		if (title != null && !title.isEmpty())
-//			params.put("title", title);
-//		if (infotype != null && !infotype.isEmpty())
-//			params.put("infotype", infotype);
-//		if (cityId != null && !cityId.isEmpty())
-//			params.put("cityId", cityId);
-//
-//		CommonPage<?> pageData;
-//
-//		if (!params.isEmpty()) {
-//			// 검색 조건이 있으면 검색
-//			pageData = travelInfoService.searchTravelInfoPage(params, page, size);
-//		} else {
-//			// 검색 조건 없으면 전체 목록
-//			pageData = travelInfoService.getTravelInfoListPage(page, size);
-//		}
-//
-//		// null-safe 처리
-//		if (pageData == null) {
-//			pageData = new CommonPage<>();
-//			pageData.setContent(Collections.emptyList());
-//			pageData.setSize(size);
-//			pageData.setCurrentPage(page);
-//			pageData.setTotalPage(0);
-//			pageData.setStartPage(1);
-//			pageData.setEndPage(1);
-//		}
-//
-//		// 모델에 담기
-//		model.addAttribute("travelInfoList", pageData.getContent());
-//		model.addAttribute("pageData", pageData);
-//
-//		// 검색 폼 유지
-//		model.addAttribute("title", title != null ? title : "");
-//		model.addAttribute("infotype", infotype != null ? infotype : "");
-//		model.addAttribute("cityId", cityId != null ? cityId : "");
-//
-//		List<Country> countryList = travelInfoService.getAllCountries();
-//		model.addAttribute("countryList", countryList != null ? countryList : Collections.emptyList());
-//
-//		String selectedCountryId = null;
-//		if (cityId != null && !cityId.isEmpty()) {
-//			City city = travelInfoService.findCityById(cityId);
-//			if (city != null)
-//				selectedCountryId = city.getCountryId();
-//		}
-//		model.addAttribute("selectedCountryId", selectedCountryId);
-//		model.addAttribute("selectedCityId", cityId != null ? cityId : null);
-//
-//		return "pages/travel-info/list"; // search 페이지는 제거
-//	}
-
 	@GetMapping("/detail/{idx}")
-	public String TravelInfoDetailPage(@PathVariable("idx") long idx, Model model, HttpSession session) {
+	public String TravelInfoDetailPage(@PathVariable Long idx, Model model, HttpSession session) {
 		// 1. 조회수 증가
 		travelInfoService.increaseViewCount(idx);
 
@@ -198,7 +113,7 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/edit/{idx}")
-	public String editPage(@PathVariable("idx") long idx, Model model, HttpSession session) {
+	public String editPage(@PathVariable Long idx, Model model, HttpSession session) {
 		TravelInfo travelInfo = travelInfoService.findTravelInfoIdx(idx);
 
 		if (travelInfo == null) {
@@ -286,8 +201,7 @@ public class TravelInfoController {
 	}
 
 	@PostMapping("/delete/{idx}")
-	public String deleteSubmit(@PathVariable("idx") Long idx, HttpSession session,
-			RedirectAttributes redirectAttributes) {
+	public String deleteSubmit(@PathVariable Long idx, HttpSession session, RedirectAttributes redirectAttributes) {
 		// 1. 현재 로그인한 사용자의 ID 가져오기
 		String loginId = memberService.getLoginId(session);
 		System.out.println("delete 기능 게시판 번호 : " + loginId);
@@ -312,44 +226,45 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/list")
-	public String list(@RequestParam(required = false) String title,
-	                   @RequestParam(required = false) String infotype,
-	                   @RequestParam(required = false) String cityId,
-	                   @RequestParam(required = false) String countryId,
-	                   @RequestParam(defaultValue = "1") int page,
-	                   @RequestParam(defaultValue = "5") int size,
-	                   Model model) {
+	public String list(@RequestParam(required = false) String title, @RequestParam(required = false) String infotype,
+			@RequestParam(required = false) String cityId, @RequestParam(required = false) String countryId,
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size, Model model) {
 
-	    // 검색 파라미터 null-safe Map
-	    Map<String, Object> params = new HashMap<>();
-	    if (title != null && !title.isEmpty()) params.put("title", title);
-	    if (infotype != null && !infotype.isEmpty()) params.put("infotype", infotype);
-	    if (cityId != null && !cityId.isEmpty()) params.put("cityId", cityId);
-	    if (countryId != null && !countryId.isEmpty()) params.put("countryId", countryId);
+		// 검색 파라미터 null-safe Map
+		Map<String, Object> params = new HashMap<>();
+		if (title != null && !title.isEmpty())
+			params.put("title", title);
+		if (infotype != null && !infotype.isEmpty())
+			params.put("infotype", infotype);
+		if (cityId != null && !cityId.isEmpty())
+			params.put("cityId", cityId);
+		if (countryId != null && !countryId.isEmpty())
+			params.put("countryId", countryId);
 
-	    // Map 기반 페이지 조회
-	    CommonPage<Map<String, Object>> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
+		// Map 기반 페이지 조회
+		CommonPage<Map<String, Object>> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
 
-	    // 나라/도시 선택용
-	    String selectedCountryId = null;
-	    if (cityId != null && !cityId.isEmpty()) {
-	        City city = travelInfoService.findCityById(cityId);
-	        if (city != null) selectedCountryId = city.getCountryId();
-	    }
-	    List<Country> countryList = travelInfoService.getAllCountries();
+		// 나라/도시 선택용
+		String selectedCountryId = null;
+		if (cityId != null && !cityId.isEmpty()) {
+			City city = travelInfoService.findCityById(cityId);
+			if (city != null)
+				selectedCountryId = city.getCountryId();
+		}
+		List<Country> countryList = travelInfoService.getAllCountries();
 
-	    // Model에 null-safe 추가
-	    model.addAttribute("travelInfoList", pageData.getContent() != null ? pageData.getContent() : Collections.emptyList());
-	    model.addAttribute("pageData", pageData);
-	    model.addAttribute("title", title != null ? title : "");
-	    model.addAttribute("infotype", infotype != null ? infotype : "");
-	    model.addAttribute("cityId", cityId != null ? cityId : "");
-	    model.addAttribute("countryList", countryList != null ? countryList : Collections.emptyList());
-	    model.addAttribute("selectedCountryId", selectedCountryId);
-	    model.addAttribute("selectedCityId", cityId != null ? cityId : null);
+		// Model에 null-safe 추가
+		model.addAttribute("travelInfoList",
+				pageData.getContent() != null ? pageData.getContent() : Collections.emptyList());
+		model.addAttribute("pageData", pageData);
+		model.addAttribute("title", title != null ? title : "");
+		model.addAttribute("infotype", infotype != null ? infotype : "");
+		model.addAttribute("cityId", cityId != null ? cityId : "");
+		model.addAttribute("countryList", countryList != null ? countryList : Collections.emptyList());
+		model.addAttribute("selectedCountryId", selectedCountryId);
+		model.addAttribute("selectedCityId", cityId != null ? cityId : null);
 
-	    return "pages/travel-info/list";
+		return "pages/travel-info/list";
 	}
-
 
 }
