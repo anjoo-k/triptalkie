@@ -167,44 +167,6 @@
 		WHERE ti.idx = #{idx}
 	</select>
 
-	<!-- 검색 + 페이징 -->
-	<select id="searchTravelInfo2" parameterType="map"
-		resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		SELECT *
-		FROM travelinfo
-		<where>
-			<if test="params.title != null and params.title != ''">
-				AND title LIKE CONCAT('%', #{params.title}, '%')
-			</if>
-			<if test="params.infotype != null and params.infotype != ''">
-				AND infotype = #{params.infotype}
-			</if>
-			<if test="params.cityId != null and params.cityId != ''">
-				AND city_id = #{params.cityId}
-			</if>
-		</where>
-		ORDER BY created_at DESC
-		LIMIT #{offset}, #{limit}
-	</select>
-
-	<!-- 검색 결과 총 개수 -->
-	<select id="countSearchTravelInfo2" parameterType="map"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM travelinfo
-		<where>
-			<if test="params.title != null and params.title != ''">
-				AND title LIKE CONCAT('%', #{params.title}, '%')
-			</if>
-			<if test="params.infotype != null and params.infotype != ''">
-				AND infotype = #{params.infotype}
-			</if>
-			<if test="params.cityId != null and params.cityId != ''">
-				AND city_id = #{params.cityId}
-			</if>
-		</where>
-	</select>
-
 	<!-- 검색 + 페이징 (TravelInfoMap 사용) -->
 	<select id="searchTravelInfo" parameterType="map"
 		resultMap="TravelInfoMap">
