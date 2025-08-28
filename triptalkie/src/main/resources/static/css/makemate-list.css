@@ -57,3 +57,12 @@
     border-radius: 12px;
     margin: 1px;
 }
+
+.card-title {
+	color: var(--color-text-primary);
+}
+
+.city-type {
+	color: var(--color-primary);
+	border: none;
+}

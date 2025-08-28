@@ -25,10 +25,10 @@ textarea {
 	resize: none;
 	height: 300px;
 }
-
+/* 
 button {
 	border-radius: 10px;
-}
+} */
 
 
 /* 2. Color Variables */
@@ -119,20 +119,7 @@ h6 {
 }
 
 /* 게시글 작성 버튼 */
-/* .btn-write {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	border: 1px solid var(--color-primary);
-	 background-color: transparent;
-	border-radius: 10px;
-}
 
-.btn-write:active,
-.btn-write:focus,
-.btn-write:hover {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-} */
 .btn-write {
   background-color: var(--color-primary);
   color: var(--color-secondary);
@@ -172,12 +159,12 @@ h6 {
 	background-color: transparent;
 	border: 1px solid var(--color-primary);
 	color: var(--color-primary);
-	border-radius: 10px;
 }
 
 .btn-back:hover {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
 }
 
 .btn-no-border {

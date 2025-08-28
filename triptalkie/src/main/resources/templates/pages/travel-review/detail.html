@@ -101,7 +101,6 @@
 				<div class="row py-3">
 					<div class="col-sm-10">
 						<input type="text" id="comment-content" class="comment-content" placeholder="댓글을 작성해보세요"> <input type="hidden" id="memberId" th:value="${memberId}">
- -->
 					</div>
 					<div class="col-sm-2 button-style">
 						<button type="button" id="comment-write-btn" class="comment-write-btn btn-primary" th:attr="data-idx=${travelreview.idx}">완료</button>
@@ -123,9 +122,9 @@
 			</section>
 			<!-- 버튼 영역 -->
 			<div class="d-flex justify-content-between align-items-center mt-3">
-				<button type="button" class="btn back-to-list">목록</button>
+				<button type="button" class="btn btn-back">목록</button>
 				<th:block th:if="${memberId != null && memberId == travelreview['memberId']}">
-					<div class="btn back-to-list">
+					<div class="btn edit-delete-btns">
 						<button id="btn-edit" type="button" class="btn btn-edit review-btn" th:attr="data-idx=${travelreview.idx}">수정</button>
 						<button id="btn-delete" type="button" class="btn btn-delete review-btn" th:attr="data-idx=${travelreview.idx}">삭제</button>
 					</div>

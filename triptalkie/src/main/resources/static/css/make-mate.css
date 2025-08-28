@@ -150,7 +150,12 @@
 
 .btn-mm-back {
 	border: 1px solid var(--color-primary);
-	background-color: #fff;
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+}
+.btn-mm-back:hover {
+	border: 1px solid var(--color-primary);
+	background-color: var(--color-secondary);
 	color: var(--color-primary);
 }
 
