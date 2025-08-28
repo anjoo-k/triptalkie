@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content">
+	<!-- main image section -->
+	<div class="image-container">
+		<img th:src="@{/images/main-image.jpg}" class="img-fluid mx-auto d-block main-image">
+		<div class="text-overlay">
+			파도처럼 밀려오는 설렘<br> 떠나자, 지금 바로
+		</div>
+	</div>
+	<div class="main-content-container p-3">
+		<div>
+			<div class="text-container mb-3">
+				<p class="main--text-title font-weight-bold mb-1">우리들의 빛나는 활동으로 여행을 풍성하게</p>
+				<p class="main--text-subtitle text-muted mb-0">메이트들의 베스트 오브 베스트 즐길거리</p>
+			</div>
+			<!-- 3열 이미지 영역 -->
+			<div class="row g-4">
+				<div class="col-12 col-md-4" th:each="reviews : ${topReviews}">
+					<a th:href="@{/travel-review/detail/{idx}(idx=${reviews.idx})}"> <img th:src="${reviews.thumbnail != null ? '/uploads/review/' + reviews.thumbnail : '/images/original-review.png'}" class="img-fluid square-img">
+					</a>
+					<p class="top-reviews-country" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="text-container mb-3">
+				<p class="main--text-title font-weight-bold mb-1 mt-4">나의 소중한 여행 꿀팁</p>
+				<p class="main--text-subtitle text-muted mb-0">메이트들의 유용한 정보 둘러보기</p>
+			</div>
+			<!-- 3열 이미지 영역 -->
+			<div class="row g-4">
+				<div class="col-12 col-md-4" th:each="infos : ${topInfos}">
+					<a th:href="@{/travel-info/detail/{idx}(idx=${infos.idx})}"> <img th:src="${infos.thumbnail != null ? '/uploads/travelinfo/' + infos.thumbnail : '/images/original-review.png'}" class="img-fluid square-img">
+					</a>
+					<p class="top-info-sub content-text" th:text="${infos.title}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-content-container p-3">
+		<div class="row">
+			<div class="col-xl-6 mt-4 mr-4">
+				<p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">공지 사항</p>
+				<div>
+					<table class="table notice-table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>글 제목</th>
+								<th>날짜</th>
+							</tr>
+						</thead>
+						<tbody th:each="notice, stat : ${noticeList}">
+							<tr>
+								<td th:text="${stat.index + 1}">1</td>
+								<td class="main-notice-title"><a class="main-cs-link" th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${notice.idx})}" th:text="${notice.title}">항공권 럭키드로우 안내</a></td>
+								<td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}">2025-08-23</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-xl mt-4">
+				<p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">FAQ</p>
+				<div>
+					<table class="table faq-table">
+						<thead>
+							<tr>
+								<th>자주 묻는 질문</th>
+							</tr>
+						</thead>
+						<tbody th:each="faq : ${faqList}">
+							<tr>
+								<td><a class="main-cs-link" th:href="@{/customerservice/faq}" th:text="|Q. ${faq.title}|">Q. 메이트 신청은 어떻게 하나요?</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<!--</html>-->

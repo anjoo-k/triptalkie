@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="footerFragment" class="footer-bg">
+
+    <!-- Title -->
+    <div class="text-center mb-4 footer-title">
+        <p class="mb-1 font-weight-bold">LET'S TALK</p>
+        <p class="font-weight-bold">WITH US</p>
+    </div>
+
+    <!-- Main Footer Content -->
+    <div class="container-fluid">
+        <div class="row no-gutters align-items-center justify-content-between text-center text-md-left">
+
+            <!-- 로고 -->
+            <div class="col-md-3 mb-4 mb-md-0">
+                <img th:src="@{/images/footer-logo.png}" alt="Logo" class="footer-logo img-fluid">
+            </div>
+
+            <!-- 이메일 & 전화 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+                <p class="mb-1">INFO@WALKIETALKIE.COM</p>
+                <p>(02) 1234 5678</p>
+            </div>
+
+            <!-- 주소 -->
+            <div class="col-md-5 text-md-right">
+                <p class="mb-1">17 WHISPERING WAVE LANE<br>20250 CORAL BAY</p>
+                <p>SUMMERLAND</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider my-3 px-0" style="border-top: 1px solid #FAFAFA;"></div>
+
+    <!-- Bottom Footer -->
+    <div class="container-fluid">
+        <div class="row no-gutters align-items-center justify-content-between">
+            <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+                Copyright © 2025 . All Rights Reserved
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <a href="#" class="footer-link mr-3">FAQ</a>
+                <a href="#" class="footer-link mr-3">Blogs</a>
+                <a href="#" class="footer-link">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
+</footer>

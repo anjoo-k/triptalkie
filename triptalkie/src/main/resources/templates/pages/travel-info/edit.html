@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<main layout:fragment="content">
+	<h4 class="text-center content--title">나의 여행 정보를 수정해주세요</h4>
+	<div class="register-containers bg--containers pt-5 pb-5">
+
+		<div class="form-container">
+			<form th:action="@{/travel-info/edit}" th:object="${travelInfo}"
+				method="post" enctype="multipart/form-data">
+				<!-- id hidden input 추가 -->
+				<input type="hidden" th:field="*{idx}" />
+
+				<!-- 1️ 제목 -->
+				<div class="form-group row">
+					<div class="col-sm-12">
+						<input type="text" th:field="*{title}" class="form-control"
+							placeholder="여행 정보를 알릴 제목을 작성해주세요" required>
+					</div>
+				</div>
+
+				<div class="board-divider mb-3"></div>
+
+				<!-- 2️ 여행정보 유형 / 기준일 -->
+				<div class="form-group row">
+					<!-- 여행 정보 유형 -->
+					<div class="col-md-4">
+						<label>여행 정보 유형</label> <select th:field="*{infotype}"
+							class="form-control" required>
+							<option value="">선택</option>
+							<option value="팁" th:selected="${travelInfo.infotype == '팁'}">팁</option>
+							<option value="교통" th:selected="${travelInfo.infotype == '교통'}">교통</option>
+							<option value="숙박" th:selected="${travelInfo.infotype == '숙박'}">숙박</option>
+							<option value="음식점" th:selected="${travelInfo.infotype == '음식점'}">음식점</option>
+							<option value="관광지" th:selected="${travelInfo.infotype == '관광지'}">관광지</option>
+							<option value="축제" th:selected="${travelInfo.infotype == '축제'}">축제</option>
+							<option value="비용" th:selected="${travelInfo.infotype == '비용'}">비용</option>
+							<option value="안전" th:selected="${travelInfo.infotype == '안전'}">안전</option>
+							<option value="날씨" th:selected="${travelInfo.infotype == '날씨'}">날씨</option>
+							<option value="기타" th:selected="${travelInfo.infotype == '기타'}">기타</option>
+						</select>
+					</div>
+
+					<!-- 여행 기준일 -->
+					<div class="col-md-4">
+						<label>여행 기준일</label> <input type="month" th:field="*{tempMonth}"
+							class="form-control" required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<!-- 나라 선택 -->
+					<div class="form-group col">
+						<label for="country">나라</label> <select id="country"
+							class="form-control" required>
+							<option value="">-- 나라 선택 --</option>
+							<option th:each="country : ${countryList}"
+								th:value="${country.id}" th:text="${country.name}"
+								th:selected="${country.id == travelInfo.countryId}"></option>
+						</select>
+					</div>
+
+					<!-- 도시 선택 -->
+					<div class="form-group col">
+						<label for="city">도시</label> <select id="city" name="cityId"
+							class="form-control" required
+							th:attr="data-selected-city=${travelInfo.cityId}">
+							<option value="">-- 도시 선택 --</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="board-divider mb-3"></div>
+
+				<!-- 3️ 본문 -->
+				<div class="form-group row">
+					<div class="col-sm-12">
+						<textarea th:field="*{content}" class="form-control" rows="12"
+							placeholder="여행 정보를 자세히 작성해주세요" required></textarea>
+					</div>
+				</div>
+
+				<!-- 4️. 사진 첨부 -->
+				<section class="upload-section">
+					<!-- 사진 첨부 -->
+					<div class="row mt-1">
+						<div class="col-sm-12">
+							<div class="photo-upload mb-3">
+								<p class="mb-1 mt-0">
+									<strong>사진 첨부</strong> <span class="text-muted small">등록하지
+										않으면 기본 이미지가 표시돼요</span>
+								</p>
+								<div class="d-flex align-items-center">
+									<!-- 클릭 가능한 타일 -->
+									<label for="photo" class="upload-tile mb-0" id="uploadTile">
+										<span class="plus">+</span>
+									</label>
+									<!-- 미리보기 이미지 -->
+									<img id="preview" src=""
+										style="display: none; width: 80px; height: 80px; margin-left: 10px;">
+								</div>
+								<!-- 실제 파일 입력(숨김) -->
+								<input type="file" id="photo" name="photo" accept="image/*"
+									class="sr-only form-control-file">
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<div class="board-divider mb-3"></div>
+
+				<!-- 5. 버튼 -->
+				<div class="d-flex justify-content-between align-items-center">
+					<a th:href="@{/travel-info/list}" class="btn btn-back">목록</a>
+					<button type="submit" class="btn btn-primary btn-complete-editing">수정
+						완료</button>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+	<!-- AJAX 도시 선택 JS -->
+	<script src="/js/travel-info.js"></script>
+</main>
+</html>

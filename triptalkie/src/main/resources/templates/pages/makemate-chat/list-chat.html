@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content">
+  <h3>채팅 목록</h3>
+  <ul class="list-group">
+    <li class="list-group-item" th:each="room : ${rooms}">
+      <a th:href="@{/makemate/chat/room(chatroomIdx=${room.idx})}">
+        <span th:text="${room.member1Id} + ' / ' + ${room.member2Id}"></span>
+      </a>
+    </li>
+  </ul>
+</main>

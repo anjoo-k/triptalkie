@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.TravelReviewMapper">
+	<sql id="travelReviewColumns">
+		t.idx,
+		t.title,
+		t.content,
+		t.view,
+		t.created_at AS createdAt,
+		t.updated_at AS updatedAt,
+		t.mateuse AS mateUse,
+		t.concepttype AS
+		conceptType,
+		t.matetype AS mateType,
+		t.city_id AS cityId,
+		c.name AS
+		cityName,
+		t.member_id AS memberId,
+		m.nickname AS memberNickname
+	</sql>
+
+	<!-- 동적 검색 + 카테고리 전체 게시글 수 조회 -->
+	<select id="findCountByConditions" resultType="int"
+		parameterType="map">
+		SELECT COUNT(*)
+		FROM travelreview t
+		LEFT JOIN city c ON t.city_id = c.id
+		<where>
+			<!-- 키워드 검색 -->
+			<if test="keyword != null and keyword != ''">
+				AND (t.title LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				t.content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+			<!-- 나라 선택 -->
+			<if test="countryId != null and countryId != ''">
+				AND c.country_id = #{countryId}
+			</if>
+
+			<!-- 도시 선택 -->
+			<if test="cityId != null and cityId != ''">
+				AND t.city_id = #{cityId}
+			</if>
+
+			<!-- 테마 선택 -->
+			<if test="conceptType != null and conceptType != ''">
+				AND t.concepttype = #{conceptType}
+			</if>
+
+		</where>
+	</select>
+
+	<!-- 동적으로 카테고리와 검색 + 페이징 처리된 게시글 조회 -->
+	<select id="findPaged" resultType="map" parameterType="map">
+		SELECT
+		<include refid="travelReviewColumns" />
+		FROM travelreview t
+		LEFT JOIN member m ON t.member_id = m.id
+		LEFT JOIN
+		city c ON t.city_id = c.id
+		<where>
+			<!-- 키워드 검색 -->
+			<if test="keyword != null and keyword != ''">
+				AND (t.title LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				t.content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+			<!-- 나라 선택 -->
+			<if test="countryId != null and countryId != ''">
+				AND c.country_id = #{countryId}
+			</if>
+
+			<!-- 도시 선택 -->
+			<if test="cityId != null and cityId != ''">
+				AND t.city_id = #{cityId}
+			</if>
+
+			<!-- 테마 선택 -->
+			<if test="conceptType != null and conceptType != ''">
+				AND t.concepttype = #{conceptType}
+			</if>
+
+		</where>
+		ORDER BY t.idx DESC
+		LIMIT #{size} OFFSET #{startRow}
+	</select>
+
+	<!-- 게시글 조회수 -->
+	<update id="incrementView">
+		UPDATE travelreview
+		SET view = view + 1
+		WHERE idx =
+		#{idx}
+	</update>
+
+	<!-- 게시글 등록 -->
+	<insert id="registerTravelreview"
+		parameterType="com.walkietalkie.triptalkie.domain.TravelReview"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO travelreview
+		(title,
+		created_at, mateuse, concepttype, matetype, content, city_id,
+		member_id)
+		VALUES (#{title}, NOW(), #{mateUse}, #{conceptType},
+		#{mateType}, #{content}, #{cityId}, #{memberId})
+
+	</insert>
+	
+	<!-- 여행 후기 게시글 번호로 리뷰 조회 -->
+	<select id="findTravelreviewByIdx" parameterType="Long"
+		resultType="map">
+		SELECT
+		<include refid="travelReviewColumns" />
+		FROM travelreview t
+		LEFT JOIN member m ON t.member_id = m.id
+		LEFT JOIN
+		city c ON t.city_id = c.id
+		WHERE idx = #{idx};
+	</select>
+
+	<!-- 여행 후기 글 번호 + 멤버 아이디로 업데이트 -->
+	<update id="updateTravelreviewByIdxAndMemberId"
+		parameterType="com.walkietalkie.triptalkie.domain.TravelReview">
+		UPDATE travelreview
+		SET
+		title = #{title},
+		content =
+		#{content},
+		mateuse = #{mateUse},
+		concepttype = #{conceptType},
+		matetype
+		= #{mateType},
+		updated_at = NOW(),
+		city_id = #{cityId}
+		WHERE idx = #{idx}
+		AND member_id = #{memberId}
+	</update>
+
+	<!-- 게시글 번호로 여행 후기 글 삭제 -->
+	<delete id="deleteTravelreviewByIdx" parameterType="Long">
+		DELETE FROM
+		travelreview
+		WHERE idx = #{idx}
+	</delete>
+
+	<select id="findTravelreviewTop3ByView">
+		SELECT
+		tr.idx, tr.title, tri.saved_name AS thumbnail,
+		tr.view,
+		c.name AS cityName, co.name AS countryName
+		FROM travelreview tr
+		LEFT JOIN travelreview_image tri ON tri.travelreview_idx = tr.idx
+		AND
+		tri.created_at = (
+		SELECT MIN(created_at)
+		FROM travelreview_image
+		WHERE travelreview_idx = tr.idx
+		)
+		LEFT JOIN city c ON tr.city_id = c.id LEFT
+		JOIN country co ON c.country_id = co.id
+		ORDER BY tr.view DESC
+		LIMIT 3
+	</select>
+
+	<!-- 멤버 아이디를 이용한 게시글 조회 -->
+	<select id="findtravelReviewByMemberId">
+		SELECT idx, title, created_at FROM travelreview WHERE
+		member_id = #{memberId} ORDER BY created_at DESC
+	</select>
+</mapper>

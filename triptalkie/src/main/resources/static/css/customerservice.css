@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.list-group {
+	border:1px solid var(--color-border);
+	border-radius:10px;
+}
+
+.list-group-item {
+	display: flex;
+	justify-content:space-between;
+	border:0;
+}
+
+.list-group-item:hover {
+	background-color:var(--color-primary);
+	color:var(--color-secondary);
+	opacity: 0.5;
+	border-radius: 10px;
+}
+
+.pagination-wrapper {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0; /* footer와 약간 띄우기 */
+}
+
+.list-group-item.active {
+    background-color:var(--color-primary);
+	color:var(--color-secondary);
+	opacity: 0.5;
+	border-radius: 10px;
+}
+
+.notice-title {
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

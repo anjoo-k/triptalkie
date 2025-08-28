@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walkietalkie.triptalkie.mapper.CountryMapper">
+
+	<select id="findCountryAllList">
+		SELECT id, name, land_id FROM country
+	</select>
+	
+	<select id="findCountryNameById">
+		SELECT id, name, land_id FROM country where id= #{countryId};
+	</select>
+</mapper>

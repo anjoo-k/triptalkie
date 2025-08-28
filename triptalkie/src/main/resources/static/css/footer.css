@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+/* footer */
+.footer-bg {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+	margin-top: 20px;
+    padding: 20px;
+    font-size: smaller;
+}
+
+.footer-title p {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.footer-logo {
+    max-width: 100px;
+}
+
+.footer-link {
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}

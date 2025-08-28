@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<main layout:fragment="content">
+	<section>
+		<div class="row">
+			<div class="col-sm-12 main-pic">
+				<img
+					th:src="${photo != null} ? '/uploads/makemate/' + ${photo.savedName} : '/uploads/makemate/defualt.jpg'"
+					th:alt="${photo != null} ? ${photo.originalName} : '기본이미지'"
+					class="img-fluid rounded d-block">
+			</div>
+		</div>
+	</section>
+	<hr>
+	<section>
+		<div class="row">
+			<div class="col-sm-11">
+				<h3 th:text="${makemate.title}">파리로 2주 정도 같이 놀러가요</h3>
+			</div>
+			<div class="col-sm-1">
+				<img class="bookmarkBtn"
+					th:src="${bookmarked} ? '/images/bookmark-on.png' : '/images/bookmark-off.png'"
+					th:data-member-id="${session.loginId}"
+					th:data-makemate-idx="${makemate.idx}"
+					style="cursor: pointer; width: 32px; height: 32px;">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-7">
+				<span>조회수 </span> <span th:text="${makemate.view}">16 </span>
+			</div>
+
+			<div class="col-sm-5 d-flex justify-content-end">
+				<span>작성일 </span><span
+					th:text="${#temporals.format(makemate.createdAt, 'yyyy-MM-dd')}">2025.05.05</span>
+			</div>
+		</div>
+		<hr>
+		<div>
+			<p>
+				<strong>여행 일정</strong>
+			</p>
+			<div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/여행일정.png}">
+					</div>
+					<div class="col-sm-11">
+						<span class="startdate"
+							th:text="${#temporals.format(makemate.startdate, 'yyyy-MM-dd')}">2025.08.17</span>
+						~ <span class="enddate"
+							th:text="${#temporals.format(makemate.enddate, 'yyyy-MM-dd')}">2025.08.20</span>
+						<span class="days">n일</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1 mx-auto">
+						<img th:src="@{/images/장소.png}">
+					</div>
+					<div class="col-sm-11">
+						<span th:text="${land.name}">유럽 </span>&nbsp;<span
+							th:text="${country.name}">프랑스 </span>&nbsp;<span
+							th:text="${city.name}">파리 </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/파티원수.png}">
+					</div>
+					<div class="col-sm-11">
+						<span th:text="${numbersOfMembers}">1</span>/<span
+							th:text="${makemate.maxPeople}">4</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/조건.png}">
+					</div>
+					<div class="col-sm-11">
+						<span th:text="${makemate.mateType}">동일 성별</span>·<span
+							th:text="${makemate.ageGroup}">모든 나이</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<img th:src="@{/images/비용.png}">
+					</div>
+					<div class="col-sm-11">
+						<span th:text="${makemate.budget}">미정</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div>
+			<div>
+				<h5>여행 소개</h5>
+			</div>
+			<div>
+				<span th:text="${makemate.content}">여유롭게 돌아다니려는데 일정 맞으면 같이
+					관광다니며 놀아요 </span>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-6">
+				<div>
+					<h5>동행 유형</h5>
+				</div>
+				<div class="mateType text-center" th:text="${makemate.mateType}">전체동행</div>
+			</div>
+			<div class="col-sm-6">
+				<div>
+					<h5>여행 컨셉</h5>
+				</div>
+				<div class="conceptType text-center"
+					th:text="${makemate.conceptType}">맛집/카페</div>
+			</div>
+		</div>
+		<hr>
+		<div>
+			<h5>메이트 리더</h5>
+		</div>
+		<div class="row">
+			<form id="profileForm" th:action="@{/member/profile}" method="post">
+				<input type="hidden" name="memberId" th:value="${member.id}">
+			</form>
+			<div class="col-sm-2" id="profile" th:data-id="${member.id}">
+				<img
+					th:src="${memberlist != null} ? '/uploads/profile/' + ${memberlist.memberImage.savedName} : '/uploads/profile/default.jpg'"
+					alt="기본 프로필"
+					class="img-fluid rounded-circle d-block border profile-pic"
+					style="cursor: pointer;">
+			</div>
+			<div class="col-sm-8 d-flex flex-column justify-content-center">
+				<div>
+					<strong th:text="${member.nickname}">피곤한제니</strong>
+				</div>
+				<div>
+					<span th:text="${member.birth}" class="birth">30대</span>·<span
+						th:text="${member.gender}">여자</span>·<span
+						th:text="${member.address}">한국</span>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<div>
+			<div>
+				<h5>함께하는 메이트들</h5>
+			</div>
+
+
+			<div class="row">
+				<div class="col-sm-1 pl-1 pr-1 profile-pic"
+					th:each="memberlist : ${memberlistPhoto}">
+					<th:block th:each="memberPhoto : ${memberlist.memberImage}">
+						<img th:if="${memberPhoto.savedName != null}"
+							th:src="@{'/uploads/profile/' + ${memberPhoto.savedName}}"
+							th:alt="${memberPhoto.originalName}"
+							class="img-fluid rounded-circle d-block border">
+						<img th:unless="${memberPhoto.savedName != null}"
+							th:src="@{/uploads/profile/default.png}" alt="기본 프로필"
+							class="img-fluid rounded-circle d-block border">
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div>
+			<!-- <button class="btn btn-chatting btn-primary">채팅</button> -->
+			<form th:action="@{/makemate/chat/request}" method="post">
+				<input type="hidden" name="makemateIdx" th:value="${makemate.idx}" />
+				<button class="btn btn-chatting btn-primary" type="submit">채팅</button>
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<a th:href="@{/makemate/list}" class="btn btn-backToList">목록</a>
+			</div>
+			<div class="col-sm-6"></div>
+			<!-- 글쓴이일 경우 -->
+			<th:block
+				th:if="${session.loginId != null and session.loginId == makemate.memberId}">
+				<div class="col-sm-2">
+					<a
+						th:href="@{/makemate/editPage/{makemateId}(makemateId=${makemate.idx})}"
+						class="btn btn-makemate-delete">수정하기</a>
+				</div>
+				<form
+					th:action="@{/makemate/delete/{makemateId}(makemateId=${makemate.idx})}"
+					method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+					<button type="submit" class="btn btn-makemate-edit">삭제하기</button>
+				</form>
+			</th:block>
+
+			<!-- 글쓴이가 아닐 경우 -->
+			<th:block
+				th:if="${session.loginId != null
+						 and session.loginId != makemate.memberId
+						 and alreadyApplied != true}">
+				<div class="col-sm-4">
+					<form
+						th:action="@{/makemate/apply/{makemateId}(makemateId=${makemate.idx})}"
+						method="post">
+						<button class="btn btn-makemate-apply w-100" type="submit">신청하기</button>
+					</form>
+				</div>
+			</th:block>
+		</div>
+	</section>
+	<script src="/js/make-mate.js"></script>
+	<script src="/js/make-mate-detail.js"></script>
+	<script src="/js/memberInformation.js"></script>
+	<script src="/js/bookmark.js"></script>
+</main>
+</html>

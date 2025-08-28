@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<body>
+	<main layout:fragment="content" class="row">
+		<aside class="col-sm-3">
+			<div
+				th:replace="fragments/customerservice-list :: customerserviceList"></div>
+		</aside>
+		<section class="col-sm-9" style="color: #333333;">
+		<h4 class="mb-3 mypage-title">공지사항</h4>
+			<article>
+				<table class="table table-hover">
+					<thead class="list-title">
+						<tr>
+							<th>번호</th>
+							<th>글제목</th>
+							<th>닉네임</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody class="list-content">
+						<tr th:each="row : ${noticeList}">
+							<td th:text="${row.noticeList.idx}"></td>
+							<td class="notice-title"><a
+								th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${row.noticeList.idx})}">
+									<span th:text="${row.noticeList.title}" style="color: #333333;">공지사항입니다</span>
+							</a></td>
+							<td>관리자</td>
+							<td
+								th:text="${#temporals.format(row.noticeList.createdAt, 'yyyy-MM-dd')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+			<article class="d-flex mx-auto justify-content-center">
+				<div class="col-6 text-center">
+					<nav class="p-2 pagination--bottom">
+						<ul class="pagination justify-content-center mb-0 py-1">
+							<li th:classappend="${page.currentPage == 1} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square" th:href="@{/notice(page=1)}">«</a></li>
+							<li th:classappend="${page.currentPage == 1} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/notice(page=${page.currentPage - 1})}">‹</a></li>
+
+							<li
+								th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}"
+								th:classappend="${p == page.currentPage} ? ' active'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/customerservice/notice(page=${p})}" th:text="${p}">1</a></li>
+
+							<li
+								th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/notice(page=${page.currentPage + 1})}">›</a></li>
+							<li
+								th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
+								class="page-item pagination--spacing"><a
+								class="page-link square"
+								th:href="@{/notice(page=${page.totalPage})}">»</a></li>
+						</ul>
+					</nav>
+				</div>
+			</article>
+		</section>
+	</main>
+</body>
+</html>

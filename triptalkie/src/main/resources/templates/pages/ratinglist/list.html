@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<main layout:fragment="content">
+  <h4 class="text-center content--title">여행 메이트 평가</h4>
+
+  <div class="container mt-4 bg--containers pt-5 pb-5">
+    
+    <!-- 평가할 메이트가 없는 경우 -->
+    <div th:if="${mates == null or #lists.isEmpty(mates)}" class="text-center">
+      <p>현재 평가할 메이트가 없습니다.</p>
+    </div>
+
+    <!-- 메이트 목록 반복 -->
+    <div class="row" th:each="mate : ${mates}">
+      <div class="col-md-12 mb-3">
+        <div class="card">
+          <div class="card-body">
+
+            <!-- 메이트 정보 -->
+            <div class="d-flex justify-content-between">
+              <div>
+                <div><strong>참여자:</strong> <span th:text="${mate.memberId}">user1</span></div>
+                <div><strong>종료일:</strong> 
+                  <span th:text="${#temporals.format(mate.enddate, 'yyyy-MM-dd')}">2025-12-06</span>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-0 text-right" th:text="${mate.title}">글 제목</h5>
+              </div>
+            </div>
+
+            <!-- 평가 폼 -->
+            <div class="mt-3">
+
+              <!-- 평가한 적이 없는 경우 → insert -->
+              <form th:if="${mate.israted == null or mate.israted == false}"
+                    th:action="@{/rating/save}" method="post">
+                <input type="hidden" name="raterId" th:value="${session.loginId}" />
+                <input type="hidden" name="ratedId" th:value="${mate.memberId}" />
+                <input type="hidden" name="makemateIdx" th:value="${mate.makemateIdx}" />
+                <input type="hidden" name="israted" value="true" />
+
+                <!-- 별점 (rabbit 이미지) -->
+                <div class="rating" th:with="uid=${mate.makemateIdx}">
+                  <input type="radio" id="star5-[[${uid}]]" name="rating" value="5.0" required />
+                  <label for="star5-[[${uid}]]"></label>
+
+                  <input type="radio" id="star4-[[${uid}]]" name="rating" value="4.0" />
+                  <label for="star4-[[${uid}]]"></label>
+
+                  <input type="radio" id="star3-[[${uid}]]" name="rating" value="3.0" />
+                  <label for="star3-[[${uid}]]"></label>
+
+                  <input type="radio" id="star2-[[${uid}]]" name="rating" value="2.0" />
+                  <label for="star2-[[${uid}]]"></label>
+
+                  <input type="radio" id="star1-[[${uid}]]" name="rating" value="1.0" />
+                  <label for="star1-[[${uid}]]"></label>
+                </div>
+
+                <div class="mt-2">
+                  <button type="submit" class="btn btn-sm btn-primary">평가하기</button>
+                </div>
+              </form>
+
+              <!-- 이미 평가한 경우 → update -->
+              <div th:if="${mate.israted == true}">
+                <p class="text-success font-weight-bold">이미 평가되었습니다.</p>
+
+                <form th:action="@{/rating/update}" method="post">
+                  <input type="hidden" name="raterId" th:value="${session.loginId}" />
+                  <input type="hidden" name="ratedId" th:value="${mate.memberId}" />
+                  <input type="hidden" name="makemateIdx" th:value="${mate.makemateIdx}" />
+                  <input type="hidden" name="israted" value="true" />
+
+                  <div class="rating" th:with="uid=${mate.makemateIdx}">
+                    <input type="radio" id="update-star5-[[${uid}]]" name="rating" value="5.0" required />
+                    <label for="update-star5-[[${uid}]]"></label>
+
+                    <input type="radio" id="update-star4-[[${uid}]]" name="rating" value="4.0" />
+                    <label for="update-star4-[[${uid}]]"></label>
+
+                    <input type="radio" id="update-star3-[[${uid}]]" name="rating" value="3.0" />
+                    <label for="update-star3-[[${uid}]]"></label>
+
+                    <input type="radio" id="update-star2-[[${uid}]]" name="rating" value="2.0" />
+                    <label for="update-star2-[[${uid}]]"></label>
+
+                    <input type="radio" id="update-star1-[[${uid}]]" name="rating" value="1.0" />
+                    <label for="update-star1-[[${uid}]]"></label>
+                  </div>
+
+                  <div class="mt-2">
+                    <button type="submit" class="btn btn-sm btn-warning">다시 평가하기</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</html>

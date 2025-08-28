@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+<body>
+	<main layout:fragment="content">
+		<div class="form-container">
+		<h4 class="text-center content--title">공지사항</h4>
+			<div class="form-group row">
+				<div class="col-sm-12">
+					<h5 class="font-weight-bold" th:text="${notice.title}">공지사항
+						제목</h5>
+				</div>
+			</div>
+
+			<div class="board-divider mb-3"></div>
+
+			<div class="form-group row align-items-center">
+				<div class="col-md d-flex align-items-center">
+					<span class="detail-text mr-3"> 작성자: <strong>관리자</strong>
+					</span> <span class="detail-text"> 작성일: <span
+						th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd HH:mm')}">2025-08-19</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="board-divider mb-3"></div>
+
+			<div class="form-group row">
+				<div class="col-sm-12">
+					<p class="detail-content" th:text="${notice.content}">공지
+						게시글의 본문 내용이 들어갑니다.</p>
+				</div>
+			</div>
+
+			<div class="board-divider mb-3"></div>
+
+			<div class="d-flex justify-content-between align-items-center">
+				<button type="button" class="btn btn-back"
+					th:onclick="|window.location.href='@{/customerservice/notice}'|">목록</button>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

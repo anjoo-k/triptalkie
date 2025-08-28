@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+
+ */
+.original--profile {
+	width: 100px;
+	height: 100px;
+	border-radius: 20%;
+	object-fit: cover;
+	display: block;
+	margin: 40px auto 20px auto;
+}
+
+.form--btn-confirm {
+	background-color: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
+}
+
+.btn-complete {
+	background-color: #7cd3c2;
+	border: none;
+	color: #fff;
+	width: 100%;
+	padding: 10px;
+	border-radius: 20px;
+	font-size: 1.1rem;
+}
+
+.form-check-inline {
+	margin-right: 20px;
+}
+
+/*
+	회원 가입 페이지
+*/
+
+
+/* 회원 가입 중복 환인 버튼 */
+.btn-duplicate {
+ /*    background-color: var(--color-primary); */
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-duplicate:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* 회원가입, 회원 수정, 로그인 버튼 */
+.btn-complete, .btn-login {
+	border-radius: 10px;
+}
+
+
+/*
+	로그인 페이지
+*/
+
+.btn-signup, .btn-findIdOrPwd {
+	border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 10px;
+}
+
+.btn-signup:hover, .btn-findIdOrPwd:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+.login-card {
+	min-height: 500px;   /* 카드 세로 최소 크기 */
+}
+
+/*
+	메이트 리더 정보
+*/
+.member-profile{
+	width: 150px;
+	height: 150px;
+	margin: auto;
+}
+
+.member-profile img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 1.25rem;
+}
+
+/* 아이디 비밀번호 찾기 */
+.nav-width {
+	width: 50%;
+	border-radius: 10px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	color: var(--color-primary);
+	border-color: var(--color-primary) var(--color-primary)
+		var(--color-secondary);
+}
+
+.nav-menu {
+	border-radius: 10px 10px 0px 0px !important;
+}
+
+
+.id-btn, .pwd-btn {
+	width: 50%;
+}
+
+.btn-section {
+	display: flex;
+	justify-content: center;
+}
+
+>>>>>>> develop

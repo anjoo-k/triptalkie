@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.walkietalkie.triptalkie.mapper.MakemateImageMapper">
+	<insert id="registerImage"
+		parameterType="com.walkietalkie.triptalkie.domain.MakemateImage">
+		INSERT INTO makemate_image(uuid, original_name,
+		saved_name, file_path, file_size, makemate_idx)
+		VALUES (#{uuid},
+		#{originalName}, #{savedName}, #{filePath}, #{fileSize},
+		#{makemateIdx})
+	</insert>
+	<select id="findImageByMakemateIdx" resultType="com.walkietalkie.triptalkie.domain.MakemateImage">
+		SELECT uuid, original_name, saved_name, file_path,
+		file_size, makemate_idx
+		FROM makemate_image
+		WHERE
+		makemate_idx=#{makemateIdx}
+	</select>
+	<update id="updateImageByUuidAndMakemateIdx">
+		UPDATE makemate_image
+		SET original_name=#{originalName},
+		saved_name=#{savedName},
+		file_path=#{filePath},
+		file_size=#{fileSize}
+		WHERE uuid=#{uuid}
+		AND makemate_idx=#{makemateIdx}
+	</update>
+	<delete id="deleteImageByUuidAndMakemateIdx">
+		DELETE FROM makemate_image
+		WHERE uuid=#{uuid}
+		AND makemate_idx=#{makemateIdx}
+	</delete>
+</mapper>

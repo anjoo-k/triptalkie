@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<!-- content fragement 선언 부분 -->
+<main layout:fragment="content" class="row">
+	<aside class="col-sm-3">
+		<div th:replace="fragments/customerservice-list :: customerserviceList"></div>
+	</aside>
+	<section class="col-sm-9">
+		<h4 class="mb-3 mypage-title">QnA</h4>
+		<article>
+			<table class="table table-hover">
+				<thead class="list-title">
+					<tr>
+						<th>번호</th>
+						<th>글제목</th>
+						<th>닉네임</th>
+						<th>날짜</th>
+					</tr>
+				</thead>
+				<tbody class="list-content" th:each="qna, stat : ${qnaList}">
+					<tr>
+						<td th:text="${stat.index + 1}">1</td>
+						<td th:text="${qna['title']}">회원가입 관련 문의</td>
+						<td th:text="${qna['nickname']}">사용자A</td>
+						<td th:text="${#temporals.format(qna['created_at'], 'yyyy-MM-dd')}">2025-08-20</td>
+					</tr>
+				</tbody>
+			</table>
+		</article>
+		<!-- 페이지네이션 -->
+		<div class="text-center" th:if="${pageData.totalPage > 0}">
+			<nav class="p-2 pagination--bottom">
+				<ul class="pagination justify-content-center mb-0">
+					<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/qna(page=1)}">&laquo;</a></li>
+					<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/qna(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a></li>
+					<li th:each="i : ${#numbers.sequence(pageData.startPage > 0 ? pageData.startPage : 1, pageData.endPage)}" th:classappend="${i == pageData.currentPage} ? 'active' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/qna(page=${i})}" th:text="${i}">1</a></li>
+					<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/qna(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a></li>
+					<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/customerservice/qna(page=${pageData.totalPage})}">&raquo;</a></li>
+				</ul>
+			</nav>
+		</div>
+	</section>
+</main>
+</html>

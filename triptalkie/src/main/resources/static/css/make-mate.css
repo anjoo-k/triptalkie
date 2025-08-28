@@ -1,0 +1,199 @@
+@charset "UTF-8";
+
+/* 메이크메이트 메인 리스트 페이지 */
+.mate-main {
+	width: 300px;
+	/* 보여줄 박스 크기 */
+	height: 760px;
+	overflow: hidden;
+	/* 넘치는 부분 잘라내기 */
+}
+
+.mate-main img {
+	width: 100%;
+	height: 100%;
+	border-radius: 16px;
+	object-fit: cover;
+	/* 박스를 꽉 채우고 남는 부분은 잘림 */
+	object-position: center;
+	/* 중앙 기준으로 맞춤 */
+}
+
+.qr-overlay {
+	position: absolute;
+	right: 20px;
+	padding-top: 15px;
+	padding-right: 10px;
+	width: 100px;
+}
+
+.qr-size {
+	border-radius: 0px !important;
+}
+
+.mate-text-overlay {
+	position: absolute;
+	bottom: 10px;
+	/* 이미지 아래쪽에서 20px */
+	right: 20px;
+	/* 이미지 오른쪽에서 20px */
+	color: #D5EEE9;
+	font-size: 2rem;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.thumbnail {
+	width: 30px;
+	/* 보여줄 박스 크기 */
+	height: 30px;
+	overflow: hidden;
+	/* 넘치는 부분 잘라내기 */
+}
+
+.thumbnail img {
+	width: 100%;
+	height: 100%;
+	border-radius: 16px;
+	object-fit: cover;
+	/* 박스를 꽉 채우고 남는 부분은 잘림 */
+	object-position: center;
+	/* 중앙 기준으로 맞춤 */
+}
+
+.profile {
+	border: 1px solid var(--color-text-primary);
+}
+
+.user-info {
+	color: var(--color-text-primary);
+}
+
+.page-link.square {
+	aspect-ratio: 1/1; /* 정사각형 비율 */
+	width: 30px; /* 기준 크기 */
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+.btn-write {
+	background: none;
+	border: none;
+	color: var(--color-primary);
+	border-top-width: 1px;
+	border-bottom-width: 2px;
+}
+
+/* 작성하기 */
+.title-section, .category-section, .content-section, .button-mm-section
+	{
+	padding: 10px;
+}
+
+.form-control {
+	border-radius: 10px;
+}
+
+.photo-upload {
+	display: block;
+	align-items: center;
+	gap: 10px; /* input/라벨과 이미지 간격 */
+	padding: 10px;
+	background-color: var(--color-board-background);
+}
+
+.upload-tile {
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: 80px;
+	border: 2px dashed #ccc;
+	font-size: 2rem;
+	color: #888;
+}
+
+#preview {
+	border: 1px solid #ccc;
+	object-fit: cover;
+}
+
+.icon-spacing {
+	padding-top: 5px;
+}
+
+.button-mm-section .row {
+	display: flex;
+	justify-content: flex-start; /* 버튼들이 왼쪽부터 */
+	align-items: center;
+}
+
+.btn-mm-back, .btn-mm-complete {
+	height: 48px;
+	min-width: 150px; /* 버튼 최소 가로 길이 */
+	border-radius: 24px; /* pill 모양 */
+	font-size: 16px;
+	font-weight: bold;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button-mm-section {
+	background-color: #fff;
+}
+
+.btn-mm-back {
+	border: 1px solid var(--color-primary);
+	background-color: #fff;
+	color: var(--color-primary);
+}
+
+.btn-mm-complete {
+	border: none;
+	background-color: var(--color-secondary);
+	color: var(--color-text-secondary);
+	width: 100%
+}
+
+.btn-mm-complete:hover {
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+}
+/* 상세보기 페이지 */
+.main-pic {
+	width: 600px;
+	/* 보여줄 박스 크기 */
+	height: 400px;
+	overflow: hidden;
+	width: auto;
+	/* 넘치는 부분 잘라내기 */
+}
+
+.main-pic img {
+	width: 100%;
+	height: 100%;
+	border-radius: 16px;
+	object-fit: cover;
+	object-position: center;
+}
+.profile-pic{
+	width: 55px;
+	height: 55px;
+}
+
+.profile-pic img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+/* 수정하기 페이지 */
+p {
+	margin-bottom: 8px;
+	margin-top: 8px;
+}

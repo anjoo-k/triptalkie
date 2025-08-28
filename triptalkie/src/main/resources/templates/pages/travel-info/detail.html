@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/base}">
+
+<main layout:fragment="content">
+	<div class="register-containers bg--containers pt-3 pb-3">
+		<div class="form-container detail-review">
+
+			<!-- 제목 -->
+			<div class="form-group row mb-2 px-1">
+				<div class="col-sm-12">
+					<h5 class="font-weight-bold py-2 px-1 detail-title"
+						th:text="${travelInfo.title}">제목</h5>
+				</div>
+			</div>
+
+			<!-- 조회수 + 작성일 -->
+			<div class="form-group row mb-2 px-1">
+				<div class="col-sm-10">
+					<span class="badge--sub-desc" th:text="|조회수 · ${travelInfo.view}|"></span>
+				</div>
+				<div class="col-sm-2">
+					<span class="badge--sub-desc"
+						th:text="${#temporals.format(travelInfo.infodate, 'yyyy-MM-dd')}">날짜</span>
+				</div>
+			</div>
+			<div class="board-divider mb-2"></div>
+
+			<!-- 사진 -->
+			<div class="form-group row mb-2">
+				<div class="col-sm-12">
+					<div class="review-imagebox">
+						<img th:src="@{${infoImageUrl}}" alt="travelreview-image">
+					</div>
+				</div>
+			</div>
+
+			<!-- 여행 도시 -->
+			<div class="form-group px-2 py-2 travel-city">
+				<p class="subheading mb-1">여행 장소</p>
+				<div class="d-flex align-items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+						fill="currentColor" class="bi bi-geo-alt-fill mr-2 text-icon"
+						viewBox="0 0 16 16">
+            <path
+							d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 
+                     0 1 1 0-6 3 3 0 0 1 0 6" />
+          </svg>
+					<span class="detail-text" th:text="${travelInfo.city.name}">도시</span>
+					<span style="white-space: pre;"> - </span> <span
+						class="detail-text" th:text="${travelInfo.city.country.name}">나라</span>
+
+				</div>
+				<div class="board-divider mt-2 mb-2"></div>
+
+				<!-- 본문 -->
+				<div class="form-group row">
+					<div class="col-sm-12 detail-review">
+						<p class="subheading mb-2">소개</p>
+						<pre class="detail-content" th:text="${travelInfo.content}"
+							style="white-space: pre-wrap;">본문</pre>
+					</div>
+				</div>
+				<div class="board-divider mb-3"></div>
+
+				<!-- 정보 종류 & 기준일 -->
+				<div class="form-group row mate-travel-type py-2">
+					<div class="col col-sm-4">
+						<p class="subheading mb-2">정보 종류</p>
+						<label class="btn selected-mate-type"
+							th:text="${travelInfo.infotype}"></label>
+					</div>
+					<div class="col">
+						<p class="subheading mb-2">정보 기준일</p>
+						<label class="btn selected-mate-type"
+							th:text="${#temporals.format(travelInfo.infodate, 'yyyy-MM')}"></label>
+					</div>
+				</div>
+				<div class="board-divider mb-3 mt-3"></div>
+
+				<!-- 버튼 영역 -->
+				<div class="d-flex justify-content-between align-items-center mt-3">
+					<a th:href="@{/travel-info/list}" class="btn btn-back">목록</a>
+					<th:block
+						th:if="${loginId != null and loginId == travelInfo.memberId}">
+						<div>
+							<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}"
+								class="btn btn-edit">수정</a>
+							<form
+								th:action="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
+								method="post" style="display: inline">
+								<button type="submit" class="btn btn-delete"
+									onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+							</form>
+						</div>
+					</th:block>
+				</div>
+				<!-- 				<p>
+					loginId: <span th:text="${loginId}"></span>
+				</p>
+				<p>
+					travelInfo.memberId: <span th:text="${travelInfo.memberId}"></span>
+				</p> -->
+
+			</div>
+		</div>
+</main>
+</html>
