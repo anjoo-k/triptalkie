@@ -2,8 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/base}">
-
-<main layout:fragment="content">
+<head>
+<link rel="stylesheet" th:href="@{/css/travel-info.css}">
+</head>
+<!-- 여행 정보 상세 페이지 -->
+<main layout:fragment="content" class="travel-info-page">
 	<div class="register-containers bg--containers pt-3 pb-3">
 		<div class="form-container detail-review">
 
@@ -28,13 +31,12 @@
 			<div class="board-divider mb-2"></div>
 
 			<!-- 사진 -->
-			<div class="form-group row mb-2">
-				<div class="col-sm-12">
-					<div class="review-imagebox">
-						<img th:src="@{${infoImageUrl}}" alt="travelreview-image">
-					</div>
-				</div>
+
+			<div class="info-imagebox">
+				<img th:src="@{${infoImageUrl}}" alt="travelreview-image"
+					class="info-image">
 			</div>
+
 
 			<!-- 여행 도시 -->
 			<div class="form-group px-2 py-2 travel-city">
@@ -99,5 +101,6 @@
 
 			</div>
 		</div>
+	</div>
 </main>
 </html>

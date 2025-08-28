@@ -46,16 +46,13 @@ public interface TravelInfoMapper {
 	City findCityById(String id);
 
 	TravelInfo getTravelInfoDetail(Long idx);
-	
-	List<TravelInfo> searchTravelInfo2(@Param("params") Map<String, Object> params, @Param("offset") int offset,@Param("limit") int limit);
-	// 검색 + 페이지 관련 메서드 : 개선판 나오면 삭제
-	
-	int countSearchTravelInfo2(@Param("params") Map<String, Object> params);
-	// 검색 + 페이징 관련 메서드 : 개선판 나오면 삭제
-	
-	List<TravelInfo> searchTravelInfo(Map<String, Object> params, int offset, int limit);
-	// 검색 + 페이지 관련 메서드
-	
-    int countSearchTravelInfo(Map<String, Object> params);
-    // 검색 + 페이지 관련 메서드
+
+	// 검색 + 페이징 (Map 반환)
+	List<Map<String, Object>> searchTravelInfo(String title, String infotype,
+			String cityId, String countryId, int offset, int size);
+
+	// 검색 결과 총 개수
+	int countSearchTravelInfo(String title, String infotype, String cityId,
+			String countryId);
+
 }

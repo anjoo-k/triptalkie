@@ -170,11 +170,17 @@ public class TravelInfo {
 
 	@Override
 	public String toString() {
-		return "TravelInfo [idx=" + idx + ", title=" + title + ", view=" + view + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", infotype=" + infotype + ", infodate=" + infodate + ", cityId="
-				+ cityId + ", content=" + content + ", memberId=" + memberId + ", memberNickname=" + memberNickname
-				+ ", countryId=" + countryId + ", member=" + member + ", city=" + city + ", tempMonth=" + tempMonth
+		return "TravelInfo [idx=" + idx + ", title=" + title + ", view=" + view
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", infotype=" + infotype + ", infodate=" + infodate
+				+ ", cityId=" + cityId + ", content=" + content + ", memberId="
+				+ memberId + ", memberNickname=" + memberNickname
+				+ ", countryId=" + countryId + ", member=" + member + ", city="
+				+ city + ", country=" + country + ", tempMonth=" + tempMonth
 				+ "]";
 	}
+
+	
+	
 
 }

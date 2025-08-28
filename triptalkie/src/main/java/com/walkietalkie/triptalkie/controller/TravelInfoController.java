@@ -22,6 +22,7 @@ import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.domain.TravelInfo;
+import com.walkietalkie.triptalkie.mapper.TravelInfoMapper;
 import com.walkietalkie.triptalkie.service.MemberService;
 import com.walkietalkie.triptalkie.service.TravelInfoImageService;
 import com.walkietalkie.triptalkie.service.TravelInfoService;
@@ -35,12 +36,16 @@ public class TravelInfoController {
 	private final MemberService memberService;
 	private final TravelInfoService travelInfoService;
 	private final TravelInfoImageService travelInfoImageService;
+	private final TravelInfoMapper travelInfoMapper;
 
-	public TravelInfoController(TravelInfoService travelInforService, MemberService memberService,
-			TravelInfoImageService travelInfoImageService) {
+	public TravelInfoController(TravelInfoService travelInforService,
+			MemberService memberService,
+			TravelInfoImageService travelInfoImageService,
+			TravelInfoMapper travelInfoMapper) {
 		this.travelInfoService = travelInforService;
 		this.memberService = memberService;
 		this.travelInfoImageService = travelInfoImageService;
+		this.travelInfoMapper = travelInfoMapper;
 
 	}
 
@@ -61,12 +66,24 @@ public class TravelInfoController {
 
 	@PostMapping("/register")
 	public String TravelInfoRegister(TravelInfo travelInfo,
-			@RequestParam(value = "photo", required = false) MultipartFile file, HttpSession session) {
+			@RequestParam(value = "photo", required = false) MultipartFile file,
+			HttpSession session) {
+
+		String loginId = memberService.getLoginId(session);
+
+		if (loginId == null) {
+			throw new IllegalStateException("로그인한 회원이 아닙니다.");
+		}
+		
+		travelInfo.setMemberId(loginId);
+
 		System.out.println("tempMonth: " + travelInfo.getTempMonth());
 
-		if (travelInfo.getTempMonth() != null && !travelInfo.getTempMonth().isEmpty()) {
+		if (travelInfo.getTempMonth() != null
+				&& !travelInfo.getTempMonth().isEmpty()) {
 			// "2025-08" → LocalDateTime 변환 (1일 00:00:00 기준)
-			travelInfo.setInfodate(LocalDate.parse(travelInfo.getTempMonth() + "-01").atStartOfDay());
+			travelInfo.setInfodate(LocalDate
+					.parse(travelInfo.getTempMonth() + "-01").atStartOfDay());
 		}
 
 		System.out.println("infodate: " + travelInfo.getInfodate());
@@ -91,7 +108,8 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/detail/{idx}")
-	public String TravelInfoDetailPage(@PathVariable Long idx, Model model, HttpSession session) {
+	public String TravelInfoDetailPage(@PathVariable Long idx, Model model,
+			HttpSession session) {
 		// 1. 조회수 증가
 		travelInfoService.increaseViewCount(idx);
 
@@ -103,7 +121,8 @@ public class TravelInfoController {
 		String loginId = memberService.getLoginId(session);
 
 		// 이미지 URL 조회
-		String infoImageUrl = travelInfoImageService.getImageUrlByTravelinfoIdx(idx);
+		String infoImageUrl = travelInfoImageService
+				.getImageUrlByTravelinfoIdx(idx);
 		model.addAttribute("infoImageUrl", infoImageUrl);
 
 		// 로그인 정보 가져오기
@@ -113,7 +132,8 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/edit/{idx}")
-	public String editPage(@PathVariable Long idx, Model model, HttpSession session) {
+	public String editPage(@PathVariable Long idx, Model model,
+			HttpSession session) {
 		TravelInfo travelInfo = travelInfoService.findTravelInfoIdx(idx);
 
 		if (travelInfo == null) {
@@ -145,13 +165,15 @@ public class TravelInfoController {
 	}
 
 	@PostMapping("/edit")
-	public String editSubmit(TravelInfo travelInfo, @RequestParam(value = "photo", required = false) MultipartFile file,
+	public String editSubmit(TravelInfo travelInfo,
+			@RequestParam(value = "photo", required = false) MultipartFile file,
 			HttpSession session, RedirectAttributes redirectAttributes) {
 		// 1. 로그인 사용자 확인
 		String loginId = memberService.getLoginId(session);
 
 		// DB에서 원본 travelInfo 조회
-		TravelInfo origin = travelInfoService.findTravelInfoIdx(travelInfo.getIdx());
+		TravelInfo origin = travelInfoService
+				.findTravelInfoIdx(travelInfo.getIdx());
 
 		System.out.println("원본 데이터 : " + origin);
 
@@ -162,7 +184,8 @@ public class TravelInfoController {
 		}
 
 		// 2. 년-월 -> LocalDateTime 변환
-		if (travelInfo.getTempMonth() != null && !travelInfo.getTempMonth().isEmpty()) {
+		if (travelInfo.getTempMonth() != null
+				&& !travelInfo.getTempMonth().isEmpty()) {
 			YearMonth ym = YearMonth.parse(travelInfo.getTempMonth());
 			travelInfo.setInfodate(ym.atDay(1).atStartOfDay());
 		}
@@ -172,7 +195,8 @@ public class TravelInfoController {
 		System.out.println("업데이트 실행 데이터`: " + travelInfo);
 
 		// 3. 업데이트
-		int success = travelInfoService.updateTravelInfoByIdxAndMemberId(travelInfo, session);
+		int success = travelInfoService
+				.updateTravelInfoByIdxAndMemberId(travelInfo, session);
 
 		System.out.println("업데이트 실행 시 file 객체 값 : " + file);
 
@@ -180,13 +204,15 @@ public class TravelInfoController {
 		if (file != null && !file.isEmpty()) {
 			try {
 				// 기존 이미지 삭제
-				boolean deleteresult = travelInfoImageService.deleteImageByTravelInfoIdx(travelInfo.getIdx());
+				boolean deleteresult = travelInfoImageService
+						.deleteImageByTravelInfoIdx(travelInfo.getIdx());
 				System.out.println("이미지 삭제 결과 : " + deleteresult);
 				// 새 이미지 업로드
 				travelInfoImageService.uploadImage(file, travelInfo.getIdx());
 			} catch (IOException e) {
 				e.printStackTrace();
-				redirectAttributes.addFlashAttribute("msg", "이미지 업로드 중 오류가 발생했습니다.");
+				redirectAttributes.addFlashAttribute("msg",
+						"이미지 업로드 중 오류가 발생했습니다.");
 				return "redirect:/travel-info/edit/" + travelInfo.getIdx();
 			}
 		}
@@ -201,7 +227,8 @@ public class TravelInfoController {
 	}
 
 	@PostMapping("/delete/{idx}")
-	public String deleteSubmit(@PathVariable Long idx, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String deleteSubmit(@PathVariable Long idx, HttpSession session,
+			RedirectAttributes redirectAttributes) {
 		// 1. 현재 로그인한 사용자의 ID 가져오기
 		String loginId = memberService.getLoginId(session);
 		System.out.println("delete 기능 게시판 번호 : " + loginId);
@@ -226,43 +253,43 @@ public class TravelInfoController {
 	}
 
 	@GetMapping("/list")
-	public String list(@RequestParam(required = false) String title, @RequestParam(required = false) String infotype,
-			@RequestParam(required = false) String cityId, @RequestParam(required = false) String countryId,
-			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size, Model model) {
+	public String travelInfoList(@RequestParam(required = false) String title,
+			@RequestParam(required = false) String infotype,
+			@RequestParam(required = false) String countryId,
+			@RequestParam(required = false) String cityId,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int size, Model model) {
 
-		// 검색 파라미터 null-safe Map
-		Map<String, Object> params = new HashMap<>();
-		if (title != null && !title.isEmpty())
-			params.put("title", title);
-		if (infotype != null && !infotype.isEmpty())
-			params.put("infotype", infotype);
-		if (cityId != null && !cityId.isEmpty())
-			params.put("cityId", cityId);
-		if (countryId != null && !countryId.isEmpty())
-			params.put("countryId", countryId);
+		// 서비스 메서드 호출
+		Map<String, Object> searchResult = travelInfoService.searchTravelInfo(
+				title, infotype, countryId, cityId, page, size);
 
-		// Map 기반 페이지 조회
-		CommonPage<Map<String, Object>> pageData = travelInfoService.searchTravelInfoPage(params, page, size);
+		// 리스트 & 페이징 데이터 추출
+		List<Map<String, Object>> travelInfoList = (List<Map<String, Object>>) searchResult
+				.get("list");
+		int currentPage = (Integer) searchResult.get("currentPage");
+		int totalPage = (Integer) searchResult.get("totalPage");
 
-		// 나라/도시 선택용
-		String selectedCountryId = null;
-		if (cityId != null && !cityId.isEmpty()) {
-			City city = travelInfoService.findCityById(cityId);
-			if (city != null)
-				selectedCountryId = city.getCountryId();
-		}
-		List<Country> countryList = travelInfoService.getAllCountries();
+		int startPage = Math.max(currentPage - 2, 1);
+		int endPage = Math.min(startPage + 4, totalPage);
 
-		// Model에 null-safe 추가
-		model.addAttribute("travelInfoList",
-				pageData.getContent() != null ? pageData.getContent() : Collections.emptyList());
+		Map<String, Object> pageData = new HashMap<>();
+		pageData.put("currentPage", currentPage);
+		pageData.put("size", size);
+		pageData.put("totalPage", totalPage);
+		pageData.put("startPage", startPage);
+		pageData.put("endPage", endPage);
+
+		// 모델에 추가
+		model.addAttribute("travelInfoList", travelInfoList);
 		model.addAttribute("pageData", pageData);
-		model.addAttribute("title", title != null ? title : "");
-		model.addAttribute("infotype", infotype != null ? infotype : "");
-		model.addAttribute("cityId", cityId != null ? cityId : "");
-		model.addAttribute("countryList", countryList != null ? countryList : Collections.emptyList());
-		model.addAttribute("selectedCountryId", selectedCountryId);
-		model.addAttribute("selectedCityId", cityId != null ? cityId : null);
+		model.addAttribute("title", title);
+		model.addAttribute("infotype", infotype);
+		model.addAttribute("selectedCountryId", countryId);
+		model.addAttribute("selectedCityId", cityId);
+
+		// 나라 리스트도 전달
+		model.addAttribute("countryList", travelInfoMapper.getAllCountries());
 
 		return "pages/travel-info/list";
 	}
