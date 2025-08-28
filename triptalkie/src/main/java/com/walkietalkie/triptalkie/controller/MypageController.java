@@ -158,7 +158,6 @@ public class MypageController {
 	@GetMapping("/my-posts")
 	public String myPostPage(Model model, HttpSession session) {
 		String loginMember = (String) session.getAttribute("loginId");
-		System.out.println(loginMember);
 		// 세션이 비어있을 경우 에러 처리 추가
 		if (loginMember == null) {
 			return "redirect:/member/loginPage";
@@ -176,7 +175,6 @@ public class MypageController {
 			myPosts.setTravelReviewList(new ArrayList<>());
 		}
 
-		System.out.println("myPosts" + myPosts);
 		model.addAttribute("myPosts", myPosts);
 
 		return "pages/mypage/my-posts";
@@ -218,23 +216,4 @@ public class MypageController {
 			return "redirect:/mypage";
 		}
 	}
-
-//	@PostMapping("/password-check-withdraw")
-//	public String checkPasswordPageWithdraw2(HttpSession session, String password, RedirectAttributes ra)
-//			throws Exception {
-//		String id = (String) session.getAttribute("loginId");
-//		if (id == null)
-//			return "redirect:/member/loginPage";
-//
-//		Boolean result = mypageService.checkPassword(id, password);
-//		// id와 패스워드를 확인
-//
-//		System.out.println("실행 체크 1");
-//		if (result) {
-//			return "redirect:/member/deactivate";
-//		} else {
-//			ra.addFlashAttribute("error", true);
-//			return "redirect:/mypage/password-check-withdraw";
-//		}
-//	}
 }

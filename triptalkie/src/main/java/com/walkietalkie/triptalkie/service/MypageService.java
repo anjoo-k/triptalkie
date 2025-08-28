@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.DTO.MyPostsDTO;
-import com.walkietalkie.triptalkie.controller.TravelInfoController;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
 import com.walkietalkie.triptalkie.domain.Country;
