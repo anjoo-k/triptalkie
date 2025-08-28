@@ -3,22 +3,19 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/base}">
 
-
-<!-- content fragement 선언 부분 -->
 <body>
 	<main layout:fragment="content" class="row">
-		<!-- 좌측 list -->
 		<aside class="col-sm-3">
 			<div
 				th:replace="fragments/customerservice-list :: customerserviceList"></div>
 		</aside>
-		<!-- 게시판 -->
 		<section class="col-sm-9" style="color: #333333;">
+		<h4 class="mb-3 mypage-title">공지사항</h4>
 			<article>
 				<table class="table table-hover">
 					<thead class="list-title">
 						<tr>
-							<th>글번호</th>
+							<th>번호</th>
 							<th>글제목</th>
 							<th>닉네임</th>
 							<th>날짜</th>
@@ -27,7 +24,7 @@
 					<tbody class="list-content">
 						<tr th:each="row : ${noticeList}">
 							<td th:text="${row.noticeList.idx}"></td>
-							<td><a
+							<td class="notice-title"><a
 								th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${row.noticeList.idx})}">
 									<span th:text="${row.noticeList.title}" style="color: #333333;">공지사항입니다</span>
 							</a></td>
@@ -38,12 +35,10 @@
 					</tbody>
 				</table>
 			</article>
-			<!-- 페이지네이션 -->
 			<article class="d-flex mx-auto justify-content-center">
 				<div class="col-6 text-center">
 					<nav class="p-2 pagination--bottom">
 						<ul class="pagination justify-content-center mb-0 py-1">
-							<!-- 처음으로, 이전 -->
 							<li th:classappend="${page.currentPage == 1} ? ' disabled'"
 								class="page-item pagination--spacing"><a
 								class="page-link square" th:href="@{/notice(page=1)}">«</a></li>
@@ -52,7 +47,6 @@
 								class="page-link square"
 								th:href="@{/notice(page=${page.currentPage - 1})}">‹</a></li>
 
-							<!-- 페이지 번호 반복 -->
 							<li
 								th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}"
 								th:classappend="${p == page.currentPage} ? ' active'"
@@ -60,7 +54,6 @@
 								class="page-link square"
 								th:href="@{/customerservice/notice(page=${p})}" th:text="${p}">1</a></li>
 
-							<!-- 다음, 마지막 -->
 							<li
 								th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
 								class="page-item pagination--spacing"><a

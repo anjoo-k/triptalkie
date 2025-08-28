@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<!-- 여행 후기 게시판 리스트 -->
+<main layout:fragment="content">
+	<h4 class="text-center content--title"></h4>
+	<div class="travel-review-containers bg--containers pt-5 pb-5">
+		<div class="form-container">
+			<form th:action="@{/travel-review/find}" method="get">
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<input type="text" name="keyword" class="form-control search-box" placeholder="무엇을 찾아볼까요?">
+					</div>
+					<div class="col-sm-2">
+						<button type="submit" class="btn btn-block btn-search">검색</button>
+					</div>
+				</div>
+				<!-- 카테고리 필터 -->
+				<div class="form-group row">
+					<div class="col-md">
+						<select id="countrySelect" class="form-control select-box mr-2" name="countryId">
+							<option value="">나라 선택</option>
+							<option th:each="country : ${countryList}" th:value="${country.id}" th:text="${country.name}"></option>
+						</select>
+					</div>
+					<div class="col-md">
+						<select id="citySelect" class="form-control select-box mr-2" name="cityId">
+							<option value="">도시 선택</option>
+						</select>
+					</div>
+					<div class="col-md">
+						<select class="form-control select-box" name="conceptType">
+							<option value="">여행 컨셉</option>
+							<option value="맛집/카페">맛집/카페</option>
+							<option value="술/친목">술/친목</option>
+							<option value="액티비티/투어">액티비티/투어</option>
+							<option value="전시회/공연">전시회/공연</option>
+							<option value="기타">기타</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="board-divider mx-4 px-2"></div>
+		<div class="review-list-container mt-4 mx-4">
+			<div th:each="review, stat : ${reviewList}">
+				<!-- 카드 -->
+				<div class="card mb-3">
+					<div class="card-body card-body-grid">
+						<div id="idx" class="number" th:text="${(pageData.currentPage - 1) * pageData.size + stat.index + 1}">1</div>
+						<div class="right-content">
+							<div class="row-badges">
+								<span id="cityId" class="badge badge--category" th:text="${review['cityName']}">도시</span> <span class="badge--sub-desc" th:text="|조회수 · ${review['view']}|"></span>
+							</div>
+							<div class="row-stats">
+								<a th:href="@{/travel-review/detail/{idx}(idx=${review.idx})}" class="card-title h5 mb-1 title list-title" th:data-id="${review.idx}" th:text="${review['title']}">글 제목</a> <span class="badge badge--sub-desc" th:text="${review['memberNickname']}">작성자</span> <span id="createdAt" class="badge--sub-desc" th:text="${#temporals.format(review['createdAt'], 'yyyy-MM-dd')}">2025-08-17</span>
+							</div>
+							<div class="row-travel-date">
+								<span id="matetype" class="badge badge--category travel-type" th:text="${review['mateType']}">메이트 유형</span> <span id="concepttype" class="badge badge--category travel-type" th:text="${review['conceptType']}">테마 유형</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-divider" th:if="${!stat.last}"></div>
+			</div>
+		</div>
+		<!-- 페이지네이션, 글쓰기 버튼 -->
+		<div class="row mb-3">
+			<div class="col"></div>
+			<div class="col-6 text-center" th:if="${pageData.totalPage > 0}">
+				<nav class="p-2 pagination--bottom">
+					<ul class="pagination justify-content-center mb-0">
+						<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/travel-review/find(page=1)}">&laquo;</a></li>
+						<li th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/travel-review/find(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a></li>
+						<li th:each="i : ${#numbers.sequence(pageData.startPage > 0 ? pageData.startPage : 1, pageData.endPage)}" th:classappend="${i == pageData.currentPage} ? 'active' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/travel-review/find(page=${i})}" th:text="${i}">1</a></li>
+						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/travel-review/find(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a></li>
+						<li th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''" class="page-item pagination--spacing"><a class="page-link" th:href="@{/travel-review/find(page=${pageData.totalPage})}">&raquo;</a></li>
+					</ul>
+				</nav>
+			</div>
+			
+			<!-- 검색 결과 없을 때 메시지 -->
+			<div th:if="${pageData.totalPage == 0}" class="col-6 text-center p-3">검색 결과가 없습니다.</div>
+
+			<div class="col d-flex justify-content-center align-items-center mt-1">
+				<a class="btn btn-write" href="/travel-review/registerReviewPage"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+			            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+			            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+			        </svg>
+				</a>
+			</div>
+		</div>
+	</div>
+	<script src="/js/travel-review.js"></script>
+</main>
+</html>

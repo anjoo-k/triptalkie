@@ -6,6 +6,7 @@
 	border: 1px solid var(--color-primary);
 	border-radius: 10px;
 }
+
 .btn-profile:hover {
 	color: var(--color-primary);
 }
@@ -22,6 +23,7 @@
 .mypage-title {
 	color: var(--color-primary);
 }
+
 .myposts-container {
 	width: 585px;
 }
@@ -38,3 +40,15 @@
 	pointer-events: none;
 }
 
+.btn-delete-myinfo {
+	border: 1px solid var(--color-primary);
+	border-radius: 10px;
+	color: var(--color-primary);
+	padding: .375rem .75rem;
+}
+
+.btn-delete-myinfo:hover {
+	background-color: var(--color-primary);
+	color: #fff;
+	text-decoration:none;
+}

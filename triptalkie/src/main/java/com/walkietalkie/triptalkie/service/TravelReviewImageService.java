@@ -27,19 +27,14 @@ public class TravelReviewImageService {
 	 * 여행 후기 사진 업로드 메서드
 	 */
 	public TravelReviewImage uploadImage(MultipartFile file, long idx) throws IOException {
-		System.out.println("넘어 온 idx : " + idx);
 		if (file.isEmpty()) {
 			return null;
 		}
 
 		String uuid = UUID.randomUUID().toString();
-
 		String originalName = file.getOriginalFilename();
-
 		String savedName = uuid + "_" + originalName;
-
 		String uploadDir = System.getProperty("user.dir") + "/" + fileStorageProperties.getUploadDir() + "/review";
-
 		File dir = new File(uploadDir);
 
 		if (!dir.exists()) {
@@ -58,8 +53,6 @@ public class TravelReviewImageService {
 		travelReviewImage.setFileSize(file.getSize());
 		travelReviewImage.setTravelReviewIdx(idx);
 
-		System.out.println("저장 된 travelReviewImage : " + travelReviewImage);
-
 		int result = travelReviewImageMapper.registerTravelReviewImage(travelReviewImage);
 
 		return result > 0 ? travelReviewImage : null;
@@ -77,11 +70,6 @@ public class TravelReviewImageService {
 	}
 
 	public void updateReviewImage(long idx, MultipartFile file) throws IOException {
-//		deleteReviewImageByIdx(idx);
-		System.out.println("사진 업데이트 서비스 진입");
-		System.out.println("넘어온 idx 값 : " + idx);
-		System.out.println("넘어온 file 값 : " + file);
-
 		// 1. 기존 이미지 조회
 		TravelReviewImage existingImage = travelReviewImageMapper.findImageUrlByIdx(idx);
 		System.out.println("원래 existingImage 값 : " + existingImage);
@@ -93,7 +81,6 @@ public class TravelReviewImageService {
 				oldFile.delete(); // 서버 파일 삭제
 			}
 			travelReviewImageMapper.deleteReviewImageByIdx(idx); // DB 삭제
-//			travelReviewImageMapper.deleteReviewImageByUuid(existingImage.getUuid());	// DB 삭제
 		}
 
 		// 3. 새 이미지 업로드

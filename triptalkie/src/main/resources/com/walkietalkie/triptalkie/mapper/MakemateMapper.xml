@@ -111,10 +111,16 @@
 		makemate_idx=#{idx}
 	</select>
 	<!-- 멤버사진 담아오기 -->
-	<select id="findAllMemberlist" resultMap="AllMemberlistMap">
+	<select id="findAllMemberlistPhoto" resultMap="AllMemberlistMap">
 		SELECT mi.idx, mi.original_name, mi.file_path, mi.saved_name, ml.makemate_idx, ml.member_id
 		FROM memberlist ml
 		JOIN member_image mi ON (ml.member_id = mi.member_id)
+		WHERE makemate_idx=#{makemateId}
+	</select>
+	<!-- 멤버 담아오기 -->
+	<select id="findAllMemberlist">
+		SELECT makemate_idx, member_id
+		FROM memberlist
 		WHERE makemate_idx=#{makemateId}
 	</select>
 	<!-- 메이크메이트 글등록 -->
