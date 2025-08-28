@@ -40,11 +40,11 @@
 							<div class="col-sm-1"></div>
 							<div class="col-sm-5">
 								<input type="date" id="startdate" name="startdate"
-									class="form-control">
+									class="form-control" required >
 							</div>
 							<div class="col-sm-5">
 								<input type="date" id="enddate" name="enddate"
-									class="form-control">
+									class="form-control" required >
 							</div>
 						</div>
 						<div class="row mt-1">
@@ -57,7 +57,7 @@
 							</svg>
 							</div>
 							<div class="col-sm-3">
-								<select class="form-control mr-2" id="landSelect" name="landId">
+								<select class="form-control mr-2" id="landSelect" name="landId" required>
 									<option value="">대륙</option>
 									<option th:each="land : ${land}" th:value="${land.id}"
 										th:text="${land.name}"></option>
@@ -65,7 +65,7 @@
 							</div>
 							<div class="col-sm-3">
 								<select class="form-control mr-2" id="countrySelect"
-									name="countryId">
+									name="countryId" required>
 									<option value="">나라</option>
 									<option th:each="country : ${country}"
 										th:data-land-id="${country.landId}" th:value="${country.id}"
@@ -74,7 +74,7 @@
 							</div>
 							<div class="col-sm-3">
 								<select class="form-control mr-2" id="citySelect" name="cityId">
-									<option value="">도시</option>
+									<option value="" required>도시</option>
 									<option th:each="city : ${city}"
 										th:data-country-id="${city.countryId}" th:value="${city.id}"
 										th:text="${city.name}"></option>
@@ -92,7 +92,7 @@
 							</svg>
 							</div>
 							<div class="col-sm-11">
-								<select class="form-control" name="maxPeople">
+								<select class="form-control" name="maxPeople" required>
 									<option value="">최대 인원을 선택해 주세요</option>
 									<option value="2">2명</option>
 									<option value="3">3명</option>
@@ -101,11 +101,10 @@
 									<option value="6">6명</option>
 									<option value="7">7명</option>
 									<option value="8">8명</option>
-									<!-- 								<option th:each="city : ${cityList}" th:value="${city.id}" th:text="${city.name}"></option> -->
 								</select>
 							</div>
 						</div>
-						<div class="row  mt-1">
+						<div class="row mt-1">
 							<div class="col-sm-1 icon-spacing">
 								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
 									fill="currentColor" class="bi bi-people-fill"
@@ -114,17 +113,15 @@
 										d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
 							</svg>
 							</div>
-
 							<div class="col-sm-11">
-								<select class="form-control" name="ageGroup">
+								<select class="form-control" name="ageGroup" required>
 									<option value="">함께할 나이대를 선택해 주세요</option>
-									<option value="상관없음">상관없음</option>
+									<option value="상관 없음">상관 없음</option>
 									<option value="20대">20대</option>
 									<option value="30대">30대</option>
 									<option value="40대">40대</option>
 									<option value="50대">50대</option>
 									<option value="60대 이상">60대 이상</option>
-									<!-- 								<option th:each="city : ${cityList}" th:value="${city.id}" th:text="${city.name}"></option> -->
 								</select>
 							</div>
 							<div class="col-sm-1"></div>
@@ -145,16 +142,15 @@
 							</div>
 							<div class="col-sm-11">
 								<input type=text class="form-control" name="budget"
-									placeholder="1인당 예상되는 예산을 입력해 주세요">
+									placeholder="1인당 예상되는 예산을 입력해 주세요" required>
 							</div>
 						</div>
 					</section>
-					<div class="card-divider m-2 w-auto"></div>
 					<section class="content-section">
 						<!-- 내용 -->
 						<div>
 							<textarea class="form-control" name="content"
-								style="height: 300px;" placeholder="메이트들에게 제안하고 싶은 여행을 소개해 주세요"></textarea>
+								style="height: 300px;" placeholder="메이트들에게 제안하고 싶은 여행을 소개해 주세요" required></textarea>
 						</div>
 						<!-- 메이트 유형, 여행 컨셉 -->
 						<div class="row mt-3">
@@ -162,7 +158,7 @@
 							<div class="col-sm-8">
 								<p class="subheading mb-2">메이트 유형</p>
 								<input type="radio" id="allMate" name="mateType" value="전체 메이트"
-									hidden> <label for="allMate" class="btn mate-type">전체
+									hidden required> <label for="allMate" class="btn mate-type">전체
 									메이트</label> <input type="radio" id="partMate" name="mateType"
 									value="부분 메이트" hidden> <label for="partMate"
 									class="btn mate-type">부분 메이트</label> <input type="radio"
@@ -172,7 +168,7 @@
 							<!-- 여행 컨셉 -->
 							<div class="col-sm-4">
 								<p class="subheading mb-2">여행 컨셉</p>
-								<select class="form-control" name="conceptType">
+								<select class="form-control" name="conceptType" required>
 									<option value="">여행 컨셉</option>
 									<option value="맛집/카페">맛집/카페</option>
 									<option value="술/친목">술/친목</option>

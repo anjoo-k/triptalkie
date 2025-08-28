@@ -123,6 +123,8 @@ public class TravelInfoController {
 		travelInfoService.increaseViewCount(idx);
 
 		// 2. 뷰에 데이터 전달을 위해서 model 객체에 저장
+	    
+	    // MyBatis 캐시 비우기
 		TravelInfo travelInfo = travelInfoService.getTravelInfoDetail(idx);
 		model.addAttribute("travelInfo", travelInfo);
 		String loginId = memberService.getLoginId(session);

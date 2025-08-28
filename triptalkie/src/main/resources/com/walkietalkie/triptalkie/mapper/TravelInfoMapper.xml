@@ -20,8 +20,8 @@
 	</select>
 	<!-- 여행 정보 idx을 사용해서 여행 정보 객체 반환 -->
 	<select id="findTravelInfoIdx"
-		resultType="com.walkietalkie.triptalkie.domain.TravelInfo">
-		select idx, title, view, created_at, updated_at, infotype,
+		resultType="com.walkietalkie.triptalkie.domain.TravelInfo" flushCache="true">
+		select idx, title, `view` AS view, created_at, updated_at, infotype,
 		infodate, city_id, content, member_id from travelinfo where idx=#{idx}
 	</select>
 	<!-- 여행 정보 글 idx와 회원 id에 해당하는 글을 수정 -->
@@ -114,6 +114,7 @@
 		type="com.walkietalkie.triptalkie.domain.TravelInfo">
 		<id property="idx" column="idx" />
 		<result property="title" column="title" />
+		<result property="view" column="view" /> <!-- 이 줄 추가 -->
 		<result property="content" column="content" />
 		<result property="infotype" column="infotype" />
 		<result property="infodate" column="infodate" />
@@ -140,6 +141,7 @@
 		SELECT
 		ti.idx,
 		ti.title,
+		ti.`view`,      <!-- 백틱 추가 -->
 		ti.content,
 		ti.infotype,
 		ti.infodate,

@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
-<!-- 여행 후기 글작성 페이지 -->
 <!-- 여행 후기 상세 페이지 -->
 <main layout:fragment="content">
-	<!-- <h4 class="text-center content--title">메이트의 여행 후기를 알아보세요</h4> -->
 	<div class="register-containers bg--containers pt-3 pb-3">
-		<!-- 상세 내용 컨테이너 -->
 		<div class="form-container detail-review">
-			<!-- 사진 -->
 			<div class="form-group row mb-2">
 				<div class="col-sm-12">
 					<div class="review-imagebox">
@@ -15,14 +11,12 @@
 					</div>
 				</div>
 			</div>
-			<!-- 제목 -->
 			<div class="form-group row mb-2 px-1">
 				<div class="col-sm-12">
 					<h5 class="font-weight-bold py-2 px-1 detail-title" th:text="${travelreview['title']}">제목 예시: 제주도 여행기</h5>
 					<input id="idx" type="hidden" th:name="idx" th:value="${travelreview['idx']}">
 				</div>
 			</div>
-			<!-- 조회수 + 작성일 -->
 			<div class="form-group row mb-2 px-1">
 				<div class="col-sm-10">
 					<span class="badge--sub-desc" th:text="|조회수 · ${travelreview['view']}|"></span>
@@ -31,12 +25,11 @@
 					<span id="createdAt" class="badge--sub-desc" th:text="${#temporals.format(travelreview['createdAt'], 'yyyy-MM-dd')}">2025-08-17</span>
 				</div>
 			</div>
+			
 			<div class="board-divider mb-2"></div>
-			<!-- 여행 도시 -->
+			
 			<div class="form-group px-2 py-2 travel-city">
-				<!-- 제목은 위 -->
 				<p class="subheading mb-1">여행 장소</p>
-				<!-- 아이콘 + 텍스트는 아래 한 줄 -->
 				<div class="d-flex align-items-center">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt-fill mr-2 text-icon" viewBox="0 0 16 16">
 			            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 
@@ -45,16 +38,18 @@
 					<span class="detail-text" th:text="${travelreview['cityName']}">제주도</span>
 				</div>
 			</div>
+			
 			<div class="board-divider mt-2 mb-2"></div>
-			<!-- 후기 본문 -->
+			
 			<div class="form-group row">
 				<div class="col-sm-12 detail-review">
 					<p class="subheading mb-2">여행 후기 소개</p>
 					<p class="detail-content" th:text="${travelreview['content']}">제주도에서 맛집 투어도 하고, 숙소도 너무 좋았어요! 🏝</p>
 				</div>
 			</div>
+			
 			<div class="board-divider mb-3"></div>
-			<!-- 메이트 유형 & 여행 컨셉 -->
+			
 			<div class="form-group row mate-travel-type py-2">
 				<div class="col">
 					<p class="subheading mb-2">메이트 유형</p>
@@ -68,26 +63,24 @@
 					<input type="hidden" name="conceptType" th:value="${travelreview['conceptType']}" /> <label class="btn selected-mate-type" th:text="${travelreview['conceptType']}"></label>
 				</div>
 			</div>
+			
 			<div class="board-divider mb-3 mt-3"></div>
-			<!-- 댓글 -->
+			
 			<section class="comment-section mb-3">
-				<!-- 댓글이 보이는 곳 -->
 				<div id="comment-list">
 					<div class="row mb-3" th:each="c : ${comment}">
-						<!-- 프로필 사진 -->
 						<div class="col-sm-1">
 							<img th:src="@{/images/original-profile.png}" style="width: 40px; height: 40px;" alt="avatar" class="rounded-circle">
 						</div>
-						<!-- 댓글 내용 -->
 						<div class="col-sm-11">
-							<!-- 첫 줄: 닉네임 + 수정/삭제 | 작성일 -->
 							<div class="row mb-1">
 								<div class="col-sm-9 d-flex align-items-center">
 									<span class="nickname subheading me-2" th:text="${c.nickName}">닉네임</span>
 								</div>
 								<th:block th:if="${memberId != null && memberId == c.memberId}">
 									<div class="col-sm-3 text-end">
-										<a class="text-muted me-1 update-reply btn btn-edit" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> <a class="text-muted delete-reply btn btn-delete" th:attr="data-id=${c.idx}">삭제</a>
+										<a class="me-1 update-reply btn btn-edit comment-btn" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> 
+										<a class="delete-reply btn btn-delete comment-btn" th:attr="data-id=${c.idx}">삭제</a>
 									</div>
 								</th:block>
 							</div>
@@ -96,7 +89,6 @@
 									<span class="text-muted comment-date" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd')}">2025-08-25</span>
 								</div>
 							</div>
-							<!-- 둘째 줄: 댓글 내용 | 답글 버튼 -->
 							<div class="row reply-content-box">
 								<div class="col-sm-12 comment-padding">
 									<span class="reply-content content-text" th:text="${c.content}">댓글 내용이 여기에 들어갑니다. 길어도 자동 줄바꿈 됩니다.</span>
@@ -105,24 +97,22 @@
 						</div>
 					</div>
 				</div>
-				<!-- 댓글 작성하는 곳 -->
+
 				<div class="row py-3">
 					<div class="col-sm-10">
 						<input type="text" id="comment-content" class="comment-content" placeholder="댓글을 작성해보세요"> <input type="hidden" id="memberId" th:value="${memberId}">
-						<!-- 						<input type="hidden" id="nickname" th:value="${loginNickname}">
  -->
 					</div>
 					<div class="col-sm-2 button-style">
 						<button type="button" id="comment-write-btn" class="comment-write-btn btn-primary" th:attr="data-idx=${travelreview.idx}">완료</button>
 					</div>
 				</div>
+				
 				<!-- 댓글 삭제 모달 -->
 				<div class="modal fade" id="commentDeleteModal">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content py-4">
-							<!-- Modal body -->
 							<div class="modal-body text-center">정말 댓글을 삭제하시겠습니까?</div>
-							<!-- Modal footer -->
 							<div class="modal-footer btn-no-border">
 								<button type="button" id="confirm-comment-delete" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-comment-delete">예</button>
 								<button type="button" class="btn btn-secondary btn--radius mx-auto d-block" data-dismiss="modal">아니요</button>
@@ -135,40 +125,35 @@
 			<div class="d-flex justify-content-between align-items-center mt-3">
 				<button type="button" class="btn back-to-list">목록</button>
 				<th:block th:if="${memberId != null && memberId == travelreview['memberId']}">
-					<div>
-						<button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${travelreview.idx}">수정</button>
-						<button id="btn-delete" type="button" class="btn btn-delete" th:attr="data-idx=${travelreview.idx}">삭제</button>
+					<div class="btn back-to-list">
+						<button id="btn-edit" type="button" class="btn btn-edit review-btn" th:attr="data-idx=${travelreview.idx}">수정</button>
+						<button id="btn-delete" type="button" class="btn btn-delete review-btn" th:attr="data-idx=${travelreview.idx}">삭제</button>
 					</div>
 				</th:block>
 			</div>
 		</div>
 	</div>
-	<!-- The Modal -->
+	<!-- 삭제 모달 -->
 	<div class="modal fade" id="myModal">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content py-4">
-				<!-- Modal body -->
 				<div class="modal-body text-center">정말 삭제하시겠습니까?</div>
-				<!-- Modal footer -->
 				<div class="modal-footer btn-no-border">
 					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-delete">예</button>
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-nope" data-dismiss="modal">아니요</button>
+					<button type="button" class="btn btn-secondary btn--radius mx-auto d-block btn-confirm-nope" data-dismiss="modal">아니요</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<!-- Login Required Modal -->
 	<div class="modal fade" id="login-required-modal">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content py-4">
-				<!-- Modal body -->
 				<div class="modal-body text-center">로그인이 필요한 서비스입니다.</div>
-				<!-- Modal footer -->
 				<div class="modal-footer btn-no-border">
-					<!-- 로그인 페이지로 이동 -->
 					<a th:href="@{/member/loginPage}" class="btn btn-primary btn--radius mx-auto d-block">로그인</a>
-					<!-- 그냥 닫기 -->
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-secondary btn--radius mx-auto d-block" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>

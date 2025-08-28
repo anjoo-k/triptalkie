@@ -101,8 +101,9 @@ public class MakemateService {
 		Land land = makemateMapper.findLandByIdx(country.getLandId());
 		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
-		List<Memberlist> memberlistPhoto = makemateMapper.findAllMemberlist(makemateId);
-		logger.info("{}", memberlistPhoto);
+		List<Memberlist> memberlistPhoto = makemateMapper.findAllMemberlistPhoto(makemateId);
+		List<Memberlist> memberlist = makemateMapper.findAllMemberlist(makemateId);
+
 	    Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("photo", photo);
 	    combinedMap.put("makemate", makemate);
@@ -112,6 +113,7 @@ public class MakemateService {
 	    combinedMap.put("land", land);
 	    combinedMap.put("numbersOfMembers", numbersOfMembers);
 	    combinedMap.put("memberlistPhoto", memberlistPhoto);
+	    combinedMap.put("memberlist", memberlist);
 	    
 		return combinedMap;
 	}

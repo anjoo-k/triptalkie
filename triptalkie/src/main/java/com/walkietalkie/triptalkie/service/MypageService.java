@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.walkietalkie.triptalkie.DTO.MyPostsDTO;
-import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.controller.TravelInfoController;
 import com.walkietalkie.triptalkie.domain.City;
 import com.walkietalkie.triptalkie.domain.CommonPage;
@@ -24,7 +23,6 @@ import com.walkietalkie.triptalkie.mapper.MypageMapper;
 @Transactional
 public class MypageService {
 
-	private final TravelInfoController travelInfoController;
 	private final CommunityService communityService;
 	private final TravelInfoService travelInfoService;
 	private final TravelReviewService travelReviewService;
@@ -33,11 +31,10 @@ public class MypageService {
 	private final MypageMapper mypageMapper;
 	private final BCryptPasswordEncoder passwordEncoder; // 비밀번호 암호화
 
-	public MypageService(TravelInfoController travelInfoController, CommunityService communityService,
+	public MypageService(CommunityService communityService,
 			TravelInfoService travelInfoService, TravelReviewService travelReviewService, MypageMapper mypageMapper,
 			BCryptPasswordEncoder passwordEncoder, MakemateImageService makemateImageService) {
 		super();
-		this.travelInfoController = travelInfoController;
 		this.communityService = communityService;
 		this.travelInfoService = travelInfoService;
 		this.travelReviewService = travelReviewService;
@@ -52,9 +49,7 @@ public class MypageService {
 	}
 
 	public int updateMemberById(Member member) {
-//		int result = ;
-		// result가 1 이상이면 findMemberById 실행
-		System.out.println(member);
+	    member.setPassword(passwordEncoder.encode(member.getPassword()));
 		return mypageMapper.updateMemberById(member);
 	}
 
