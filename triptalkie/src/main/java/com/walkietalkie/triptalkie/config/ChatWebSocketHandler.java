@@ -24,7 +24,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
     sessions.add(session);
   }
-
+  /**
+   * 메시지 수신 처리 메서드
+   * 클라이언트가 보낸 메세지를 받고 DB에 저장 후 다른 모든 세션에 브로드캐스트
+   */
   @Override
   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     ChatMessage chatMsg = objectMapper.readValue(message.getPayload(), ChatMessage.class);
@@ -36,6 +39,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     }
   }
 
+  /**
+   * 연결 처리 종료 메서드
+   */
   @Override
   public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
     sessions.remove(session);

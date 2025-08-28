@@ -26,6 +26,7 @@ public class RatingService {
 
 	public void saveRating(Star star) {
 		ratingMapper.insertRating(star);
+		System.out.println(star.getRating());
 		
 		
 	}
