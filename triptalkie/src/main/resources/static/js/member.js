@@ -184,3 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 });
+
+	document.addEventListener("DOMContentLoaded", function() {
+	  let loginError = document.getElementById("loginErrorFlag").value === "true";
+	  if (loginError) {
+	    $('#loginFailedModal').modal('show');
+	  }
+	});

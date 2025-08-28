@@ -27,10 +27,8 @@ public class MemberImageController {
 		this.memberService = memberService;
 	}
 	
-	// 업로드 url
-	// http://localhost:8080/member/image/upload
 	@PostMapping("/upload")
-	public String uploadProfileImage(@RequestParam("file") MultipartFile file, @RequestParam("memberId") String memberId) throws Exception {
+	public String uploadProfileImage(@RequestParam MultipartFile file, @RequestParam String memberId) throws Exception {
 		memberImageService.uploadImage(file, memberId);
 		// 업로드 로직 수행
 		
@@ -38,24 +36,18 @@ public class MemberImageController {
 		// 업로드하고 mypage로 이동
 	}
 	
-	// 조회 url : uuid
-	// http://localhost:8080/member/image/view-uuid/{uuid}
 	@GetMapping("/view-uuid/{uuid}")
 	@ResponseBody
 	public MemberImage getImageByUuid(@PathVariable String uuid) {
 		return memberImageService.getImageByUuid(uuid);		
 	}
 	
-	// 조회 url : idx
-	// http://localhost:8080/member/image/view-idx/{idx}
 	@GetMapping("/view-idx/{idx}")
 	@ResponseBody
 	public MemberImage getImageByIdx(@PathVariable Long idx) {
 		return memberImageService.getImageByIdx(idx);
 	}
 	
-	// 삭제 url
-	// 
 	@DeleteMapping("/delete-uuid/{uuid}")
 	@ResponseBody
 	public String deleteImageByUuid(@PathVariable String uuid) {
