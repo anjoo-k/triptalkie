@@ -63,7 +63,7 @@ public class MakemateChatController {
 		String loginId = memberService.getLoginId(session);
 		// 로그인 아이디 가져오기
 
-		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateIdx);
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateIdx, loginId);
 		Makemate makemate = (Makemate) combinedMap.get("makemate");
 		
 		String makemateHostId = makemate.getMemberId();

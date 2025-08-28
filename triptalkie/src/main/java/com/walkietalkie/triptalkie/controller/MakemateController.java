@@ -37,27 +37,6 @@ public class MakemateController {
 		this.bookmarkService = bookmarkService;
 	}
 	
-	/*
-	 * 페이지네이션
-	 * currentPage : 현재 페이지 번호
-	 * size : 페이지 크기(한 페이지에 몇 개 보여줄 것인가)
-	 * offset : DB에서 몇 번째 데이터부터 가져올 것인가(페이지마다 시작하는게 다르니까, (page-1)*size)
-	 * totalCount : 전체 데이터 갯수
-	 * totalPages : 총 페이지 수(totalCount가 212개라면, totalCount/size = 43)
-	 * startPage/endPage : 페이지 버튼 범위(1~3, 4~6 이런식)
-	 * content : 실제 데이터 목록(2페이지라면 6~10번 데이터)
-	 * 
-	 	- `총 게시글: 212개`
-		- `page = 3`
-		- `size = 5`
-		
-		👉 계산
-		- offset = `(3-1)*5 = 10` → 11번째부터 가져옴
-		- content = 11~15번째 게시글
-		- totalPages = `Math.ceil(212/5) = 43`
-		- startPage = 1, endPage = 3 (버튼 [1~3] 보여줌)
-		 */
-	
 	// 글 목록 페이지
 	@GetMapping("/list")	// 추후 전체 출력 + 검색 + 페이지네이션으로 변경 필요
 	public String makemateAllList(@RequestParam(defaultValue = "1")int page,
@@ -75,13 +54,8 @@ public class MakemateController {
 	}
 	
 	// 글 상세 페이지
-	// 파티원 다차면 state 모집완료로 바꾸고 더 신청 못하게 해야함
-	// 파티원 채울 때 리더는 어떻게 처리해야하나? - 채팅에서 해야하네
 	@GetMapping("/detailPage/{makemateId}")
 	public String detailMatematePage(@PathVariable Long makemateId, HttpSession session, Model model){
-		// 1. makemate 정보 o, 2. member 정보(글쓴이) o, 
-		// 3. memberlist 정보-join 두 번 묶어서 사진만 내려보내주면 되는건가?, 
-		// 4.  land, country, city 정보 o, 5. bookmark 정보
 		
 		String id = (String) session.getAttribute("loginId");
 		if (id == null)
@@ -89,8 +63,7 @@ public class MakemateController {
 		// 조회수 증가
 		makemateService.increaseViewCount(makemateId);
 		
-		// makemate, member, land, country, city 
-		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId, id);
 		model.addAllAttributes(combinedMap);
 		
 		// 북마크 여부 확인 후 모델에 추가
@@ -132,7 +105,7 @@ public class MakemateController {
 		if (id == null)
 			return "redirect:/member/loginPage";
 		
-		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId);
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateId, id);
 		Makemate makemate = (Makemate)combinedMap.get("makemate");
 		
 		if(!makemate.getMemberId().equals(id))
