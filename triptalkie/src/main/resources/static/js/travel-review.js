@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (commentBtn) {
 		commentBtn.addEventListener("click", async () => {
 			// 세션 유무 체크
-			//let loginMemberId = /*[['${memberId}']]*/ null;
 			if (loginMemberId == null) {
 				$('#login-required-modal').modal('show');
 				return;
