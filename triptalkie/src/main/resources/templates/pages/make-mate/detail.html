@@ -130,8 +130,8 @@
 			</form>
 			<div class="col-sm-2" id="profile" th:data-id="${member.id}">
 				<img
-					th:src="${memberlist != null} ? '/uploads/profile/' + ${memberlist.memberImage.savedName} : '/uploads/profile/default.jpg'"
-					alt="기본 프로필"
+					th:src="${leaderPhoto}"
+					alt="프로필"
 					class="img-fluid rounded-circle d-block border profile-pic"
 					style="cursor: pointer;">
 			</div>
@@ -152,8 +152,6 @@
 			<div>
 				<h5>함께하는 메이트들</h5>
 			</div>
-
-
 			<div class="row">
 				<div class="col-sm-1 pl-1 pr-1 profile-pic"
 					th:each="memberlist : ${memberlistPhoto}">

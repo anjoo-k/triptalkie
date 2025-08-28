@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,12 +27,13 @@ public class MakemateService {
 	
 	private final MakemateMapper makemateMapper;
 	private final MakemateImageService makemateImageService;
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+	private final MemberImageService memberImageService;
 
-	public MakemateService(MakemateMapper makemateMapper, MakemateImageService makemateImageService) {
+	public MakemateService(MakemateMapper makemateMapper, MakemateImageService makemateImageService, MemberImageService memberImageService) {
 		super();
 		this.makemateMapper = makemateMapper;
 		this.makemateImageService = makemateImageService;
+		this.memberImageService = memberImageService;
 	}
 
 	// 글 목록 페이지
@@ -42,12 +41,12 @@ public class MakemateService {
 		// 페이지네이션
 		if(currentPage < 1) currentPage = 1;
 
-		int totalCount = makemateMapper.countMakemate(criteria); // 전체 데이터 개수
-		int offset = (currentPage - 1) * size;                   // 몇 번째부터 가져올지
-		int totalPage = (int) Math.ceil((double) totalCount / size); // 전체 페이지 개수
+		int totalCount = makemateMapper.countMakemate(criteria); 
+		int offset = (currentPage - 1) * size;  
+		int totalPage = (int) Math.ceil((double) totalCount / size); 
 		if(currentPage > totalPage) currentPage = totalPage;
 		
-		int blockSize = 3; // 아래에 있는 페이지네이션의 페이지 목록 갯수
+		int blockSize = 3; 
 		int startPage = ((currentPage - 1) / blockSize) * blockSize + 1;
 		int endPage = Math.min(startPage + blockSize - 1, totalPage);
 		if(totalCount == 0) {
@@ -63,7 +62,7 @@ public class MakemateService {
 		List<City> cityList = makemateMapper.findAllCityName();
 		List<Country> countryList = makemateMapper.findAllCountryName();
 
-		// list에서 보여줄 값 세팅 : makemate, member, city
+		// list에서 보여줄 값 세팅
 		List<Map<String, Object>> combinedList = new ArrayList<>();
 
 		for(Makemate makemate : makeMateList) {
@@ -82,7 +81,7 @@ public class MakemateService {
 		    combinedList.add(combinedListMap);
 		}
 		
-		//  컨트롤러에서 받을 값 세팅 : 페이지네이션, member + city
+		//  컨트롤러에서 받을 값 세팅
 		Map<String, Object> result = new HashMap<>();
 		result.put("commonPage", commonPage);
 		result.put("combinedList", combinedList);
@@ -102,7 +101,8 @@ public class MakemateService {
 		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
 		List<Memberlist> memberlistPhoto = makemateMapper.findAllMemberlistPhoto(makemateId);
-		logger.info("{}", memberlistPhoto);
+		String leaderPhoto = memberImageService.getImageUrlByMemberId(memberId);
+		
 		// 신청자인지 판단
 		boolean alreadyApplied = false;
 		for (Memberlist m : memberlistPhoto) {
@@ -122,6 +122,7 @@ public class MakemateService {
 	    combinedMap.put("numbersOfMembers", numbersOfMembers);
 	    combinedMap.put("memberlistPhoto", memberlistPhoto);
 	    combinedMap.put("alreadyApplied", Boolean.valueOf(alreadyApplied));
+	    combinedMap.put("leaderPhoto", leaderPhoto);
 	    
 		return combinedMap;
 	}
@@ -129,6 +130,9 @@ public class MakemateService {
 	// 조회수 증가
 	public void increaseViewCount(Long makemateId) {
 		int result = makemateMapper.increaseViewCount(makemateId);
+		if (result <= 0) {
+		    throw new IllegalArgumentException("조회수 증가에 실패했습니다.");
+		}
 	}
 	
 	public Map<String, Object> findAllRegion() {
@@ -161,7 +165,7 @@ public class MakemateService {
 		return makemate.getIdx();
 	}
 	
-	// 이미지 update 동시에 서버에 있는 파일 삭제와 DB에 있는 image 정보 업데
+	// 이미지 update 동시에 서버에 있는 파일 삭제와 DB에 있는 image 정보 업데이트
 	public void updateMakemate(Makemate makemate, MultipartFile photo) throws IOException {
 		int makemateUpdateResult = makemateMapper.updateMakemate(makemate);
 
@@ -194,7 +198,7 @@ public class MakemateService {
 		int result = makemateMapper.registerMemberlist(makemateIdx, memberId);
 		
 		if (result <= 0) {
-		    throw new IllegalArgumentException("신청에 실패했습니다.");
+		    throw new IllegalArgumentException("여행 신청에 실패했습니다.");
 		}
 	}
 

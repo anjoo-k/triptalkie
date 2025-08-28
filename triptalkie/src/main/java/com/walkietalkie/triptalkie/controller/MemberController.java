@@ -130,8 +130,8 @@ public class MemberController {
 	// 멤버 프로필 확인
 	@PostMapping("/profile")
 	public String findProfile(@RequestParam String memberId, Model model) {
-		Member member = memberService.findMemberById(memberId);
-		model.addAttribute("member", member);
+		Map<String, Object> memberMap = memberService.findMemberById(memberId);
+		model.addAllAttributes(memberMap);
 		return "pages/member/memberInformation";
 	}
 
