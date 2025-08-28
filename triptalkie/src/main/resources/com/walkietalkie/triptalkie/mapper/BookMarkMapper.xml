@@ -65,7 +65,9 @@
 		ct.id
 		JOIN land l ON ct.land_id = l.id
 		WHERE b.member_id = #{memberId}
+			  AND b.state=1
 		ORDER BY b.created_at DESC
+		LIMIT #{offset}, #{size}
 	</select>
 
 
