@@ -67,7 +67,14 @@ public class Star {
 
 	public void setIsrated(boolean israted) {
 		this.israted = israted;
+	}
+
+	@Override
+	public String toString() {
+		return "Star [idx=" + idx + ", raterId=" + raterId + ", ratedId=" + ratedId + ", rating=" + rating
+				+ ", createdAt=" + createdAt + ", makemateIdx=" + makemateIdx + ", israted=" + israted + "]";
 	};
+	
 	
 	
 }

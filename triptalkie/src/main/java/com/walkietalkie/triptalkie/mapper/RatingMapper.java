@@ -13,5 +13,8 @@ public interface RatingMapper {
 	void insertRating(Star star);
 	
 	void updateRating(Star star);
+	
+
+	void updateMemberCredit(String ratedId, int creditChange);
 
 }
