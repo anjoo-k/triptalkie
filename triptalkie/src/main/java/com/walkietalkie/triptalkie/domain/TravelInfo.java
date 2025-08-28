@@ -21,6 +21,7 @@ public class TravelInfo {
 	// Member 객체 생성
 	private City city;
 	// 계층형 매핑을 위한 city
+	private Country country;
 
 	// form에서 년-월만 받을 임시 필드
 	private String tempMonth;
@@ -154,6 +155,18 @@ public class TravelInfo {
 	
     public String getCityName() {
         return city != null ? city.getName() : "";
+    }
+    
+    public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public String getCountryName() {
+    	return country != null ? country.getName() : "";
     }
 
 	@Override
