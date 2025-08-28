@@ -3,9 +3,9 @@ package com.walkietalkie.triptalkie.domain;
 import java.time.LocalDateTime;
 
 public class TravelInfo {
-	private long idx;
+	private Long idx;
 	private String title;
-	private long view;
+	private Long view;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private String infotype;
@@ -49,11 +49,11 @@ public class TravelInfo {
 		this.countryId = countryId;
 	}
 
-	public long getIdx() {
+	public Long getIdx() {
 		return idx;
 	}
 
-	public void setIdx(long idx) {
+	public void setIdx(Long idx) {
 		this.idx = idx;
 	}
 
@@ -65,11 +65,11 @@ public class TravelInfo {
 		this.title = title;
 	}
 
-	public long getView() {
+	public Long getView() {
 		return view;
 	}
 
-	public void setView(long view) {
+	public void setView(Long view) {
 		this.view = view;
 	}
 
