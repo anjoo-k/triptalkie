@@ -52,9 +52,7 @@ public class MypageService {
 	}
 
 	public int updateMemberById(Member member) {
-//		int result = ;
-		// result가 1 이상이면 findMemberById 실행
-		System.out.println(member);
+	    member.setPassword(passwordEncoder.encode(member.getPassword()));
 		return mypageMapper.updateMemberById(member);
 	}
 
