@@ -44,4 +44,8 @@
 		UPDATE member SET active = 0 WHERE id = #{id}
 	</update>
 	
+	<!-- 이메일로 아이디 찾기 -->
+	<select id="findIdByEmail" parameterType="String" resultType="String">
+		SELECT id FROM member WHERE email = #{email}
+	</select>
 </mapper>

@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const fileInput = document.getElementById('profileImage');
 	const previewImage = document.querySelector('.original--profile');
-	if(fileInput){
+	if (fileInput) {
 		fileInput.addEventListener('change', function() {
 			const file = this.files[0];
 			if (file) {
@@ -138,6 +138,51 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
+
+	// ===== 아이디 찾기 버튼 이벤트 =====
+	const findIdBtn = document.querySelector('.id-btn');
+	if (findIdBtn) {
+		findIdBtn.addEventListener("click", async (e) => {
+			e.preventDefault();
+			const email = document.getElementById('email').value;
+			try {
+				const response = await fetch(`/member/findIdByEmail?email=${email}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ email: email })
+				});
+				const data = await response.json();
+
+				// Bootstrap 모달 가져오기
+				const modal = $('#find-id-modal'); // jQuery 선택
+				const modalBody = modal.find('.modal-body');
+				const modalFooter = modal.find('.modal-footer');
+
+				if (data.success) {
+					modalBody.html(`<span>회원님의 아이디는 <strong>${data.memberId}</strong> 입니다.</span>
+						<br><span>로그인 해주세요</span>`);
+					modalFooter.html(`
+				                   <a href="/member/loginPage" class="btn btn-primary btn--radius mx-2">로그인</a>
+				                   <button type="button" class="btn btn-secondary btn--radius mx-2" data-dismiss="modal">닫기</button>
+				               `);
+				} else {
+					modalBody.text(`해당 이메일로 가입된 아이디가 없습니다.`);
+					modalFooter.html(`
+				                   <a href="/member/registerPage" class="btn btn-primary btn--radius mx-2">회원가입</a>
+				                   <button type="button" class="btn btn-secondary btn--radius mx-2" data-dismiss="modal">닫기</button>
+				               `);
+				}
+				modal.modal('show');
+
+			} catch (e) {
+				console.error(e);
+				alert('아이디 찾기 중 오류 발생');
+			}
+		});
+	}
+
 });
 
 	document.addEventListener("DOMContentLoaded", function() {

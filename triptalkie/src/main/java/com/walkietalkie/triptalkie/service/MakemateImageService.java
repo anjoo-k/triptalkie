@@ -35,7 +35,7 @@ public class MakemateImageService {
 		String originalName = photo.getOriginalFilename();
 		String uuid = UUID.randomUUID().toString();
 		String savedName = uuid + "_" + originalName;
-		Path savePath = Paths.get(System.getProperty("user.dir"), fileProperties.getUploadDir(), savedName);
+		Path savePath = Paths.get(System.getProperty("user.dir"), fileProperties.getUploadDir(), "makemate", savedName);
 		Files.createDirectories(savePath.getParent());
 		photo.transferTo(savePath.toFile());
 		int result = makemateImageMapper.registerImage(

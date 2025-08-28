@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-sm-12 main-pic">
 				<img
-					th:src="${photo != null} ? '/uploads/' + ${photo.savedName} : '/images/bangkok.jpg'"
+					th:src="${photo != null} ? '/uploads/makemate/' + ${photo.savedName} : '/uploads/makemate/defualt.jpg'"
 					th:alt="${photo != null} ? ${photo.originalName} : '기본이미지'"
 					class="img-fluid rounded d-block">
 			</div>
@@ -21,17 +21,16 @@
 				<h3 th:text="${makemate.title}">파리로 2주 정도 같이 놀러가요</h3>
 			</div>
 			<div class="col-sm-1">
-				<img class="bookmarkBtn" 
-					 th:src="${bookmarked} ? '/images/bookmark-on.png' : '/images/bookmark-off.png'"
-					 th:data-member-id="${session.loginId}" 
-					 th:data-makemate-idx="${makemate.idx}"
-					 style="cursor: pointer; width: 32px; height: 32px;">
+				<img class="bookmarkBtn"
+					th:src="${bookmarked} ? '/images/bookmark-on.png' : '/images/bookmark-off.png'"
+					th:data-member-id="${session.loginId}"
+					th:data-makemate-idx="${makemate.idx}"
+					style="cursor: pointer; width: 32px; height: 32px;">
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-7">
-				<span>조회수 </span>
-				<span th:text="${makemate.view}">16 </span>
+				<span>조회수 </span> <span th:text="${makemate.view}">16 </span>
 			</div>
 
 			<div class="col-sm-5 d-flex justify-content-end">
@@ -130,8 +129,10 @@
 				<input type="hidden" name="memberId" th:value="${member.id}">
 			</form>
 			<div class="col-sm-2" id="profile" th:data-id="${member.id}">
-				<img th:src="@{/images/original-profile.png}"
-					class="img-fluid rounded-circle d-block border"
+				<img
+					th:src="${memberlist != null} ? '/uploads/profile/' + ${memberlist.memberImage.savedName} : '/uploads/profile/default.jpg'"
+					alt="기본 프로필"
+					class="img-fluid rounded-circle d-block border profile-pic"
 					style="cursor: pointer;">
 			</div>
 			<div class="col-sm-8 d-flex flex-column justify-content-center">
@@ -152,25 +153,21 @@
 				<h5>함께하는 메이트들</h5>
 			</div>
 
-			<div class="row" th:if="${#lists.isEmpty(memberlistPhoto)}">
-				<span class="col-sm-5">아직 함께하는 메이트가 없습니다.</span>
+
+			<div class="row">
+				<div class="col-sm-1 pl-1 pr-1 profile-pic"
+					th:each="memberlist : ${memberlistPhoto}">
+					<th:block th:each="memberPhoto : ${memberlist.memberImage}">
+						<img th:if="${memberPhoto.savedName != null}"
+							th:src="@{'/uploads/profile/' + ${memberPhoto.savedName}}"
+							th:alt="${memberPhoto.originalName}"
+							class="img-fluid rounded-circle d-block border">
+						<img th:unless="${memberPhoto.savedName != null}"
+							th:src="@{/uploads/profile/default.png}" alt="기본 프로필"
+							class="img-fluid rounded-circle d-block border">
+					</th:block>
+				</div>
 			</div>
-
-<div class="row" th:each="memberlist : ${memberlistPhoto}">
-    <div class="col-sm-1 pl-1 pr-1" th:each="memberPhoto : ${memberlist.memberImage}">
-        <!-- 프로필 이미지가 있을 때 -->
-        <img th:if="${memberPhoto.savedName != null}"
-             th:src="@{'/uploads/profile/' + ${memberPhoto.savedName}}"
-             th:alt="${memberPhoto.originalName}"
-             class="img-fluid rounded-circle d-block border">
-
-        <!-- 없을 때 기본 이미지 -->
-        <img th:unless="${memberPhoto.savedName != null}"
-             th:src="@{/images/rabbit-full.png}"
-             alt="기본 프로필"
-             class="img-fluid rounded-circle d-block border">
-    </div>
-</div>
 		</div>
 	</section>
 	<section>
@@ -203,9 +200,13 @@
 
 			<!-- 글쓴이가 아닐 경우 -->
 			<th:block
-				th:if="${session.loginId != null and session.loginId != makemate.memberId and #lists.isEmpty(memberlist)}">
+				th:if="${session.loginId != null
+						 and session.loginId != makemate.memberId
+						 and alreadyApplied != true}">
 				<div class="col-sm-4">
-					<form th:action="@{/makemate/apply/{makemateId}(makemateId=${makemate.idx})}" method="post">
+					<form
+						th:action="@{/makemate/apply/{makemateId}(makemateId=${makemate.idx})}"
+						method="post">
 						<button class="btn btn-makemate-apply w-100" type="submit">신청하기</button>
 					</form>
 				</div>
