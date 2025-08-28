@@ -8,7 +8,7 @@
 		
 		<!-- 여행 후기 작성 폼 -->
 		<div class="form-container">
-			<form th:action="@{/travel-review/registerTravelreview}" method="post" enctype="multipart/form-data">
+			<form th:action="@{/travel-review/register}" method="post" enctype="multipart/form-data">
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<input type="text" id="title" name="title" class="form-control" placeholder="나의 후기를 모두에게 알려줄 제목을 작성해주세요" required>
@@ -18,14 +18,11 @@
 				<div class="board-divider mb-3"></div>
 
 				<div class="form-group row align-items-center">
-					<!-- 아이콘 + select를 한 줄로 flex로 감싸기 -->
 					<div class="col-md d-flex align-items-center">
-						<!-- 아이콘 -->
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-geo-alt-fill mr-3 text-icon" viewBox="0 0 16 16">
     						<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
    						</svg>
 
-						<!-- 셀렉트 -->
 						<select class="form-control" name="cityId">
 							<option value="">도시</option>
 							<option th:each="city : ${cityList}" th:value="${city.id}" th:text="${city.name}"></option>
@@ -45,7 +42,6 @@
 				<div class="board-divider mb-3"></div>
 
 				<div class="form-group row">
-					<!-- 메이트 유형 -->
 					<div class="col">
 						<p class="subheading mb-2">메이트 유형</p>
 						<input type="radio" id="allMate" name="mateType" value="전체 메이트" hidden>
@@ -61,7 +57,6 @@
 						<label for="notUsed" class="btn mate-type">사용 안함</label>
 					</div>
 
-					<!-- 여행 컨셉 -->
 					<div class="col col-sm-3">
 						<p class="subheading mb-2">여행 컨셉</p>
 						<select class="form-control" name="conceptType">
@@ -78,7 +73,6 @@
 
 				<div class="board-divider mb-3"></div>
 				<section class="upload-section">
-					<!-- 사진 첨부 -->
 					<div class="row mt-1">
 						<div class="col-sm-12">
 							<div class="photo-upload mb-3">
@@ -86,13 +80,9 @@
 									<strong>사진 첨부</strong> <span class="text-muted small">등록하지 않으면 기본 이미지가 표시돼요</span>
 								</p>
 								<div class="d-flex align-items-center">
-									<!-- 클릭 가능한 타일 -->
-									<label for="photo" class="upload-tile mb-0" id="uploadTile"> <span class="plus">+</span>
-									</label>
-									<!-- 미리보기 이미지 -->
+									<label for="photo" class="upload-tile mb-0" id="uploadTile"> <span class="plus">+</span></label>
 									<img id="preview" src="" style="display: none; width: 80px; height: 80px; margin-left: 10px;">
 								</div>
-								<!-- 실제 파일 입력(숨김) -->
 								<input type="file" id="photo" name="photo" accept="image/*" class="sr-only form-control-file">
 							</div>
 						</div>

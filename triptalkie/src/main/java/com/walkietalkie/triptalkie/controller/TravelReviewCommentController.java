@@ -27,6 +27,9 @@ public class TravelReviewCommentController {
 		this.travelReviewCommentService = travelReviewCommentService;
 	}
 
+	/*
+	 * 댓글 등록
+	 */
 	@PostMapping("/register")
 	@ResponseBody
 	public Map<String, Object> registerComment(@RequestBody TravelReviewCommentDTO travelReivewCommentDTO, HttpSession session) {
@@ -46,14 +49,15 @@ public class TravelReviewCommentController {
 		result.put("success", true);
 		result.put("message", "댓글이 등록되었습니다.");
 		result.put("comment", savedComment);
-		System.out.println("등록 완료 travelReviewCommentDTO : " + savedComment);
 		return result;
 	}
 	
+	/*
+	 * 댓글 조회
+	 */
 	@GetMapping("/findByIdx")
 	@ResponseBody
 	public Map<String, Object> findCommentByIdx(@RequestParam Integer idx) {
-		System.out.println("findCommentByIdx 진입 " + idx);
 		Map<String, Object> resultMap = new HashMap<>();
 
 		try {
@@ -73,13 +77,12 @@ public class TravelReviewCommentController {
 		return resultMap;
 	}
 	
+	/*
+	 * 댓글 수정
+	 */
 	@PostMapping("/update")
 	@ResponseBody
 	public Map<String, Object> updateCommentByIdx(@RequestBody TravelReviewCommentDTO travelReviewCommentDTO) {
-		System.out.println("수정 controller 진입");
-		System.out.println("넘어 온 idx 값 : " + travelReviewCommentDTO);
-	    System.out.println("DTO 확인: " + travelReviewCommentDTO.getIdx() + ", " + travelReviewCommentDTO.getContent());
-
 		
 		Map<String, Object> resultMap = new HashMap<>();
 
@@ -103,11 +106,12 @@ public class TravelReviewCommentController {
 		return resultMap;
 	}
 
+	/*
+	 * 댓글 삭제
+	 */
 	@PostMapping("/delete")
 	@ResponseBody
 	public Map<String, Object> deleteComment(@RequestParam Integer idx) {
-		System.out.println("삭제 controller 진입");
-		System.out.println("넘어 온 idx 값 : " + idx);
 		Map<String, Object> resultMap = new HashMap<>();
 
 		try {
