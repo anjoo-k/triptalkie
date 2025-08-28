@@ -56,7 +56,7 @@ public class MypageController {
 		model.addAttribute("member", member);
 		model.addAttribute("profileImageUrl", profileImageUrl);
 		// model 객체를 사용해서 profileImageUrl 값 저장, 뷰로 전달된다.
-
+		model.addAttribute("active", "my-info");
 		return "pages/mypage/myinformation";
 	}
 
@@ -152,6 +152,8 @@ public class MypageController {
 
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
+		model.addAttribute("active", "my-travel-list");
+
 		return "pages/mypage/my-travel-list";
 	}
 
@@ -176,6 +178,7 @@ public class MypageController {
 		}
 
 		model.addAttribute("myPosts", myPosts);
+		model.addAttribute("active", "my-posts");
 
 		return "pages/mypage/my-posts";
 	}
