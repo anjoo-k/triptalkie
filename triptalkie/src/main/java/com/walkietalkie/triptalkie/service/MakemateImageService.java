@@ -7,8 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +21,6 @@ public class MakemateImageService {
 
 	private final MakemateImageMapper makemateImageMapper;
 	private final FileStorageProperties fileProperties;
-	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public MakemateImageService(MakemateImageMapper makemateImageMapper, FileStorageProperties fileProperties) {
 		super();
@@ -66,7 +63,7 @@ public class MakemateImageService {
 
 			String originalName = newPhoto.getOriginalFilename();
 			String savedName = originalImage.getUuid() + "_" + originalName;
-			Path savePath = Paths.get(System.getProperty("user.dir"), fileProperties.getUploadDir(), savedName);
+			Path savePath = Paths.get(System.getProperty("user.dir"), fileProperties.getUploadDir(), "makemate",  savedName);
 			Files.createDirectories(savePath.getParent());
 			newPhoto.transferTo(savePath.toFile());
 			photo.setOriginalName(originalName);

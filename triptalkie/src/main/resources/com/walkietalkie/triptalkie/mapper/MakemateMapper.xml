@@ -177,8 +177,4 @@
 		WHERE idx=#{makemateId}
 		AND member_id=#{memberId}
 	</delete>
-
-	<!-- 사진만 내려주면 되나? <select id="findMemberListByIdx"> SELECT ml.makemate_idx, 
-		ml.member_id FROM memberlist ml JOIN makemate mm ON (mm.idx = ml.makemate_idx) 
-		JOIN member m ON (mm.member_id = m.id) WHERE mm.idx=1; </select> -->
 </mapper>

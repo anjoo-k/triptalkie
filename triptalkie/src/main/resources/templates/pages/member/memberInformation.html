@@ -5,12 +5,12 @@
 
 <!-- content fragement 선언 부분 -->
 <main layout:fragment="content" class="row">
-	<section class="col-sm-9 container">
+	<section class="col-sm-9 container bg--containers">
 		<article>
 			<!-- 프로필 이미지 -->
-			<div class="text-center mb-5 member-profile">
+			<div class="text-center mb-5 mt-5 member-profile">
 				<img
-					th:src="${memberlist != null} ? '/uploads/profile/' + ${memberlist.memberImage.savedName} : '/uploads/profile/default.jpg'"
+					th:src="${memberPhoto}"
 					alt="프로필사진"
 					class="img-fluid rounded-circle d-block border">
 			</div>
