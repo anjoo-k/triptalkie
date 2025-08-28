@@ -87,7 +87,8 @@
 								</div>
 								<th:block th:if="${memberId != null && memberId == c.memberId}">
 									<div class="col-sm-3 text-end">
-										<a class="text-muted me-1 update-reply btn btn-edit" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> <a class="text-muted delete-reply btn btn-delete" th:attr="data-id=${c.idx}">삭제</a>
+										<a class="me-1 update-reply btn btn-edit comment-btn" th:attr="data-id=${c.idx}, data-memberId=${c.memberId}">수정</a> 
+										<a class="delete-reply btn btn-delete comment-btn" th:attr="data-id=${c.idx}">삭제</a>
 									</div>
 								</th:block>
 							</div>
@@ -135,9 +136,9 @@
 			<div class="d-flex justify-content-between align-items-center mt-3">
 				<button type="button" class="btn back-to-list">목록</button>
 				<th:block th:if="${memberId != null && memberId == travelreview['memberId']}">
-					<div>
-						<button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${travelreview.idx}">수정</button>
-						<button id="btn-delete" type="button" class="btn btn-delete" th:attr="data-idx=${travelreview.idx}">삭제</button>
+					<div class="btn back-to-list">
+						<button id="btn-edit" type="button" class="btn btn-edit review-btn" th:attr="data-idx=${travelreview.idx}">수정</button>
+						<button id="btn-delete" type="button" class="btn btn-delete review-btn" th:attr="data-idx=${travelreview.idx}">삭제</button>
 					</div>
 				</th:block>
 			</div>
@@ -152,7 +153,7 @@
 				<!-- Modal footer -->
 				<div class="modal-footer btn-no-border">
 					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-delete">예</button>
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block btn-confirm-nope" data-dismiss="modal">아니요</button>
+					<button type="button" class="btn btn-secondary btn--radius mx-auto d-block btn-confirm-nope" data-dismiss="modal">아니요</button>
 				</div>
 			</div>
 		</div>
@@ -168,7 +169,7 @@
 					<!-- 로그인 페이지로 이동 -->
 					<a th:href="@{/member/loginPage}" class="btn btn-primary btn--radius mx-auto d-block">로그인</a>
 					<!-- 그냥 닫기 -->
-					<button type="button" class="btn btn-primary btn--radius mx-auto d-block" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-secondary btn--radius mx-auto d-block" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
