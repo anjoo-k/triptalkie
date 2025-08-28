@@ -6,7 +6,7 @@
 <main layout:fragment="content">
 	<section>
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 main-pic">
 				<img
 					th:src="${photo != null} ? '/uploads/' + ${photo.savedName} : '/images/bangkok.jpg'"
 					th:alt="${photo != null} ? ${photo.originalName} : '기본이미지'"
@@ -31,11 +31,7 @@
 		<div class="row">
 			<div class="col-sm-7">
 				<span>조회수 </span>
-				<span th:text="${makemate.view}">16 </span>· 
-				<span >북마크2 </span>·
-				<!-- 북마크 구현 후 처리 필요 -->
-				<span>메세지 1 </span>
-				<!-- 채팅 구현 후 처리 필요 -->
+				<span th:text="${makemate.view}">16 </span>
 			</div>
 
 			<div class="col-sm-5 d-flex justify-content-end">
@@ -207,7 +203,7 @@
 
 			<!-- 글쓴이가 아닐 경우 -->
 			<th:block
-				th:if="${session.loginId != null and session.loginId != makemate.memberId and #lists.isEmpty(memberlistPhoto)}">
+				th:if="${session.loginId != null and session.loginId != makemate.memberId and #lists.isEmpty(memberlist)}">
 				<div class="col-sm-4">
 					<form th:action="@{/makemate/apply/{makemateId}(makemateId=${makemate.idx})}" method="post">
 						<button class="btn btn-makemate-apply w-100" type="submit">신청하기</button>
