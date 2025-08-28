@@ -45,14 +45,14 @@
 
             <!-- 버튼 영역 -->
             <div class="d-flex justify-content-between align-items-center">
-                <button type="button" class="btn btn-back"
+                <button type="button" class="btn btn-back back-to-list"
                         th:onclick="|window.location.href='@{/community/list}'|">목록</button>
 
                 <!-- 로그인한 사용자가 글 작성자일 경우에만 표시 -->
                 <th:block th:if="${session.loginId!= null and session.loginId == community.memberId}">
-                    <div>
-                        <button id="btn-edit" type="button" class="btn btn-edit" th:attr="data-idx=${community.idx}">수정</button>
-                        <button id="btn-delete" type="button" class="btn btn-delete" th:attr="data-idx=${community.idx}">삭제</button>
+                    <div class="btn edit-delete-btns">
+                        <button id="btn-edit" type="button" class="btn btn-edit review-btn" th:attr="data-idx=${community.idx}">수정</button>
+                        <button id="btn-delete" type="button" class="btn btn-delete review-btn" th:attr="data-idx=${community.idx}">삭제</button>
                     </div>
                 </th:block>
             </div>

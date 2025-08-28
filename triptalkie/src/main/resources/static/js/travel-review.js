@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const data = await response.json();
 
 				if (data.success) {
-					alert(data.message);
+					console.log(data.message);
 					window.location.href = '/travel-review/find';
 				} else {
 					alert(data.message);
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const data = await response.json();
 
 				if (data.success) {
-					alert(data.message);
+					console.log(data.message);
 					location.reload(); // 삭제 후 새로고침
 				} else {
 					alert(data.message);

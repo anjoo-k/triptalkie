@@ -19,25 +19,24 @@
 	color: #7cd3c2;
 	font-size: 1.1rem;
 	cursor: pointer;
-	border-radius: 15px;
+	border-radius: 20px;
 }
 
-.btn-makemate-apply{
+.btn-makemate-apply {
 	background: #fff;
 	border-color: #ff9900;
 	color: #ff9900;
 	font-size: 1.1rem;
 	cursor: pointer;
-	border-radius: 15px;
+	border-radius: 20px;
 }
 
-
-.btn-makemate-apply:hover{
+.btn-makemate-apply:hover {
 	background: #ff9900;
 	color: #fff;
 }
 
-.btn-backToList:hover, .btn-makemate-delete:hover, .btn-makemate-edit:hover{
+.btn-makemate-delete:hover, .btn-makemate-edit:hover{
 	background: #7cd3c2;
 	color: #fff;
 }
@@ -47,15 +46,15 @@
 	background-color: #7cd3c2;
 	border: none;
 	width: 40%;
-	padding:5px;
+	padding: 5px;
 	color: #fff;
 	border-radius: 15px;
 }
 
-.card-border{
+.card-border {
 	border: 1px solid var(--color-border);
-    border-radius: 12px;
-    margin: 1px;
+	border-radius: 12px;
+	margin: 1px;
 }
 
 .card-title {
