@@ -22,4 +22,6 @@ public interface MemberMapper {
 	Member findMemberById(String memberId);
 	
 	int withdrawMemberById(String id);
+
+	String findIdByEmail(String email);
 }
