@@ -19,7 +19,7 @@ public class StringToLocalDateTimeConverter implements Converter<String, LocalDa
         if (source == null || source.trim().isEmpty()) {
             return null;
         }
-        // yyyy-MM-dd → LocalDateTime at 00:00:00
         return LocalDate.parse(source, DATE_FORMATTER).atStartOfDay();
+        // yyyy-MM-dd → LocalDateTime at 00:00:00
     }
 }

@@ -148,44 +148,41 @@ input[type="radio"]:checked+label.mate-type {
 	color: var(--color-secondary);
 }
 
-.back-to-list {
+.back-to-list, .edit-delete-btns {
 	border: 1px solid var(--color-primary);
+	background-color: var(--color-secondary);
 	color: var(--color-primary);
-	min-width: 70px;
+	border-radius: 24px; /* pill 모양 */
+	font-weight: inherit;
+}
+
+.back-to-list:hover, .edit-delete-btns:hover {
+ 	border: 1px solid var(--color-primary);
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+}
+
+.back-to-list, .btn-completed-writing {
 	height: 48px;
-	border-radius: 24px;
+	min-width: 150px; /* 버튼 최소 가로 길이 */
+	border-radius: 24px; /* pill 모양 */
 	font-size: 16px;
 	font-weight: bold;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
-	transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s
-		ease;
 }
 
-.back-to-list:hover {
- 	color: var(--color-primary);
-	transform: scale(1.05);
+.btn-completed-writing {
+	border: none;
+	background-color: var(--color-secondary);
+	color: var(--color-text-secondary);
+	width: 75%;
 }
 
-.btn-complete-editing, .btn-completed-writing {
+.btn-completed-writing:hover {
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
-	min-width: 70px;
-	height: 48px;
-	border-radius: 24px;
-	font-size: 16px;
-	font-weight: bold;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.btn-complete-editing:hover, .btn-completed-writing:hover {
-	background: var(--color-primary);
-	color: var(--color-secondary);
-	transform: scale(1.05);
 }
 
 /* 상세 페이지 CSS */
@@ -211,13 +208,13 @@ input[type="radio"]:checked+label.mate-type {
 .mate-travel-type {
 	background-color: var(--color-board-background);
 	margin: auto;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .selected-mate-type {
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
-	border-radius: 10px;
+	border-radius: 15px;
 	pointer-events: none;
 }
 
@@ -232,7 +229,7 @@ input[type="radio"]:checked+label.mate-type {
 	height: 100%;
 	object-fit: cover;
 }
-
+/* 
 .btn-edit, .btn-delete {
 	background: none;
 	border: none;
@@ -245,10 +242,15 @@ input[type="radio"]:checked+label.mate-type {
 .btn-edit:hover, .btn-delete:hover {
 	color: var(--color-primary);
 	text-decoration: underline;
-}
+} */
 
 .review-btn {
 	color: var(--color-primary);
+}
+
+.review-btn:hover {
+	color: var(--color-primary);
+	border-radius: 15px;
 }
 
 /* 셀렉트 박스 CSS */

@@ -55,7 +55,7 @@ public class TravelInfoImageService {
 		File dest = new File(filePath);
 		// 파일경로를 사용해서 File 객체 생성
 
-//		try {
+		try {
 			file.transferTo(dest);
 			// 실제 파일 업로드 작업이 수행된다.
 
@@ -70,18 +70,20 @@ public class TravelInfoImageService {
 			int result = travelInfoImageMapper.registerTravelInfoImage(travelInfoImage);
 			// DB 데이터 저장 처리가 되고 그 결과값이 result에 저장된다.
 
-//			if (result <= 0) {
-//				dest.delete(); // DB 저장 실패 시 파일 삭제
-//				return null;
-//			}
+			if (result <= 0) {
+				dest.delete();
+				// DB 저장 실패 시 파일 삭제
+				return null;
+			}
 			return travelInfoImage;
 
-//		} catch (IOException e) {
-//			if (dest.exists()) {
-//				dest.delete(); // 업로드 실패 시 파일 삭제
-//			}
-//			throw e;
-//		}
+		} catch (IOException e) {
+			if (dest.exists()) {
+				dest.delete();
+				// 업로드 실패 시 파일 삭제
+			}
+			throw e;
+		}
 	}
 
 	// getImageUrlByTravelinfoIdx 메서드 : travelreviewImage travelreviewIdx로 이미지 경로 반환

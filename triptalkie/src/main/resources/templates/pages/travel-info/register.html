@@ -12,7 +12,7 @@
 			<form th:action="@{/travel-info/register}" th:object="${travelInfo}"
 				method="post" enctype="multipart/form-data">
 
-				<!-- 1️. 제목 -->
+				<!-- 제목 -->
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<input type="text" th:field="*{title}" class="form-control"
@@ -22,7 +22,7 @@
 
 				<div class="board-divider mb-3"></div>
 
-				<!-- 2️. 여행정보 / 기준일 / 도시 -->
+				<!-- 여행정보 / 기준일 / 도시 -->
 				<div class="form-group row">
 					<!-- 여행 정보 유형 -->
 					<div class="col-md-4">
@@ -44,7 +44,7 @@
 
 					<!-- 여행 기준일 -->
 					<div class="col-md-4">
-						<label>여행 기준일</label> <input type="month" th:field="*{tempMonth}"
+						<label>정보 기준일</label> <input type="month" th:field="*{tempMonth}"
 							class="form-control" required />
 					</div>
 
@@ -75,7 +75,7 @@
 
 				<div class="board-divider mb-3"></div>
 
-				<!-- 3️. 본문 -->
+				<!-- 본문 -->
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<textarea th:field="*{content}" class="form-control" rows="12"
@@ -85,28 +85,7 @@
 
 				<div class="board-divider mb-3"></div>
 
-				<!-- 4️. 사진 첨부 -->
-				<!--                 <section class="upload-section">
-                    <div class="row mt-1">
-                        <div class="col-sm-12">
-                            <div class="photo-upload mb-3">
-                                <p class="mb-1 mt-0">
-                                    <strong>사진 첨부</strong> <span class="text-muted small">등록하지 않으면 기본 이미지가 표시돼요</span>
-                                </p>
-                                <div class="d-flex align-items-center">
-                                    <label for="photo" class="upload-tile mb-0" id="uploadTile">
-                                        <span class="plus">+</span>
-                                    </label>
-                                    <img id="preview" src="" style="display: none; width: 80px; height: 80px; margin-left: 10px;">
-                                </div>
-                                <input type="file" th:field="*{photo}" id="photo" accept="image/*" class="sr-only form-control-file">
-                            </div>
-                        </div>
-                    </div>
-                </section> -->
-
-
-				<!-- 4️. 사진 첨부 -->
+				<!-- 사진 첨부 -->
 				<section class="upload-section">
 					<!-- 사진 첨부 -->
 					<div class="row mt-1">
