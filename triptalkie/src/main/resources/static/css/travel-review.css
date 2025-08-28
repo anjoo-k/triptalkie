@@ -245,24 +245,6 @@ input[type="radio"]:checked+label.mate-type {
 	object-fit: cover;
 }
 
-/* 수정 버튼 */
-/*.btn-edit {
-  color: #4ed1b3;                민트 글씨 
-  border-color: #4ed1b3;         민트 테두리 
-  border-radius: 10px;
-}
-.btn-edit:hover {
-  background-color: #4ed1b3;     hover 시 배경 민트 
-  color: #fff;                   글씨 흰색 
-}
-.btn-edit:active {
-  transform: scale(0.95);        눌렀을 때 살짝 줄어듦 
-}
-.btn-edit:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(78, 209, 179, 0.4);  포커스 링 
-}
-*/
 .btn-edit, .btn-delete {
 	background: none;
 	border: none;
@@ -277,23 +259,9 @@ input[type="radio"]:checked+label.mate-type {
 	text-decoration: underline;
 }
 
-/* 삭제 버튼 */
-/*.btn-delete {
-  color: #e57373;                부드러운 레드 글씨 
-  border-color: #e57373;         빨강 테두리 
-  border-radius: 10px;
+.review-btn {
+	color: var(--color-primary);
 }
-.btn-delete:hover {
-  background-color: #e57373;     hover 시 배경 빨강 
-  color: #fff;
-}
-.btn-delete:active {
-  transform: scale(0.95);
-}
-.btn-delete:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(229, 115, 115, 0.4);
-}*/
 
 /* 셀렉트 박스 CSS */
 /* select-box만 적용 */
@@ -334,15 +302,6 @@ input[type="radio"]:checked+label.mate-type {
 	width: 100%;
 }
 
-/* .comment-write-btn {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	border: none;
-} */
-
-/* .comment-write-btn:hover {
-	
-} */
 .edit-comment {
 	width: 80%;
 	border-radius: 10px;
@@ -366,6 +325,11 @@ input[type="radio"]:checked+label.mate-type {
 
 .save-btn:hover, .cancel-btn:hover {
 	border: none;
+	color: var(--color-primary);
+	background-color: transparent;
+}
+
+.comment-btn:hover {
 	color: var(--color-primary);
 	background-color: transparent;
 }
