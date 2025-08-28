@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,6 @@ import jakarta.servlet.http.HttpSession;
 public class MakemateController {
 
 	private final MakemateService makemateService;
-	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private final BookMarkService bookmarkService;
 
 	public MakemateController(MakemateService makemateService, BookMarkService bookmarkService) {
@@ -38,12 +35,12 @@ public class MakemateController {
 	}
 	
 	// 글 목록 페이지
-	@GetMapping("/list")	// 추후 전체 출력 + 검색 + 페이지네이션으로 변경 필요
+	@GetMapping("/list")
 	public String makemateAllList(@RequestParam(defaultValue = "1")int page,
 									@ModelAttribute SearchCriteria criteria, 
 									Model model) {
 		
-		int size = 4; // 한 페이지에 보이는 글 수
+		int size = 4; // 한 페이지 글 수
 		Map<String, Object> result = makemateService.findMakematesAllList(page, size, criteria);
 		
 		model.addAttribute("page", result.get("commonPage"));

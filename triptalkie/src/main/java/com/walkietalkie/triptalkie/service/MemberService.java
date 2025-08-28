@@ -1,5 +1,10 @@
 package com.walkietalkie.triptalkie.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,19 +13,19 @@ import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.mapper.MemberMapper;
 
 import jakarta.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service
 public class MemberService {
   private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
   private final BCryptPasswordEncoder passwordEncoder; // 비밀번호 암호화
+  private final MemberImageService memberImageService;
   private final MemberMapper memberMapper;
   
-  public MemberService(BCryptPasswordEncoder passwordEncoder, MemberMapper memberMapper) {
+  public MemberService(BCryptPasswordEncoder passwordEncoder, MemberMapper memberMapper, MemberImageService memberImageService) {
     super();
     this.passwordEncoder = passwordEncoder;
     this.memberMapper = memberMapper;
+    this.memberImageService= memberImageService;
   }
 
   public int register(Member member) {
@@ -118,13 +123,17 @@ public class MemberService {
     return memberMapper.checkMemberByEmail(email);
   }
 
-  public Member findMemberById(String memberId) {
+  public Map<String, Object> findMemberById(String memberId) {
 	  Member member = memberMapper.findMemberById(memberId);
-	  logger.info(memberId);
+	  String memberPhoto = memberImageService.getImageUrlByMemberId(memberId);
+	  Map<String, Object> memberMap = new HashMap<>();
+	  memberMap.put("member", member);
+	  memberMap.put("memberPhoto", memberPhoto);
+
 	if (member == null) {
 		throw new IllegalArgumentException("프로필 보기 실패");
 	}
-	return member;
+	return memberMap;
   }
   
   public boolean withdrawMemberById(String id) {
