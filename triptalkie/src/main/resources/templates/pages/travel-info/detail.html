@@ -81,15 +81,18 @@
 
 				<!-- 버튼 영역 -->
 				<div class="d-flex justify-content-between align-items-center mt-3">
-					<button type="button" class="btn btn-back"
-						onclick="history.back();">목록</button>
+					<a th:href="@{/travel-info/list}" class="btn btn-back">목록</a>
 					<th:block
 						th:if="${loginId != null and loginId == travelInfo.memberId}">
 						<div>
 							<a th:href="@{/travel-info/edit/{idx}(idx=${travelInfo.idx})}"
-								class="btn btn-edit">수정</a> <a
-								th:href="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
-								class="btn btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+								class="btn btn-edit">수정</a>
+							<form
+								th:action="@{/travel-info/delete/{idx}(idx=${travelInfo.idx})}"
+								method="post" style="display: inline">
+								<button type="submit" class="btn btn-delete"
+									onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+							</form>
 						</div>
 					</th:block>
 				</div>
