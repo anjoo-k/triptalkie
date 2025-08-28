@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.walkietalkie.triptalkie.DTO.MyPostsDTO;
-import com.walkietalkie.triptalkie.DTO.SearchCriteria;
 import com.walkietalkie.triptalkie.domain.Member;
 import com.walkietalkie.triptalkie.domain.MemberImage;
 import com.walkietalkie.triptalkie.service.MakemateService;
@@ -58,7 +56,7 @@ public class MypageController {
 		model.addAttribute("member", member);
 		model.addAttribute("profileImageUrl", profileImageUrl);
 		// model 객체를 사용해서 profileImageUrl 값 저장, 뷰로 전달된다.
-
+		model.addAttribute("active", "my-info");
 		return "pages/mypage/myinformation";
 	}
 
@@ -154,13 +152,14 @@ public class MypageController {
 
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("combinedList", result.get("combinedList"));
+		model.addAttribute("active", "my-travel-list");
+
 		return "pages/mypage/my-travel-list";
 	}
 
 	@GetMapping("/my-posts")
 	public String myPostPage(Model model, HttpSession session) {
 		String loginMember = (String) session.getAttribute("loginId");
-		System.out.println(loginMember);
 		// 세션이 비어있을 경우 에러 처리 추가
 		if (loginMember == null) {
 			return "redirect:/member/loginPage";
@@ -178,8 +177,8 @@ public class MypageController {
 			myPosts.setTravelReviewList(new ArrayList<>());
 		}
 
-		System.out.println("myPosts" + myPosts);
 		model.addAttribute("myPosts", myPosts);
+		model.addAttribute("active", "my-posts");
 
 		return "pages/mypage/my-posts";
 	}
@@ -220,23 +219,4 @@ public class MypageController {
 			return "redirect:/mypage";
 		}
 	}
-
-//	@PostMapping("/password-check-withdraw")
-//	public String checkPasswordPageWithdraw2(HttpSession session, String password, RedirectAttributes ra)
-//			throws Exception {
-//		String id = (String) session.getAttribute("loginId");
-//		if (id == null)
-//			return "redirect:/member/loginPage";
-//
-//		Boolean result = mypageService.checkPassword(id, password);
-//		// id와 패스워드를 확인
-//
-//		System.out.println("실행 체크 1");
-//		if (result) {
-//			return "redirect:/member/deactivate";
-//		} else {
-//			ra.addFlashAttribute("error", true);
-//			return "redirect:/mypage/password-check-withdraw";
-//		}
-//	}
 }

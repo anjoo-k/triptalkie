@@ -131,5 +131,9 @@ public class MemberService {
 	  int result = memberMapper.withdrawMemberById(id);
 	  return result>0;
   }
+  
+  public String findIdByEmail(String email) {
+		return memberMapper.findIdByEmail(email);
+	  }
 
 }

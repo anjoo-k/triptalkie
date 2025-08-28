@@ -89,3 +89,31 @@
 	object-fit: cover;
 	border-radius: 1.25rem;
 }
+
+/* 아이디 비밀번호 찾기 */
+.nav-width {
+	width: 50%;
+	border-radius: 10px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	color: var(--color-primary);
+	border-color: var(--color-primary) var(--color-primary)
+		var(--color-secondary);
+}
+
+.nav-menu {
+	border-radius: 10px 10px 0px 0px !important;
+}
+
+
+.id-btn, .pwd-btn {
+	width: 50%;
+}
+
+.btn-section {
+	display: flex;
+	justify-content: center;
+}
+
+>>>>>>> develop

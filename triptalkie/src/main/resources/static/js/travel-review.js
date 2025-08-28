@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				});
 
 				if (response.ok) {
-					window.location.href = `/travel-review/detail-review/${idx}`;
+					window.location.href = `/travel-review/detail/${idx}`;
 				} else {
 					console.log("조회수 증가 실패");
 				}
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const backBtn = document.querySelector(".back-to-list");
 	if (backBtn) {
 		backBtn.addEventListener("click", function() {
-			location.href = "/travel-review/findTravelreviewAllList";
+			location.href = "/travel-review/find";
 		});
 	}
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		editBtn.addEventListener('click', () => {
 			const idx = editBtn.getAttribute('data-idx');
 			if (idx) {
-				window.location.href = `/travel-review/edit-review/${idx}`;
+				window.location.href = `/travel-review/edit/${idx}`;
 			}
 		});
 	}
@@ -97,14 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (!idxInput) return;
 			let idx = idxInput.value;
 			try {
-				const response = await fetch(`/travel-review/deleteTravelreviewByIdx?idx=${idx}`, {
+				const response = await fetch(`/travel-review/delete?idx=${idx}`, {
 					method: 'POST',
 				});
 				const data = await response.json();
 
 				if (data.success) {
 					alert(data.message);
-					window.location.href = '/travel-review/findTravelreviewAllList';
+					window.location.href = '/travel-review/find';
 				} else {
 					alert(data.message);
 				}

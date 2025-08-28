@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -13,7 +14,7 @@
 	<!-- 메인 영역 -->
 	<section>
 		<div class="myposts-container">
-			<h4 class="mb-5 mypage-title">관심 여행 목록</h4>
+			<h4 class="mb-5 mypage-title text-center" >관심 여행 목록</h4>
 
 			<!-- 여행 카드 반복 -->
 			<div class="col-xl-12">
@@ -22,8 +23,8 @@
 						<!-- 배지 -->
 						<div class="mb-2">
 							<span class="badge badge--category travel-type"
-								th:text="${bookmark.conceptType}">여행 컨셉</span> <span
-								class="badge badge--category travel-type mt-auto"
+								th:text="${bookmark.conceptType}">여행 컨셉</span> 
+							<span class="badge badge--category travel-type mt-auto"
 								th:text="${bookmark.cityName}">도시명</span>
 						</div>
 
@@ -31,22 +32,25 @@
 						<div class="d-flex mb-2">
 							<div class="thumbnail mr-2"
 								style="flex: 0 0 100px; height: 100px;">
-								<img th:src="@{/images/bangkok.jpg}" class="img-fluid"
-									alt="기본이미지" style="height: 100px;">
+								<img th:src="@{/images/bangkok.jpg}" 
+									class="img-fluid"
+									alt="'기본이미지'"
+									style="height: 100px;">
 							</div>
 							<div class="flex-grow-1">
-								<a
-									th:href="@{/makemate/detailPage/{id}(id=${bookmark.makemateIdx})}"
+								<a th:href="@{/makemate/detailPage/{id}(id=${bookmark.makemateIdx})}"
 									class="card-title d-block mb-1 text-truncate"
 									th:text="${bookmark.title}">여행 제목</a>
 								<p class="text-muted small mb-0 text-truncate"
 									th:text="${bookmark.content}">여행 내용</p>
 							</div>
-						</div>
+						
+				
 
 						<!-- 유저 정보 + 날짜 -->
 						<div
 							class="d-flex justify-content-between align-items-center flex-wrap">
+							<!-- 프로필 + 유저 정보 + 날짜 -->
 							<div class="d-flex justify-content-end align-items-center"
 								style="font-size: x-small;">
 								<div class="ml-2 text-left">
@@ -75,13 +79,14 @@
 							</div>
 						</div>
 					</div>
+				</div>
 					<!-- /card -->
 				</div>
 			</div>
 		</div>
 
 		<!-- 왼쪽 빈 영역 (페이지네이션 가운데를 위해 flex-grow 사용) -->
-		<div class="col-6 text-center">
+		<div class="col-12">
 			<nav class="p-2 pagination--bottom">
 				<ul class="pagination justify-content-center mb-0 py-1">
 					<!-- 처음으로, 이전 -->
@@ -92,25 +97,22 @@
 					<li th:classappend="${page.currentPage == 1} ? ' disabled'"
 						class="page-item pagination--spacing"><a
 						class="page-link square"
-						th:href="@{/bookmark/list(page=${page.currentPage - 1})}">‹</a>
-					</li>
+						th:href="@{/bookmark/list(page=${page.currentPage - 1})}">‹</a></li>
 
 					<!-- 페이지 번호 반복 -->
 					<li
 						th:each="p : ${#numbers.sequence(page.startPage, page.endPage)}"
 						th:classappend="${p == page.currentPage} ? ' active'"
 						class="page-item pagination--spacing"><a
-						class="page-link square"
-						th:href="@{/bookmark/list(page=${p})}" th:text="${p}">1</a>
-					</li>
+						class="page-link square" th:href="@{/bookmark/list(page=${p})}"
+						th:text="${p}">1</a></li>
 
 					<!-- 다음, 마지막 -->
 					<li
 						th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
 						class="page-item pagination--spacing"><a
 						class="page-link square"
-						th:href="@{/bookmark/list(page=${page.currentPage + 1})}">›</a>
-					</li>
+						th:href="@{/bookmark/list(page=${page.currentPage + 1})}">›</a></li>
 					<li
 						th:classappend="${page.currentPage == page.totalPage} ? ' disabled'"
 						class="page-item pagination--spacing"><a
@@ -119,7 +121,7 @@
 				</ul>
 			</nav>
 		</div>
-	
+
 	</section>
 
 	<!-- JS -->

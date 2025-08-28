@@ -18,7 +18,7 @@
 			<!-- 3열 이미지 영역 -->
 			<div class="row g-4">
 				<div class="col-12 col-md-4" th:each="reviews : ${topReviews}">
-					<a th:href="@{/travel-review/detail-review/{idx}(idx=${reviews.idx})}"> <img th:src="${reviews.thumbnail != null ? '/uploads/review/' + reviews.thumbnail : '/images/original-review.png'}" class="img-fluid square-img">
+					<a th:href="@{/travel-review/detail/{idx}(idx=${reviews.idx})}"> <img th:src="${reviews.thumbnail != null ? '/uploads/review/' + reviews.thumbnail : '/images/original-review.png'}" class="img-fluid square-img">
 					</a>
 					<p class="top-reviews-country" th:text="|${reviews.countryName} · ${reviews.cityName}|"></p>
 				</div>
@@ -41,7 +41,7 @@
 	</div>
 	<div class="main-content-container p-3">
 		<div class="row">
-			<div class="col-xl mt-4 mr-4">
+			<div class="col-xl-6 mt-4 mr-4">
 				<p class="main--text-title font-weight-bold mb-1 mt-4 mb-4">공지 사항</p>
 				<div>
 					<table class="table notice-table">
@@ -55,7 +55,7 @@
 						<tbody th:each="notice, stat : ${noticeList}">
 							<tr>
 								<td th:text="${stat.index + 1}">1</td>
-								<td><a class="main-cs-link" th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${notice.idx})}" th:text="${notice.title}">항공권 럭키드로우 안내</a></td>
+								<td class="main-notice-title"><a class="main-cs-link" th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${notice.idx})}" th:text="${notice.title}">항공권 럭키드로우 안내</a></td>
 								<td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}">2025-08-23</td>
 							</tr>
 						</tbody>

@@ -2,6 +2,7 @@ package com.walkietalkie.triptalkie.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -143,17 +144,38 @@ public class TravelInfoService {
 	}
 
 	// 검색 결과 페이지 별 출력
-	public CommonPage<TravelInfo> searchTravelInfoPage(Map<String, Object> params, int page, int size) {
-		int totalCount = travelInfoMapper.countSearchTravelInfo(params);
-		int totalPage = (int) Math.ceil((double) totalCount / size);
-		int pageBlock = 5;
-		int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
-		int endPage = Math.min(startPage + pageBlock - 1, totalPage);
-		int offset = (page - 1) * size;
+	public CommonPage<Map<String, Object>> searchTravelInfoPage(Map<String, Object> params, int page, int size) {
+	    int totalCount = travelInfoMapper.countSearchTravelInfo(params);
+	    int totalPage = (int) Math.ceil((double) totalCount / size);
+	    int pageBlock = 5;
+	    int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+	    int endPage = Math.min(startPage + pageBlock - 1, totalPage);
+	    int offset = (page - 1) * size;
 
-		List<TravelInfo> content = travelInfoMapper.searchTravelInfo(params, offset, size);
+	    List<TravelInfo> content = travelInfoMapper.searchTravelInfo(params, offset, size);
 
-		return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
+	    // Map 변환
+	    List<Map<String, Object>> mapContent = content.stream().map(info -> {
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("idx", info.getIdx());
+	        map.put("title", info.getTitle());
+	        map.put("cityName", info.getCity() != null ? info.getCity().getName() : "");
+	        map.put("nickName", info.getMemberNickname());
+	        map.put("countryName", info.getCountryName());
+	        map.put("createdAt", info.getCreatedAt());
+	        map.put("infotype", info.getInfotype());
+	        map.put("infodate", info.getInfodate());
+	        map.put("view", info.getView());
+
+	        // 문자열 포맷 처리
+	        map.put("createdAtStr", info.getCreatedAt() != null
+	            ? info.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")) : "");
+	        map.put("infodateStr", info.getInfodate() != null
+	            ? info.getInfodate().format(DateTimeFormatter.ofPattern("yyyy/MM")) : "");
+
+	        return map;
+	    }).toList();
+
+	    return new CommonPage<>(mapContent, size, page, totalPage, startPage, endPage);
 	}
-
 }

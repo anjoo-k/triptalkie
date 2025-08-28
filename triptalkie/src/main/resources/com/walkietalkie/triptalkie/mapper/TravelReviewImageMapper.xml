@@ -24,6 +24,7 @@
 		WHERE travelreview_idx = #{travelreviewIdx}
 	</delete>
 	
+	<!-- 사진 UUID 삭제 -->
 	<delete id="deleteReviewImageByUuid" parameterType="String">
 		DELETE FROM travelreview_image
 		WHERE uuid = #{uuid}
