@@ -122,13 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	const loginBtn = document.querySelector('.btn-login');
-	if (loginBtn) {
-		loginBtn.addEventListener('click', () => {
-			alert('로그인 버튼 클릭!');
-		});
-	}
-
 	const fileInput = document.getElementById('profileImage');
 	const previewImage = document.querySelector('.original--profile');
 	if (fileInput) {

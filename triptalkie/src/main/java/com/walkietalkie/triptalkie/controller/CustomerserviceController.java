@@ -32,7 +32,6 @@ public class CustomerserviceController {
 		model.addAttribute("active", "notice");
 		model.addAttribute("page", result.get("commonPage"));
 		model.addAttribute("noticeList", result.get("combinedList"));
-		System.out.println(result.get("combinedList"));
 		return "pages/customerservice/notice";
 	}
 	
@@ -56,8 +55,6 @@ public class CustomerserviceController {
 			Model model) {
 
 		CommonPage<Map<String, Object>> pageData = customerserviceService.findFaqPage(page, size);
-//		List<Faq> faqList = customerserviceService.findAllFaq();
-		// 모델에 데이터 넣기
 		model.addAttribute("faqList", pageData.getContent()); // 실제 데이터 리스트
 		model.addAttribute("pageData", pageData); // 페이징 정보 전체
 		return "pages/customerservice/faq";
@@ -65,8 +62,10 @@ public class CustomerserviceController {
 
 	// qna 페이지
 	@GetMapping("/qna")
-	public String qnaTest(Model model) {
-		model.addAttribute("active", "qna");
+	public String qnaTest(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10") int size, Model model) {
+		CommonPage<Map<String, Object>> pageData = customerserviceService.findQnaPage(page, size);
+		model.addAttribute("qnaList", pageData.getContent()); // 실제 데이터 리스트
+		model.addAttribute("pageData", pageData); // 페이징 정보 전체
 		return "pages/customerservice/qna";
 	}
 }

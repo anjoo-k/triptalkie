@@ -59,4 +59,17 @@
 		ORDER BY created_at DESC
 		LIMIT 5
 	</select>
+	
+	<select id="findCountQna">
+		SELECT COUNT(*) FROM qna
+	</select>
+
+	<select id="findQnaPaged" resultType="map" parameterType="map">
+		SELECT
+		q.idx, q.title, q.content, q.member_id, m.nickname, q.view, q.created_at
+		FROM qna q
+        LEFT JOIN member m ON q.member_id = m.id
+		ORDER BY created_at DESC
+		LIMIT #{startRow}, #{size}
+	</select>
 </mapper>

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.walkietalkie.triptalkie.mapper.TravelReviewCommentMapper">
+	<!-- 댓글 등록 -->
 	<insert id="registerComment"
 		parameterType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO"
 		useGeneratedKeys="true" keyProperty="idx">
@@ -13,6 +14,7 @@
 		#{memberId}, NOW(), NOW())
 	</insert>
 
+	<!-- 게시글 번호로 댓글 리스트 전체 조회 -->
 	<select id="findAllReplyByIdx"
 		resultType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO">
 		SELECT
@@ -32,6 +34,7 @@
 		ORDER BY c.created_at DESC
 	</select>
 
+	<!-- 댓글 번호로 댓글 조회 -->
 	<select id="findByIdx"
 		resultType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO">
 		SELECT
@@ -51,6 +54,7 @@
 		c.created_at DESC
 	</select>
 
+	<!-- 댓글 수정 -->
 	<update id="updateCommentByIdx" parameterType="com.walkietalkie.triptalkie.DTO.TravelReviewCommentDTO">
 		UPDATE travelreview_comment
 		SET content = #{content},
@@ -58,6 +62,7 @@
 		WHERE idx = #{idx}
 	</update>
 
+	<!-- 댓글 삭제 -->
 	<delete id="deleteCommentByIdx">
 		DELETE FROM travelreview_comment
 		WHERE idx = #{idx}

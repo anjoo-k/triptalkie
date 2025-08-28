@@ -14,13 +14,9 @@
 
 .row-badges {
 	display: flex;
-	/* 가로로 배치 */
 	justify-content: flex-start;
-	/* 왼쪽 정렬 */
 	align-items: center;
-	/* 세로 가운데 정렬 */
 	gap: 0.5rem;
-	/* 배지 사이 간격 */
 }
 
 .badge--sub-desc {
@@ -45,9 +41,7 @@
 .card-body-grid {
 	display: grid;
 	grid-template-columns: minmax(30px, 60px) 1fr;
-	/* 왼쪽 번호, 오른쪽 나머지 */
 	column-gap: 1rem;
-	/* align-items: start; */
 }
 
 .card-divider {
@@ -62,9 +56,7 @@
 .number {
 	display: flex;
 	align-items: center;
-	/* 세로 중앙 */
 	justify-content: center;
-	/* 가로 중앙 */
 	font-weight: bold;
 }
 
@@ -101,7 +93,6 @@
 
 .row-badges span:last-child {
 	justify-self: end;
-	/* 마지막 span을 오른쪽 끝으로 */
 }
 
 .travel-type {
@@ -147,12 +138,9 @@
 
 .mate-type:hover {
 	background-color: var(--color-primary);
-	/* 배경색 유지 */
 	border-color: var(--color-primary);
-	/* 테두리 색 유지 */
 	color: var(--color-secondary);
 	box-shadow: none;
-	/* 그림자 제거 (부트스트랩에서 흔함) */
 }
 
 input[type="radio"]:checked+label.mate-type {
@@ -245,24 +233,6 @@ input[type="radio"]:checked+label.mate-type {
 	object-fit: cover;
 }
 
-/* 수정 버튼 */
-/*.btn-edit {
-  color: #4ed1b3;                민트 글씨 
-  border-color: #4ed1b3;         민트 테두리 
-  border-radius: 10px;
-}
-.btn-edit:hover {
-  background-color: #4ed1b3;     hover 시 배경 민트 
-  color: #fff;                   글씨 흰색 
-}
-.btn-edit:active {
-  transform: scale(0.95);        눌렀을 때 살짝 줄어듦 
-}
-.btn-edit:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(78, 209, 179, 0.4);  포커스 링 
-}
-*/
 .btn-edit, .btn-delete {
 	background: none;
 	border: none;
@@ -273,27 +243,13 @@ input[type="radio"]:checked+label.mate-type {
 }
 
 .btn-edit:hover, .btn-delete:hover {
-	color: var(--color-primary); /* hover 시 진해짐 */
+	color: var(--color-primary);
 	text-decoration: underline;
 }
 
-/* 삭제 버튼 */
-/*.btn-delete {
-  color: #e57373;                부드러운 레드 글씨 
-  border-color: #e57373;         빨강 테두리 
-  border-radius: 10px;
+.review-btn {
+	color: var(--color-primary);
 }
-.btn-delete:hover {
-  background-color: #e57373;     hover 시 배경 빨강 
-  color: #fff;
-}
-.btn-delete:active {
-  transform: scale(0.95);
-}
-.btn-delete:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(229, 115, 115, 0.4);
-}*/
 
 /* 셀렉트 박스 CSS */
 /* select-box만 적용 */
@@ -325,8 +281,8 @@ input[type="radio"]:checked+label.mate-type {
 }
 
 .comment-content:focus {
-	border-color: var(--color-primary); /* 포커스 시 보더 컬러 강제 */
-	outline: none; /* 브라우저 기본 파란 테두리 제거 */
+	border-color: var(--color-primary);
+	outline: none; 
 }
 
 .comment-content, .comment-write-btn {
@@ -334,15 +290,6 @@ input[type="radio"]:checked+label.mate-type {
 	width: 100%;
 }
 
-/* .comment-write-btn {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	border: none;
-} */
-
-/* .comment-write-btn:hover {
-	
-} */
 .edit-comment {
 	width: 80%;
 	border-radius: 10px;
@@ -350,8 +297,8 @@ input[type="radio"]:checked+label.mate-type {
 }
 
 .edit-comment:focus {
-	border-color: var(--color-border); /* 포커스 시 보더 컬러 강제 */
-	outline: none; /* 브라우저 기본 파란 테두리 제거 */
+	border-color: var(--color-border);
+	outline: none; 
 }
 
 .save-btn {
@@ -366,6 +313,11 @@ input[type="radio"]:checked+label.mate-type {
 
 .save-btn:hover, .cancel-btn:hover {
 	border: none;
+	color: var(--color-primary);
+	background-color: transparent;
+}
+
+.comment-btn:hover {
 	color: var(--color-primary);
 	background-color: transparent;
 }

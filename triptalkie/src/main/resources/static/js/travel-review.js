@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				});
 
 				if (response.ok) {
-					window.location.href = `/travel-review/detail-review/${idx}`;
+					window.location.href = `/travel-review/detail/${idx}`;
 				} else {
 					console.log("조회수 증가 실패");
 				}
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const backBtn = document.querySelector(".back-to-list");
 	if (backBtn) {
 		backBtn.addEventListener("click", function() {
-			location.href = "/travel-review/findTravelreviewAllList";
+			location.href = "/travel-review/find";
 		});
 	}
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		editBtn.addEventListener('click', () => {
 			const idx = editBtn.getAttribute('data-idx');
 			if (idx) {
-				window.location.href = `/travel-review/edit-review/${idx}`;
+				window.location.href = `/travel-review/edit/${idx}`;
 			}
 		});
 	}
@@ -97,14 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (!idxInput) return;
 			let idx = idxInput.value;
 			try {
-				const response = await fetch(`/travel-review/deleteTravelreviewByIdx?idx=${idx}`, {
+				const response = await fetch(`/travel-review/delete?idx=${idx}`, {
 					method: 'POST',
 				});
 				const data = await response.json();
 
 				if (data.success) {
 					alert(data.message);
-					window.location.href = '/travel-review/findTravelreviewAllList';
+					window.location.href = '/travel-review/find';
 				} else {
 					alert(data.message);
 				}
@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		commentBtn.addEventListener("click", async () => {
 			// 세션 유무 체크
 			//let loginMemberId = /*[['${memberId}']]*/ null;
-			alert('로그인 한 사람 : ' + loginMemberId);
 			if (loginMemberId == null) {
 				$('#login-required-modal').modal('show');
 				return;
@@ -242,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			        </div>
 			    `;
 		commentList.prepend(div);
+		location.reload();
 	}
 
 	// 수정 
@@ -249,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	    if (e.target && e.target.classList.contains("update-reply")) {
 	        e.preventDefault();
 
-	        alert("댓글 수정 버튼 클릭!");
 	        const idxToUpdateReply = e.target.getAttribute("data-id");
 
 	        try {
@@ -264,24 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	        }
 	    }
 	});
-/*	let idxToUpdateReply = null;
-	document.querySelectorAll('.update-reply').forEach(updateReplyBtn => {
-		updateReplyBtn.addEventListener("click", async function() {
-			alert('댓글 수정 버튼 클릭!');
-			idxToUpdateReply = this.getAttribute('data-id');
-
-			try {
-				const response = await fetch(`/travelReviewComment/findByIdx?idx=${idxToUpdateReply}`, { method: 'GET' });
-				const data = await response.json();
-				if (data.success) {
-					updateComment(this, data.comment, idxToUpdateReply);	// 조회한 데이터 값을 파라미터 값으로 넣어준다.
-				}
-			} catch (e) {
-				console.error(e);
-				alert('댓글 수정 중 오류 발생');
-			}
-		});
-	});*/
 
 	// 수정 버튼 생성
 	function updateComment(updateReplyBtn, comment, idxToUpdateReply) {
@@ -319,12 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		// 저장 이벤트
 		saveBtn.addEventListener('click', async () => {
-			alert('저장 버튼 클릭!');
 			const newComment = input.value.trim();
 			if (!newComment) return alert('댓글 내용을 입력하세요.');
-
-			alert('idxToUpdateReply : ' + idxToUpdateReply);
-			alert('newComment : ' + newComment);
 
 			try {
 				const response = await fetch(`/travelReviewComment/update?idx=${idxToUpdateReply}`, {

@@ -52,8 +52,8 @@ public class TravelInfoService {
 	}
 
 	// 여행 정보 글 idx 기준으로 상세 정보 찾기
+	@Transactional
 	public TravelInfo findTravelInfoIdx(long idx) {
-		// 조회수 증가 로직 추가해야 함
 
 		return travelInfoMapper.findTravelInfoIdx(idx);
 	}
@@ -114,6 +114,7 @@ public class TravelInfoService {
 		return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
 	}
 
+	@Transactional
 	public void increaseViewCount(long idx) {
 		travelInfoMapper.updateViewCount(idx);
 	}

@@ -35,14 +35,10 @@ public class TravelReviewCommentService {
 	}
 
 	public TravelReviewCommentDTO updateCommentByIdx(TravelReviewCommentDTO travelReviewCommentDTO) {
-		System.out.println("updateCommentByIdx 매퍼 진입");
-		System.out.println("넘어 온 값 : " + travelReviewCommentDTO);
 		int updated = travelReviewCommentMapper.updateCommentByIdx(travelReviewCommentDTO);
-		System.out.println("updated : " + updated);
 		if (updated > 0) {
 			return travelReviewCommentMapper.findByIdx(travelReviewCommentDTO.getIdx());
 		}
-		
 		return null;
 	}
 }

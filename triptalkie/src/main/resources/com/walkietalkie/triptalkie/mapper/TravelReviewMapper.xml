@@ -86,6 +86,7 @@
 		LIMIT #{size} OFFSET #{startRow}
 	</select>
 
+	<!-- 게시글 조회수 -->
 	<update id="incrementView">
 		UPDATE travelreview
 		SET view = view + 1
@@ -93,6 +94,7 @@
 		#{idx}
 	</update>
 
+	<!-- 게시글 등록 -->
 	<insert id="registerTravelreview"
 		parameterType="com.walkietalkie.triptalkie.domain.TravelReview"
 		useGeneratedKeys="true" keyProperty="idx">
@@ -104,7 +106,8 @@
 		#{mateType}, #{content}, #{cityId}, #{memberId})
 
 	</insert>
-
+	
+	<!-- 여행 후기 게시글 번호로 리뷰 조회 -->
 	<select id="findTravelreviewByIdx" parameterType="Long"
 		resultType="map">
 		SELECT
@@ -116,6 +119,7 @@
 		WHERE idx = #{idx};
 	</select>
 
+	<!-- 여행 후기 글 번호 + 멤버 아이디로 업데이트 -->
 	<update id="updateTravelreviewByIdxAndMemberId"
 		parameterType="com.walkietalkie.triptalkie.domain.TravelReview">
 		UPDATE travelreview
@@ -133,6 +137,7 @@
 		AND member_id = #{memberId}
 	</update>
 
+	<!-- 게시글 번호로 여행 후기 글 삭제 -->
 	<delete id="deleteTravelreviewByIdx" parameterType="Long">
 		DELETE FROM
 		travelreview
@@ -141,21 +146,26 @@
 
 	<select id="findTravelreviewTop3ByView">
 		SELECT
-		tr.idx, tr.title, tri.saved_name AS thumbnail, tr.view,
+		tr.idx, tr.title, tri.saved_name AS thumbnail,
+		tr.view,
 		c.name AS cityName, co.name AS countryName
 		FROM travelreview tr
 		LEFT JOIN travelreview_image tri ON tri.travelreview_idx = tr.idx
-		AND tri.created_at = (
-			SELECT MIN(created_at)
-			FROM travelreview_image
-			WHERE travelreview_idx = tr.idx
+		AND
+		tri.created_at = (
+		SELECT MIN(created_at)
+		FROM travelreview_image
+		WHERE travelreview_idx = tr.idx
 		)
-		LEFT JOIN city c ON tr.city_id = c.id LEFT JOIN country co ON c.country_id = co.id
+		LEFT JOIN city c ON tr.city_id = c.id LEFT
+		JOIN country co ON c.country_id = co.id
 		ORDER BY tr.view DESC
 		LIMIT 3
 	</select>
-	
+
+	<!-- 멤버 아이디를 이용한 게시글 조회 -->
 	<select id="findtravelReviewByMemberId">
-		SELECT idx, title, created_at FROM travelreview WHERE member_id = #{memberId} ORDER BY created_at DESC
+		SELECT idx, title, created_at FROM travelreview WHERE
+		member_id = #{memberId} ORDER BY created_at DESC
 	</select>
 </mapper>
