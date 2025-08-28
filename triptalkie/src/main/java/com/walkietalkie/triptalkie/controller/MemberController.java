@@ -1,11 +1,12 @@
 package com.walkietalkie.triptalkie.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -154,6 +155,41 @@ public class MemberController {
 			redirectAttributes.addFlashAttribute("error", "회원 탈퇴 처리 중 오류가 발생했습니다.");
 			return "redirect:/mypage";
 		}
+	}
+	
+	/*
+	 * 아이디 비밀번호 찾기 페이지 이동
+	 */
+	
+	@GetMapping("/findIdOrPwd")
+	public String findIdOrPwdPage() {
+		return "pages/member/find-id-password";
+	}
+	
+	@PostMapping("/findIdByEmail")
+	@ResponseBody
+	public Map<String, Object> findIdByEmail(@RequestParam String email){
+		System.out.println("findIdByEmail 진입");
+		System.out.println("넘어 온 email 값 : " + email);
+		Map<String, Object> resultMap = new HashMap<>();
+
+		String memberId = memberService.findIdByEmail(email);
+		try {
+			if (memberId != null) {
+				
+				resultMap.put("success", true);
+				resultMap.put("memberId", memberId);
+			} else {
+				resultMap.put("success", false);
+	        }
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "아이디 찾기 중 오류가 발생했습니다.");
+		}
+
+		return resultMap;
 	}
 
 }

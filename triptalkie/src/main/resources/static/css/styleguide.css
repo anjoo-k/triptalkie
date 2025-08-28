@@ -114,7 +114,8 @@ h6 {
 
 .btn--radius {
 	border-radius: 10px;
-	width: 80px;
+	width: 90px;
+	height: 38px;
 }
 
 /* 게시글 작성 버튼 */
