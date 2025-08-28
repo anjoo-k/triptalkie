@@ -115,36 +115,38 @@
 		SELECT id, name, country_id FROM city where id = #{id}
 	</select>
 
-	<!-- 계층형 resultMap -->
+	<!-- TravelInfoMap: 여행 정보 상세 조회용 -->
 	<resultMap id="TravelInfoMap"
 		type="com.walkietalkie.triptalkie.domain.TravelInfo">
 		<id property="idx" column="idx" />
 		<result property="title" column="title" />
+		<result property="view" column="view" />
 		<result property="content" column="content" />
 		<result property="infotype" column="infotype" />
 		<result property="infodate" column="infodate" />
 		<result property="memberId" column="member_id" />
-		<result property="memberNickname" column="memberNickname" />
-		<result property="createdAt" column="created_at" />
-		<result property="view" column="view" />
 
-		<!-- City 매핑 -->
+		<!-- 계층형 매핑 -->
 		<association property="city"
 			javaType="com.walkietalkie.triptalkie.domain.City">
 			<id property="id" column="city_id" />
 			<result property="name" column="city_name" />
-
-			<!-- Country 매핑 -->
 			<association property="country"
 				javaType="com.walkietalkie.triptalkie.domain.Country">
 				<id property="id" column="country_id" />
 				<result property="name" column="country_name" />
 			</association>
 		</association>
+
+		<association property="member"
+			javaType="com.walkietalkie.triptalkie.domain.Member">
+			<id property="id" column="member_id" />
+			<result property="nickname" column="member_nickname" />
+		</association>
 	</resultMap>
 
 	<!-- 상세 조회 -->
-	<select id="getTravelInfoDetail" parameterType="long"
+	<select id="getTravelInfoDetail" parameterType="Long"
 		resultMap="TravelInfoMap">
 		SELECT
 		ti.idx,
@@ -160,79 +162,79 @@
 		co.name AS country_name
 		FROM
 		travelinfo ti
-		JOIN city c ON ti.city_id =
-		c.id
+		JOIN member m ON ti.member_id = m.id
+		JOIN city c ON ti.city_id = c.id
 		JOIN country co ON
 		c.country_id = co.id
-		WHERE ti.idx = #{idx}
+		WHERE ti.idx =
+		#{idx}
 	</select>
 
-	<!-- 검색 + 페이징 (TravelInfoMap 사용) -->
-	<select id="searchTravelInfo" parameterType="map"
-		resultMap="TravelInfoMap">
+	<!-- 검색 + 페이징 -->
+	<select id="searchTravelInfo" resultType="map">
 		SELECT
-		ti.idx,
-		ti.title,
-		ti.content,
-		ti.infotype,
-		ti.infodate,
-		ti.member_id,
-		m.nickname AS memberNickname,
-		ti.created_at,
-		ti.view,
-		c.id
-		AS city_id,
-		c.name AS city_name,
-		co.id AS country_id,
-		co.name AS
-		country_name
-		FROM travelinfo ti
-		JOIN city c ON ti.city_id = c.id
-		JOIN
-		country co ON c.country_id = co.id
-		LEFT JOIN member m ON ti.member_id =
-		m.id
+		t.idx,
+		t.title,
+		t.view,
+		t.infotype,
+		DATE_FORMAT(t.created_at,
+		'%Y-%m-%d') AS createdAtStr,
+		t.updated_at,
+		DATE_FORMAT(t.infodate,
+		'%Y-%m') AS infodateStr,
+		t.content,
+		c.id AS cityId,
+		c.name AS cityName,
+		co.id AS countryId,
+		co.name AS countryName,
+		m.nickname AS nickName
+		FROM
+		travelinfo t
+		JOIN city c ON t.city_id = c.id
+		JOIN country co ON
+		c.country_id = co.id
+		JOIN member m ON t.member_id = m.id
 		<where>
-			<if test="params.title != null and params.title != ''">
-				AND ti.title LIKE CONCAT('%', #{params.title}, '%')
+			<if test="title != null and title != ''">
+				AND t.title LIKE CONCAT('%', #{title}, '%')
 			</if>
-			<if test="params.infotype != null and params.infotype != ''">
-				AND ti.infotype = #{params.infotype}
+			<if test="infotype != null and infotype != ''">
+				AND t.infotype = #{infotype}
 			</if>
-			<if test="params.cityId != null and params.cityId != ''">
-				AND ti.city_id = #{params.cityId}
+			<if test="cityId != null and cityId != ''">
+				AND t.city_id = #{cityId}
 			</if>
-			<if test="params.countryId != null and params.countryId != ''">
-				AND co.id = #{params.countryId}
+			<if test="countryId != null and countryId != ''">
+				AND co.id = #{countryId}
 			</if>
 		</where>
-		ORDER BY ti.created_at DESC
-		LIMIT #{offset}, #{limit}
+		ORDER BY t.idx DESC
+		LIMIT #{offset}, #{size}
 	</select>
 
 	<!-- 검색 결과 총 개수 -->
-	<select id="countSearchTravelInfo" parameterType="map"
-		resultType="int">
+	<select id="countSearchTravelInfo" resultType="int">
 		SELECT COUNT(*)
-		FROM travelinfo ti
-		JOIN city c ON ti.city_id = c.id
+		FROM travelinfo t
+		JOIN city c ON t.city_id = c.id
 		JOIN
 		country co ON c.country_id = co.id
 		<where>
-			<if test="params.title != null and params.title != ''">
-				AND ti.title LIKE CONCAT('%', #{params.title}, '%')
+			<if test="title != null and title != ''">
+				AND t.title LIKE CONCAT('%', #{title}, '%')
 			</if>
-			<if test="params.infotype != null and params.infotype != ''">
-				AND ti.infotype = #{params.infotype}
+			<if test="infotype != null and infotype != ''">
+				AND t.infotype = #{infotype}
 			</if>
-			<if test="params.cityId != null and params.cityId != ''">
-				AND ti.city_id = #{params.cityId}
+			<if test="cityId != null and cityId != ''">
+				AND t.city_id = #{cityId}
 			</if>
-			<if test="params.countryId != null and params.countryId != ''">
-				AND co.id = #{params.countryId}
+			<if test="countryId != null and countryId != ''">
+				AND co.id = #{countryId}
 			</if>
 		</where>
 	</select>
+
 
 
 

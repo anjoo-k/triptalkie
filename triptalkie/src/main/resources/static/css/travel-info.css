@@ -1,0 +1,26 @@
+/* travel-info.css */
+/* travel-info 페이지 전용 이미지 박스 (16:9 비율) */
+.travel-info-page .info-imagebox {
+  width: 100%;             /* 부모 폭에 맞춤 */
+  max-width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+/* 이미지 */
+.travel-info-page .info-imagebox .info-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}

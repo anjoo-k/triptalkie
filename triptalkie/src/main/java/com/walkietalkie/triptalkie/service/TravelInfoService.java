@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,8 @@ public class TravelInfoService {
 	private final TravelInfoMapper travelInfoMapper;
 
 	// [] 의존성 주입
-	public TravelInfoService(TravelInfoMapper travelInfoMapper, MemberService memberService) {
+	public TravelInfoService(TravelInfoMapper travelInfoMapper,
+			MemberService memberService) {
 		this.travelInfoMapper = travelInfoMapper;
 		this.memberService = memberService;
 	}
@@ -61,7 +63,8 @@ public class TravelInfoService {
 
 	// 여행정보 글 수정
 	@Transactional
-	public int updateTravelInfoByIdxAndMemberId(TravelInfo travelInfo, HttpSession session) {
+	public int updateTravelInfoByIdxAndMemberId(TravelInfo travelInfo,
+			HttpSession session) {
 		// 세션에서 로그인한 사용자 ID 가져오기
 		String loginId = (String) session.getAttribute("loginId");
 		if (loginId == null || !loginId.equals(travelInfo.getMemberId())) {
@@ -96,23 +99,34 @@ public class TravelInfoService {
 	 * 
 	 * @return TravelInfoListDTO 객체들의 리스트
 	 */
-	public CommonPage<TravelInfoListDTO> getTravelInfoListPage(int page, int size) {
+	public CommonPage<TravelInfoListDTO> getTravelInfoListPage(int page,
+			int size) {
 		// offset 계산
 		int offset = (page - 1) * size;
 
 		// 페이지 데이터 조회
-		List<TravelInfoListDTO> content = travelInfoMapper.selectTravelInfoListPage(offset, size);
+		List<TravelInfoListDTO> content = travelInfoMapper
+				.selectTravelInfoListPage(offset, size);
 
 		// 전체 데이터 개수 조회
 		int totalCount = travelInfoMapper.selectTravelInfoCount();
 		int totalPage = (int) Math.ceil((double) totalCount / size);
 
-		// 페이지 블록 계산
 		int pageBlock = 5;
+		// 페이지 블록 기본값
+
 		int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+
 		int endPage = Math.min(startPage + pageBlock - 1, totalPage);
 
-		return new CommonPage<>(content, size, page, totalPage, startPage, endPage);
+		// [] 만약에 totalPage 개수가 총 페이지 숫자보다 작으면 -> 총 페이지 수만큼만 버튼 출력한다.
+		if (totalPage <= pageBlock) {
+			startPage = 1;
+			endPage = totalPage;
+		}
+
+		return new CommonPage<>(content, size, page, totalPage, startPage,
+				endPage);
 	}
 
 	@Transactional
@@ -132,50 +146,40 @@ public class TravelInfoService {
 		return travelInfoMapper.findCityById(id);
 	}
 
-	public TravelInfo getTravelInfoDetail(long idx) {
+	public TravelInfo getTravelInfoDetail(Long idx) {
 		TravelInfo travelInfo = travelInfoMapper.getTravelInfoDetail(idx);
 
 		// DB infodate를 년-월 문자열로 변환해서 tempMonth에 저장
 		if (travelInfo.getInfodate() != null) {
-			travelInfo.setTempMonth(travelInfo.getInfodate().format(DateTimeFormatter.ofPattern("yyyy-MM")));
+			travelInfo.setTempMonth(travelInfo.getInfodate()
+					.format(DateTimeFormatter.ofPattern("yyyy-MM")));
 		}
 
 		return travelInfo;
 	}
 
-	// 검색 결과 페이지 별 출력
-	public CommonPage<Map<String, Object>> searchTravelInfoPage(Map<String, Object> params, int page, int size) {
-	    int totalCount = travelInfoMapper.countSearchTravelInfo(params);
-	    int totalPage = (int) Math.ceil((double) totalCount / size);
-	    int pageBlock = 5;
-	    int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
-	    int endPage = Math.min(startPage + pageBlock - 1, totalPage);
-	    int offset = (page - 1) * size;
+    // 검색 + 페이징
+    public Map<String, Object> searchTravelInfo(String title, String infotype,
+                                                String countryId, String cityId,
+                                                int page, int size) {
+        int offset = (page - 1) * size;
 
-	    List<TravelInfo> content = travelInfoMapper.searchTravelInfo(params, offset, size);
+        List<Map<String, Object>> list = travelInfoMapper.searchTravelInfo(
+                title, infotype, cityId, countryId, offset, size);
 
-	    // Map 변환
-	    List<Map<String, Object>> mapContent = content.stream().map(info -> {
-	        Map<String, Object> map = new HashMap<>();
-	        map.put("idx", info.getIdx());
-	        map.put("title", info.getTitle());
-	        map.put("cityName", info.getCity() != null ? info.getCity().getName() : "");
-	        map.put("nickName", info.getMemberNickname());
-	        map.put("countryName", info.getCountryName());
-	        map.put("createdAt", info.getCreatedAt());
-	        map.put("infotype", info.getInfotype());
-	        map.put("infodate", info.getInfodate());
-	        map.put("view", info.getView());
+        int totalCount = travelInfoMapper.countSearchTravelInfo(title, infotype,
+                cityId, countryId);
+        int totalPage = (int) Math.ceil((double) totalCount / size);
 
-	        // 문자열 포맷 처리
-	        map.put("createdAtStr", info.getCreatedAt() != null
-	            ? info.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")) : "");
-	        map.put("infodateStr", info.getInfodate() != null
-	            ? info.getInfodate().format(DateTimeFormatter.ofPattern("yyyy/MM")) : "");
+        Map<String, Object> result = new HashMap<>();
+        result.put("list", list);
+        result.put("currentPage", page);
+        result.put("size", size);
+        result.put("totalPage", totalPage);
 
-	        return map;
-	    }).toList();
+        return result;
+    }
+    
 
-	    return new CommonPage<>(mapContent, size, page, totalPage, startPage, endPage);
-	}
+
 }
