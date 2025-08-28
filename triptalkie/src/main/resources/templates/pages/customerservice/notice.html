@@ -14,11 +14,12 @@
 		</aside>
 		<!-- 게시판 -->
 		<section class="col-sm-9" style="color: #333333;">
+		<h4 class="mb-3 mypage-title">공지사항</h4>
 			<article>
 				<table class="table table-hover">
 					<thead class="list-title">
 						<tr>
-							<th>글번호</th>
+							<th>번호</th>
 							<th>글제목</th>
 							<th>닉네임</th>
 							<th>날짜</th>
@@ -27,7 +28,7 @@
 					<tbody class="list-content">
 						<tr th:each="row : ${noticeList}">
 							<td th:text="${row.noticeList.idx}"></td>
-							<td><a
+							<td class="notice-title"><a
 								th:href="@{/customerservice/notice/detailPage/{noticeId}(noticeId=${row.noticeList.idx})}">
 									<span th:text="${row.noticeList.title}" style="color: #333333;">공지사항입니다</span>
 							</a></td>
