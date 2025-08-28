@@ -169,9 +169,9 @@ public class TravelInfoService {
 
 	        // 문자열 포맷 처리
 	        map.put("createdAtStr", info.getCreatedAt() != null
-	            ? info.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")) : "");
+	            ? info.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
 	        map.put("infodateStr", info.getInfodate() != null
-	            ? info.getInfodate().format(DateTimeFormatter.ofPattern("yyyy/MM")) : "");
+	            ? info.getInfodate().format(DateTimeFormatter.ofPattern("yyyy-MM")) : "");
 
 	        return map;
 	    }).toList();
