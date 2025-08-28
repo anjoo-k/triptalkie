@@ -148,43 +148,6 @@ input[type="radio"]:checked+label.mate-type {
 	color: var(--color-secondary);
 }
 
-.back-to-list, .edit-delete-btns {
-	border: 1px solid var(--color-primary);
-	background-color: var(--color-secondary);
-	color: var(--color-primary);
-	border-radius: 24px; /* pill 모양 */
-	font-weight: inherit;
-}
-
-.back-to-list:hover, .edit-delete-btns:hover {
- 	border: 1px solid var(--color-primary);
-	background-color: var(--color-secondary);
-	color: var(--color-primary);
-}
-
-.back-to-list, .btn-completed-writing {
-	height: 48px;
-	min-width: 150px; /* 버튼 최소 가로 길이 */
-	border-radius: 24px; /* pill 모양 */
-	font-size: 16px;
-	font-weight: bold;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.btn-completed-writing {
-	border: none;
-	background-color: var(--color-secondary);
-	color: var(--color-text-secondary);
-	width: 75%;
-}
-
-.btn-completed-writing:hover {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-}
-
 /* 상세 페이지 CSS */
 .form-container {
 	width: 700px;
@@ -229,28 +192,13 @@ input[type="radio"]:checked+label.mate-type {
 	height: 100%;
 	object-fit: cover;
 }
-/* 
-.btn-edit, .btn-delete {
-	background: none;
-	border: none;
-	color: var(--color-text-secondary);
-	font-size: 14px;
-	cursor: pointer;
-	transition: color 0.2s ease;
-}
-
-.btn-edit:hover, .btn-delete:hover {
-	color: var(--color-primary);
-	text-decoration: underline;
-} */
 
 .review-btn {
 	color: var(--color-primary);
 }
-
 .review-btn:hover {
-	color: var(--color-primary);
-	border-radius: 15px;
+	color: var(--color-secondary);
+	border-radius: 20px;
 }
 
 /* 셀렉트 박스 CSS */

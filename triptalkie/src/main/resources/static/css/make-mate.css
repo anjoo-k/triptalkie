@@ -134,23 +134,18 @@
 }
 
 .btn-mm-back, .btn-mm-complete {
-	height: 48px;
 	min-width: 150px; /* 버튼 최소 가로 길이 */
-	border-radius: 24px; /* pill 모양 */
+	border-radius: 20px; /* pill 모양 */
 	font-size: 16px;
-	font-weight: bold;
+	background-color: #fff;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.button-mm-section {
-	background-color: #fff;
-}
-
 .btn-mm-back {
 	border: 1px solid var(--color-primary);
-	background-color: var(--color-secondary);
+	background-color: #fff;
 	color: var(--color-primary);
 }
 .btn-mm-back:hover {
@@ -161,7 +156,7 @@
 
 .btn-mm-complete {
 	border: none;
-	background-color: var(--color-secondary);
+	background-color: #fff;
 	color: var(--color-text-secondary);
 	width: 100%
 }

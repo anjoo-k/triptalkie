@@ -178,7 +178,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-2">
-				<a th:href="@{/makemate/list}" class="btn btn-backToList">목록</a>
+				<a th:href="@{/makemate/list}" class="btn btn-backToList back-to-list">목록</a>
 			</div>
 			<div class="col-sm-6"></div>
 			<!-- 글쓴이일 경우 -->
@@ -187,7 +187,7 @@
 				<div class="col-sm-2">
 					<a
 						th:href="@{/makemate/editPage/{makemateId}(makemateId=${makemate.idx})}"
-						class="btn btn-makemate-delete">수정하기</a>
+						class="btn btn-makemate-delete edit-delete-btns">수정하기</a>
 				</div>
 				<form
 					th:action="@{/makemate/delete/{makemateId}(makemateId=${makemate.idx})}"

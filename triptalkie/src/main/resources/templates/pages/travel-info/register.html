@@ -5,7 +5,7 @@
 
 <main layout:fragment="content">
 	<h4 class="text-center content--title">나의 여행 정보를 공유해주세요</h4>
-	<div class="register-containers bg--containers pt-5 pb-5">
+	<div class="register-containers bg--containers pt-3 pb-3">
 
 		<div class="form-container">
 			<!-- 글쓰기 전용 폼 -->
@@ -24,7 +24,7 @@
 				<div class="form-group row">
 					<!-- 여행 정보 유형 -->
 					<div class="col-md-4">
-						<label>여행 정보 유형</label> <select th:field="*{infotype}"
+						<label class="subheading">여행 정보 유형</label> <select th:field="*{infotype}"
 							class="form-control" required>
 							<option value="">선택</option>
 							<option value="팁">팁</option>
@@ -42,7 +42,7 @@
 
 					<!-- 여행 기준일 -->
 					<div class="col-md-4">
-						<label>정보 기준일</label> <input type="month" th:field="*{tempMonth}"
+						<label class="subheading">정보 기준일</label> <input type="month" th:field="*{tempMonth}"
 							class="form-control" required />
 					</div>
 
@@ -51,7 +51,7 @@
 				<div class="form-group row">
 					<!-- 나라 선택 -->
 					<div class="form-group col">
-						<label for="country">나라</label> <select id="country"
+						<label class="subheading" for="country">나라</label> <select id="country"
 							class="form-control" required>
 							<option value="">-- 나라 선택 --</option>
 							<option th:each="country : ${countryList}"
@@ -61,7 +61,7 @@
 
 					<!-- 도시 선택 -->
 					<div class="form-group col">
-						<label for="city">도시</label>
+						<label class="subheading" for="city">도시</label>
 						<!-- <select id="city"
 							th:field="*{cityId}" class="form-control" required> -->
 						<select id="city" name="cityId" class="form-control" required>
@@ -113,9 +113,9 @@
 
 				<!-- 5️⃣ 버튼 -->
 				<div class="d-flex justify-content-between align-items-center">
-					<button type="button" class="btn btn-back"
+					<button type="button" class="btn btn-back back-to-list"
 						onclick="history.back();">목록</button>
-					<button type="submit" class="btn btn-primary btn-complete-editing">글쓰기</button>
+					<button type="submit" class="btn btn-completed-writing">완료</button>
 				</div>
 
 			</form>

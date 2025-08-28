@@ -5,7 +5,7 @@
 <!-- 여행 정보 게시판 리스트 -->
 <main layout:fragment="content">
 	<h4 class="text-center content--title"></h4>
-	<div class="travel-info-containers bg--containers pt-5 pb-5">
+	<div class="travel-info-containers bg--containers pt-3 pb-3">
 		<!-- 검색 폼 (review 스타일 적용) -->
 		<div class="form-container">
 			<form th:action="@{/travel-info/list}" method="get" id="searchForm">
@@ -80,15 +80,14 @@
 								<a th:href="@{/travel-info/detail/{idx}(idx=${map['idx']})}"
 									class="card-title h5 mb-1 title list-title"
 									th:text="${map['title'] != null ? map['title'] : '제목 없음'}">글
-									제목</a> <span class="badge badge--sub-desc"
-									th:text="${map['nickName']}">작성자</span> <span
-									class="badge--sub-desc" th:text="${map['createdAtStr']}">2025-08-17</span>
+									제목</a> <span class="badge badge--sub-desc" th:text="${map['nickName']}">작성자</span>
+								<span class="badge--sub-desc" th:text="${map['createdAtStr']}">2025-08-17</span>
 							</div>
 
 							<div class="row-travel-date">
 								<span class="badge badge badge--category travel-type"
 									th:text="${map['infotype']}">정보종류</span> <span
-									class="badge--sub-desc" th:text="${map['infodateStr']}">2025-08</span>
+									class="badge--sub-desc" th:text="${map['infodateStr']}"></span>
 							</div>
 						</div>
 					</div>
@@ -181,8 +180,8 @@
 			</div>
 
 			<!-- 검색 결과 없을 때 메시지 -->
-<!-- 			<div th:if="${pageData == null or pageData.totalPage == 0}"
-				class="col-6 text-center p-3">검색 결과가 없습니다.</div> -->
+			<div th:if="${pageData == null or pageData.totalPage == 0}"
+				class="col-6 text-center p-3">검색 결과가 없습니다.</div>
 
 			<!-- 오른쪽 글쓰기 버튼 -->
 			<div
@@ -200,8 +199,6 @@
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="page" value="1">
-
 
 	<script th:src="@{/js/travel-info.js}"></script>
 </main>
