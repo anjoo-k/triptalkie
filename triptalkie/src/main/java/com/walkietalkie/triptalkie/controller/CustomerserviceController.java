@@ -53,10 +53,10 @@ public class CustomerserviceController {
 	@GetMapping("/faq")
 	public String findAllFaq(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size,
 			Model model) {
-
+		model.addAttribute("active", "faq");
 		CommonPage<Map<String, Object>> pageData = customerserviceService.findFaqPage(page, size);
-		model.addAttribute("faqList", pageData.getContent()); // 실제 데이터 리스트
-		model.addAttribute("pageData", pageData); // 페이징 정보 전체
+		model.addAttribute("faqList", pageData.getContent());
+		model.addAttribute("pageData", pageData); 
 		return "pages/customerservice/faq";
 	}
 
@@ -64,8 +64,9 @@ public class CustomerserviceController {
 	@GetMapping("/qna")
 	public String qnaTest(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10") int size, Model model) {
 		CommonPage<Map<String, Object>> pageData = customerserviceService.findQnaPage(page, size);
-		model.addAttribute("qnaList", pageData.getContent()); // 실제 데이터 리스트
-		model.addAttribute("pageData", pageData); // 페이징 정보 전체
+		model.addAttribute("active", "qna");
+		model.addAttribute("qnaList", pageData.getContent()); 
+		model.addAttribute("pageData", pageData);
 		return "pages/customerservice/qna";
 	}
 }

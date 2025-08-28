@@ -62,13 +62,14 @@
 						<li
 							th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
 							class="page-item pagination--spacing"><a class="page-link"
-							th:href="@{/community/list(page=1)}">&laquo;</a></li>
+							th:href="@{/community/list(page=1, search=${search})}">&laquo;</a>
+						</li>
 
 						<!-- 이전 -->
 						<li
 							th:classappend="${pageData.currentPage == 1} ? 'disabled' : ''"
 							class="page-item pagination--spacing"><a class="page-link"
-							th:href="@{/community/list(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1})}">&lt;</a>
+							th:href="@{/community/list(page=${pageData.currentPage > 1 ? pageData.currentPage - 1 : 1}, search=${search})}">&lt;</a>
 						</li>
 
 						<!-- 페이지 번호 반복 -->
@@ -76,20 +77,20 @@
 							th:each="i : ${#numbers.sequence(pageData.startPage, pageData.endPage)}"
 							th:classappend="${i == pageData.currentPage} ? 'active' : ''"
 							class="page-item pagination--spacing"><a class="page-link"
-							th:href="@{/community/list(page=${i})}" th:text="${i}">1</a></li>
+							th:href="@{/community/list(page=${i}, search=${search})}" th:text="${i}">1</a></li>
 
 						<!-- 다음 -->
 						<li
 							th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
 							class="page-item pagination--spacing"><a class="page-link"
-							th:href="@{/community/list(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage})}">&gt;</a>
+							th:href="@{/community/list(page=${pageData.currentPage < pageData.totalPage ? pageData.currentPage + 1 : pageData.totalPage}, search=${search})}">&gt;</a>
 						</li>
 
 						<!-- 마지막 -->
 						<li
 							th:classappend="${pageData.currentPage == pageData.totalPage} ? 'disabled' : ''"
 							class="page-item pagination--spacing"><a class="page-link"
-							th:href="@{/community/list(page=${pageData.totalPage})}">&raquo;</a>
+							th:href="@{/community/list(page=${pageData.totalPage}, search=${search})}">&raquo;</a>
 						</li>
 					</ul>
 				</nav>
