@@ -4,11 +4,12 @@
 	namespace="com.walkietalkie.triptalkie.mapper.MakemateMapper">
 	<resultMap id="AllMemberlistMap"
 		type="com.walkietalkie.triptalkie.domain.Memberlist">
-		<result property="makemateIdx" column="makemate_idx" />
-		<result property="memberId" column="member_id" />
+    		<id property="memberId" column="member_id"/>
+    		<result property="makemateIdx" column="makemate_idx"/>
 
 		<collection property="memberImage" ofType="com.walkietalkie.triptalkie.domain.MemberImage">
-			<id property="idx" column="idx"/>
+			<id property="memberId" column="member_id"/>
+			<result property="idx" column="idx"/>
 			<result property="originalName" column="original_name" />
 			<result property="filePath" column="file_path" />
 			<result property="savedName" column="saved_name" />
@@ -112,9 +113,14 @@
 	</select>
 	<!-- 멤버사진 담아오기 -->
 	<select id="findAllMemberlistPhoto" resultMap="AllMemberlistMap">
-		SELECT mi.idx, mi.original_name, mi.file_path, mi.saved_name, ml.makemate_idx, ml.member_id
+		  SELECT ml.makemate_idx ,
+		         ml.member_id,
+		         mi.idx ,
+		         mi.original_name,
+		         mi.file_path,
+		         mi.saved_name
 		FROM memberlist ml
-		JOIN member_image mi ON (ml.member_id = mi.member_id)
+		LEFT JOIN member_image mi ON (ml.member_id = mi.member_id)
 		WHERE makemate_idx=#{makemateId}
 	</select>
 	<!-- 멤버 담아오기 -->

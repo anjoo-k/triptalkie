@@ -74,3 +74,18 @@
 	min-height: 500px;   /* 카드 세로 최소 크기 */
 }
 
+/*
+	메이트 리더 정보
+*/
+.member-profile{
+	width: 150px;
+	height: 150px;
+	margin: auto;
+}
+
+.member-profile img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 1.25rem;
+}

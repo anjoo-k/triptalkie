@@ -25,6 +25,14 @@ public class MemberImage {
 		super();
 	}
 
+	public MemberImage(Long idx, String originalName, String savedName, String filePath) {
+		super();
+		this.idx = idx;
+		this.originalName = originalName;
+		this.savedName = savedName;
+		this.filePath = filePath;
+	}
+
 	// Getter / Setter 메서드
 	public Long getIdx() {
 		return idx;

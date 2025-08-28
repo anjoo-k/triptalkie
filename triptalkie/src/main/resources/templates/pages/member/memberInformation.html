@@ -8,10 +8,11 @@
 	<section class="col-sm-9 container">
 		<article>
 			<!-- 프로필 이미지 -->
-			<div class="text-center mb-5">
-				<img class="img-thumbnail original--profile" alt="original-profile"
-					th:src="@{/images/profile/original-profile.png}"
-					style="width: 150px; height: auto; border-radius: 1.25rem;">
+			<div class="text-center mb-5 member-profile">
+				<img
+					th:src="${memberlist != null} ? '/uploads/profile/' + ${memberlist.memberImage.savedName} : '/uploads/profile/default.jpg'"
+					alt="프로필사진"
+					class="img-fluid rounded-circle d-block border">
 			</div>
 			<!-- 내정보 -->
 			<table class="table table-borderless">

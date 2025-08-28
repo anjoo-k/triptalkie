@@ -87,7 +87,7 @@ public class MakemateChatController {
 		String makemateIdxStr = makemateIdx.toString();
 		// makemate idx 가져오기
 
-		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateIdx);
+		Map<String, Object> combinedMap = makemateService.findMakemateByIdx(makemateIdx, loginId);
 		Makemate makemate = (Makemate) combinedMap.get("makemate");
 		
 		String makemateHostId = makemate.getMemberId();
