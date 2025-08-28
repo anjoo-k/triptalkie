@@ -79,7 +79,7 @@
 						<!-- 2행: 썸네일 + 글 제목/내용 -->
 						<div class="d-flex mb-2">
 							<!-- 썸네일 -->
-							<div class="thumbnail mr-2"
+							<div class="thumbnail mr-3"
 								style="flex: 0 0 100px; height: 100px;">
 								<img
 									th:src="${list.photo != null} ? '/uploads/' + ${list.photo.savedName} : '/images/bangkok.jpg'"
@@ -103,7 +103,7 @@
 						<div
 							class="d-flex justify-content-between align-items-center flex-wrap">
 							<!-- 여행지 배지 -->
-							<span class="badge badge--category travel-type mt-auto"
+							<span class="badge city-type mt-auto"
 								th:text="${list.city.name}">제주도</span>
 
 							<!-- 프로필 + 유저 정보 + 날짜 -->
