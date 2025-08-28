@@ -29,7 +29,6 @@ public class TravelInfo {
 	// 생성자
 	public TravelInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	// getter / setter
