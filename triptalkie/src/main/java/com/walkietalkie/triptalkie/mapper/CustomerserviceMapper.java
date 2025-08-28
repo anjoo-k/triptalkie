@@ -30,4 +30,8 @@ public interface CustomerserviceMapper {
 
 	List<Notice> findNoticeTop5();
 
+	int findCountQna();
+
+	List<Map<String, Object>> findQnaPaged(int size, int startRow);
+
 }
