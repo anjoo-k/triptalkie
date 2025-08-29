@@ -9,7 +9,8 @@
   <ul class="list-group">
     <li class="list-group-item" th:each="room : ${rooms}">
       <a th:href="@{/makemate/chat/room(chatroomIdx=${room.idx})}">
-        <span th:text="${room.member1Id} + ' / ' + ${room.member2Id}"></span>
+        <!-- <span th:text="${room.member1Id} + ' / ' + ${room.member2Id}"></span> -->
+        <span th:text="${room.member2Id} + '님과의 채팅을 시작해 보세요'"></span>
       </a>
     </li>
   </ul>
