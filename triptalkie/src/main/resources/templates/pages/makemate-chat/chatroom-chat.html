@@ -23,7 +23,7 @@
 }
 
 .message.me {
-	background-color: #007bff;
+	background-color: #7CD3C2;
 	color: white;
 	align-self: flex-end; /* 오른쪽 정렬 */
 }
@@ -33,6 +33,12 @@
 	color: #333;
 	align-self: flex-start; /* 왼쪽 정렬 */
 }
+
+.btn-chat {
+	background-color: #7CD3C2;
+	border-color: #7CD3C2;
+}
+
 </style>
 </head>
 <main layout:fragment="content">
@@ -42,7 +48,7 @@
 
 		<form id="chat-form" class="form-inline">
 			<input type="text" id="message" class="form-control mr-2 flex-grow-1" placeholder="메시지 입력">
-			<button type="submit" class="btn btn-primary">전송</button>
+			<button type="submit" class="btn btn-primary btn-chat">전송</button>
 		</form>
 	</div>
 
