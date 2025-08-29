@@ -101,7 +101,7 @@ public class MakemateService {
 		MakemateImage photo = makemateImageService.findImageByMakemateIdx(makemateId);
 		int numbersOfMembers = makemateMapper.findCountMemberByIdx(makemate.getIdx());
 		List<Memberlist> memberlistPhoto = makemateMapper.findAllMemberlistPhoto(makemateId);
-		String leaderPhoto = memberImageService.getImageUrlByMemberId(memberId);
+		String leaderPhoto = memberImageService.getImageUrlByMemberId(makemate.getMemberId());
 		
 		// 신청자인지 판단
 		boolean alreadyApplied = false;
