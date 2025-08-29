@@ -184,16 +184,14 @@
 			<!-- 글쓴이일 경우 -->
 			<th:block
 				th:if="${session.loginId != null and session.loginId == makemate.memberId}">
-				<div class="col-sm-2">
+				<div class="col-sm-4 d-flex justify-content-end">
 					<a
 						th:href="@{/makemate/editPage/{makemateId}(makemateId=${makemate.idx})}"
-						class="btn btn-makemate-delete edit-delete-btns">수정하기</a>
+						class="btn btn-edit btn-makemate-delete mr-1">수정</a>
+					<form th:action="@{/makemate/delete/{makemateId}(makemateId=${makemate.idx})}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+						<button type="submit" class="btn btn-delete btn-makemate-edit">삭제</button>
+					</form>
 				</div>
-				<form
-					th:action="@{/makemate/delete/{makemateId}(makemateId=${makemate.idx})}"
-					method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-					<button type="submit" class="btn btn-makemate-edit">삭제하기</button>
-				</form>
 			</th:block>
 
 			<!-- 글쓴이가 아닐 경우 -->
