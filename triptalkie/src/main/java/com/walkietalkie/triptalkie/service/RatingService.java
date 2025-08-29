@@ -37,10 +37,13 @@ public class RatingService {
 		
 		return filteredList;
 	}
-
+	
+	@Transactional
 	public void saveRating(Star star) {
+		System.out.println(">>> BEFORE INSERT: " + star);
 		ratingMapper.insertRating(star);
-		System.out.println("***별점 : "+star.getRating());
+		 System.out.println("*** 별점 : " + star.getRating());
+
 		rateMember(star);
 	}
 	
