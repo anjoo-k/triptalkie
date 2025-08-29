@@ -1,7 +1,10 @@
 package com.walkietalkie.triptalkie.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import com.walkietalkie.triptalkie.domain.Rating;
 import com.walkietalkie.triptalkie.domain.Star;
 
@@ -13,8 +16,8 @@ public interface RatingMapper {
 	void insertRating(Star star);
 	
 	void updateRating(Star star);
-	
 
-	void updateMemberCredit(String ratedId, int creditChange);
+	void updateMemberCredit(@Param("ratedId") String ratedId,
+            			    @Param("creditChange") int creditChange);
 
 }

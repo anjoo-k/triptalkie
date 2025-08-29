@@ -14,8 +14,8 @@
     </div>
 
     <!-- 메이트 목록 반복 -->
-    <div class="row" th:each="mate : ${mates}">
-      <div class="col-md-12 mb-3">
+    <div class="row justify-content-start" th:each="mate : ${mates}">
+      <div class="col-md-10 mb-3">
         <div class="card">
           <div class="card-body">
 
@@ -33,7 +33,7 @@
             </div>
 
             <!-- 평가 폼 -->
-            <div class="mt-3">
+            <div class="mt-3" >
 
               <!-- 평가한 적이 없는 경우 → insert -->
               <form th:if="${mate.israted == null or mate.israted == false}"
@@ -41,7 +41,7 @@
                 <input type="hidden" name="raterId" th:value="${session.loginId}" />
                 <input type="hidden" name="ratedId" th:value="${mate.memberId}" />
                 <input type="hidden" name="makemateIdx" th:value="${mate.makemateIdx}" />
-                <input type="hidden" name="israted" value="true" />
+                <input type="hidden" name="israted" value="false" />
 
                 <!-- 별점 (rabbit 이미지) -->
                 <div class="rating" th:with="uid=${mate.makemateIdx}">
@@ -93,9 +93,9 @@
                     <label for="update-star1-[[${uid}]]"></label>
                   </div>
 
-                  <div class="mt-2">
+                 <!--  <div class="mt-2">
                     <button type="submit" class="btn btn-sm btn-warning">다시 평가하기</button>
-                  </div>
+                  </div> -->
                 </form>
               </div>
 
