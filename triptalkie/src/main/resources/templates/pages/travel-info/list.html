@@ -6,7 +6,6 @@
 <main layout:fragment="content">
 	<h4 class="text-center content--title"></h4>
 	<div class="travel-info-containers bg--containers pt-3 pb-3">
-		<!-- 검색 폼 (review 스타일 적용) -->
 		<div class="form-container">
 			<form th:action="@{/travel-info/list}" method="get" id="searchForm">
 				<div class="form-group row">
@@ -180,8 +179,8 @@
 			</div>
 
 			<!-- 검색 결과 없을 때 메시지 -->
-			<div th:if="${pageData == null or pageData.totalPage == 0}"
-				class="col-6 text-center p-3">검색 결과가 없습니다.</div>
+<!-- 			<div th:if="${pageData == null or pageData.totalPage == 0}"
+				class="col-6 text-center p-3">검색 결과가 없습니다.</div> -->
 
 			<!-- 오른쪽 글쓰기 버튼 -->
 			<div
