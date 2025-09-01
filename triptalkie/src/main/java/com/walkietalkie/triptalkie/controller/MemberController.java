@@ -169,8 +169,6 @@ public class MemberController {
 	@PostMapping("/findIdByEmail")
 	@ResponseBody
 	public Map<String, Object> findIdByEmail(@RequestParam String email){
-		System.out.println("findIdByEmail 진입");
-		System.out.println("넘어 온 email 값 : " + email);
 		Map<String, Object> resultMap = new HashMap<>();
 
 		String memberId = memberService.findIdByEmail(email);

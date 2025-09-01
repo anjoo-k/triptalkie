@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-sm-12 main-pic">
 				<img
-					th:src="${photo != null} ? '/uploads/makemate/' + ${photo.savedName} : '/uploads/makemate/defualt.jpg'"
+					th:src="${photo != null} ? '/uploads/makemate/' + ${photo.savedName} : '/uploads/makemate/default.jpg'"
 					th:alt="${photo != null} ? ${photo.originalName} : '기본이미지'"
 					class="img-fluid rounded d-block">
 			</div>
@@ -161,7 +161,7 @@
 							th:alt="${memberPhoto.originalName}"
 							class="img-fluid rounded-circle d-block border">
 						<img th:unless="${memberPhoto.savedName != null}"
-							th:src="@{/uploads/profile/default.png}" alt="기본 프로필"
+							th:src="@{/images/original-profile.png}" alt="기본 프로필"
 							class="img-fluid rounded-circle d-block border">
 					</th:block>
 				</div>

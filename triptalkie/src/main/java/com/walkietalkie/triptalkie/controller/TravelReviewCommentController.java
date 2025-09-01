@@ -72,8 +72,6 @@ public class TravelReviewCommentController {
 			resultMap.put("message", "삭제 중 오류가 발생했습니다.");
 		}
 		
-		System.out.println("조회 시 수정할 데이터 값 : " + resultMap);
-		
 		return resultMap;
 	}
 	
