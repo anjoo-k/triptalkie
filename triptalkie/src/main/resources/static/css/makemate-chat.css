@@ -91,6 +91,7 @@
 
 .send-btn {
 	position: absolute;
+	background-color: #7CD3C2;
 	top: 50%; /* 세로 중앙 */
 	right: 15px; /* 오른쪽 여백 */
 	transform: translateY(-50%);
