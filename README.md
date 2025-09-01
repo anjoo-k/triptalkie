@@ -1,4 +1,5 @@
 # 🐰 WalkieTalkie (TripTalkie)  
+<img width="1024" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 > 한국소프트웨어산업협회 MSA 5차 프로젝트 (AUG 2025)  
 
@@ -10,7 +11,7 @@
   - 요구사항 정의 → 분석/설계 → 구현 전 과정을 실무와 유사하게 경험  
   - 여행 메이트 모집 + 커뮤니티 + 리뷰 + 채팅 등 서비스 통합 구현  
 - **개발 동기**  
-  - 취향이 맞는 사람을 찾기 어려운 문제 해결  
+  - 여행 취향이 맞는 사람을 찾기 어려운 문제 해결  
   - 신뢰할 수 있는 여행 정보 공유 및 동행 매칭 서비스 제공  
 
 ---
@@ -82,6 +83,7 @@
   - Controller → Service → Mapper → Domain 구조  
   - 도메인 : Makemate, Community, TravelInfo, TravelReview  
   - 확장 기능 : Bookmark, Rating, Chat  
+<img width="3722" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
 
 ---
 
@@ -93,6 +95,7 @@
 
 - **이슈 관리 규칙**  
   - 이슈 기록 → 30분 개인 고민 → 페어 프로그래밍 → 팀 전체 논의 → 해결 기록  
+<img width="316" height="415" alt="화면 캡처 2025-09-01 163506" src="https://github.com/user-attachments/assets/94946e98-1b67-4e8d-a445-609837445f7b" />
 
 - **데일리 회의**  
   - 시작 / 중간 / 마무리 회의로 일정 및 이슈 공유  
@@ -100,7 +103,6 @@
 ---
 
 ## 💡 프로젝트 회고
-- 백엔드 ↔ 프론트엔드 데이터 연동의 어려움 → 다음 프로젝트에선 더 명확한 데이터 관리 필요  
 - MVC 패턴과 Spring Boot, MyBatis, Thymeleaf 등 실무 기술을 실제 적용하며 아키텍처 감을 잡음  
 - Git Flow, Jira, Notion 등 협업 툴을 통해 실제 현업에 가까운 협업 방식 경험  
 - UI/UX 설계 과정에서 팀원과의 소통과 합의 과정을 통해 협업의 가치 체감  
