@@ -92,6 +92,7 @@ public class MakemateService {
 	}
 
 	// 글 상세 페이지
+	@Transactional(readOnly = true)
 	public Map<String, Object> findMakemateByIdx(Long makemateId, String memberId) {
 		Makemate makemate = makemateMapper.findMakemateByIdx(makemateId);
 		Member member = makemateMapper.findMemberById(makemate.getMemberId());
@@ -135,6 +136,8 @@ public class MakemateService {
 		}
 	}
 	
+	// city, country, land 찾기
+	@Transactional(readOnly = true)
 	public Map<String, Object> findAllRegion() {
 		List<City> city = makemateMapper.findAllCityName();
 		List<Country> country = makemateMapper.findAllCountryName();
@@ -147,7 +150,8 @@ public class MakemateService {
 		    
 		return combinedMap;
 	}
-
+	
+	// 글 등록
 	public Long registerMakemate(Makemate makemate, MultipartFile photo) throws IOException {
 		if (makemate.getEnddate().isBefore(makemate.getStartdate())) {
 		    throw new IllegalArgumentException("종료일은 시작일 이후여야 합니다.");
@@ -185,6 +189,7 @@ public class MakemateService {
 		}
 	}
 
+	// 글 삭제
 	public void deleteMakemateByIdx(String memberId, Long makemateId) {
 		int imageResult = makemateImageService.deleteImageByUuidAndMakemateIdx(makemateId);
 		int makemateResult = makemateMapper.deleteMakemateByIdx(memberId, makemateId);
@@ -194,6 +199,7 @@ public class MakemateService {
 		}
 	}
 
+	// makemate 여행 신청
 	public void applyMakemate(String memberId, long makemateIdx) {
 		int result = makemateMapper.registerMemberlist(makemateIdx, memberId);
 		
