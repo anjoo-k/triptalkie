@@ -32,7 +32,6 @@ public class CityController {
 	@ResponseBody
 	public List<City> findCitiesByCountry(@RequestParam String countryId) {
 		Country country = countryService.findCountryNameById(countryId); // AU -> Australia
-		System.out.println("cityService.findCitiesByCountry(country.getName()) : " + cityService.findCitiesByCountry(country.getName()));
 	    return cityService.findCitiesByCountry(country.getName());
 	}
 

@@ -72,7 +72,6 @@ public class TravelReviewImageService {
 	public void updateReviewImage(long idx, MultipartFile file) throws IOException {
 		// 1. 기존 이미지 조회
 		TravelReviewImage existingImage = travelReviewImageMapper.findImageUrlByIdx(idx);
-		System.out.println("원래 existingImage 값 : " + existingImage);
 
 		// 2. 기존 이미지가 있으면 서버 파일과 DB 삭제
 		if (existingImage != null) {
