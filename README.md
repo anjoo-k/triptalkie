@@ -1,5 +1,6 @@
 # 🐰 WalkieTalkie (TripTalkie)  
 <img width="1024" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
+
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 > 한국소프트웨어산업협회 MSA 5차 프로젝트 (AUG 2025)  
 
