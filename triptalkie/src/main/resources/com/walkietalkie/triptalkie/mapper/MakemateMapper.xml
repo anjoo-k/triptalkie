@@ -8,8 +8,8 @@
     		<result property="makemateIdx" column="makemate_idx"/>
 
 		<collection property="memberImage" ofType="com.walkietalkie.triptalkie.domain.MemberImage">
-			<id property="memberId" column="member_id"/>
-			<result property="idx" column="idx"/>
+			<id property="idx" column="idx"/>
+			<result property="memberId" column="member_id"/>
 			<result property="originalName" column="original_name" />
 			<result property="filePath" column="file_path" />
 			<result property="savedName" column="saved_name" />
@@ -129,7 +129,8 @@
 		FROM memberlist
 		WHERE makemate_idx=#{makemateId}
 	</select>
-	<!-- 메이크메이트 글등록 -->
+	<!-- 메이크메이트 글등록 관련 -->
+	<!-- city, country, land 찾기 -->
 	<select id="findAllCityName">
 		SELECT id, name, country_id
 		FROM city
@@ -142,6 +143,7 @@
 		SELECT id, name
 		FROM land
 	</select>
+	<!-- 글등록 -->
 	<insert id="registerMakemate"
 		parameterType="com.walkietalkie.triptalkie.domain.Makemate"
 		useGeneratedKeys="true"

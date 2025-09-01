@@ -137,7 +137,7 @@ public class MakemateController {
 		return "redirect:/makemate/list";
 	}
 	
-	// makemate 신청
+	// makemate 여행 신청
 	@PostMapping("/apply/{makemateId}")
 	public String applyMakemate(@PathVariable Long makemateId, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");

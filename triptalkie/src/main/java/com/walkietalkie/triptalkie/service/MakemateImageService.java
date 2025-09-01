@@ -27,7 +27,8 @@ public class MakemateImageService {
 		this.makemateImageMapper = makemateImageMapper;
 		this.fileProperties = fileProperties;
 	}
-
+	
+	// 이미지 등록
 	public void registerImage(MultipartFile photo, Long makemateIdx) throws IOException {
 		String originalName = photo.getOriginalFilename();
 		String uuid = UUID.randomUUID().toString();
@@ -42,10 +43,13 @@ public class MakemateImageService {
 		}
 	}
 
+	// 이미지 찾기
+	@Transactional(readOnly = true)
 	public MakemateImage findImageByMakemateIdx(Long makemateIdx) {
 		return makemateImageMapper.findImageByMakemateIdx(makemateIdx);
 	}
 
+	// 이미지 수정
 	public int updateImageByUuidAndMakemateIdx(long makemateIdx, MultipartFile newPhoto)
 			throws IllegalStateException, IOException {
 		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateIdx);
@@ -80,6 +84,7 @@ public class MakemateImageService {
 		return result;
 	}
 
+	// 이미지 삭제
 	public int deleteImageByUuidAndMakemateIdx(Long makemateIdx) {
 		MakemateImage originalImage = makemateImageMapper.findImageByMakemateIdx(makemateIdx);
 		int result = 0;
