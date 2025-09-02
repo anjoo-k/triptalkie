@@ -84,24 +84,22 @@
 ## 📐 분석 & 설계
 - **Use Case Diagram** : 비회원 / 회원 / 관리자 시나리오 정의
 <div align="center">
-<img width="854" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
+<img width="700" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
 </div>
 
 - **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
 **와이어프레임**
   <div align="center">
-<img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/9eb2b91e-8170-4964-a0e8-b130a27690e5" />
-<img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/a4d5521d-bdf6-4bf9-96a8-a401bc5b5eb6" />
-![Page05](https://github.com/user-attachments/assets/29e4cbe3-0a22-4a7f-bd72-7e30d0ce92e1)
+<img width="400" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/9eb2b91e-8170-4964-a0e8-b130a27690e5" />
+<img width="400" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/a4d5521d-bdf6-4bf9-96a8-a401bc5b5eb6" />
 
   </div>
 
 **프로토타입**
 <div align="center">
-  <img width="1920" height="2498" alt="메인 페이지 - 로그인 O" src="https://github.com/user-attachments/assets/f68bec9e-69ee-402d-b0d3-f906ca2aefc0" />
-  <img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
-  <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
-  <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/18814e46-1da3-4791-9b4b-87997f8b400c" />
+  <img width="250" height="2498" alt="메인 페이지 - 로그인 O" src="https://github.com/user-attachments/assets/f68bec9e-69ee-402d-b0d3-f906ca2aefc0" />
+  <img width="250" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
+  <img width="250" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
 </div>
 
 - **ERD** :  
@@ -116,7 +114,7 @@
   - Controller → Service → Mapper → Domain 구조  
   - 도메인 : Makemate, Community, TravelInfo, TravelReview  
   - 확장 기능 : Bookmark, Rating, Chat  
-<img width="3722" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
+<img width="3000" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
 
 ---
 
