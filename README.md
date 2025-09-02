@@ -3,7 +3,7 @@
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 > 한국소프트웨어산업협회 MSA 5차 프로젝트 (2025. 08. 29.)  
 <div align="center">
-<img width="500" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
+<img width="400" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
 </div>
 ---
 
@@ -108,13 +108,13 @@
   - 메이트-멤버 N:M 관계 (MemberList 교차 테이블)  
   - 대륙 → 국가 → 도시 계층 구조  
   - 실시간 채팅용 ChatRoom, ChatMessage 테이블
-  - <img width="968" height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
+  - <img width="700" height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
 
 - **Class Diagram**
   - Controller → Service → Mapper → Domain 구조  
   - 도메인 : Makemate, Community, TravelInfo, TravelReview  
   - 확장 기능 : Bookmark, Rating, Chat  
-<img width="3000" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
+<img width="700" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
 
 ---
 
@@ -145,6 +145,5 @@
 ---
 
 ## 📷 Screenshots
-> (여기에 구현 화면 캡처 이미지 삽입)
-
+https://file.notion.so/f/f/28a23df9-6425-813f-bc14-0003220f7630/b12a724d-b60d-46ee-8ff3-5360c7b67a71/triptalkie_%EC%8B%9C%EC%97%B0_%EC%98%81%EC%83%81.mp4?table=block&id=26223df9-6425-80ec-832f-e1d3fbe08c91&spaceId=28a23df9-6425-813f-bc14-0003220f7630&expirationTimestamp=1756828800000&signature=zcDWr6XgfYG7jlEu_NPmWPJGXco36hqURegRjsiKX8c
 ---
