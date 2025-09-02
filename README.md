@@ -1,9 +1,9 @@
-# 🐰 WalkieTalkie (TripTalkie)
+<img width="854" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/0b0ac85e-ddd8-4a63-bd22-039094bfc937" /># 🐰 WalkieTalkie (TripTalkie)
 
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
-> 한국소프트웨어산업협회 MSA 5차 프로젝트 (AUG 2025)  
+> 한국소프트웨어산업협회 MSA 5차 프로젝트 (2025. 08. 29.)  
 
-<img width="1024" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
+<img width="200" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
 
 ---
 
@@ -70,18 +70,34 @@
   - 관리자 : 회원/공지/게시판/고객센터 관리
 
 ---
+## 아이템 기획
+**린캔버스**
+<img width="1116" height="732" alt="image (27)" src="https://github.com/user-attachments/assets/3fec528e-094a-42a7-8574-efc51f1c4248" />
+
 
 ## 📐 분석 & 설계
-- **Use Case Diagram** : 비회원 / 회원 / 관리자 시나리오 정의  
-- **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작  
+- **Use Case Diagram** : 비회원 / 회원 / 관리자 시나리오 정의
+- <img width="854" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
+
+- **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
+**와이어프레임**
+-   <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/5b68d15a-e069-4df1-a489-2e0af327abc3" />
+- ![Page01](https://github.com/user-attachments/assets/cf479156-176f-4a5d-b600-0c708a777a36)
+
+**프로토타입**
+<img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/e9<img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/3be5802f-f361-4c21-9f07-5208e150469c" />
+0c5e88-11b6-46a0-9cc6-d05158e8ba48" />
+
 - **ERD** :  
   - 게시판 (Makemate, Community, TravelInfo, TravelReview)  
   - 댓글, 이미지 테이블 분리  
   - 메이트-멤버 N:M 관계 (MemberList 교차 테이블)  
   - 대륙 → 국가 → 도시 계층 구조  
-  - 실시간 채팅용 ChatRoom, ChatMessage 테이블  
+  - 실시간 채팅용 ChatRoom, ChatMessage 테이블
+  - <img width="968" height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
 
-- **Class Diagram** : Spring MVC 패턴 기반  
+
+- **Class Diagram**
   - Controller → Service → Mapper → Domain 구조  
   - 도메인 : Makemate, Community, TravelInfo, TravelReview  
   - 확장 기능 : Bookmark, Rating, Chat  
