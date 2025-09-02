@@ -86,9 +86,10 @@
 
 - **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
 **와이어프레임**
-|---|---|
-| <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" /> |  <img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" /> |
-
+<div align="center">
+  <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
+  <img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
+</div>
 
 **프로토타입**
 <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/e9<img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/3be5802f-f361-4c21-9f07-5208e150469c" />
