@@ -144,6 +144,6 @@
 
 ---
 
-📷 [프로젝트 시연 영상 보기]([https://file.notion.so/f/f/28a23df9-6425-813f-bc14-0003220f7630/b12a724d-b60d-46ee-8ff3-5360c7b67a71/triptalkie_%EC%8B%9C%EC%97%B0_%EC%98%81%EC%83%81.mp4?...긴링크...](https://file.notion.so/f/f/28a23df9-6425-813f-bc14-0003220f7630/b12a724d-b60d-46ee-8ff3-5360c7b67a71/triptalkie_%EC%8B%9C%EC%97%B0_%EC%98%81%EC%83%81.mp4?table=block&id=26223df9-6425-80ec-832f-e1d3fbe08c91&spaceId=28a23df9-6425-813f-bc14-0003220f7630&expirationTimestamp=1756828800000&signature=zcDWr6XgfYG7jlEu_NPmWPJGXco36hqURegRjsiKX8c))
+📷 [프로젝트 시연 영상 보기]([https://file.notion.so/f/f/28a23df9-6425-813f-bc14-0003220f7630/b12a724d-b60d-46ee-8ff3-5360c7b67a71/triptalkie_%EC%8B%9C%EC%97%B0_%EC%98%81%EC%83%81.mp4?...긴링크...](https://file.notion.so/f/f/28a23df9-6425-813f-bc14-0003220f7630/b12a724d-b60d-46ee-8ff3-5360c7b67a71/triptalkie_%EC%8B%9C%EC%97%B0_%EC%98%81%EC%83%81.mp4?table=block&id=26223df9-6425-80ec-832f-e1d3fbe08c91&spaceId=28a23df9-6425-813f-bc14-0003220f7630&expirationTimestamp=1756828800000&signature=zcDWr6XgfYG7jlEu_NPmWPJGXco36hqURegRjsiKX8c)
 
 ---
