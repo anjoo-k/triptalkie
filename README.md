@@ -86,14 +86,19 @@
 
 - **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
 **와이어프레임**
-<div align="center">
-  <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
-  <img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
-</div>
+  <div>
+    <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/c1b1ac6e-b962-4ea6-9ae0-9ca05672d81f" />
+![Page01](https://github.com/user-attachments/assets/f71c4ec4-e06b-4c02-a50b-2e7caf4cd659)
+
+  </div>
 
 **프로토타입**
-<img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/e9<img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/3be5802f-f361-4c21-9f07-5208e150469c" />
-0c5e88-11b6-46a0-9cc6-d05158e8ba48" />
+<div align="center">
+  <img width="1920" height="2498" alt="메인 페이지 - 로그인 O" src="https://github.com/user-attachments/assets/f68bec9e-69ee-402d-b0d3-f906ca2aefc0" />
+  <img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
+  <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
+  <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/18814e46-1da3-4791-9b4b-87997f8b400c" />
+</div>
 
 - **ERD** :  
   - 게시판 (Makemate, Community, TravelInfo, TravelReview)  
@@ -102,7 +107,6 @@
   - 대륙 → 국가 → 도시 계층 구조  
   - 실시간 채팅용 ChatRoom, ChatMessage 테이블
   - <img width="968" height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
-
 
 - **Class Diagram**
   - Controller → Service → Mapper → Domain 구조  
@@ -119,8 +123,10 @@
   - `feature/*`: 개별 기능 개발 후 develop 병합  
 
 - **이슈 관리 규칙**  
-  - 이슈 기록 → 30분 개인 고민 → 페어 프로그래밍 → 팀 전체 논의 → 해결 기록  
+  - 이슈 기록 → 30분 개인 고민 → 페어 프로그래밍 → 팀 전체 논의 → 해결 기록
+<div align="center">
 <img width="316" height="415" alt="화면 캡처 2025-09-01 163506" src="https://github.com/user-attachments/assets/94946e98-1b67-4e8d-a445-609837445f7b" />
+</div>
 
 - **데일리 회의**  
   - 시작 / 중간 / 마무리 회의로 일정 및 이슈 공유  
