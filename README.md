@@ -3,7 +3,7 @@
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 > 한국소프트웨어산업협회 MSA 5차 프로젝트 (2025. 08. 29.)  
 
-<img width="200" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
+<img width="700" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
 
 ---
 
