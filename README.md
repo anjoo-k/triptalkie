@@ -2,9 +2,9 @@
 
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 > 한국소프트웨어산업협회 MSA 5차 프로젝트 (2025. 08. 29.)  
-
+<div align="center">
 <img width="700" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
-
+</div>
 ---
 
 ## 📌 프로젝트 개요
@@ -86,8 +86,9 @@
 
 - **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
 **와이어프레임**
--   <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/5b68d15a-e069-4df1-a489-2e0af327abc3" />
-- ![Page01](https://github.com/user-attachments/assets/cf479156-176f-4a5d-b600-0c708a777a36)
+  | 이미지 1 | 이미지 2 |
+|---|---|
+| <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/5b68d15a-e069-4df1-a489-2e0af327abc3" />|  ![Page01](https://github.com/user-attachments/assets/cf479156-176f-4a5d-b600-0c708a777a36) |
 
 **프로토타입**
 <img width="440" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/e9<img width="421" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/3be5802f-f361-4c21-9f07-5208e150469c" />
