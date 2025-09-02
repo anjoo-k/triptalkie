@@ -77,18 +77,22 @@
 ---
 ## 아이템 기획
 **린캔버스**
-<img width="1116" height="732" alt="image (27)" src="https://github.com/user-attachments/assets/3fec528e-094a-42a7-8574-efc51f1c4248" />
-
+<div align="center">
+<img width="800" height="732" alt="image (27)" src="https://github.com/user-attachments/assets/3fec528e-094a-42a7-8574-efc51f1c4248" />
+</div>
 
 ## 📐 분석 & 설계
 - **Use Case Diagram** : 비회원 / 회원 / 관리자 시나리오 정의
-- <img width="854" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
+<div align="center">
+<img width="854" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
+</div>
 
 - **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
 **와이어프레임**
-  <div>
-    <img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/c1b1ac6e-b962-4ea6-9ae0-9ca05672d81f" />
-![Page01](https://github.com/user-attachments/assets/f71c4ec4-e06b-4c02-a50b-2e7caf4cd659)
+  <div align="center">
+<img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/9eb2b91e-8170-4964-a0e8-b130a27690e5" />
+<img width="884" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/a4d5521d-bdf6-4bf9-96a8-a401bc5b5eb6" />
+![Page05](https://github.com/user-attachments/assets/29e4cbe3-0a22-4a7f-bd72-7e30d0ce92e1)
 
   </div>
 
