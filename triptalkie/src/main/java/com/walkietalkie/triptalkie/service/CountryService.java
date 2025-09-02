@@ -9,6 +9,7 @@ import com.walkietalkie.triptalkie.domain.Country;
 import com.walkietalkie.triptalkie.mapper.CountryMapper;
 
 @Service
+@Transactional
 public class CountryService {
 	private final CountryMapper countryMapper;
 
@@ -22,6 +23,7 @@ public class CountryService {
 		return countryMapper.findCountryAllList();
 	}
 	
+    @Transactional(readOnly = true)
 	public Country findCountryNameById(String countryId) {
 		return countryMapper.findCountryNameById(countryId);
 	}

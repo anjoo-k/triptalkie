@@ -10,6 +10,7 @@ import com.walkietalkie.triptalkie.domain.ChatRoom;
 import com.walkietalkie.triptalkie.mapper.ChatMapper;
 
 @Service
+@Transactional
 public class ChatService {
 
 	// [] 의존성 주입
@@ -20,26 +21,7 @@ public class ChatService {
 	}
 
 	// 채팅방 생성 또는 조회
-	@Transactional
 	public ChatRoom createOrGetChatRoom(Long makemateIdx, String member1Id,
-			String member2Id) {
-		ChatRoom room = chatMapper.findRoom(member1Id, member2Id, makemateIdx);
-		if (room == null) {
-			ChatRoom newRoom = new ChatRoom();
-			newRoom.setMember1Id(member1Id);
-			newRoom.setMember2Id(member2Id);
-			newRoom.setMakemateIdx(makemateIdx);
-			chatMapper.registerChatRoom(newRoom); // useGeneratedKeys="true"
-			if (newRoom.getIdx() == 0)
-				throw new IllegalStateException("채팅방 IDX 생성 실패");
-			room = newRoom;
-		}
-		return room;
-	}
-	
-	// 채팅방 생성 또는 조회
-	@Transactional
-	public ChatRoom createOrGetChatRoom2(Long makemateIdx, String member1Id,
 			String member2Id) {
 		ChatRoom room = chatMapper.findRoom(member1Id, member2Id, makemateIdx);
 		if (room == null) {
@@ -56,6 +38,7 @@ public class ChatService {
 	}
 
 	// 채팅방 리스트
+    @Transactional(readOnly = true)
 	public List<ChatRoom> findRoomByMemberId(String memberId) {
 		return chatMapper.findRoomsByMember(memberId);
 	}
@@ -70,6 +53,7 @@ public class ChatService {
 	}
 
 	// 채팅방 메시지 조회
+    @Transactional(readOnly = true)
 	public List<ChatMessage> getMessages(Long chatroomIdx) {
 	    return chatMapper.findMessagesByRoom(chatroomIdx);
 	}
@@ -80,10 +64,12 @@ public class ChatService {
 	}
 
 	// 회원이 속한 채팅방 목록
+    @Transactional(readOnly = true)
 	public List<ChatRoom> getChatRoomsByMember(String memberId) {
 		return chatMapper.findRoomsByMember(memberId);
 	}
 
+    @Transactional(readOnly = true)
 	public ChatRoom findRoomByChatRoomIdx(Long chatroomIdx) {
 		// TODO Auto-generated method stub
 		return chatMapper.findRoomByChatRoomIdx(chatroomIdx);

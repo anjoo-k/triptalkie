@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.walkietalkie.triptalkie.config.FileStorageProperties;
@@ -12,6 +13,7 @@ import com.walkietalkie.triptalkie.domain.TravelInfoImage;
 import com.walkietalkie.triptalkie.mapper.TravelInfoImageMapper;
 
 @Service
+@Transactional
 public class TravelInfoImageService {
 
 	private final TravelInfoImageMapper travelInfoImageMapper;
@@ -86,6 +88,7 @@ public class TravelInfoImageService {
 		}
 	}
 
+    @Transactional(readOnly = true)
 	// getImageUrlByTravelinfoIdx 메서드 : travelreviewImage travelreviewIdx로 이미지 경로 반환
 	public String getImageUrlByTravelinfoIdx(Long travelinfoIdx) {
 		TravelInfoImage image = travelInfoImageMapper.findTravelInfoImageByIdx(travelinfoIdx);
@@ -96,11 +99,13 @@ public class TravelInfoImageService {
 		return "/images/original-profile.png"; // 등록 이미지 없으면 기본 이미지
 	}
 
+    @Transactional(readOnly = true)
 	// getImageByUuid 메서드 : uuid로 조회
 	public TravelInfoImage getImageByUuid(String uuid) {
 		return travelInfoImageMapper.findByUuid(uuid);
 	}
 
+    @Transactional(readOnly = true)
 	// getImageByIdx 메서드 : idx로 조회
 	public TravelInfoImage getImageByIdx(Long idx) {
 		return travelInfoImageMapper.findByIdx(idx);
