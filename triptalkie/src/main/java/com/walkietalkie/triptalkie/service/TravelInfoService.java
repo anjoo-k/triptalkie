@@ -50,12 +50,13 @@ public class TravelInfoService {
 	}
 
 	// 여행 정보 리스트 찾기
+    @Transactional(readOnly = true)
 	public List<TravelInfo> findTravelInfoAllList() {
 		return travelInfoMapper.findTravelInfoAllList();
 	}
 
 	// 여행 정보 글 idx 기준으로 상세 정보 찾기
-	@Transactional
+    @Transactional(readOnly = true)
 	public TravelInfo findTravelInfoIdx(long idx) {
 
 		return travelInfoMapper.findTravelInfoIdx(idx);
@@ -89,6 +90,7 @@ public class TravelInfoService {
 		return travelInfoMapper.findTravelInfoTop3();
 	}
 
+    @Transactional(readOnly = true)
 	// 내가 쓴 글 목록을 아이디로 조회하기 위한 메서드
 	public List<TravelInfo> findTravelInfoByMemberId(String loginMember) {
 		return travelInfoMapper.findTravelInfoByMemberId(loginMember);
@@ -129,23 +131,26 @@ public class TravelInfoService {
 				endPage);
 	}
 
-	@Transactional
 	public void increaseViewCount(long idx) {
 		travelInfoMapper.updateViewCount(idx);
 	}
 
+    @Transactional(readOnly = true)
 	public List<Country> getAllCountries() {
 		return travelInfoMapper.getAllCountries();
 	}
 
+    @Transactional(readOnly = true)
 	public List<City> getAllCities() {
 		return travelInfoMapper.getAllCities();
 	}
 
+    @Transactional(readOnly = true)
 	public City findCityById(String id) {
 		return travelInfoMapper.findCityById(id);
 	}
 
+    @Transactional(readOnly = true)
 	public TravelInfo getTravelInfoDetail(Long idx) {
 		TravelInfo travelInfo = travelInfoMapper.getTravelInfoDetail(idx);
 
@@ -159,6 +164,7 @@ public class TravelInfoService {
 	}
 
     // 검색 + 페이징
+    @Transactional(readOnly = true)
     public Map<String, Object> searchTravelInfo(String title, String infotype,
                                                 String countryId, String cityId,
                                                 int page, int size) {
