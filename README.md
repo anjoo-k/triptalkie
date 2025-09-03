@@ -58,8 +58,8 @@
   </div>
 
 - **Use Case Diagram** : 비회원 / 회원 / 관리자 시나리오 정의
-<div align="center">
-<img width="700" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
+<div align="center" width="500">
+  <img width="700" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
 </div>
 
 **프로토타입**
@@ -75,13 +75,17 @@
   - 메이트-멤버 N:M 관계 (MemberList 교차 테이블)  
   - 대륙 → 국가 → 도시 계층 구조  
   - 실시간 채팅용 ChatRoom, ChatMessage 테이블
-  - <img width="700" height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
+<div align="center" width="500">
+<img height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
+</div>
 
 - **Class Diagram**
   - Controller → Service → Mapper → Domain 구조  
   - 도메인 : Makemate, Community, TravelInfo, TravelReview  
-  - 확장 기능 : Bookmark, Rating, Chat  
+  - 확장 기능 : Bookmark, Rating, Chat
+<div align="center" width="500">
 <img width="700" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
+</div>
 
 ---
 
@@ -132,7 +136,7 @@
 
 - **이슈 관리 규칙**  
   - 이슈 기록 → 30분 개인 고민 → 페어 프로그래밍 → 팀 전체 논의 → 해결 기록
-<div align="center">
+<div align="center" width="300">
 <img width="316" height="415" alt="화면 캡처 2025-09-01 163506" src="https://github.com/user-attachments/assets/94946e98-1b67-4e8d-a445-609837445f7b" />
 </div>
 
