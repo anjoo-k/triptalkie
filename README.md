@@ -52,23 +52,23 @@
 ## 📐 분석 & 설계
 - **UI/UX 설계** : 와이어프레임, 프로토타입(Figma) 제작
 
-
-**와이어프레임**
+  **와이어프레임**
   <div align="center">
-<img width="300" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/9eb2b91e-8170-4964-a0e8-b130a27690e5" />
-<img width="300" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/a4d5521d-bdf6-4bf9-96a8-a401bc5b5eb6" />
+    <img width="300" height="1293" alt="Page01 jpg" src="https://github.com/user-attachments/assets/69a70ff1-8ebc-408d-834c-4cf8e8930881" />
+    <img width="150" height="1293" alt="Page07 jpg" src="https://github.com/user-attachments/assets/a4d5521d-bdf6-4bf9-96a8-a401bc5b5eb6" />
+    <img width="300" height="1293" alt="Page05 jpg" src="https://github.com/user-attachments/assets/df5eddfc-b834-4050-a2ae-75166036069b" />
   </div>
-
-**프로토타입**
-<div align="center">
-  <img width="250" height="2498" alt="메인 페이지 - 로그인 O" src="https://github.com/user-attachments/assets/f68bec9e-69ee-402d-b0d3-f906ca2aefc0" />
-  <img width="250" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
-  <img width="250" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
-</div>
+  
+  **프로토타입**
+  <div align="center">
+    <img width="250" height="2498" alt="메인 페이지 - 로그인 O" src="https://github.com/user-attachments/assets/f68bec9e-69ee-402d-b0d3-f906ca2aefc0" />
+    <img width="250" height="647" alt="image (23)" src="https://github.com/user-attachments/assets/84be4f7c-3e10-4cd8-8f17-526156e5db24" />
+    <img width="250" height="555" alt="화면 캡처 2025-09-01 114238" src="https://github.com/user-attachments/assets/8f4cc4f5-7c07-44c9-b397-67672a1dc4d5" />
+  </div>
 
 - **Use Case Diagram** : 비회원 / 회원 / 관리자 시나리오 정의
 <div align="center" width="500">
-  <img width="700" height="941" alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
+  <img alt="image (28)" src="https://github.com/user-attachments/assets/49b07029-0816-4e8c-b3df-f9daf41a894a" />
 </div>
 
 - **ERD** :  
@@ -78,7 +78,7 @@
   - 대륙 → 국가 → 도시 계층 구조  
   - 실시간 채팅용 ChatRoom, ChatMessage 테이블
 <div align="center" width="500">
-<img height="814" alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
+<img alt="image (29)" src="https://github.com/user-attachments/assets/c9346d8f-6ab3-4987-8f3f-377eec463d73" />
 </div>
 
 - **Class Diagram**
@@ -86,7 +86,7 @@
   - 도메인 : Makemate, Community, TravelInfo, TravelReview  
   - 확장 기능 : Bookmark, Rating, Chat
 <div align="center" width="500">
-<img width="700" height="2230" alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
+<img alt="triptalkie-ver2 drawio" src="https://github.com/user-attachments/assets/31f24884-1bb9-486d-992f-f6864e13e794" />
 </div>
 
 ---
@@ -138,9 +138,10 @@
 
 - **이슈 관리 규칙**  
   - 이슈관리대장에 이슈 기록 → 30분 개인 고민 → 페어 프로그래밍 → 팀 전체 논의 → 이슈관리대장 정리
-
 <div align="center">
-<img width="400" alt="화면 캡처 2025-09-03 091309" src="https://github.com/user-attachments/assets/e83b8d3b-14e1-416b-8810-4eb8bff20d47" />
+<img width="500" alt="화면 캡처 2025-09-03 091309" src="https://github.com/user-attachments/assets/e83b8d3b-14e1-416b-8810-4eb8bff20d47" />
+</div>
+<div align="center">
 <img width="400" alt="화면 캡처 2025-09-01 163506" src="https://github.com/user-attachments/assets/94946e98-1b67-4e8d-a445-609837445f7b" />
 </div>
 
