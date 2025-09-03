@@ -2,7 +2,7 @@
 
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 <div align="center">
-<img width="400" height="1024" alt="image (17) (1)" src="https://github.com/user-attachments/assets/688b14a5-1085-4a1e-ab30-707b109a4881" />
+  <img width="140" height="140" alt="triptalkie-check1" src="https://github.com/user-attachments/assets/30b02a48-ff0b-4f73-8b5c-4295141072d8" />
 </div>
 
 ---
@@ -167,8 +167,8 @@
 
 ## 👥 팀 소개 및 역할
 - **오현승** : 프로젝트 리더 · DB 설계 · 백엔드 리더 · 문서 관리  
-- **김범준** : 형상 관리 리더 · 이슈 관리 리더 · 디자인 리더  
-- **김남주** : 소통 리더 · 일정 관리 리더 · 프로젝트 설계 리더  
+- **김남주** : 형상 관리 리더 · 이슈 관리 리더 · 디자인 리더  
+- **김범준** : 소통 리더 · 일정 관리 리더 · 프로젝트 설계 리더  
 - **송예은** : 프론트엔드 리더 · UX 리더 · 스터디 리더
 
 ---
