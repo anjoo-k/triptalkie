@@ -2,7 +2,7 @@
 
 > **트립토키와 함께하는 여행, 빛나는 즐거움**  
 <div align="center">
-  <img width="1024" height="1024" alt="ChatGPT Image 2025년 8월 8일 오후 12_24_58" src="https://github.com/user-attachments/assets/82bbf68d-d4b2-4364-828d-f5660c36cfcb" />
+  <img width="500" height="1024" alt="ChatGPT Image 2025년 8월 8일 오후 12_24_58" src="https://github.com/user-attachments/assets/82bbf68d-d4b2-4364-828d-f5660c36cfcb" />
 </div>
 
 ---
