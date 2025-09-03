@@ -36,7 +36,7 @@
 - **DB** : MySQL (MySQL Workbench)  
 - **Version Control** : GitHub, Sourcetree  
 - **Collaboration** : Jira, Notion  
-- **Dev Methodology** : 애자일 스크럼, TDD
+- **Dev Methodology** : Agile Scrum, TDD
 
 ---
 
