@@ -138,12 +138,14 @@
 
 - **이슈 관리 규칙**  
   - 이슈관리대장에 이슈 기록 → 30분 개인 고민 → 페어 프로그래밍 → 팀 전체 논의 → 이슈관리대장 정리
-<div align="center">
-<img width="500" alt="화면 캡처 2025-09-03 091309" src="https://github.com/user-attachments/assets/e83b8d3b-14e1-416b-8810-4eb8bff20d47" />
-</div>
-<div align="center">
-<img width="400" alt="화면 캡처 2025-09-01 163506" src="https://github.com/user-attachments/assets/94946e98-1b67-4e8d-a445-609837445f7b" />
-</div>
+  <div align="center">
+    <img width="500" alt="화면 캡처 2025-09-03 091309" src="https://github.com/user-attachments/assets/e83b8d3b-14e1-416b-8810-4eb8bff20d47" />
+      이슈관리대장
+  </div>
+  <div align="center">
+    <img width="400" alt="화면 캡처 2025-09-01 163506" src="https://github.com/user-attachments/assets/94946e98-1b67-4e8d-a445-609837445f7b" />
+      이슈관리 논의
+  </div>
 
 - **데일리 회의**  
   - 시작 / 중간 / 마무리 회의로 일정 및 이슈 공유  
